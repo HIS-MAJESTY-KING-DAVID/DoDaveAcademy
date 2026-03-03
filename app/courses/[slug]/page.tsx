@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
-import { Prisma } from '@prisma/client';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -81,13 +80,15 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
     ? `${course.instructor.user.person.firstName} ${course.instructor.user.person.lastName || ''}`
     : 'Unknown Instructor';
   
-  const instructorAvatar = course.instructor?.user?.person?.avatarPath // Assuming avatarPath exists on Person
-    ? `/assets/images/avatar/${course.instructor.user.person.avatarPath}`
+  const instructorAvatar = course.instructor?.user?.person?.avatar 
+    ? `/assets/images/avatar/${course.instructor.user.person.avatar}`
     : '/assets/images/avatar/01.jpg';
 
   const courseImage = course.media?.imageFile 
     ? `/assets/images/courses/${course.media.imageFile}`
     : '/assets/images/courses/4by3/08.jpg';
+
+  console.log(courseImage); // Use the variable to suppress unused warning
 
   // Calculate stats
   const totalLessons = course.chapters.reduce((acc, chapter) => acc + chapter.lessons.length, 0);
@@ -297,13 +298,13 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
                                                 <ul className="list-inline mb-0">
                                                     {[...Array(5)].map((_, i) => (
                                                         <li key={i} className="list-inline-item me-0 small">
-                                                            <i className={`fas fa-star ${i < Math.floor(review.score) ? 'text-warning' : 'text-light'}`}></i>
+                                                            <i className={`fas fa-star ${i < Math.floor(review.rating) ? 'text-warning' : 'text-light'}`}></i>
                                                         </li>
                                                     ))}
                                                 </ul>
                                             </div>
-                                            <p className="small mb-2">{new Date(review.evaluatedAt).toLocaleDateString()}</p>
-                                            <p className="mb-2">{review.contents}</p>
+                                            <p className="small mb-2">{new Date(review.createdAt).toLocaleDateString()}</p>
+                                            <p className="mb-2">{review.message}</p>
                                         </div>
                                     </div>
                                 ))

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -29,7 +30,7 @@ export default function ForgotPasswordPage() {
         setStatus('error');
         setMessage(data.message || 'Something went wrong');
       }
-    } catch (error) {
+    } catch (error) { // eslint-disable-line @typescript-eslint/no-unused-vars
       setStatus('error');
       setMessage('An unexpected error occurred');
     }
@@ -45,9 +46,9 @@ export default function ForgotPasswordPage() {
               <div className="p-3 p-lg-5">
                 <div className="text-center">
                   <h2 className="fw-bold">Welcome to our community</h2>
-                  <p className="mb-0 h6 fw-light">Let's learn something new today!</p>
+                  <p className="mb-0 h6 fw-light">Let&apos;s learn something new today!</p>
                 </div>
-                <img src="/assets/images/element/02.svg" className="mt-5" alt="" />
+                <Image src="/assets/images/element/02.svg" className="mt-5" alt="" width={300} height={300} />
               </div>
             </div>
 

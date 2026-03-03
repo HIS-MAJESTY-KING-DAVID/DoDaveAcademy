@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 // Helper to map Prisma course to Component course
-const mapCourse = (course: any): CourseType => {
+const mapCourse = (course: any): CourseType => { // eslint-disable-line @typescript-eslint/no-explicit-any
   return {
     id: course.id.toString(),
     slug: course.slug,

@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 function ResetPasswordForm() {
   const [password, setPassword] = useState('');
@@ -49,7 +50,7 @@ function ResetPasswordForm() {
         setStatus('error');
         setMessage(data.message || 'Something went wrong');
       }
-    } catch (error) {
+    } catch (error) { // eslint-disable-line @typescript-eslint/no-unused-vars
       setStatus('error');
       setMessage('An unexpected error occurred');
     }
@@ -144,7 +145,7 @@ export default function ResetPasswordPage() {
                   <h2 className="fw-bold">Secure your account</h2>
                   <p className="mb-0 h6 fw-light">Choose a strong password!</p>
                 </div>
-                <img src="/assets/images/element/02.svg" className="mt-5" alt="" />
+                <Image src="/assets/images/element/02.svg" className="mt-5" alt="" width={300} height={300} />
               </div>
             </div>
 

@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Category {
   id: number;
   name: string;
-  categories: Category[];
+  categories?: Category[];
 }
 
 interface SkillLevel {
@@ -23,16 +22,9 @@ export default function CourseFilter({ categories, levels }: CourseFilterProps) 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get('categoryId') || '');
-  const [selectedLevel, setSelectedLevel] = useState<string>(searchParams.get('levelId') || '');
-  const [isFree, setIsFree] = useState<string>(searchParams.get('isFree') || '');
-
-  // Update state when URL changes
-  useEffect(() => {
-    setSelectedCategory(searchParams.get('categoryId') || '');
-    setSelectedLevel(searchParams.get('levelId') || '');
-    setIsFree(searchParams.get('isFree') || '');
-  }, [searchParams]);
+  const selectedCategory = searchParams.get('categoryId') || '';
+  const selectedLevel = searchParams.get('levelId') || '';
+  const isFree = searchParams.get('isFree') || '';
 
   const handleFilterChange = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
