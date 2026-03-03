@@ -1,0 +1,21 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function New(props: any) {
+  return (
+    <>
+<!DOCTYPE html>
+
+<title>New AbonnementItem</title>
+
+{% block body %}
+    <h1>Create new AbonnementItem</h1>
+
+    {include('admin/abonnement_item/_form.html.twig')}
+
+    <a href="{path('app_admin_abonnement_item_index')}">back to list</a>
+{% endblock %}
+
+    </>
+  );
+}

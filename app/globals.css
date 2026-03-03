@@ -1,0 +1,129 @@
+/* Global Styles */
+:root {
+  --primary: #FF4800; /* Approximate orange from style.css likely */
+}
+
+/* Custom styles from inline base.html.twig */
+.stepwizard-step p {
+    margin-top: 10px;
+}
+.stepwizard-row {
+    display: table-row;
+}
+.stepwizard {
+    display: table;
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
+}
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+}
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Start secton barner */
+.banner-with-background {
+    position: relative;
+    background-image: url("/assets/images/about/barner2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Occupe toute la hauteur de la fenêtre */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.main-message {
+    font-size: 50px; /* Taille par défaut pour PC */
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.sub-message {
+    font-size: 35px; /* Taille par défaut pour PC */
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: #fd7e14;
+}
+
+@media (max-width: 1024px) {
+    .hide-login,
+    .hide-btn {
+        display: none;
+    }
+}	
+
+@media (min-width: 768px) {
+    .hide-login {
+        display: none;
+    }
+
+}
+
+/* Styles spécifiques pour mobile et tablette (écrans max 1024px) */
+@media (max-width: 1024px) {
+    .banner-with-background {
+        background-image: none; /* Retire l'image en arrière-plan */
+        background-color: #066ac9 !important; /* Bleu du site */
+        height: 500px;
+    }
+
+    .main-message {
+        font-size: 35px; /* Taille réduite pour mobile */
+    }
+
+    .sub-message {
+        font-size: 25px; /* Taille réduite pour mobile */
+    }
+
+    .btn-custom {
+        padding: 0.5rem 1rem; /* Ajuste la taille interne */
+        font-size: 10px; /* Taille du texte */
+        width: 150px; /* Adapte la largeur au texte */
+    }
+
+    .barnner,
+    .image-barner,
+    .counter-block { 
+        display: none;
+
+    }
+    
+    .counter-box {
+        display: none;
+    }
+}

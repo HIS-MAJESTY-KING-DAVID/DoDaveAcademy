@@ -1,0 +1,28 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Edit(props: any) {
+  return (
+    <>
+{% extends 'admin/base.html.twig' %}
+
+{% block pageTitle %}Evaluations <small>> {evaluation.titre} > Ajouter une question</small>{% endblock %}
+
+{% block actionBtn %}
+	<a className="btn btn-primary-soft btn-sms mb-0" href="{path('app_admin_evaluation_question_index', {'slug': evaluation.slug})}">Retour</a>
+    
+    {include('admin/evaluation_question/_delete_form.html.twig')}
+{% endblock %}
+
+{% block script %}
+    
+{% endblock %}
+
+{% block mainContent %}
+
+    {include('admin/evaluation_question/_form.html.twig', {'button_label': 'Enregistrer les modifications'})}
+{% endblock %}
+
+    </>
+  );
+}

@@ -1,0 +1,29 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function New(props: any) {
+  return (
+    <>
+{% extends 'instructor/base.html.twig' %}
+
+{% block pageTitle %}Evaluations <small>> {evaluation.titre} > Ajouter une question</small>{% endblock %}
+
+{% block actionBtn %}
+	<a className="btn btn-primary-soft" href="{path('app_admin_evaluation_question_index', {'slug': evaluation.slug})}">Retour</a>
+{% endblock %}
+
+{% block script %}
+    
+{% endblock %}
+
+{% block pageContent %}
+
+    <hr />
+
+    {include('instructor/evaluation_question/_form.html.twig')}
+
+{% endblock %}
+
+    </>
+  );
+}

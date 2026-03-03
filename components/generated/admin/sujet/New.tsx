@@ -1,0 +1,21 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function New(props: any) {
+  return (
+    <>
+{% extends 'base.html.twig' %}
+
+{% block title %}New Sujet{% endblock %}
+
+{% block body %}
+    <h1>Create new Sujet</h1>
+
+    {include('sujet/_form.html.twig')}
+
+    <a href="{path('app_sujet_index')}">back to list</a>
+{% endblock %}
+
+    </>
+  );
+}

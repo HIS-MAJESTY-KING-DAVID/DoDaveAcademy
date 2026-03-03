@@ -1,0 +1,28 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Edit(props: any) {
+  return (
+    <>
+{% extends 'instructor/base.html.twig' %}
+
+{% block pageTitle %}Evaluations{% endblock %}
+
+{% block actionBtn %}
+    <a href="{path('app_admin_evaluation_index')}" className="btn btn-secondary">Retour</a>
+	<a href="{path('app_admin_evaluation_new')}" className="btn btn-primary">Create new</a>
+    {include('instructor/evaluation/_delete_form.html.twig')}
+{% endblock %}
+
+{% block script %}
+    
+{% endblock %}
+
+{% block pageContent %}
+    {include('instructor/evaluation/_form.html.twig', {'button_label': 'Enregistrer les modifications'})}
+
+{% endblock %}
+
+    </>
+  );
+}

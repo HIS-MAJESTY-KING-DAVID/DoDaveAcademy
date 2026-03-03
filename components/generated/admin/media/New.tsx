@@ -1,0 +1,21 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function New(props: any) {
+  return (
+    <>
+<!DOCTYPE html>
+
+<title>New Media</title>
+
+{% block body %}
+    <h1>Create new Media</h1>
+
+    {include('media/_form.html.twig')}
+
+    <a href="{path('app_media_index')}">back to list</a>
+{% endblock %}
+
+    </>
+  );
+}

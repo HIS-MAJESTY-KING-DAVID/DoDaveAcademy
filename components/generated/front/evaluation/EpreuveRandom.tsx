@@ -1,0 +1,50 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function EpreuveRandom(props: any) {
+  return (
+    <>
+<form action="" method="POST">
+    <div>
+        {epreuve.map(quiz => (
+
+            <div className="mb-3 border-dashed p-3">
+                <!-- Title -->
+                <h4>{quiz.question|raw}</h4>
+                {quiz.propositionJuste|length > 1 && (
+
+                    <div className="text-info alert alert-info"><i className="fas fa-info" style="font-size: 2em;"></i> {% trans %}MANY_ANSWERS_POSSIBLE_KEY{% endtrans %}</div>
+                
+)}
+                <input type="hidden" value="{quiz.id}" name="quizzes[{loop.index}][id]" />
+                <hr /> <!-- Divider -->
+                <div>
+                    <!-- Feed ques item -->
+                    <div>
+                        <input required type="{quiz.propositionJuste|length  /> 1 ? 'checkbox' : 'radio'}" className="btn-check btn-quiz-check" value="1" name="quizzes[{loop.index}][reponses][]" id="quiz{quiz.id}option1">
+                        <label style="white-space: normal" className="btn btn-outline-primary w-100" for="quiz{quiz.id}option1">{quiz.proposition1|raw}</label>
+                    </div>
+                    <!-- Feed ques item -->
+                    <div>
+                        <input required type="{quiz.propositionJuste|length  /> 1 ? 'checkbox' : 'radio'}" className="btn-check btn-quiz-check" value="2" name="quizzes[{loop.index}][reponses][]" id="quiz{quiz.id}option2">
+                        <label style="white-space: normal" className="btn btn-outline-primary w-100" for="quiz{quiz.id}option2">{quiz.proposition2|raw}</label>
+                    </div>
+                    <!-- Feed ques item -->
+                    <div>
+                        <input required type="{quiz.propositionJuste|length  /> 1 ? 'checkbox' : 'radio'}" className="btn-check btn-quiz-check" value="3" name="quizzes[{loop.index}][reponses][]" id="quiz{quiz.id}option3">
+                        <label style="white-space: normal" className="btn btn-outline-primary w-100" for="quiz{quiz.id}option3">{quiz.proposition3|raw}</label>
+                    </div>
+                    <!-- Feed ques item -->
+                    <div>
+                        <input required type="{quiz.propositionJuste|length  /> 1 ? 'checkbox' : 'radio'}" className="btn-check btn-quiz-check" value="4" name="quizzes[{loop.index}][reponses][]" id="quiz{quiz.id}option4">
+                        <label style="white-space: normal" className="btn btn-outline-primary w-100" for="quiz{quiz.id}option4">{quiz.proposition4|raw}</label>
+                    </div>
+                </div>
+            </div>
+        
+))}
+    </div>
+</form>
+    </>
+  );
+}

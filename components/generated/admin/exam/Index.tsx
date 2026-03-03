@@ -1,0 +1,124 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Index(props: any) {
+  return (
+    <>
+{% extends 'admin/base.html.twig' %}
+
+{% block pageTitle %}Exams{% endblock %}
+
+{% block mainContent %}
+    <!-- Card START -->
+	<div className="card bg-transparent border">
+        <!-- Card body START -->
+		<div className="card-body">
+			<!-- Course table START -->
+			<div className="table-responsive border-0 rounded-3">
+				<!-- Table START -->
+				<table className="table table-dark-gray align-middle p-4 mb-0 table-hover">
+					<!-- Table head -->
+					<thead>
+						<tr>
+							<th scope="col" className="border-0 rounded-start">Exam title</th>
+							<th scope="col" className="border-0">Added By</th>
+							<th scope="col" className="border-0">Added Date</th>
+							<th scope="col" className="border-0">Duration</th>
+							<th scope="col" className="border-0">Language</th>
+							<th scope="col" className="border-0">Category</th>
+							<th scope="col" className="border-0 rounded-end">Action</th>
+						</tr>
+					</thead>
+					
+					<!-- Table body START -->
+					<tbody>
+						{exams.map(exam => (
+
+							<tr className="text-center">
+								<!-- Table data -->
+								<td>
+									<div className="d-flex align-items-center position-relative">
+										<!-- Image -->
+										<div className="w-60px">
+											<img src="{asset('uploads/media/exams/files/' ~ exam.imageFile)}" className="rounded" alt="" />
+										</div>
+										<!-- Title -->
+										<h6 className="table-responsive-title mb-0 ms-2">	
+											<a href="{path('app_admin_cours_show', {slug: exam.reference})}" className="stretched-link">{exam.title|u.truncate(40, '...')}</a>
+										</h6>
+									</div>
+								</td>
+
+								<!-- Table data -->
+								<td>
+									<div className="d-flex align-items-center mb-3">
+										<!-- Avatar -->
+										<div className="avatar avatar-xs flex-shrink-0">
+											<img className="avatar-img rounded-circle" src="{asset(exam.user.personne.avatarPath)}" alt="avatar" />
+										</div>
+										<!-- Info -->
+										<div className="ms-2">
+											<h6 className="mb-0 fw-light">{exam.user.personne.nomComplet|u.truncate(15, '...')}</h6>
+										</div>
+									</div>
+								</td>
+
+								<!-- Table data -->
+								<td>{exam.publishedAt|date('d/m/Y')}</td>
+
+								<!-- Table data -->
+								<td> <span className="badge text-bg-primary">{exam.duration}</span> </td>
+
+								<!-- Table data -->
+								<td>{exam.language}</td>
+
+								<!-- Table data -->
+								<td>{exam.category.name}</td>
+
+								<!-- Table data -->
+								<td>
+									{exam.isPublished && (
+
+                                        <a className="btn btn-round btn-primary-soft btn-sm" target="_blank" data-bs-toggle="tooltip" title="Preview" href="{url("app_front_exam_show", {reference: exam.reference})}"><i className="fas fa-eye"></i></a>
+                                        {not exam.isValidated && (
+
+                                            <a href="{url("app_admin_exam_approve", {reference: exam.reference, _token: csrf_token('validated' ~ exam.id)})}" onclick="return confirm('Are you sure you want to approve this exam?')" data-bs-toggle="tooltip" title="Approve" className="btn btn-sm btn-round btn-success-soft"><i className="fas fa-check-circle"></i></a>
+                                        
+)}
+									    <a href="{url("app_admin_exam_remove", {reference: exam.id, _token: csrf_token('delete' ~ exam.reference)})}" onclick="return confirm('Are you sure you want to delete this exam?')" data-bs-toggle="tooltip" title="Delete" className="btn btn-sm btn-round btn-danger-soft"><i className="fas fa-trash"></i></a>
+                                    
+) || (
+
+                                        <span className="badge bg-danger">Waiting</span>
+                                    
+)}
+								</td>
+							</tr>
+						
+) || (
+
+							<tr><td colspan="7">No data found</td></tr>
+						
+))}
+					</tbody>
+					<!-- Table body END -->
+				</table>
+				<!-- Table END -->
+			</div>
+			<!-- Course table END -->
+		</div>
+		<!-- Card body END -->
+        <div className="card-footer bg-transparent pt-0">
+			<!-- Pagination START -->
+			<div className="d-sm-flex justify-content-sm-between align-items-sm-center">
+				<p className="mb-0 text-center text-sm-start"></p>
+				{knp_pagination_render(exams)}
+			</div>
+			<!-- Pagination END -->
+		</div>
+		<!-- Card footer END -->
+    </div>
+{% endblock %}
+    </>
+  );
+}

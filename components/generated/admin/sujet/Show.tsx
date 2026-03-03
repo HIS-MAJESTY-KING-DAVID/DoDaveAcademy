@@ -1,0 +1,44 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Show(props: any) {
+  return (
+    <>
+{% extends 'base.html.twig' %}
+
+{% block title %}Sujet{% endblock %}
+
+{% block body %}
+    <h1>Sujet</h1>
+
+    <table className="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{sujet.id}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{sujet.content}</td>
+            </tr>
+            <tr>
+                <th>IsSolved</th>
+                <td>{sujet.isSolved ? 'Yes' : 'No'}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{sujet.createdAt ? sujet.createdAt|date('Y-m-d H:i:s') : ''}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{path('app_sujet_index')}">back to list</a>
+
+    <a href="{path('app_sujet_edit', {'id': sujet.id})}">edit</a>
+
+    {include('sujet/_delete_form.html.twig')}
+{% endblock %}
+
+    </>
+  );
+}

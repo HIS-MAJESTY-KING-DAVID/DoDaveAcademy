@@ -1,0 +1,23 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Edit(props: any) {
+  return (
+    <>
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Eleve{% endblock %}
+
+{% block body %}
+    <h1>Edit Eleve</h1>
+
+    {include('eleve/_form.html.twig', {'button_label': 'Update'})}
+
+    <a href="{path('app_eleve_index')}">back to list</a>
+
+    {include('eleve/_delete_form.html.twig')}
+{% endblock %}
+
+    </>
+  );
+}

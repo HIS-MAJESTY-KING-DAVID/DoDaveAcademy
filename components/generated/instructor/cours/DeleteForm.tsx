@@ -1,0 +1,14 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function DeleteForm(props: any) {
+  return (
+    <>
+<form method="post" action="{path('app_instructor_cours_delete', {'id': cour.id, 'slug': cour.slug})}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{csrf_token('delete' ~ cour.id)}" />
+    <button className="btn">Delete</button>
+</form>
+
+    </>
+  );
+}

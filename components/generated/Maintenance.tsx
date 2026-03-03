@@ -1,0 +1,23 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Maintenance(props: any) {
+  return (
+    <>
+{/* templates/maintenance.html.twig */}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Under Maintenance</title>
+</head>
+<body>
+    <h1>Site Under Maintenance</h1>
+    <p>We'll be back soon. Sorry for the inconvenience.</p>
+</body>
+</html>
+
+    </>
+  );
+}

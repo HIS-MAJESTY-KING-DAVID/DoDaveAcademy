@@ -1,0 +1,52 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Show(props: any) {
+  return (
+    <>
+{% extends 'base.html.twig' %}
+
+{% block title %}Lesson{% endblock %}
+
+{% block body %}
+    <h1>Lesson</h1>
+
+    <table className="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{lesson.id}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{lesson.title}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{lesson.slug}</td>
+            </tr>
+            <tr>
+                <th>Objectifs</th>
+                <td>{lesson.objectifs}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{lesson.content}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{lesson.type}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{path('app_lesson_index')}">back to list</a>
+
+    <a href="{path('app_lesson_edit', {'id': lesson.id})}">edit</a>
+
+    {include('lesson/_delete_form.html.twig')}
+{% endblock %}
+
+    </>
+  );
+}

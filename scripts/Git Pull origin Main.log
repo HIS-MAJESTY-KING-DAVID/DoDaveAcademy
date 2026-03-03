@@ -1,0 +1,164 @@
+PS C:\xampp\htdocs\kulmapeck> git pull origin main
+remote: Enumerating objects: 212, done.
+remote: Counting objects: 100% (197/197), done.
+remote: Compressing objects: 100% (50/50), done.
+remote: Total 111 (delta 81), reused 81 (delta 52), pack-reused 0 (from 0)
+Receiving objects: 100% (111/111), 15.62 KiB | 888.00 KiB/s, done.
+Resolving deltas: 100% (81/81), completed with 52 local objects.
+From https://github.com/adjimi-lionelle/staging-kulmapeck
+ * branch              main       -> FETCH_HEAD
+   5f12aac2..81b7ab93  main       -> origin/main
+Updating d9a48d54..81b7ab93
+Fast-forward
+ .babelrc                                           |  12 +
+ .gitignore                                         |   7 +-
+ assets/react/chat/Chat.tsx                         | 155 +++++++
+ assets/react/chat/components/ChatHeader.tsx        |  43 ++
+ assets/react/chat/components/ChatInput.tsx         |  76 ++++
+ assets/react/chat/components/ChatMessage.tsx       |  24 +
+ assets/react/chat/components/ChatMessages.tsx      |  41 ++
+ assets/react/chat/components/ChatSidebar.tsx       |  75 ++++
+ assets/react/chat/index.tsx                        |  64 +++
+ assets/react/chat/services/websocket.ts            |  74 +++
+ assets/react/chat/store/index.ts                   |  28 ++
+ assets/react/chat/styles/chat.css                  | 280 ++++++++++++
+ assets/react/chat/types.ts                         |  33 ++
+ assets/react/chat/types/index.ts                   |  35 ++
+ backup/chat_files/chat.css                         |  21 +-
+ backup/chat_files/chat.html.twig                   |   0
+ backup/chat_files/chat1.css                        |   0
+ config/services.yaml                               |   4 +-
+ cookie.txt                                         |   0
+ migrations/Version20250206000421.php               |   8 +-
+ migrations/Version20250207210223.php               |   4 +-
+ migrations/Version20250207211003.php               |   4 +-
+ migrations/Version20250209194903.php               |   8 +-
+ migrations/Version20250218ChatSubjects.php         |  49 --
+ migrations/Version20250219SchemaUpdate.php         |  38 +-
+ migrations/Version20250226114315.php               | 171 +++++++
+ migrations/Version20250226222728.php               |  77 ++++
+ package.json                                       |  33 ++
+ python/chat_service/README.md                      |   0
+ python/chat_service/main.py                        |   0
+ python/chat_service/requirements.txt               |   0
+ react_package.json                                 |  40 --
+ src/Command/WebSocketServerCommand.php             |   8 +-
+ src/Controller/ChatController.php                  | 500 ++-------------------
+ src/Controller/Front/ExamController.php            |   0
+ src/Controller/PaymentControllers.php              |  29 +-
+ src/Entity/ChatMessage.php                         |   0
+ src/Entity/Exam.php                                |   0
+ src/Entity/MatiereCycle.php                        |   0
+ src/Entity/MessageChat.php                         |   0
+ src/Entity/SubjectChat.php                         |  16 +-
+ src/Entity/User.php                                |  12 +-
+ src/Entity/WebSocketConnection.php                 |   0
+ src/Repository/ChatMessageRepository.php           |   0
+ src/Repository/ExamRepository.php                  |   0
+ src/Repository/MatiereCycleRepository.php          |   0
+ src/Repository/MessageChatRepository.php           |   0
+ src/Repository/SubjectChatRepository.php           |  21 +
+ src/Repository/WebSocketConnectionRepository.php   |   0
+ src/Service/AIService.php                          |   0
+ src/Twig/AppExtension.php                          |   2 +-
+ src/Twig/TimeExtension.php                         |   0
+ src/Utils/Keys.php                                 |   4 +-
+ src/Utils/MobileApiService.php                     |   9 +-
+ src/WebSocket/ChatServer.php                       | 211 +++++----
+ templates/base.html.twig                           |  17 +-
+ templates/chat/index.html.twig                     |  42 +-
+ templates/front/base.html.twig                     |  10 +-
+ .../front/courses/course_details_text.html.twig    | 119 ++---
+ templates/front/exam/show.html.twig                |   0
+ templates/front/home/index.html.twig               |   4 +-
+ templates/group_chat/index.html.twig               |   0
+ templates/student/chat/_setup_modal.html.twig      |   0
+ templates/student/chat/base_chat.html.twig         |  43 ++
+ templates/student/chat/index.html.twig             | 153 ++-----
+ templates/student/chat/subject_chat.html.twig      | 220 +--------
+ tsconfig.json                                      |  25 ++
+ webpack.config.js                                  |  28 ++
+ 68 files changed, 1723 insertions(+), 1154 deletions(-)
+ create mode 100644 .babelrc
+ create mode 100644 assets/react/chat/Chat.tsx
+ create mode 100644 assets/react/chat/components/ChatHeader.tsx
+ create mode 100644 assets/react/chat/components/ChatInput.tsx
+ create mode 100644 assets/react/chat/components/ChatMessage.tsx
+ create mode 100644 assets/react/chat/components/ChatMessages.tsx
+ create mode 100644 assets/react/chat/components/ChatSidebar.tsx
+ create mode 100644 assets/react/chat/index.tsx
+ create mode 100644 assets/react/chat/services/websocket.ts
+ create mode 100644 assets/react/chat/store/index.ts
+ create mode 100644 assets/react/chat/styles/chat.css
+ create mode 100644 assets/react/chat/types.ts
+ create mode 100644 assets/react/chat/types/index.ts
+ mode change 100644 => 100755 backup/chat_files/chat.css
+ mode change 100644 => 100755 backup/chat_files/chat.html.twig
+ mode change 100644 => 100755 backup/chat_files/chat1.css
+ mode change 100644 => 100755 cookie.txt
+ delete mode 100644 migrations/Version20250218ChatSubjects.php
+ create mode 100644 migrations/Version20250226114315.php
+ create mode 100644 migrations/Version20250226222728.php
+ create mode 100644 package.json
+ mode change 100644 => 100755 python/chat_service/README.md
+ mode change 100644 => 100755 python/chat_service/main.py
+ mode change 100644 => 100755 python/chat_service/requirements.txt
+ delete mode 100644 react_package.json
+ mode change 100644 => 100755 src/Command/WebSocketServerCommand.php
+ mode change 100644 => 100755 src/Controller/ChatController.php
+ mode change 100644 => 100755 src/Controller/Front/ExamController.php
+ mode change 100644 => 100755 src/Entity/ChatMessage.php
+ mode change 100644 => 100755 src/Entity/Exam.php
+ mode change 100644 => 100755 src/Entity/MatiereCycle.php
+ mode change 100644 => 100755 src/Entity/MessageChat.php
+ mode change 100644 => 100755 src/Entity/SubjectChat.php
+ mode change 100644 => 100755 src/Entity/WebSocketConnection.php
+ mode change 100644 => 100755 src/Repository/ChatMessageRepository.php
+ mode change 100644 => 100755 src/Repository/ExamRepository.php
+ mode change 100644 => 100755 src/Repository/MatiereCycleRepository.php
+ mode change 100644 => 100755 src/Repository/MessageChatRepository.php
+ mode change 100644 => 100755 src/Repository/WebSocketConnectionRepository.php
+ mode change 100644 => 100755 src/Service/AIService.php
+ mode change 100644 => 100755 src/Twig/TimeExtension.php
+ mode change 100644 => 100755 src/WebSocket/ChatServer.php
+ mode change 100644 => 100755 templates/chat/index.html.twig
+ mode change 100644 => 100755 templates/front/exam/show.html.twig
+ mode change 100644 => 100755 templates/group_chat/index.html.twig
+ mode change 100644 => 100755 templates/student/chat/_setup_modal.html.twig
+ create mode 100644 templates/student/chat/base_chat.html.twig
+ mode change 100644 => 100755 templates/student/chat/index.html.twig
+ create mode 100644 tsconfig.json
+ create mode 100644 webpack.config.js
+
+
+ ======================
+
+
+ Collect the following files:
+
+config/services.yaml
+migrations/Version20250206000421.php               |   8 +-
+ migrations/Version20250207210223.php               |   4 +-
+ migrations/Version20250207211003.php               |   4 +-
+ migrations/Version20250209194903.php
+migrations/Version20250219SchemaUpdate.php         |  38 +-
+ migrations/Version20250226114315.php               | 171 +++++++
+ migrations/Version20250226222728.php
+ src/Command/WebSocketServerCommand.php
+ src/Controller/PaymentControllers.php 
+ src/Entity/SubjectChat.php 
+ src/Entity/User.php 
+src/Repository/SubjectChatRepository.php 
+src/Twig/AppExtension.php 
+src/Utils/Keys.php                                 |   4 +-
+ src/Utils/MobileApiService.php                     |   9 +-
+ src/WebSocket/ChatServer.php                       | 211 +++++----
+ templates/base.html.twig                           |  17 +-
+ templates/chat/index.html.twig                     |  42 +-
+ templates/front/base.html.twig                     |  10 +-
+ .../front/courses/course_details_text.html.twig
+templates/student/chat/base_chat.html.twig         |  43 ++
+ templates/student/chat/index.html.twig             | 153 ++-----
+ templates/student/chat/subject_chat.html.twig
+
+I didn't collect ChatController, I'll compare before proceeding

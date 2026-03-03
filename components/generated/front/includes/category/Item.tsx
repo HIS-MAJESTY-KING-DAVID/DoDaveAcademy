@@ -1,0 +1,18 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Item(props: any) {
+  return (
+    <>
+<div className="card card-body {bg_classes|default(random(['bg-success', 'bg-danger', 'bg-warning', 'bg-primary', 'bg-secondary', 'bg-blue', 'bg-cyan', 'bg-orange', 'bg-dark']))} bg-opacity-10 text-center position-relative btn-transition p-4">
+					<!-- Image -->
+    <div className="icon-xl bg-body mx-auto rounded-circle mb-3">
+        <img style="width: 55px; height: 59px;border-radius: 50%;" src="{asset('uploads/media/courses/categories/' ~ category.imageFile)}" alt="{category.name|u.truncate(1)}" />
+    </div>
+    <!-- Title -->
+    <h5 className="mb-2"><a href="{url("app_front_category_courses", {slug: category.slug})}" className="stretched-link">{category.name}</a></h5>
+    <h6 className="mb-0">15 {% trans %}COURSES_KEY{% endtrans %}</h6>
+</div>
+    </>
+  );
+}

@@ -1,0 +1,23 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Edit(props: any) {
+  return (
+    <>
+<!DOCTYPE html>
+
+<title>Edit Media</title>
+
+{% block body %}
+    <h1>Edit Media</h1>
+
+    {include('media/_form.html.twig', {'button_label': 'Update'})}
+
+    <a href="{path('app_media_index')}">back to list</a>
+
+    {include('media/_delete_form.html.twig')}
+{% endblock %}
+
+    </>
+  );
+}

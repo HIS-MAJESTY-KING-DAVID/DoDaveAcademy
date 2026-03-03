@@ -1,0 +1,1060 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id                         Int                        @id @default(autoincrement())
+  label                      String
+  slug                       String
+  amount                     Float
+  duration                   Int
+  isRecommended              Boolean                    @map("is_recommended")
+  pointsCount                Int?                       @map("points_count")
+  subscriptionSubscriptionItems SubscriptionSubscriptionItem[] @relation("SubscriptionSubscriptionItem_subscriptionId")
+  subscriptionPaymentMethods SubscriptionPaymentMethod[] @relation("SubscriptionPaymentMethod_subscriptionId")
+  payments                   Payment[]                  @relation("Payment_subscriptionId")
+
+  @@map("subscription")
+}
+
+model SubscriptionSubscriptionItem {
+  subscriptionId     Int             @map("subscription_id")
+  subscription       Subscription?   @relation("SubscriptionSubscriptionItem_subscriptionId", fields: [subscriptionId], references: [id])
+  subscriptionItemId Int             @map("subscription_item_id")
+  subscriptionItem   SubscriptionItem? @relation("SubscriptionSubscriptionItem_subscriptionItemId", fields: [subscriptionItemId], references: [id])
+
+  @@id([subscriptionId, subscriptionItemId])
+  @@index([subscriptionId])
+  @@index([subscriptionItemId])
+  @@map("subscription_subscription_item")
+}
+
+model SubscriptionItem {
+  id                           Int                          @id @default(autoincrement())
+  label                        String
+  subscriptionSubscriptionItems SubscriptionSubscriptionItem[] @relation("SubscriptionSubscriptionItem_subscriptionItemId")
+
+  @@map("subscription_item")
+}
+
+model SubscriptionPaymentMethod {
+  subscriptionId    Int            @map("subscription_id")
+  subscription      Subscription?  @relation("SubscriptionPaymentMethod_subscriptionId", fields: [subscriptionId], references: [id])
+  paymentMethodId   Int            @map("payment_method_id")
+  paymentMethod     PaymentMethod? @relation("SubscriptionPaymentMethod_paymentMethodId", fields: [paymentMethodId], references: [id])
+
+  @@id([subscriptionId, paymentMethodId])
+  @@index([subscriptionId])
+  @@index([paymentMethodId])
+  @@map("subscription_payment_method")
+}
+
+model Category {
+  id            Int          @id @default(autoincrement())
+  categoryId    Int?         @map("category_id")
+  category      Category?    @relation("Category_categoryId", fields: [categoryId], references: [id])
+  name          String
+  slug          String
+  imageFile     String?      @map("image_file")
+  isSubCategory Boolean      @map("is_sub_category")
+  categories    Category[]   @relation("Category_categoryId")
+  courses       Course[]     @relation("Course_categoryId")
+  instructors   Instructor[] @relation("Instructor_categoryId")
+  evaluations   Evaluation[] @relation("Evaluation_categoryId")
+  exams         Exam[]       @relation("Exam_categoryId")
+
+  @@index([categoryId])
+  @@map("category")
+}
+
+model Chapter {
+  id          Int        @id @default(autoincrement())
+  courseId    Int        @map("course_id")
+  course      Course?    @relation("Chapter_courseId", fields: [courseId], references: [id])
+  title       String
+  slug        String
+  description String
+  number      Int?
+  lectures    Lecture[]  @relation("Lecture_chapterId")
+  lessons     Lesson[]   @relation("Lesson_chapterId")
+  quizzes     Quiz[]     @relation("Quiz_chapterId")
+  quizLosts   QuizLost[] @relation("QuizLost_chapterId")
+
+  @@index([courseId])
+  @@map("chapter")
+}
+
+model Class {
+  id                Int               @id @default(autoincrement())
+  specialtyId       Int?              @map("specialty_id")
+  specialty         Specialty?        @relation("Class_specialtyId", fields: [specialtyId], references: [id])
+  skillLevelId      Int?              @map("skill_level_id")
+  skillLevel        SkillLevel?       @relation("Class_skillLevelId", fields: [skillLevelId], references: [id])
+  subSystemId       Int?              @map("sub_system_id")
+  subSystem         SubSystem?        @relation("Class_subSystemId", fields: [subSystemId], references: [id])
+  name              String
+  slug              String
+  courseClasses     CourseClass[]     @relation("CourseClass_classId")
+  students          Student[]         @relation("Student_classId")
+  evaluationClasses EvaluationClass[] @relation("EvaluationClass_classId")
+  exams             Exam[]            @relation("Exam_classId")
+
+  @@index([specialtyId])
+  @@index([skillLevelId])
+  @@index([subSystemId])
+  @@map("class")
+}
+
+model Contact {
+  id       Int      @id @default(autoincrement())
+  userId   Int      @map("user_id")
+  user     User?    @relation("Contact_userId", fields: [userId], references: [id])
+  object   String?
+  content  String?
+  createAt DateTime @map("create_at")
+
+  @@index([userId])
+  @@map("contact")
+}
+
+model Course {
+  id                   Int                  @id @default(autoincrement())
+  instructorId         Int                  @map("instructor_id")
+  instructor           Instructor?          @relation("Course_instructorId", fields: [instructorId], references: [id])
+  categoryId           Int?                 @map("category_id")
+  category             Category?            @relation("Course_categoryId", fields: [categoryId], references: [id])
+  skillLevelId         Int?                 @map("skill_level_id")
+  skillLevel           SkillLevel?          @relation("Course_skillLevelId", fields: [skillLevelId], references: [id])
+  title                String
+  slug                 String
+  content              String
+  description          String
+  isPublished          Boolean              @map("is_published")
+  isFree               Boolean              @map("is_free")
+  difficultyLevel      String               @map("difficulty_level")
+  duration             String
+  createdAt            DateTime             @map("created_at")
+  views                Int
+  isValidated          Boolean              @map("is_validated")
+  subscriptionPrice    Int?                 @map("subscription_price")
+  language             String
+  numberOfLessons      Int                  @map("number_of_lessons")
+  tags                 String?
+  isRejected           Boolean?             @map("is_rejected")
+  review               Int?
+  updatedAt            DateTime?            @map("updated_at")
+  publishedAt          DateTime?            @map("published_at")
+  chapters             Chapter[]            @relation("Chapter_courseId")
+  courseClasses        CourseClass[]        @relation("CourseClass_courseId")
+  coursePaymentMethods CoursePaymentMethod[] @relation("CoursePaymentMethod_courseId")
+  studentCourses       StudentCourse[]      @relation("StudentCourse_courseId")
+  faqs                 Faq[]                @relation("Faq_courseId")
+  trainingCourses      TrainingCourse[]     @relation("TrainingCourse_courseId")
+  forum                Forum?               @relation("Forum_courseId")
+  likes                CourseLike[]         @relation("CourseLike_courseId")
+  lectures             Lecture[]            @relation("Lecture_courseId")
+  media                Media?               @relation("Media_courseId")
+  payments             Payment[]            @relation("Payment_courseId")
+  quizzes              Quiz[]               @relation("Quiz_courseId")
+  quizLosts            QuizLost[]           @relation("QuizLost_courseId")
+  reviews              Review[]             @relation("Review_courseId")
+
+  @@index([instructorId])
+  @@index([categoryId])
+  @@index([skillLevelId])
+  @@map("course")
+}
+
+model CourseClass {
+  courseId Int    @map("course_id")
+  course   Course? @relation("CourseClass_courseId", fields: [courseId], references: [id])
+  classId  Int    @map("class_id")
+  class    Class?  @relation("CourseClass_classId", fields: [classId], references: [id])
+
+  @@id([courseId, classId])
+  @@index([courseId])
+  @@index([classId])
+  @@map("course_class")
+}
+
+model CoursePaymentMethod {
+  courseId        Int            @map("course_id")
+  course          Course?        @relation("CoursePaymentMethod_courseId", fields: [courseId], references: [id])
+  paymentMethodId Int            @map("payment_method_id")
+  paymentMethod   PaymentMethod? @relation("CoursePaymentMethod_paymentMethodId", fields: [paymentMethodId], references: [id])
+
+  @@id([courseId, paymentMethodId])
+  @@index([courseId])
+  @@index([paymentMethodId])
+  @@map("course_payment_method")
+}
+
+model CourseTag {
+  id Int @id @default(autoincrement())
+
+  @@map("course_tag")
+}
+
+model Device {
+  id            Int       @id @default(autoincrement())
+  deviceTokenId Int?      @map("device_token_id")
+  deviceToken   User?     @relation("Device_deviceTokenId", fields: [deviceTokenId], references: [id])
+  token         String?
+  createdAt     DateTime? @map("created_at")
+  updatedAt     DateTime? @map("updated_at")
+
+  @@index([deviceTokenId])
+  @@map("device")
+}
+
+model DoctrineMigrationVersions {
+  version       String    @id
+  executedAt    DateTime? @map("executed_at")
+  executionTime Int?      @map("execution_time")
+
+  @@map("doctrine_migration_versions")
+}
+
+model Student {
+  id                 Int                @id @default(autoincrement())
+  classId            Int?               @map("class_id")
+  class              Class?             @relation("Student_classId", fields: [classId], references: [id])
+  userId             Int                @unique @map("user_id")
+  user               User?              @relation("Student_userId", fields: [userId], references: [id])
+  institutionId      Int?               @map("institution_id")
+  institution        Institution?       @relation("Student_institutionId", fields: [institutionId], references: [id])
+  reference          String             @unique
+  joinAt             DateTime           @map("join_at")
+  isPremium          Boolean?           @map("is_premium")
+  studentCourses     StudentCourse[]    @relation("StudentCourse_studentId")
+  evaluationStudents EvaluationStudent[] @relation("EvaluationStudent_studentId")
+  evaluationResults  EvaluationResult[] @relation("EvaluationResult_studentId")
+  trainingStudents   TrainingStudent[]  @relation("TrainingStudent_studentId")
+  lectures           Lecture[]          @relation("Lecture_studentId")
+  payments           Payment[]          @relation("Payment_studentId")
+  quizLosts          QuizLost[]         @relation("QuizLost_studentId")
+  quizResults        QuizResult[]       @relation("QuizResult_studentId")
+  answers            Answer[]           @relation("Answer_studentId")
+  reviews            Review[]           @relation("Review_studentId")
+
+  @@index([classId])
+  @@index([institutionId])
+  @@map("student")
+}
+
+model StudentCourse {
+  studentId Int     @map("student_id")
+  student   Student? @relation("StudentCourse_studentId", fields: [studentId], references: [id])
+  courseId  Int     @map("course_id")
+  course    Course?  @relation("StudentCourse_courseId", fields: [courseId], references: [id])
+
+  @@id([studentId, courseId])
+  @@index([studentId])
+  @@index([courseId])
+  @@map("student_course")
+}
+
+model EmailSetting {
+  id       Int    @id @default(autoincrement())
+  template String
+  type     String
+
+  @@map("email_setting")
+}
+
+model Instructor {
+  id            Int          @id @default(autoincrement())
+  userId        Int          @unique @map("user_id")
+  user          User?        @relation("Instructor_userId", fields: [userId], references: [id])
+  institutionId Int?         @map("institution_id")
+  institution   Institution? @relation("Instructor_institutionId", fields: [institutionId], references: [id])
+  categoryId    Int?         @map("category_id")
+  category      Category?    @relation("Instructor_categoryId", fields: [categoryId], references: [id])
+  reference     String       @unique
+  diploma       String?
+  cniRecto      String       @map("cni_recto")
+  cniVerso      String       @map("cni_verso")
+  cniSelfie     String       @map("cni_selfie")
+  schedule      String?
+  isValidated   Boolean      @map("is_validated")
+  details       String?
+  isRejected    Boolean?     @map("is_rejected")
+  review        Int?
+  joinAt        DateTime?    @map("join_at")
+  aboutMe       String?      @map("about_me")
+  isCertified   Boolean?     @map("is_certified")
+  courses       Course[]     @relation("Course_instructorId")
+  evaluations   Evaluation[] @relation("Evaluation_instructorId")
+
+  @@index([institutionId])
+  @@index([categoryId])
+  @@map("instructor")
+}
+
+model Institution {
+  id          Int          @id @default(autoincrement())
+  countryId   Int          @map("country_id")
+  country     Country?     @relation("Institution_countryId", fields: [countryId], references: [id])
+  name        String
+  city        String
+  students    Student[]    @relation("Student_institutionId")
+  instructors Instructor[] @relation("Instructor_institutionId")
+
+  @@index([countryId])
+  @@map("institution")
+}
+
+model Evaluation {
+  id                         Int                  @id @default(autoincrement())
+  categoryId                 Int                  @map("category_id")
+  category                   Category?            @relation("Evaluation_categoryId", fields: [categoryId], references: [id])
+  title                      String
+  description                String
+  startAt                    DateTime?            @map("start_at")
+  endAt                      DateTime?            @map("end_at")
+  duration                   Int
+  isGeneratedRandomQuestions Boolean              @map("is_generated_random_questions")
+  slug                       String
+  isPassed                   Boolean              @map("is_passed")
+  instructorId               Int?                 @map("instructor_id")
+  instructor                 Instructor?          @relation("Evaluation_instructorId", fields: [instructorId], references: [id])
+  isPublished                Boolean?             @map("is_published")
+  evaluationClasses          EvaluationClass[]    @relation("EvaluationClass_evaluationId")
+  evaluationStudents         EvaluationStudent[]  @relation("EvaluationStudent_evaluationId")
+  evaluationQuestions        EvaluationQuestion[] @relation("EvaluationQuestion_evaluationId")
+  evaluationResults          EvaluationResult[]   @relation("EvaluationResult_evaluationId")
+
+  @@index([categoryId])
+  @@index([instructorId])
+  @@map("evaluation")
+}
+
+model EvaluationClass {
+  evaluationId Int        @map("evaluation_id")
+  evaluation   Evaluation? @relation("EvaluationClass_evaluationId", fields: [evaluationId], references: [id])
+  classId      Int        @map("class_id")
+  class        Class?     @relation("EvaluationClass_classId", fields: [classId], references: [id])
+
+  @@id([evaluationId, classId])
+  @@index([evaluationId])
+  @@index([classId])
+  @@map("evaluation_class")
+}
+
+model EvaluationStudent {
+  evaluationId Int        @map("evaluation_id")
+  evaluation   Evaluation? @relation("EvaluationStudent_evaluationId", fields: [evaluationId], references: [id])
+  studentId    Int        @map("student_id")
+  student      Student?   @relation("EvaluationStudent_studentId", fields: [studentId], references: [id])
+
+  @@id([evaluationId, studentId])
+  @@index([evaluationId])
+  @@index([studentId])
+  @@map("evaluation_student")
+}
+
+model EvaluationQuestion {
+  id                  Int         @id @default(autoincrement())
+  evaluationId        Int         @map("evaluation_id")
+  evaluation          Evaluation? @relation("EvaluationQuestion_evaluationId", fields: [evaluationId], references: [id])
+  question            String
+  proposition1        String
+  proposition2        String
+  proposition3        String?
+  proposition4        String?
+  correctPropositions String      @map("correct_propositions")
+
+  @@index([evaluationId])
+  @@map("evaluation_question")
+}
+
+model EvaluationResult {
+  id          Int        @id @default(autoincrement())
+  evaluationId Int       @map("evaluation_id")
+  evaluation  Evaluation? @relation("EvaluationResult_evaluationId", fields: [evaluationId], references: [id])
+  studentId   Int        @map("student_id")
+  student     Student?   @relation("EvaluationResult_studentId", fields: [studentId], references: [id])
+  contents    String
+  score       Float      @map("score")
+  evaluatedAt DateTime   @map("evaluated_at")
+
+  @@index([evaluationId])
+  @@index([studentId])
+  @@map("evaluation_result")
+}
+
+model Exam {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @map("user_id")
+  user        User?     @relation("Exam_userId", fields: [userId], references: [id])
+  classId     Int?      @map("class_id")
+  class       Class?    @relation("Exam_classId", fields: [classId], references: [id])
+  categoryId  Int?      @map("category_id")
+  category    Category? @relation("Exam_categoryId", fields: [categoryId], references: [id])
+  subject     String
+  correction  String?
+  title       String
+  description String
+  publishedAt DateTime  @map("published_at")
+  isPublished Boolean   @map("is_published")
+  reference   String
+  isValidated Boolean?  @map("is_validated")
+  duration    String
+  imageFile   String?   @map("image_file")
+  language    String
+
+  @@index([userId])
+  @@index([classId])
+  @@index([categoryId])
+  @@map("exam")
+}
+
+model Faq {
+  id       Int    @id @default(autoincrement())
+  courseId Int    @map("course_id")
+  course   Course? @relation("Faq_courseId", fields: [courseId], references: [id])
+  question String
+  answer   String
+
+  @@index([courseId])
+  @@map("faq")
+}
+
+model Major {
+  id              Int               @id @default(autoincrement())
+  teachingTypeId  Int               @map("teaching_type_id")
+  teachingType    TeachingType?     @relation("Major_teachingTypeId", fields: [teachingTypeId], references: [id])
+  name            String
+  slug            String
+  majorSubSystems MajorSubSystem[]  @relation("MajorSubSystem_majorId")
+  specialties     Specialty[]       @relation("Specialty_majorId")
+  userMajors      UserMajor[]       @relation("UserMajor_majorId")
+
+  @@index([teachingTypeId])
+  @@map("major")
+}
+
+model MajorSubSystem {
+  majorId     Int        @map("major_id")
+  major       Major?     @relation("MajorSubSystem_majorId", fields: [majorId], references: [id])
+  subSystemId Int        @map("sub_system_id")
+  subSystem   SubSystem? @relation("MajorSubSystem_subSystemId", fields: [subSystemId], references: [id])
+
+  @@id([majorId, subSystemId])
+  @@index([majorId])
+  @@index([subSystemId])
+  @@map("major_sub_system")
+}
+
+model Training {
+  id               Int               @id @default(autoincrement())
+  name             String
+  slug             String
+  description      String
+  duration         String
+  difficultyLevel  String            @map("difficulty_level")
+  isFree           Boolean           @map("is_free")
+  createdAt        DateTime          @map("created_at")
+  isPublished      Boolean           @map("is_published")
+  image            String
+  trainingCourses  TrainingCourse[]  @relation("TrainingCourse_trainingId")
+  trainingStudents TrainingStudent[] @relation("TrainingStudent_trainingId")
+
+  @@map("training")
+}
+
+model TrainingCourse {
+  trainingId Int       @map("training_id")
+  training   Training? @relation("TrainingCourse_trainingId", fields: [trainingId], references: [id])
+  courseId   Int       @map("course_id")
+  course     Course?   @relation("TrainingCourse_courseId", fields: [courseId], references: [id])
+
+  @@id([trainingId, courseId])
+  @@index([trainingId])
+  @@index([courseId])
+  @@map("training_course")
+}
+
+model TrainingStudent {
+  trainingId Int       @map("training_id")
+  training   Training? @relation("TrainingStudent_trainingId", fields: [trainingId], references: [id])
+  studentId  Int       @map("student_id")
+  student    Student?  @relation("TrainingStudent_studentId", fields: [studentId], references: [id])
+
+  @@id([trainingId, studentId])
+  @@index([trainingId])
+  @@index([studentId])
+  @@map("training_student")
+}
+
+model Forum {
+  id           Int           @id @default(autoincrement())
+  courseId     Int           @unique @map("course_id")
+  course       Course?       @relation("Forum_courseId", fields: [courseId], references: [id])
+  memberForums MemberForum[] @relation("MemberForum_forumId")
+  subjects     Subject[]     @relation("Subject_forumId")
+
+  @@map("forum")
+}
+
+model ForumMessage {
+  id                  Int                @id @default(autoincrement())
+  memberId            Int                @map("member_id")
+  member              Member?            @relation("ForumMessage_memberId", fields: [memberId], references: [id])
+  subjectId           Int                @map("subject_id")
+  subject             Subject?           @relation("ForumMessage_subjectId", fields: [subjectId], references: [id])
+  forumMessageId      Int?               @map("forum_message_id")
+  forumMessage        ForumMessage?      @relation("ForumMessage_forumMessageId", fields: [forumMessageId], references: [id])
+  createdAt           DateTime           @map("created_at")
+  content             String
+  likes               Int?
+  isAnswer            Boolean?           @map("is_answer")
+  isResponse          Boolean?           @map("is_response")
+  forumMessageReplies ForumMessage[]     @relation("ForumMessage_forumMessageId")
+  likeMessageForums   LikeMessageForum[] @relation("LikeMessageForum_forumMessageId")
+
+  @@index([memberId])
+  @@index([subjectId])
+  @@index([forumMessageId])
+  @@map("forum_message")
+}
+
+model CourseLike {
+  id        Int      @id @default(autoincrement())
+  authorId  Int      @map("author_id")
+  author    User?    @relation("CourseLike_authorId", fields: [authorId], references: [id])
+  courseId  Int      @map("course_id")
+  course    Course?  @relation("CourseLike_courseId", fields: [courseId], references: [id])
+  isLike    Boolean  @map("is_like")
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  @@index([authorId])
+  @@index([courseId])
+  @@map("course_like")
+}
+
+model User {
+  id                   Int                    @id @default(autoincrement())
+  email                String                 @unique
+  roles                String
+  password             String
+  isVerified           Boolean                @map("is_verified")
+  isBlocked            Boolean?               @map("is_blocked")
+  isAdmin              Boolean?               @map("is_admin")
+  points               Float?
+  cash                 Float
+  contacts             Contact[]              @relation("Contact_userId")
+  devices              Device[]               @relation("Device_deviceTokenId")
+  student              Student?               @relation("Student_userId")
+  instructor           Instructor?            @relation("Instructor_userId")
+  exams                Exam[]                 @relation("Exam_userId")
+  courseLikes          CourseLike[]           @relation("CourseLike_authorId")
+  member               Member?                @relation("Member_userId")
+  notifications        Notification[]         @relation("Notification_recipientId")
+  notificationSettings NotificationSetting[]  @relation("NotificationSetting_userId")
+  person               Person?                @relation("Person_userId")
+  resetPasswordRequests ResetPasswordRequest[] @relation("ResetPasswordRequest_userId")
+  withdrawals          Withdrawal[]           @relation("Withdrawal_userId")
+  userMajors           UserMajor[]            @relation("UserMajor_userId")
+
+  @@map("user")
+}
+
+model Lecture {
+  id        Int      @id @default(autoincrement())
+  studentId Int      @map("student_id")
+  student   Student? @relation("Lecture_studentId", fields: [studentId], references: [id])
+  lessonId  Int?     @map("lesson_id")
+  lesson    Lesson?  @relation("Lecture_lessonId", fields: [lessonId], references: [id])
+  chapterId Int?     @map("chapter_id")
+  chapter   Chapter? @relation("Lecture_chapterId", fields: [chapterId], references: [id])
+  courseId  Int?     @map("course_id")
+  course    Course?  @relation("Lecture_courseId", fields: [courseId], references: [id])
+  startAt   DateTime @map("start_at")
+  endAt     DateTime? @map("end_at")
+  isFinished Boolean @map("is_finished")
+  reference String?
+  note      Float?
+
+  @@index([studentId])
+  @@index([lessonId])
+  @@index([chapterId])
+  @@index([courseId])
+  @@map("lecture")
+}
+
+model Lesson {
+  id        Int       @id @default(autoincrement())
+  chapterId Int       @map("chapter_id")
+  chapter   Chapter?  @relation("Lesson_chapterId", fields: [chapterId], references: [id])
+  title     String
+  slug      String
+  content   String
+  videoLink String?   @map("video_link")
+  number    Int?
+  poster    String?
+  updatedAt DateTime? @map("updated_at")
+  lectures  Lecture[] @relation("Lecture_lessonId")
+
+  @@index([chapterId])
+  @@map("lesson")
+}
+
+model LikeMessageForum {
+  id             Int           @id @default(autoincrement())
+  forumMessageId Int           @map("forum_message_id")
+  forumMessage   ForumMessage? @relation("LikeMessageForum_forumMessageId", fields: [forumMessageId], references: [id])
+  memberId       Int           @map("member_id")
+  member         Member?       @relation("LikeMessageForum_memberId", fields: [memberId], references: [id])
+
+  @@index([forumMessageId])
+  @@index([memberId])
+  @@map("like_message_forum")
+}
+
+model Media {
+  id        Int     @id @default(autoincrement())
+  courseId  Int     @unique @map("course_id")
+  course    Course? @relation("Media_courseId", fields: [courseId], references: [id])
+  videoUrl  String? @map("video_url")
+  mp4File   String? @map("mp4_file")
+  webMFile  String? @map("web_mfile")
+  oggFile   String? @map("ogg_file")
+  imageFile String  @map("image_file")
+
+  @@map("media")
+}
+
+model Member {
+  id               Int                @id @default(autoincrement())
+  userId           Int                @unique @map("user_id")
+  user             User?              @relation("Member_userId", fields: [userId], references: [id])
+  forumMessages    ForumMessage[]     @relation("ForumMessage_memberId")
+  likeMessageForums LikeMessageForum[] @relation("LikeMessageForum_memberId")
+  memberForums     MemberForum[]      @relation("MemberForum_memberId")
+  subjects         Subject[]          @relation("Subject_memberId")
+
+  @@map("member")
+}
+
+model MemberForum {
+  memberId Int     @map("member_id")
+  member   Member? @relation("MemberForum_memberId", fields: [memberId], references: [id])
+  forumId  Int     @map("forum_id")
+  forum    Forum?  @relation("MemberForum_forumId", fields: [forumId], references: [id])
+
+  @@id([memberId, forumId])
+  @@index([memberId])
+  @@index([forumId])
+  @@map("member_forum")
+}
+
+model MessengerMessages {
+  id          BigInt    @id @default(autoincrement())
+  body        String
+  headers     String
+  queueName   String    @map("queue_name")
+  createdAt   DateTime  @map("created_at")
+  availableAt DateTime  @map("available_at")
+  deliveredAt DateTime? @map("delivered_at")
+
+  @@index([queueName])
+  @@index([availableAt])
+  @@index([deliveredAt])
+  @@map("messenger_messages")
+}
+
+model NetworkConfig {
+  id                               Int   @id @default(autoincrement())
+  pointsPerInvitation              Int   @map("points_per_invitation")
+  instructorDistributionPercentage Float @map("instructor_distribution_percentage")
+  studentDistributionPercentage    Float @map("student_distribution_percentage")
+  exchangeRate                     Float @map("exchange_rate")
+  minimumWithdrawable              Float @map("minimum_withdrawable")
+
+  @@map("network_config")
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  recipientId Int      @map("recipient_id")
+  recipient   User?    @relation("Notification_recipientId", fields: [recipientId], references: [id])
+  createdAt   DateTime @map("created_at")
+  content     String
+  isRead      Boolean  @map("is_read")
+  type        Int
+  title       String
+
+  @@index([recipientId])
+  @@map("notification")
+}
+
+model NotificationSetting {
+  id                 Int               @id @default(autoincrement())
+  userId             Int               @map("user_id")
+  user               User?             @relation("NotificationSetting_userId", fields: [userId], references: [id])
+  notificationTypeId Int?              @map("notification_type_id")
+  notificationType   NotificationType? @relation("NotificationSetting_notificationTypeId", fields: [notificationTypeId], references: [id])
+
+  @@index([userId])
+  @@index([notificationTypeId])
+  @@map("notification_setting")
+}
+
+model NotificationTemplate {
+  id       Int               @id @default(autoincrement())
+  typeId   Int               @unique @map("type_id")
+  type     NotificationType? @relation("NotificationTemplate_typeId", fields: [typeId], references: [id])
+  template String?
+
+  @@map("notification_template")
+}
+
+model NotificationType {
+  id                   Int                   @id @default(autoincrement())
+  label                String
+  type                 String
+  notificationSettings NotificationSetting[] @relation("NotificationSetting_notificationTypeId")
+  notificationTemplate NotificationTemplate? @relation("NotificationTemplate_typeId")
+
+  @@map("notification_type")
+}
+
+model Payment {
+  id                   Int            @id @default(autoincrement())
+  studentId            Int            @map("student_id")
+  student              Student?       @relation("Payment_studentId", fields: [studentId], references: [id])
+  subscriptionId       Int?           @map("subscription_id")
+  subscription         Subscription?  @relation("Payment_subscriptionId", fields: [subscriptionId], references: [id])
+  courseId             Int?           @map("course_id")
+  course               Course?        @relation("Payment_courseId", fields: [courseId], references: [id])
+  paymentMethodId      Int            @map("payment_method_id")
+  paymentMethod        PaymentMethod? @relation("Payment_paymentMethodId", fields: [paymentMethodId], references: [id])
+  paidAt               DateTime       @map("paid_at")
+  isExpired            Boolean        @map("is_expired")
+  expiredAt            DateTime?      @map("expired_at")
+  reference            String
+  amount               Float?
+  status               String?
+  transactionReference String?        @map("transaction_reference")
+
+  @@index([studentId])
+  @@index([subscriptionId])
+  @@index([courseId])
+  @@index([paymentMethodId])
+  @@map("payment")
+}
+
+model PaymentMethod {
+  id                          Int                         @id @default(autoincrement())
+  label                       String
+  code                        String
+  slug                        String
+  subscriptionPaymentMethods  SubscriptionPaymentMethod[] @relation("SubscriptionPaymentMethod_paymentMethodId")
+  coursePaymentMethods        CoursePaymentMethod[]       @relation("CoursePaymentMethod_paymentMethodId")
+  payments                    Payment[]                   @relation("Payment_paymentMethodId")
+  withdrawals                 Withdrawal[]                @relation("Withdrawal_paymentMethodId")
+
+  @@map("payment_method")
+}
+
+model Country {
+  id           Int           @id @default(autoincrement())
+  name         String
+  slug         String
+  code         String
+  institutions Institution[] @relation("Institution_countryId")
+  people       Person[]      @relation("Person_countryId")
+
+  @@map("country")
+}
+
+model Person {
+  id             Int       @id @default(autoincrement())
+  userId         Int       @unique @map("user_id")
+  user           User?     @relation("Person_userId", fields: [userId], references: [id])
+  parentId       Int?      @map("parent_id")
+  parent         Person?   @relation("Person_parentId", fields: [parentId], references: [id])
+  countryId      Int?      @map("country_id")
+  country        Country?  @relation("Person_countryId", fields: [countryId], references: [id])
+  lastName       String    @map("last_name")
+  firstName      String?   @map("first_name")
+  pseudo         String
+  bornAt         DateTime  @map("born_at")
+  placeOfBirth   String?   @map("place_of_birth")
+  gender         String
+  avatar         String?
+  address        String?
+  phoneNumber    String?   @map("phone_number")
+  invitationCode String    @unique @map("invitation_code")
+  invitationLink String    @map("invitation_link")
+  joinAt         DateTime? @map("join_at")
+  updateAt       DateTime? @map("update_at")
+  people         Person[]  @relation("Person_parentId")
+
+  @@index([parentId])
+  @@index([countryId])
+  @@map("person")
+}
+
+model Proposition {
+  id      Int      @id @default(autoincrement())
+  quizId  Int      @map("quiz_id")
+  quiz    Quiz?    @relation("Proposition_quizId", fields: [quizId], references: [id])
+  content String
+  isTrue  Boolean  @map("is_true")
+  answers Answer[] @relation("Answer_propositionId")
+
+  @@index([quizId])
+  @@map("proposition")
+}
+
+model PushNotification {
+  id       Int       @id @default(autoincrement())
+  title    String?
+  body     String
+  createAt DateTime? @map("create_at")
+
+  @@map("push_notification")
+}
+
+model Quiz {
+  id                  Int           @id @default(autoincrement())
+  chapterId           Int?          @map("chapter_id")
+  chapter             Chapter?      @relation("Quiz_chapterId", fields: [chapterId], references: [id])
+  courseId            Int?          @map("course_id")
+  course              Course?       @relation("Quiz_courseId", fields: [courseId], references: [id])
+  question            String
+  reference           String
+  proposition1        String?
+  proposition2        String?
+  proposition3        String?
+  proposition4        String?
+  correctPropositions String        @map("correct_propositions")
+  propositions        Proposition[] @relation("Proposition_quizId")
+  quizResults         QuizResult[]  @relation("QuizResult_quizId")
+
+  @@index([chapterId])
+  @@index([courseId])
+  @@map("quiz")
+}
+
+model QuizLost {
+  id        Int      @id @default(autoincrement())
+  courseId  Int?     @map("course_id")
+  course    Course?  @relation("QuizLost_courseId", fields: [courseId], references: [id])
+  chapterId Int?     @map("chapter_id")
+  chapter   Chapter? @relation("QuizLost_chapterId", fields: [chapterId], references: [id])
+  studentId Int      @map("student_id")
+  student   Student? @relation("QuizLost_studentId", fields: [studentId], references: [id])
+  attempt   Int
+  lastAt    DateTime @map("last_at")
+  nextAt    DateTime @map("next_at")
+  isOk      Boolean  @map("is_ok")
+
+  @@index([courseId])
+  @@index([chapterId])
+  @@index([studentId])
+  @@map("quiz_lost")
+}
+
+model QuizResult {
+  id        Int      @id @default(autoincrement())
+  quizId    Int      @map("quiz_id")
+  quiz      Quiz?    @relation("QuizResult_quizId", fields: [quizId], references: [id])
+  studentId Int      @map("student_id")
+  student   Student? @relation("QuizResult_studentId", fields: [studentId], references: [id])
+  result    String?
+  createdAt DateTime @map("created_at")
+  isCorrect Boolean  @map("is_correct")
+  score     Float
+  updatedAt DateTime @map("updated_at")
+
+  @@index([quizId])
+  @@index([studentId])
+  @@map("quiz_result")
+}
+
+model QuizzesType {
+  id Int @id @default(autoincrement())
+
+  @@map("quizzes_type")
+}
+
+model RefreshToken {
+  id           Int      @id @default(autoincrement())
+  refreshToken String   @unique @map("refresh_token")
+  username     String
+  valid        DateTime
+
+  @@map("refresh_token")
+}
+
+model Answer {
+  id            Int          @id @default(autoincrement())
+  studentId     Int          @map("student_id")
+  student       Student?     @relation("Answer_studentId", fields: [studentId], references: [id])
+  propositionId Int          @map("proposition_id")
+  proposition   Proposition? @relation("Answer_propositionId", fields: [propositionId], references: [id])
+  createdAt     DateTime     @map("created_at")
+
+  @@index([studentId])
+  @@index([propositionId])
+  @@map("answer")
+}
+
+model ResetPasswordRequest {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  user        User?    @relation("ResetPasswordRequest_userId", fields: [userId], references: [id])
+  selector    String
+  hashedToken String   @map("hashed_token")
+  requestedAt DateTime @map("requested_at")
+  expiresAt   DateTime @map("expires_at")
+
+  @@index([userId])
+  @@map("reset_password_request")
+}
+
+model Withdrawal {
+  id                   Int            @id @default(autoincrement())
+  userId               Int            @map("user_id")
+  user                 User?          @relation("Withdrawal_userId", fields: [userId], references: [id])
+  paymentMethodId      Int            @map("payment_method_id")
+  paymentMethod        PaymentMethod? @relation("Withdrawal_paymentMethodId", fields: [paymentMethodId], references: [id])
+  amount               Float
+  isDone               Boolean        @map("is_done")
+  phoneNumber          String         @map("phone_number")
+  createdAt            DateTime       @map("created_at")
+  status               String?
+  transactionReference String?        @map("transaction_reference")
+
+  @@index([userId])
+  @@index([paymentMethodId])
+  @@map("withdrawal")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  courseId  Int      @map("course_id")
+  course    Course?  @relation("Review_courseId", fields: [courseId], references: [id])
+  studentId Int?     @map("student_id")
+  student   Student? @relation("Review_studentId", fields: [studentId], references: [id])
+  rating    Int
+  createdAt DateTime @map("created_at")
+  message   String
+
+  @@index([courseId])
+  @@index([studentId])
+  @@map("review")
+}
+
+model SiteSetting {
+  id                Int      @id @default(autoincrement())
+  siteName          String?  @map("site_name")
+  siteCopyrights    String?  @map("site_copyrights")
+  siteEmail         String?  @map("site_email")
+  siteDescription   String?  @map("site_description")
+  contactPhone      String?  @map("contact_phone")
+  supportEmail      String?  @map("support_email")
+  contactAddress    String?  @map("contact_address")
+  mainSiteUrl       String?  @map("main_site_url")
+  isMaintenanceMode Boolean? @map("is_maintenance_mode")
+  maintenanceText   String?  @map("maintenance_text")
+
+  @@map("site_setting")
+}
+
+model SkillLevel {
+  id      Int      @id @default(autoincrement())
+  name    String
+  slug    String
+  classes Class[]  @relation("Class_skillLevelId")
+  courses Course[] @relation("Course_skillLevelId")
+
+  @@map("skill_level")
+}
+
+model SocialSetting {
+  id   Int    @id @default(autoincrement())
+  name String
+  link String
+  icon String
+
+  @@map("social_setting")
+}
+
+model SubSystem {
+  id              Int              @id @default(autoincrement())
+  name            String
+  slug            String
+  classes         Class[]          @relation("Class_subSystemId")
+  majorSubSystems MajorSubSystem[] @relation("MajorSubSystem_subSystemId")
+
+  @@map("sub_system")
+}
+
+model Specialty {
+  id      Int     @id @default(autoincrement())
+  majorId Int     @map("major_id")
+  major   Major?  @relation("Specialty_majorId", fields: [majorId], references: [id])
+  name    String
+  slug    String
+  classes Class[] @relation("Class_specialtyId")
+
+  @@index([majorId])
+  @@map("specialty")
+}
+
+model Subject {
+  id            Int            @id @default(autoincrement())
+  memberId      Int            @map("member_id")
+  member        Member?        @relation("Subject_memberId", fields: [memberId], references: [id])
+  forumId       Int            @map("forum_id")
+  forum         Forum?         @relation("Subject_forumId", fields: [forumId], references: [id])
+  content       String
+  isSolved      Boolean        @map("is_solved")
+  createdAt     DateTime       @map("created_at")
+  reference     String?
+  forumMessages ForumMessage[] @relation("ForumMessage_subjectId")
+
+  @@index([memberId])
+  @@index([forumId])
+  @@map("subject")
+}
+
+model Term {
+  id       Int     @id @default(autoincrement())
+  title    String
+  content  String
+  isOnline Boolean @map("is_online")
+
+  @@map("term")
+}
+
+model TeachingType {
+  id     Int     @id @default(autoincrement())
+  name   String
+  slug   String
+  majors Major[] @relation("Major_teachingTypeId")
+
+  @@map("teaching_type")
+}
+
+model UserMajor {
+  userId  Int   @map("user_id")
+  user    User? @relation("UserMajor_userId", fields: [userId], references: [id])
+  majorId Int   @map("major_id")
+  major   Major? @relation("UserMajor_majorId", fields: [majorId], references: [id])
+
+  @@id([userId, majorId])
+  @@index([userId])
+  @@index([majorId])
+  @@map("user_major")
+}

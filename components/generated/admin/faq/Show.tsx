@@ -1,0 +1,40 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Show(props: any) {
+  return (
+    <>
+<!DOCTYPE html>
+
+<title>FAQ</title>
+
+{% block body %}
+    <h1>FAQ</h1>
+
+    <table className="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{f_a_q.id}</td>
+            </tr>
+            <tr>
+                <th>Question</th>
+                <td>{f_a_q.question}</td>
+            </tr>
+            <tr>
+                <th>Answer</th>
+                <td>{f_a_q.answer}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{path('app_f_a_q_index')}">back to list</a>
+
+    <a href="{path('app_f_a_q_edit', {'id': f_a_q.id})}">edit</a>
+
+    {include('faq/_delete_form.html.twig')}
+{% endblock %}
+
+    </>
+  );
+}

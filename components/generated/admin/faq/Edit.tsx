@@ -1,0 +1,23 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Edit(props: any) {
+  return (
+    <>
+<!DOCTYPE html>
+
+<title>Edit FAQ</title>
+
+{% block body %}
+    <h1>Edit FAQ</h1>
+
+    {include('faq/_form.html.twig', {'button_label': 'Update'})}
+
+    <a href="{path('app_f_a_q_index')}">back to list</a>
+
+    {include('faq/_delete_form.html.twig')}
+{% endblock %}
+
+    </>
+  );
+}

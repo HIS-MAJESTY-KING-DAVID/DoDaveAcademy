@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": [
+    "node_modules",
+    "components/generated",
+    "public/assets",
+    "scripts",
+    "entities/ChatMessage.ts",
+    "entities/Contact.ts",
+    "entities/Device.ts",
+    "entities/ForumMessage.ts",
+    "entities/Lecture.ts",
+    "entities/LikeMessageForum.ts",
+    "entities/MessageChat.ts",
+    "entities/NotificationSetting.ts",
+    "entities/NotificationTemplate.ts",
+    "entities/NotificationType.ts",
+    "entities/ResetPasswordRequest.ts",
+    "entities/WebSocketConnection.ts",
+    "prisma.config.ts"
+  ]
+}

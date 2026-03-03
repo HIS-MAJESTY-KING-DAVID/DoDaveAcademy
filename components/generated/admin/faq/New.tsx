@@ -1,0 +1,21 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function New(props: any) {
+  return (
+    <>
+<!DOCTYPE html>
+
+<title>New FAQ</title>
+
+{% block body %}
+    <h1>Create new FAQ</h1>
+
+    {include('faq/_form.html.twig')}
+
+    <a href="{path('app_f_a_q_index')}">back to list</a>
+{% endblock %}
+
+    </>
+  );
+}

@@ -1,0 +1,44 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function Show(props: any) {
+  return (
+    <>
+{% extends 'base.html.twig' %}
+
+{% block title %}ForumMessage{% endblock %}
+
+{% block body %}
+    <h1>ForumMessage</h1>
+
+    <table className="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{forum_message.id}</td>
+            </tr>
+            <tr>
+                <th>CratedAt</th>
+                <td>{forum_message.cratedAt ? forum_message.cratedAt|date('Y-m-d H:i:s') : ''}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{forum_message.content}</td>
+            </tr>
+            <tr>
+                <th>Likes</th>
+                <td>{forum_message.likes}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{path('app_forum_message_index')}">back to list</a>
+
+    <a href="{path('app_forum_message_edit', {'id': forum_message.id})}">edit</a>
+
+    {include('forum_message/_delete_form.html.twig')}
+{% endblock %}
+
+    </>
+  );
+}
