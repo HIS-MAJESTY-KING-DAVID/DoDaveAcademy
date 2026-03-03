@@ -2,7 +2,7 @@
 
 This document serves as the central roadmap for migrating the Kulmapeck platform from Symfony/PHP to Next.js/React. It synthesizes all technical analysis, feature audits, and entity flows into a sequential execution strategy.
 
-## Phase 1: Foundation & Authentication (Current Status: ~80% Complete)
+## Phase 1: Foundation & Authentication (Current Status: ~90% Complete)
 **Goal**: Secure user access and stable environment.
 
 - [x] **Project Setup**: Next.js App Router, TypeScript, Prisma, Bootstrap 5.
@@ -14,27 +14,28 @@ This document serves as the central roadmap for migrating the Kulmapeck platform
     - [ ] Add "Forgot Password" flow (API + UI).
     - [ ] Create `UserContext` or Hook for global auth state.
 
-## Phase 2: Public Course Catalog (The Storefront)
+## Phase 2: Public Course Catalog (The Storefront) (Current Status: ~95% Complete)
 **Goal**: Users can browse and view courses (read-only).
 
-- [ ] **Course Entities**: Ensure `Course`, `Category`, `Instructor` types are robust.
-- [ ] **API Routes**:
-    - [ ] `GET /api/courses`: List with pagination and filters.
-    - [ ] `GET /api/courses/[slug]`: Detailed course info.
-    - [ ] `GET /api/categories`: Taxonomy tree.
-- [ ] **UI Components**:
-    - [ ] Refine `CourseCard` (already started).
-    - [ ] Build `CourseFilter` sidebar (Price, Level, Category).
-    - [ ] Build `CourseDetailPage`:
-        - [ ] Header (Video trailer placeholder, Title).
-        - [ ] Syllabus Accordion (`Chapter` -> `Lesson` list).
-        - [ ] Instructor Bio section.
-        - [ ] Reviews list.
+- [x] **Course Entities**: Ensure `Course`, `Category`, `Instructor` types are robust.
+- [x] **API Routes**:
+    - [x] `GET /api/courses`: List with pagination and filters.
+    - [x] `GET /api/courses/[slug]`: Detailed course info.
+    - [x] `GET /api/categories`: Taxonomy tree.
+- [x] **UI Components**:
+    - [x] Refine `CourseCard` (already started).
+    - [x] Build `CourseFilter` sidebar (Price, Level, Category).
+    - [x] Build `CourseDetailPage`:
+        - [x] Header (Video trailer placeholder, Title).
+        - [x] Syllabus Accordion (`Chapter` -> `Lesson` list).
+        - [x] Instructor Bio section.
+        - [x] Reviews list.
 
 ## Phase 3: Student Learning Environment (The Classroom)
 **Goal**: Enrolled students can watch videos and track progress.
 
 - [ ] **Enrollment Logic**:
+    - [ ] API: `POST /api/enroll` (Handle free/paid enrollment).
     - [ ] API: `GET /api/student/enrollments`.
     - [ ] UI: "My Learning" dashboard page.
 - [ ] **Course Player (Core Feature)**:
