@@ -31,22 +31,22 @@ This document serves as the central roadmap for migrating the Kulmapeck platform
         - [x] Instructor Bio section.
         - [x] Reviews list.
 
-## Phase 3: Student Learning Environment (The Classroom)
+## Phase 3: Student Learning Environment (The Classroom) (Current Status: 100% Complete)
 **Goal**: Enrolled students can watch videos and track progress.
 
-- [ ] **Enrollment Logic**:
-    - [ ] API: `POST /api/enroll` (Handle free/paid enrollment).
-    - [ ] API: `GET /api/student/enrollments`.
-    - [ ] UI: "My Learning" dashboard page.
-- [ ] **Course Player (Core Feature)**:
-    - [ ] Layout: Sidebar (Curriculum) + Main Content (Video/Text).
-    - [ ] Component: `VideoPlayer` (support existing video sources).
-    - [ ] Logic: Auto-mark lesson as complete on finish.
-    - [ ] API: `POST /api/student/progress` (Update `Lecture` entity).
-- [ ] **Quizzes**:
-    - [ ] Component: `QuizRunner` (Question -> Options -> Submit).
-    - [ ] Logic: Calculate score locally, then submit.
-    - [ ] API: `POST /api/student/quiz-attempt`.
+- [x] **Enrollment Logic**:
+    - [x] API: `POST /api/enroll` (Handle free/paid enrollment).
+    - [x] API: `GET /api/student/enrollments`.
+    - [x] UI: "My Learning" dashboard page.
+- [x] **Course Player (Core Feature)**:
+    - [x] Layout: Sidebar (Curriculum) + Main Content (Video/Text).
+    - [x] Component: `VideoPlayer` (support existing video sources).
+    - [x] Logic: Auto-mark lesson as complete on finish.
+    - [x] API: `POST /api/student/progress` (Update `Lecture` entity).
+- [x] **Quizzes**:
+    - [x] Component: `QuizRunner` (Question -> Options -> Submit).
+    - [x] Logic: Calculate score locally, then submit.
+    - [x] API: `POST /api/student/quiz-attempt`.
 
 ## Phase 4: Financial Engine (Payments & Subscriptions)
 **Goal**: Securely process payments and manage instructor payouts.
