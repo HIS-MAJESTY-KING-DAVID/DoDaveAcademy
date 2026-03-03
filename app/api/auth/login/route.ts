@@ -45,10 +45,21 @@ export async function POST(req: Request) {
       { expiresIn: '1h' }
     );
 
-    return NextResponse.json(
-      { message: 'Login successful', token },
+    const response = NextResponse.json(
+      { message: 'Login successful', token, user: { id: user.id, email: user.email, roles: user.roles } },
       { status: 200 }
     );
+
+    // Set HTTP-only cookie
+    response.cookies.set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 3600, // 1 hour
+      path: '/',
+    });
+
+    return response;
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error';
     return NextResponse.json(

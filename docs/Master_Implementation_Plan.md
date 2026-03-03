@@ -2,17 +2,17 @@
 
 This document serves as the central roadmap for migrating the Kulmapeck platform from Symfony/PHP to Next.js/React. It synthesizes all technical analysis, feature audits, and entity flows into a sequential execution strategy.
 
-## Phase 1: Foundation & Authentication (Current Status: ~90% Complete)
+## Phase 1: Foundation & Authentication (Current Status: 100% Complete)
 **Goal**: Secure user access and stable environment.
 
 - [x] **Project Setup**: Next.js App Router, TypeScript, Prisma, Bootstrap 5.
 - [x] **Database**: Schema migration (Prisma), English renaming.
 - [x] **Auth API**: Login/Register endpoints (`/api/auth/*`) with JWT.
 - [x] **Auth UI**: Login and Register forms with validation.
-- [ ] **Auth Refinement**:
-    - [ ] Implement `NextAuth.js` or custom middleware for route protection.
-    - [ ] Add "Forgot Password" flow (API + UI).
-    - [ ] Create `UserContext` or Hook for global auth state.
+- [x] **Auth Refinement**:
+    - [x] Implement custom middleware for route protection.
+    - [x] Add "Forgot Password" flow (API + UI).
+    - [x] Create `UserContext` or Hook for global auth state.
 
 ## Phase 2: Public Course Catalog (The Storefront) (Current Status: ~95% Complete)
 **Goal**: Users can browse and view courses (read-only).

@@ -3,6 +3,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Script from 'next/script';
 import I18nProvider from '../components/I18nProvider';
+import { AuthProvider } from '../context/AuthContext';
 
 export const metadata = {
   title: 'DoDave Academy - Welcome',
@@ -44,11 +45,13 @@ export default function RootLayout({
         {/* eslint-enable @next/next/no-css-tags */}
       </head>
       <body>
-        <I18nProvider>
-          <Header />
-          {children}
-          <Footer />
-        </I18nProvider>
+        <AuthProvider>
+          <I18nProvider>
+            <Header />
+            {children}
+            <Footer />
+          </I18nProvider>
+        </AuthProvider>
 
         {/* JavaScript Libraries */}
         <Script src="/assets/vendor/jquery/jquery-3.6.4.min.js" strategy="beforeInteractive" />
