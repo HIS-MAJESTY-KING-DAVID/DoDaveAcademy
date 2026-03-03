@@ -96,6 +96,11 @@ This document serves as the central roadmap for migrating the Kulmapeck platform
 
 ## Critical Dependencies & Risks
 
+### Risks & Mitigation
+-   **Data Loss**: Backup DB before migration.
+-   **SEO Drop**: Ensure 301 redirects for old URLs (e.g., `/cours/{id}` -> `/courses/{slug}`).
+-   **Auth Issues**: Users might need to reset passwords if hashes are incompatible (unlikely if using standard bcrypt).
+
 ### Missing PHP Dependencies
 The following logic MUST be ported from PHP to maintain parity:
 1.  **MobileApiService.php**: Raw cURL requests for payment gateway.
