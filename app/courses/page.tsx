@@ -1,80 +1,94 @@
 import Link from 'next/link';
-import CourseCard, { Course } from '@/components/courses/CourseCard';
-
-const MOCK_COURSES: Course[] = [
-  {
-    id: '1',
-    slug: 'web-development-bootcamp',
-    title: 'Complete Web Development Bootcamp',
-    description: 'Learn Web Development from A to Z in 100 days.',
-    image: '/assets/images/courses/4by3/08.jpg',
-    level: 'Beginner',
-    duration: '56h',
-    lessons: 450,
-    rating: 4.8,
-  },
-  {
-    id: '2',
-    slug: 'react-mastery',
-    title: 'React.js Mastery',
-    description: 'Master React.js with Redux, Hooks, and Context API.',
-    image: '/assets/images/courses/4by3/02.jpg',
-    level: 'Intermediate',
-    duration: '32h',
-    lessons: 120,
-    rating: 4.9,
-  },
-  {
-    id: '3',
-    slug: 'python-for-data-science',
-    title: 'Python for Data Science',
-    description: 'Data Science with Python, Pandas, Numpy, and Matplotlib.',
-    image: '/assets/images/courses/4by3/03.jpg',
-    level: 'Advanced',
-    duration: '40h',
-    lessons: 200,
-    rating: 4.7,
-  },
-  {
-    id: '4',
-    slug: 'digital-marketing',
-    title: 'Digital Marketing Strategy',
-    description: 'Learn Digital Marketing Strategy, Social Media Marketing, SEO, YouTube, Email, Facebook Marketing, Analytics & More!',
-    image: '/assets/images/courses/4by3/04.jpg',
-    level: 'All Levels',
-    duration: '22h',
-    lessons: 85,
-    rating: 4.6,
-  },
-   {
-    id: '5',
-    slug: 'graphic-design-masterclass',
-    title: 'Graphic Design Masterclass',
-    description: 'The Ultimate Graphic Design Course Which Covers Photoshop, Illustrator, InDesign, Design Theory, Branding and Logo Design.',
-    image: '/assets/images/courses/4by3/05.jpg',
-    level: 'Beginner',
-    duration: '28h',
-    lessons: 95,
-    rating: 4.8,
-  },
-  {
-    id: '6',
-    slug: 'finance-investment',
-    title: 'Finance & Investment Fundamentals',
-    description: 'Understand Finance & Accounting, Investment, Financial Management, Valuation & Financial Analysis.',
-    image: '/assets/images/courses/4by3/06.jpg',
-    level: 'Beginner',
-    duration: '15h',
-    lessons: 45,
-    rating: 4.5,
-  }
-];
+import CourseCard, { Course as CourseType } from '@/components/courses/CourseCard';
+import CourseFilter from '@/components/courses/CourseFilter';
+import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 
 export const metadata = {
   title: 'All Courses',
 };
 
-export default function CoursesPage() {
+// Helper to map Prisma course to Component course
+const mapCourse = (course: any): CourseType => {
+  return {
+    id: course.id.toString(),
+    slug: course.slug,
+    title: course.title,
+    description: course.description,
+    image: course.media?.imageFile ? `/assets/images/courses/${course.media.imageFile}` : '/assets/images/courses/4by3/08.jpg', // Fallback image
+    level: course.skillLevel?.name || 'All Levels',
+    duration: course.duration,
+    lessons: course.numberOfLessons,
+    rating: course.review || 0,
+  };
+};
+
+export default async function CoursesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const resolvedSearchParams = await searchParams;
+  const page = typeof resolvedSearchParams.page === 'string' ? parseInt(resolvedSearchParams.page) : 1;
+  const limit = 12;
+  const search = typeof resolvedSearchParams.search === 'string' ? resolvedSearchParams.search : '';
+  const categoryId = typeof resolvedSearchParams.categoryId === 'string' ? parseInt(resolvedSearchParams.categoryId) : undefined;
+  const levelId = typeof resolvedSearchParams.levelId === 'string' ? parseInt(resolvedSearchParams.levelId) : undefined;
+  const isFree = typeof resolvedSearchParams.isFree === 'string' ? resolvedSearchParams.isFree === 'true' : undefined;
+
+  const where: Prisma.CourseWhereInput = {
+    isPublished: true,
+    isValidated: true,
+    isRejected: false,
+  };
+
+  if (search) {
+    where.OR = [
+      { title: { contains: search } },
+      { description: { contains: search } },
+    ];
+  }
+
+  if (categoryId) {
+    where.categoryId = categoryId;
+  }
+
+  if (levelId) {
+    where.skillLevelId = levelId;
+  }
+
+  if (isFree !== undefined) {
+    where.isFree = isFree;
+  }
+
+  // Fetch courses, total count, categories, and levels in parallel
+  const [courses, total, categories, levels] = await Promise.all([
+    prisma.course.findMany({
+      where,
+      skip: (page - 1) * limit,
+      take: limit,
+      include: {
+        media: true,
+        skillLevel: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    }),
+    prisma.course.count({ where }),
+    prisma.category.findMany({
+      where: { categoryId: null },
+      include: { categories: true },
+      orderBy: { name: 'asc' },
+    }),
+    prisma.skillLevel.findMany({
+      orderBy: { id: 'asc' },
+    }),
+  ]);
+
+  const mappedCourses = courses.map(mapCourse);
+  const totalPages = Math.ceil(total / limit);
+
   return (
     <main>
       {/* Page Banner START */}
@@ -104,103 +118,99 @@ export default function CoursesPage() {
       </section>
       {/* Page Banner END */}
 
+      {/* Page content START */}
       <section className="pt-0">
         <div className="container">
-          {/* Filter bar START (Placeholder) */}
+          {/* Filter bar START */}
+          <div className="row mb-4 align-items-center">
+            {/* Search bar */}
+            <div className="col-xl-9">
+              <form className="bg-body border rounded p-2">
+                <div className="input-group input-group-sm">
+                  <input 
+                    className="form-control border-0 me-1" 
+                    type="search" 
+                    placeholder="Search course" 
+                    name="search"
+                    defaultValue={search}
+                  />
+                  <button type="submit" className="btn btn-primary mb-0 rounded">
+                    <i className="fas fa-search me-2"></i>Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
           {/* Filter bar END */}
 
           <div className="row mt-3">
+            {/* Sidebar START */}
+            <div className="col-lg-4 col-xl-3">
+              <div className="responsive-sidebar">
+                 <CourseFilter categories={categories} levels={levels} />
+              </div>
+            </div>
+            {/* Sidebar END */}
+
             {/* Main content START */}
-            <div className="col-12">
+            <div className="col-lg-8 col-xl-9">
               {/* Course Grid START */}
               <div className="row g-4">
-                {MOCK_COURSES.length > 0 ? (
-                  MOCK_COURSES.map((course) => (
-                    <div key={course.id} className="col-sm-6 col-lg-4 col-xl-3">
+                {mappedCourses.length > 0 ? (
+                  mappedCourses.map((course) => (
+                    <div className="col-sm-6 col-xl-4" key={course.id}>
                       <CourseCard course={course} />
                     </div>
                   ))
                 ) : (
-                  <div className="text-center p-4 mb-5 mt-5">
-                    <h2>No Result Found</h2>
+                  <div className="col-12 text-center py-5">
+                    <h3 className="text-muted">No courses found matching your criteria.</h3>
+                    <Link href="/courses" className="btn btn-primary-soft mt-3">
+                      Clear Filters
+                    </Link>
                   </div>
                 )}
               </div>
               {/* Course Grid END */}
 
-              {/* Pagination START (Placeholder) */}
-              <div className="col-12">
-                <div className="pagination-container mt-4 d-flex justify-content-center">
-                   <nav>
-                      <ul className="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                         <li className="page-item mb-0 disabled"><a className="page-link" href="#" tabIndex={-1}><i className="fas fa-angle-double-left"></i></a></li>
-                         <li className="page-item mb-0 active"><a className="page-link" href="#">1</a></li>
-                         <li className="page-item mb-0"><a className="page-link" href="#">2</a></li>
-                         <li className="page-item mb-0"><a className="page-link" href="#">3</a></li>
-                         <li className="page-item mb-0"><a className="page-link" href="#"><i className="fas fa-angle-double-right"></i></a></li>
-                      </ul>
-                   </nav>
+              {/* Pagination START */}
+              {totalPages > 1 && (
+                <div className="col-12">
+                  <nav className="mt-4 d-flex justify-content-center" aria-label="navigation">
+                    <ul className="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                      {page > 1 && (
+                        <li className="page-item mb-0">
+                          <Link className="page-link" href={`/courses?page=${page - 1}${search ? `&search=${search}` : ''}`} tabIndex={-1}>
+                            <i className="fas fa-angle-left"></i>
+                          </Link>
+                        </li>
+                      )}
+                      {[...Array(totalPages)].map((_, i) => (
+                        <li key={i} className={`page-item mb-0 ${page === i + 1 ? 'active' : ''}`}>
+                          <Link className="page-link" href={`/courses?page=${i + 1}${search ? `&search=${search}` : ''}`}>
+                            {i + 1}
+                          </Link>
+                        </li>
+                      ))}
+                      {page < totalPages && (
+                        <li className="page-item mb-0">
+                          <Link className="page-link" href={`/courses?page=${page + 1}${search ? `&search=${search}` : ''}`}>
+                            <i className="fas fa-angle-right"></i>
+                          </Link>
+                        </li>
+                      )}
+                    </ul>
+                  </nav>
                 </div>
-              </div>
+              )}
               {/* Pagination END */}
             </div>
             {/* Main content END */}
           </div>
+          {/* Row END */}
         </div>
       </section>
-
-      {/* Newsletter START */}
-      <section className="pt-0">
-        <div className="container position-relative overflow-hidden">
-          {/* SVG decoration */}
-          <figure className="position-absolute top-50 start-50 translate-middle ms-3">
-            <svg>
-              <path className="fill-white opacity-2" d="m496 22.999c0 10.493-8.506 18.999-18.999 18.999s-19-8.506-19-18.999 8.507-18.999 19-18.999 18.999 8.506 18.999 18.999z" />
-              <path className="fill-white opacity-2" d="m775 102.5c0 5.799-4.701 10.5-10.5 10.5-5.798 0-10.499-4.701-10.499-10.5 0-5.798 4.701-10.499 10.499-10.499 5.799 0 10.5 4.701 10.5 10.499z" />
-              <path className="fill-white opacity-2" d="m192 102c0 6.626-5.373 11.999-12 11.999s-11.999-5.373-11.999-11.999c0-6.628 5.372-12 11.999-12s12 5.372 12 12z" />
-              <path className="fill-white opacity-2" d="m20.499 10.25c0 5.66-4.589 10.249-10.25 10.249-5.66 0-10.249-4.589-10.249-10.249-0-5.661 4.589-10.25 10.249-10.25 5.661-0 10.25 4.589 10.25 10.25z" />
-            </svg>
-          </figure>
-          {/* Svg decoration */}
-          <figure className="position-absolute bottom-0 end-0 mb-5 d-none d-sm-block">
-            <svg className="rotate-130" width="258.7px" height="86.9px" viewBox="0 0 258.7 86.9">
-              <path stroke="white" fill="none" strokeWidth="2" d="M0,7.2c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5 c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5s16-25.5,31.9-25.5" />
-              <path stroke="white" fill="none" strokeWidth="2" d="M0,57c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5 c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5s16-25.5,31.9-25.5" />
-            </svg>
-          </figure>
-
-          <div className="bg-grad-blue p-3 p-sm-5 rounded-3">
-            <div className="row justify-content-center position-relative">
-              {/* SVG decoration */}
-              <figure className="position-absolute top-50 start-0 translate-middle-y">
-                <svg width="141px" height="141px">
-                  <path d="M140.520,70.258 C140.520,109.064 109.062,140.519 70.258,140.519 C31.454,140.519 -0.004,109.064 -0.004,70.258 C-0.004,31.455 31.454,-0.003 70.258,-0.003 C109.062,-0.003 140.520,31.455 140.520,70.258 Z" />
-                </svg>
-              </figure>
-              {/* Newsletter */}
-              <div className="col-12 position-relative my-2 my-sm-3">
-                <div className="col-lg-8 mx-auto text-center">
-                  {/* Title */}
-                  <h2 className="text-white">Subscribe to our Newsletter</h2>
-                  <p className="text-white mb-3 bg-opacity-10">Get the latest news and updates on Kulmapeck courses</p>
-                  {/* Form */}
-                  <div className="bg-body rounded-2 p-2 shadow-lg">
-                     <form className="row g-1">
-                        <div className="col-9">
-                           <input className="form-control border-0 me-1" type="email" placeholder="Enter your email" />
-                        </div>
-                        <div className="col-3">
-                           <button type="button" className="btn btn-primary mb-0 w-100">Subscribe</button>
-                        </div>
-                     </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Newsletter END */}
+      {/* Page content END */}
     </main>
   );
 }
