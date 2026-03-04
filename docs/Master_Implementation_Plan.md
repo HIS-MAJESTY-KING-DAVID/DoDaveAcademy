@@ -70,9 +70,11 @@ This document serves as the central roadmap for migrating the Kulmapeck platform
 - [x] **Forum**:
     - [x] Course-specific discussion boards.
     - [x] API: CRUD for Subjects and Messages.
-- [ ] **Chat**:
-    - [ ] Migrate from Ratchet (PHP WebSocket) to Supabase Realtime or Pusher.
-    - [ ] UI: Chat widget.
+- [x] **Chat**:
+    - [x] Schema: Conversation and ChatMessage models (Prisma).
+    - [x] API: Conversations and Messages endpoints (REST).
+    - [x] UI: Chat widget with polling simulation.
+    - [ ] Real-time: Configure Supabase Realtime or Pusher (requires keys).
 - [ ] **Notifications**:
     - [ ] System alerts (Course validation, New message).
     - [ ] Push notifications (Firebase/FCM).
