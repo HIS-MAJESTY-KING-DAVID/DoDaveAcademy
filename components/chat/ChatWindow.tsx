@@ -13,6 +13,32 @@ interface ChatWindowProps {
     accessToken: string;
 }
 
+interface User {
+    id: number;
+    person: {
+        pseudo: string;
+        firstName: string;
+        lastName: string;
+    };
+}
+
+interface Message {
+    id: number;
+    content: string;
+    createdAt: string;
+    sender: User;
+    senderId: number;
+}
+
+interface Conversation {
+    id: number;
+    updatedAt: string;
+    participants: {
+        user: User;
+    }[];
+    messages: Message[];
+}
+
 export default function ChatWindow({ accessToken }: ChatWindowProps) {
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
@@ -43,7 +69,6 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
                     table: 'conversation'
                 },
                 (payload) => {
-                    console.log('Conversation update:', payload);
                     fetchConversations();
                 }
             )
@@ -70,7 +95,6 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
                         filter: `conversation_id=eq.${selectedConversation.id}`
                     },
                     (payload) => {
-                        console.log('New message:', payload);
                         fetchMessages(selectedConversation.id);
                     }
                 )
