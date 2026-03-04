@@ -48,8 +48,9 @@ This document serves as the central roadmap for migrating the Kulmapeck platform
     - [x] Logic: Calculate score locally, then submit.
     - [x] API: `POST /api/student/quiz-attempt`.
 
-## Phase 4: Financial Engine (Payments & Subscriptions)
+## Phase 4: Financial Engine (Payments & Subscriptions) (Skipped for now)
 **Goal**: Securely process payments and manage instructor payouts.
+**Status**: Skipped by user request to focus on Social Features.
 
 - [ ] **Dependencies**:
     - [ ] Port `MobileApiService` (PHP) to `lib/services/payment.ts` (Node.js).
@@ -63,12 +64,12 @@ This document serves as the central roadmap for migrating the Kulmapeck platform
     - [ ] Admin UI: List pending withdrawals.
     - [ ] API: `POST /api/admin/payout` (Execute PayOut).
 
-## Phase 5: Social & Real-time Features
+## Phase 5: Social & Real-time Features (Current Focus)
 **Goal**: Enable communication between students and instructors.
 
-- [ ] **Forum**:
-    - [ ] Course-specific discussion boards.
-    - [ ] API: CRUD for Subjects and Messages.
+- [x] **Forum**:
+    - [x] Course-specific discussion boards.
+    - [x] API: CRUD for Subjects and Messages.
 - [ ] **Chat**:
     - [ ] Migrate from Ratchet (PHP WebSocket) to Supabase Realtime or Pusher.
     - [ ] UI: Chat widget.

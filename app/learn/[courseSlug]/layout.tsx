@@ -87,6 +87,12 @@ export default async function LearnLayout({
                                     </ul>
                                 </li>
                             ))}
+                            <li className="mb-3 border-top pt-3">
+                                <Link href={`/learn/${courseSlug}/forum`} className="d-block py-2 px-3 link-dark text-decoration-none hover-bg-gray fw-bold">
+                                    <i className="fas fa-comments me-2 text-primary"></i>
+                                    Discussion Forum
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </nav>
