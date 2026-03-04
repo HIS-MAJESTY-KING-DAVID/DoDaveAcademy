@@ -2,6 +2,12 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface User {
     id: number;
@@ -40,17 +46,56 @@ export default function ChatWindow() {
     const currentUser = { id: 0 }; // Placeholder, in real app useAuth()
 
     useEffect(() => {
+        // Fetch initial conversations
         fetchConversations();
+
+        // Subscribe to conversation updates (e.g. new message in existing conversation updates 'updatedAt')
+        const channel = supabase
+            .channel('public:conversation')
+            .on(
+                'postgres_changes',
+                {
+                    event: '*',
+                    schema: 'public',
+                    table: 'conversation'
+                },
+                (payload) => {
+                    console.log('Conversation update:', payload);
+                    fetchConversations();
+                }
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     useEffect(() => {
         if (selectedConversation) {
             fetchMessages(selectedConversation.id);
-            // Polling for new messages (simulate real-time)
-            const interval = setInterval(() => {
-                fetchMessages(selectedConversation.id);
-            }, 3000);
-            return () => clearInterval(interval);
+            
+            // Subscribe to new messages in this conversation
+            const channel = supabase
+                .channel(`chat:${selectedConversation.id}`)
+                .on(
+                    'postgres_changes',
+                    {
+                        event: 'INSERT',
+                        schema: 'public',
+                        table: 'chat_message',
+                        filter: `conversation_id=eq.${selectedConversation.id}`
+                    },
+                    (payload) => {
+                        console.log('New message:', payload);
+                        fetchMessages(selectedConversation.id);
+                    }
+                )
+                .subscribe();
+
+            return () => {
+                supabase.removeChannel(channel);
+            };
         }
     }, [selectedConversation]);
 
