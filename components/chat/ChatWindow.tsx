@@ -9,33 +9,11 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-interface User {
-    id: number;
-    person: {
-        pseudo: string;
-        firstName: string;
-        lastName: string;
-    };
+interface ChatWindowProps {
+    accessToken: string;
 }
 
-interface Message {
-    id: number;
-    content: string;
-    createdAt: string;
-    sender: User;
-    senderId: number;
-}
-
-interface Conversation {
-    id: number;
-    updatedAt: string;
-    participants: {
-        user: User;
-    }[];
-    messages: Message[];
-}
-
-export default function ChatWindow() {
+export default function ChatWindow({ accessToken }: ChatWindowProps) {
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -43,7 +21,12 @@ export default function ChatWindow() {
     const [isLoading, setIsLoading] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    const currentUser = { id: 0 }; // Placeholder, in real app useAuth()
+    const currentUser = { id: 0 }; // Placeholder
+
+    useEffect(() => {
+        // Set the JWT for RLS
+        supabase.realtime.setAuth(accessToken);
+    }, [accessToken]);
 
     useEffect(() => {
         // Fetch initial conversations
