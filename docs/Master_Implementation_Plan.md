@@ -2,6 +2,25 @@
 
 This document serves as the central roadmap for migrating the Kulmapeck platform from Symfony/PHP to Next.js/React. It synthesizes all technical analysis, feature audits, and entity flows into a sequential execution strategy.
 
+## 📚 Global Guidelines & Standards (Added from WC Checklist)
+
+### 🛡️ Security Best Practices
+-   **Input Validation**: Validate all API inputs using libraries like `zod`. Never trust client-side data.
+-   **Secure Headers**: Implement `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`.
+-   **Vulnerability Management**: Run `npm audit` regularly.
+
+### 🏗️ Maintainability Guidelines
+-   **Code Comments**: Explain *why*, not *what*, for complex logic.
+-   **READMEs**: Maintain a `README.md` in complex directories (`/lib`, `/hooks`).
+-   **Commit Messages**: Use conventional commits (e.g., `feat: add offline support`, `fix: resolve hydration error`).
+
+### ♻️ Reusability Principles
+-   **Atomic Design**: Build small, stateless atoms (Buttons, Icons) before complex molecules.
+-   **Custom Hooks**: Extract logic (fetching, state) into hooks to separate UI from logic.
+-   **Service Layer**: Abstract API calls into services (e.g., `lib/services/supabase.ts`) rather than calling `fetch` directly in components.
+
+---
+
 ## Phase 1: Foundation & Authentication (Current Status: 100% Complete)
 **Goal**: Secure user access and stable environment.
 
@@ -74,7 +93,7 @@ This document serves as the central roadmap for migrating the Kulmapeck platform
     - [x] Schema: Conversation and ChatMessage models (Prisma).
     - [x] API: Conversations and Messages endpoints (REST).
     - [x] UI: Chat widget with polling simulation.
-    - [x] Real-time: Configure Supabase Realtime (keys added).
+    - [x] Real-time: Configure Supabase Realtime (enabled for `chat_message`, `conversation`, `participant`, `notification`, `forum_message`).
     - [x] RLS: Implemented policies for Conversation, Participant, and ChatMessage.
 - [ ] **Notifications**:
     - [ ] System alerts (Course validation, New message).
@@ -88,13 +107,35 @@ This document serves as the central roadmap for migrating the Kulmapeck platform
 - [ ] **Financials**: View transaction logs and process withdrawals.
 - [ ] **Settings**: Global site configuration.
 
-## Phase 7: Data Migration & Cutover
+## Phase 7: Security & Performance Hardening (New)
+**Goal**: Ensure the platform is secure, fast, and scalable before launch.
+
+- [ ] **Security Audit**:
+    - [ ] **RLS Audit**: Review all tables against Supabase dashboard to ensure no data leakage.
+    - [ ] **Input Validation**: Install `zod` and validate all API routes.
+    - [ ] **Rate Limiting**: Implement rate limiting for critical endpoints (auth, payment).
+- [ ] **Performance Optimization**:
+    - [ ] **Core Web Vitals**: Optimize LCP (Hero images), CLS (Layout shifts), and INP.
+    - [ ] **Media Optimization**: Ensure all images use `next/image` and videos are compressed.
+    - [ ] **Caching**: Implement `stale-while-revalidate` caching for non-critical data.
+- [ ] **Cross-Platform QA**:
+    - [ ] Test on Mobile (iOS Safari, Android Chrome).
+    - [ ] Test on Desktop (Firefox, Edge, Chrome).
+
+## Phase 8: Data Migration & Cutover
 **Goal**: Move production data and switch traffic.
 
+- [ ] **Pre-Flight Checks**:
+    - [ ] **Environment Variables**: Verify all Prod secrets are set in Vercel.
+    - [ ] **SEO**: Check `robots.txt`, `sitemap.xml`, and Meta tags.
+    - [ ] **Build Check**: Run `npm run build` locally to catch static generation errors.
 - [ ] **Data**: Bulk import from old PostgreSQL to new PostgreSQL.
-- [ ] **Assets**: Move media files (Vercel Blob / S3).
+- [x] **Assets**: Supabase Storage Configured (`avatars`, `media`, `course-content`, `secure-docs`).
 - [ ] **Testing**: Full E2E testing (Playwright/Cypress).
 - [ ] **DNS**: Switch domain to Vercel app.
+- [ ] **Post-Launch**:
+    - [ ] Set up Analytics (Vercel Analytics / Google Analytics).
+    - [ ] Monitor for 48 hours for 500 errors.
 
 ---
 
