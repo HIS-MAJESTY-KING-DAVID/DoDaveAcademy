@@ -15,7 +15,7 @@ export default async function ForumPage({
 
   const { courseSlug } = await params;
 
-  const course = await prisma.course.findUnique({
+  const course = await prisma.course.findFirst({
     where: { slug: courseSlug },
     include: {
       forum: {
@@ -72,6 +72,7 @@ export default async function ForumPage({
             <Link 
                 href={`/learn/${courseSlug}/forum/${subject.id}`} 
                 key={subject.id}
+                prefetch={false}
                 className="list-group-item list-group-item-action p-4 border-0 border-bottom"
             >
               <div className="d-flex w-100 justify-content-between mb-2">

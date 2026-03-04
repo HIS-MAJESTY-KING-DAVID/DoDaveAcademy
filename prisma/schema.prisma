@@ -562,6 +562,8 @@ model User {
   resetPasswordRequests ResetPasswordRequest[] @relation("ResetPasswordRequest_userId")
   withdrawals          Withdrawal[]           @relation("Withdrawal_userId")
   userMajors           UserMajor[]            @relation("UserMajor_userId")
+  conversations        Participant[]
+  chatMessages         ChatMessage[]
 
   @@map("user")
 }
@@ -1057,4 +1059,42 @@ model UserMajor {
   @@index([userId])
   @@index([majorId])
   @@map("user_major")
+}
+
+model Conversation {
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+  messages  ChatMessage[]
+  participants Participant[]
+
+  @@map("conversation")
+}
+
+model Participant {
+  id             Int          @id @default(autoincrement())
+  conversationId Int          @map("conversation_id")
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  userId         Int          @map("user_id")
+  user           User         @relation(fields: [userId], references: [id])
+  joinedAt       DateTime     @default(now()) @map("joined_at")
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+  @@map("participant")
+}
+
+model ChatMessage {
+  id             Int          @id @default(autoincrement())
+  conversationId Int          @map("conversation_id")
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderId       Int          @map("sender_id")
+  sender         User         @relation(fields: [senderId], references: [id])
+  content        String
+  createdAt      DateTime     @default(now()) @map("created_at")
+  isRead         Boolean      @default(false) @map("is_read")
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@map("chat_message")
 }

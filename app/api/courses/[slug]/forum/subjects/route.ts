@@ -15,7 +15,7 @@ export async function GET(
 
     const { slug } = await params;
 
-    const course = await prisma.course.findUnique({
+    const course = await prisma.course.findFirst({
       where: { slug },
       include: {
         forum: {
@@ -102,7 +102,7 @@ export async function POST(
         return NextResponse.json({ message: 'Content is required' }, { status: 400 });
     }
 
-    const course = await prisma.course.findUnique({
+    const course = await prisma.course.findFirst({
       where: { slug },
       include: { forum: true }
     });

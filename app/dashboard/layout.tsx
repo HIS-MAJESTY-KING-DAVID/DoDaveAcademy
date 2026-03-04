@@ -27,6 +27,12 @@ export default async function DashboardLayout({ children }: { children: ReactNod
                 </Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link" href="/dashboard/student/messages">
+                  <i className="fas fa-comments me-2"></i>
+                  Messages
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" href="/profile">
                   <i className="fas fa-user me-2"></i>
                   My Profile
