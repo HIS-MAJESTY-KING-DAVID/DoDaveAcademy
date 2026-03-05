@@ -80,7 +80,6 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
 
     useEffect(() => {
         // Fetch initial conversations
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         fetchConversations();
 
         // Subscribe to conversation updates (e.g. new message in existing conversation updates 'updatedAt')
@@ -106,7 +105,6 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
 
     useEffect(() => {
         if (selectedConversation) {
-            // eslint-disable-next-line react-hooks/exhaustive-deps
             fetchMessages(selectedConversation.id);
             
             // Subscribe to new messages in this conversation
