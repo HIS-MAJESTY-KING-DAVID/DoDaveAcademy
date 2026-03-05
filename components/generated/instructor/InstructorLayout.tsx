@@ -135,7 +135,7 @@ export default function InstructorLayout({ children, user }: InstructorLayoutPro
             </div>
             <div className="col-md-4 mb-3 mb-md-0">
               <div className="text-center text-white">
-                Copyrights ©2023 <a href="#" target="_blank" className="text-reset btn-link">kulmapeck.com</a>. All rights reserved.
+                Copyrights ©2023 <a href="#" target="_blank" className="text-reset btn-link">dodave-academy.com</a>. All rights reserved.
               </div>
             </div>
             <div className="col-md-4">

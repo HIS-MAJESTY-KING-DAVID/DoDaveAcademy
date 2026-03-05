@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
+import { forgotPasswordSchema } from '@/lib/validations/auth';
+import { handleApiError } from '@/lib/exceptions';
 
 // In a real app, use a proper email service (Resend, SendGrid, Nodemailer)
 const sendResetEmail = async (email: string, token: string) => {
@@ -11,14 +13,8 @@ const sendResetEmail = async (email: string, token: string) => {
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
-
-    if (!email) {
-      return NextResponse.json(
-        { message: 'Email is required' },
-        { status: 400 }
-      );
-    }
+    const body = await req.json();
+    const { email } = forgotPasswordSchema.parse(body);
 
     const user = await prisma.user.findUnique({
       where: { email },
@@ -56,10 +52,6 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Forgot password error:', error);
-    return NextResponse.json(
-      { message: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return handleApiError(error);
   }
 }

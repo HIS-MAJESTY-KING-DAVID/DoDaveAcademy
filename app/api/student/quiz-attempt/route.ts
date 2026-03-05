@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import { quizAttemptSchema } from '@/lib/validations/student';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function POST(req: Request) {
   try {
@@ -9,11 +11,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const { chapterId, answers } = await req.json(); // answers: Record<string(quizId), string(proposition)>
-
-    if (!chapterId || !answers) {
-        return NextResponse.json({ message: 'Missing data' }, { status: 400 });
-    }
+    const body = await req.json();
+    const { chapterId, answers } = quizAttemptSchema.parse(body);
 
     const student = await prisma.student.findUnique({
       where: { userId: session.userId },
@@ -24,7 +23,7 @@ export async function POST(req: Request) {
     }
 
     const chapter = await prisma.chapter.findUnique({
-        where: { id: Number(chapterId) },
+        where: { id: chapterId },
         include: {
             quizzes: {
                 include: {
@@ -73,7 +72,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ score, total }, { status: 200 });
 
   } catch (error) {
-    console.error('Quiz attempt error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return handleApiError(error);
   }
 }

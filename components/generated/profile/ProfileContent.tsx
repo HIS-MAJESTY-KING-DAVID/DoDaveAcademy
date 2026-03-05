@@ -51,7 +51,7 @@ export default function ProfileContent(props: any) {
                 <div className="col-md-6">
                     <label className="form-label">Username</label>
                     <div className="input-group">
-                        <span className="input-group-text">kulmapeck.com</span>
+                        <span className="input-group-text">dodave-academy.com</span>
                         {form_widget(personneForm.pseudo)}
                     </div>
                 </div>

@@ -22,11 +22,11 @@ export default function Index(props: any) {
 					<img src="{asset('assets/img/carousel-1.jpg')}" className="img-fluid" alt="First slide" />
 					<div className="carousel-caption">
 						<div className="container carousel-content">
-							<h6 className="text-secondary h4 animated fadeInUp">Ici, recevez les informations de bases pour devenir Actionnaire chez KULMAPECK.</h6>
+							<h6 className="text-secondary h4 animated fadeInUp">Ici, recevez les informations de bases pour devenir Actionnaire chez DoDave Academy.</h6>
 
 
 							<h2 className="text-white display-1 mb-4 animated fadeInRight">
-								'' KULMAPECK, la solution éducative innovante et digitalisée adaptée au contexte Africain. ''</h2S>
+								'' DoDave Academy, la solution éducative innovante et digitalisée adaptée au contexte Africain. ''</h2S>
 
 
 							<p className="mb-4 text-white fs-5 animated fadeInDown">Contribuez à l'éducation et à la formation des jeunes et même ceux des zones en crises et enclavées.</p>
@@ -37,9 +37,9 @@ export default function Index(props: any) {
 								<button type="button" className="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn1 animated fadeInLeft">Acheter les Actions</button>
 
 							</a>
-							<a href="https://kulmapeck.com" className="ms-2">
+							<a href="https://dodave-academy.com" className="ms-2">
 
-								<button type="button" className="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn2 animated fadeInRight">Visiter KULMAPECK</button>
+								<button type="button" className="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn2 animated fadeInRight">Visiter DoDave Academy</button>
 
 							</a>
 
@@ -61,7 +61,7 @@ export default function Index(props: any) {
 
 								<button type="button" className="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn1 animated fadeInLeft">Devenir Investisseur</button>
 							</a>
-							<a href="https://kulmapeck.com" className="ms-2">
+							<a href="https://dodave-academy.com" className="ms-2">
 
 								<button type="button" className="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn2 animated fadeInRight">Se former</button>
 							</a>
@@ -143,7 +143,7 @@ export default function Index(props: any) {
 																																																																																																																																																																																																																																																																																																																								Cameroun ; ce, en conformité avec la politique mondiale de l’UNESCO pour l’éducation.</p>
 					<p className="mb-4">Au terme d`un diagnostic minutieux et rigoureux des carences et insuffisances aussi bien de l`approche
 																																																																																																																																																																																																																																																																																																																									gouvernementale de l`éducation à distance que celle de l’environnement concurrentiel, l`Entreprise
-																																																																																																																																																																																																																																																																																																																									KULMAPECK met à la disposition des différents acteurs de l`éducation une Application Web et Mobile
+																																																																																																																																																																																																																																																																																																																									DoDave Academy met à la disposition des différents acteurs de l`éducation une Application Web et Mobile
 																																																																																																																																																																																																																																																																																																																									produisant un contenu pédagogique sur mesure épousant la philosophie ministérielle pour l’éducation et
 																																																																																																																																																																																																																																																																																																																									reparti par classe, filière, matière de l’enseignement général à l’ enseignement technique, dans les soussystèmes d`enseignement Francophone et Anglophone afin d`accroitre véritablement le niveau et la qualité
 																																																																																																																																																																																																																																																																																																																									de l`éducation au Cameroun.</p>
@@ -809,7 +809,7 @@ export default function Index(props: any) {
 							</div>
 							<div className="ms-3">
 								<h4 className="text-primary">Email Us</h4>
-								<a className="h5" href="mailto:contact@kulmapeck.com" target="_blank">contact@kulmapeck.com</a>
+								<a className="h5" href="mailto:contact@dodave-academy.com" target="_blank">contact@dodave-academy.com</a>
 							</div>
 						</div>
 					</div>

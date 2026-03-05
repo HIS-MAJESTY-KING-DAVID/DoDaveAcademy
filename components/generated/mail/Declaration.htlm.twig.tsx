@@ -563,7 +563,7 @@ export default function Declaration.htlm.twig(props: any) {
 				className="text-container">
 				<!-- Previous code... -->
 				<span id="tk_1" className="t s6">Déclare par la présente mon intention d’investissement actionnaire au projet</span>
-				<span id="tm_1" className="t s3">KULMAPECK</span>
+				<span id="tm_1" className="t s3">DoDave Academy</span>
 				<span id="tn_1" className="t s6">à</span>
 				<span id="to_1" className="t s6">hauteur de
 					{form_row(form.investmentAmount) is not null ? form_row(form.investmentAmount) : ''}
@@ -607,11 +607,11 @@ export default function Declaration.htlm.twig(props: any) {
 				<span id="t1o_1" className="t s6">-</span>
 				<span id="t1p_1" className="t sd">Sinon nous l’envoyer en scan couleur par mail à</span>
 				<span id="t1q_1" className="t sd">l’adresse</span>
-				<span id="t1r_1" className="t sf">investirkulampeck@kulmapeck.com</span>
+				<span id="t1r_1" className="t sf">investirkulampeck@dodave-academy.com</span>
 				<span id="t1s_1" className="t s6">-</span>
-				<span id="t1t_1" className="t sd">Ou le déposer à la Direction Générale KULMAPECK</span>
+				<span id="t1t_1" className="t sd">Ou le déposer à la Direction Générale DoDave Academy</span>
 				<span id="t1u_1" className="t sd">basée à Akwa dans la ville de Douala.</span>
-				<span id="t1v_1" className="t s6">Signature KULMAPECK SARL</span>
+				<span id="t1v_1" className="t s6">Signature DoDave Academy SARL</span>
 				<span id="t1w_1" className="t s6">Signature et Nom de l’investisseur Potentiel</span>
 			</div>
 

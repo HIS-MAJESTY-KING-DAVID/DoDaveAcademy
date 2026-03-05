@@ -105,7 +105,7 @@ export default function Index(props: any) {
 							</div>
 							<div className="ms-3">
 								<h4 className="text-primary">Email Us</h4>
-								<a className="h5" href="mailto:contact@kulmapeck.com" target="_blank">contact@kulmapeck.com</a>
+								<a className="h5" href="mailto:contact@dodave-academy.com" target="_blank">contact@dodave-academy.com</a>
 							</div>
 						</div>
 					</div>

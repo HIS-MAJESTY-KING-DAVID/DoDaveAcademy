@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import { progressSchema } from '@/lib/validations/student';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function POST(req: Request) {
   try {
@@ -9,11 +11,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const { lessonId, courseId, chapterId, isFinished } = await req.json();
-
-    if (!lessonId) {
-        return NextResponse.json({ message: 'Lesson ID is required' }, { status: 400 });
-    }
+    const body = await req.json();
+    const { lessonId, courseId, chapterId, isFinished } = progressSchema.parse(body);
 
     const student = await prisma.student.findUnique({
       where: { userId: session.userId },
@@ -27,7 +26,7 @@ export async function POST(req: Request) {
     const existingLecture = await prisma.lecture.findFirst({
         where: {
             studentId: student.id,
-            lessonId: Number(lessonId)
+            lessonId: lessonId
         }
     });
 
@@ -49,9 +48,9 @@ export async function POST(req: Request) {
         await prisma.lecture.create({
             data: {
                 studentId: student.id,
-                lessonId: Number(lessonId),
-                courseId: courseId ? Number(courseId) : undefined,
-                chapterId: chapterId ? Number(chapterId) : undefined,
+                lessonId: lessonId,
+                courseId: courseId,
+                chapterId: chapterId,
                 startAt: new Date(),
                 isFinished: isFinished === true,
                 endAt: isFinished ? new Date() : undefined,
@@ -62,7 +61,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: 'Progress updated' }, { status: 200 });
 
   } catch (error) {
-    console.error('Progress update error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return handleApiError(error);
   }
 }

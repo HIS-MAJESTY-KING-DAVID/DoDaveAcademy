@@ -71,7 +71,7 @@ export default function Courses(props: any) {
 
     <!-- Dropdown column item -->
     <div className="col-xl-6 col-xxl-3">
-        <h6 className="mb-0">{% trans %}DOWNLOADKULMAPECK_KEY{% endtrans %}</h6>
+        <h6 className="mb-0">{% trans %}DOWNLOADDODAVEACADEMY_KEY{% endtrans %}</h6>
         <hr />
         <!-- Image -->
         <img src="{asset('assets/images/element/14.svg')}" alt="" />
@@ -80,11 +80,11 @@ export default function Courses(props: any) {
         <div className="row g-2 justify-content-center mt-3">
         <!-- Google play store button -->
         <div className="col-6 col-sm-4 col-xxl-6">
-            <a href="https://play.google.com/store/apps/details?id=com.thealphamerc.kulmapeck&pcampaignid=web_share"> <img src="{asset('assets/images/client/google-play.svg')}" className="btn-transition" alt="google-store" /> </a>
+            <a href="https://play.google.com/store/apps/details?id=com.thealphamerc.dodave-academy&pcampaignid=web_share"> <img src="{asset('assets/images/client/google-play.svg')}" className="btn-transition" alt="google-store" /> </a>
         </div>
         <!-- App store button -->
         <div className="col-6 col-sm-4 col-xxl-6">
-            <a href="https://play.google.com/store/apps/details?id=com.thealphamerc.kulmapeck&pcampaignid=web_share"> <img src="{asset('assets/images/client/app-store.svg')}" className="btn-transition" alt="app-store" /> </a>
+            <a href="https://play.google.com/store/apps/details?id=com.thealphamerc.dodave-academy&pcampaignid=web_share"> <img src="{asset('assets/images/client/app-store.svg')}" className="btn-transition" alt="app-store" /> </a>
         </div>
         </div>
     </div>

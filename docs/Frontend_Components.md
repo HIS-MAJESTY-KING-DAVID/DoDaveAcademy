@@ -1,6 +1,6 @@
 # Frontend Components Documentation
 
-## Current Structure (Twig)
+## 1. Current Structure (Twig)
 The frontend is built with Twig templates in `templates/`.
 - `base.html.twig`: Main layout (Header, Footer, Scripts).
 - `home/`: Landing page.
@@ -9,14 +9,14 @@ The frontend is built with Twig templates in `templates/`.
 - `instructor/`: Instructor dashboard.
 - `admin/`: Admin panel.
 
-## Target Structure (React/Next.js)
+## 2. Target Structure (React/Next.js)
 
-### Layouts (`app/layout.tsx`)
+### 2.1 Layouts (`app/layout.tsx`)
 - **RootLayout**: Global providers (Theme, Auth, Toast).
 - **DashboardLayout**: Sidebar, Header for authenticated users (Student/Instructor).
 - **AdminLayout**: Specific layout for admins.
 
-### Pages & Components Mapping
+### 2.2 Pages & Components Mapping
 
 | Current Twig Template | React Component (Target) | Features |
 |-----------------------|--------------------------|----------|
@@ -28,18 +28,42 @@ The frontend is built with Twig templates in `templates/`.
 | `lesson/show.html.twig` | `app/learn/[courseId]/[lessonId]/page.tsx` | Video player, PDF viewer, Next/Prev navigation |
 | `chat/index.html.twig` | `components/chat/ChatWindow.tsx` | Real-time messaging UI |
 
-### Shared Components (`components/ui`)
+### 2.3 Shared Components (`components/ui`)
 - **Button**: Variants (primary, secondary, outline).
 - **Card**: For courses, blogs.
 - **Modal**: Login, Confirmations.
 - **Form**: Input, Select, Checkbox (use `react-hook-form` + `zod`).
 - **Table**: Data tables for dashboards.
 
-### State Management
-- **Server State**: React Query (TanStack Query) or SWR (for data fetching).
-- **Client State**: Zustand or React Context (for UI state like Sidebar toggle, Auth user).
-- **Forms**: React Hook Form.
+## 3. Design System & Style Guide
 
-### Styling
-- **Framework**: Tailwind CSS (recommended) or Styled Components.
-- **UI Library**: Shadcn/ui (highly recommended for speed) or Material UI.
+### 3.1 Brand Foundations
+- **Primary Color**: `#1E3D59` (Brand text, primary links).
+- **Secondary Color**: `#00B4D8` (Buttons, focus rings).
+- **Accent Color**: `#FFB703` (Badges, sale tags).
+- **Typography**:
+    - **Headings**: Montserrat (sans-serif, 600-700).
+    - **Body**: Roboto (sans-serif, 300-500).
+    - **Brand Mark**: Pacifico (cursive).
+
+### 3.2 UI Specifications
+
+#### Header
+- **Height**: 80px (Desktop), 64px (Mobile).
+- **Background**: White (#FFFFFF).
+- **Navigation**: Home, Services, Training, Portfolio, Blog, About, Contact.
+- **Actions**: "Get Started" (Primary Button), Language Switcher.
+
+#### Footer
+- **Background**: Gray 800 (#1F2937).
+- **Text**: White.
+- **Columns**: Brand & Social, Quick Links, Services, Contact Info.
+
+#### Buttons & Interaction
+- **Primary**: Background `#00B4D8`, Text White, Rounded-pill.
+- **States**: Hover (90% opacity), Focus (2px ring `#00B4D8`).
+
+### 3.3 Accessibility
+- Ensure **4.5:1** contrast for body text.
+- Ensure **3:1** contrast for large text and UI elements.
+- Maintain visible focus states for keyboard navigation.

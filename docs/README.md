@@ -1,7 +1,7 @@
 # DoDave Academy Migration Project
 
 ## Overview
-This project targets the complete migration of the **Kulmapeck E-learning Platform** from a legacy Symfony (PHP) architecture to a modern **Next.js (React/TypeScript)** stack.
+This project targets the complete migration of the **DoDave Academy E-learning Platform** from a legacy Symfony (PHP) architecture to a modern **Next.js (React/TypeScript)** stack.
 
 ## Current Architecture vs. Target
 *   **Old**: Symfony 6.2, API Platform, Twig, jQuery, Ratchet (WebSockets).

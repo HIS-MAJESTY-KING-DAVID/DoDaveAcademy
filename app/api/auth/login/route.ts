@@ -2,19 +2,15 @@ import { NextResponse } from 'next/server';
 import { compare } from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { sign } from 'jsonwebtoken';
+import { userAuthSchema } from '@/lib/validations/auth';
+import { handleApiError } from '@/lib/exceptions';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 export async function POST(req: Request) {
   try {
-    const { email, password } = await req.json();
-
-    if (!email || !password) {
-      return NextResponse.json(
-        { message: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
+    const body = await req.json();
+    const { email, password } = userAuthSchema.parse(body);
 
     const user = await prisma.user.findUnique({
       where: {
@@ -61,10 +57,6 @@ export async function POST(req: Request) {
 
     return response;
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
-    return NextResponse.json(
-      { message },
-      { status: 500 }
-    );
+    return handleApiError(error);
   }
 }

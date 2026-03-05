@@ -19,8 +19,8 @@ export default function Index(props: any) {
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{'V:/PROJECT/kulmapeck/src/Controller/FirebaseController.php'|file_link(0)}">src/Controller/FirebaseController.php</a></code></li>
-        <li>Your template at <code><a href="{'V:/PROJECT/kulmapeck/templates/firebase/index.html.twig'|file_link(0)}">templates/firebase/index.html.twig</a></code></li>
+        <li>Your controller at <code><a href="{'V:/PROJECT/dodave-academy/src/Controller/FirebaseController.php'|file_link(0)}">src/Controller/FirebaseController.php</a></code></li>
+        <li>Your template at <code><a href="{'V:/PROJECT/dodave-academy/templates/firebase/index.html.twig'|file_link(0)}">templates/firebase/index.html.twig</a></code></li>
     </ul>
 </div>
 {% endblock %}

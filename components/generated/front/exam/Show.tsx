@@ -165,7 +165,7 @@ export default function Show({ exam, data, display, courses = [] }: ShowProps) {
     for (let i = 0; i < numWatermarks; i++) {
         const watermark = document.createElement('div');
         watermark.className = 'dynamic-watermark';
-        watermark.innerText = 'www.kulmapeck.com';
+        watermark.innerText = 'www.dodave-academy.com';
         Object.assign(watermark.style, {
             position: 'absolute',
             color: 'rgba(255, 0, 0, 0.15)',
@@ -203,7 +203,7 @@ export default function Show({ exam, data, display, courses = [] }: ShowProps) {
             height: 100%;
             pointer-events: none;
             z-index: 999;
-            background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='watermark' width='300' height='300' patternUnits='userSpaceOnUse'%3E%3Ctext x='50' y='150' font-family='Arial' font-size='20' fill='rgba(200, 0, 0, 0.05)' transform='rotate(-45 150 150)'%3Ekulmapeck.com%3C/text%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23watermark)'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='watermark' width='300' height='300' patternUnits='userSpaceOnUse'%3E%3Ctext x='50' y='150' font-family='Arial' font-size='20' fill='rgba(200, 0, 0, 0.05)' transform='rotate(-45 150 150)'%3Edodave-academy.com%3C/text%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23watermark)'/%3E%3C/svg%3E");
             opacity: 0.3;
         }
         @media print {
@@ -234,7 +234,7 @@ export default function Show({ exam, data, display, courses = [] }: ShowProps) {
                         />
                       </div>
                       <a href="#" className="h5 stretched-link mt-2 mb-0 d-block">{exam.user.personne.nomComplet}</a>
-                      <p className="mb-2">Editor at kulmapeck</p>
+                      <p className="mb-2">Editor at dodave-academy</p>
                     </div>
                     {/* Info */}
                     <ul className="list-inline list-unstyled">

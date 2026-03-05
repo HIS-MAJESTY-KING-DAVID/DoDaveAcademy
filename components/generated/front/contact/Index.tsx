@@ -70,7 +70,7 @@ export default function Contact() {
                   </li>
                   {/* Email id */}
                   <li className="list-item mb-0">
-                    <a href="#" className="text-white"> <i className="far fa-fw fa-envelope me-2"></i>kulmapeckcontact@gmail.com </a>
+                    <a href="#" className="text-white"> <i className="far fa-fw fa-envelope me-2"></i>dodave-academycontact@gmail.com </a>
                   </li>
                 </ul>
               </div>
@@ -92,7 +92,7 @@ export default function Contact() {
                   </li>
                   {/* Email id */}
                   <li className="list-item mb-0 h6 fw-light">
-                    <a href="#"> <i className="far fa-fw fa-envelope me-2"></i>kulmapeckcontact@gmail.com </a>
+                    <a href="#"> <i className="far fa-fw fa-envelope me-2"></i>dodave-academycontact@gmail.com </a>
                   </li>
                 </ul>
               </div>
@@ -114,7 +114,7 @@ export default function Contact() {
                   </li>
                   {/* Email id */}
                   <li className="list-item mb-0 h6 fw-light">
-                    <a href="#"> <i className="far fa-fw fa-envelope me-2"></i>kulmapeckcontact@gmail.com </a>
+                    <a href="#"> <i className="far fa-fw fa-envelope me-2"></i>dodave-academycontact@gmail.com </a>
                   </li>
                 </ul>
               </div>

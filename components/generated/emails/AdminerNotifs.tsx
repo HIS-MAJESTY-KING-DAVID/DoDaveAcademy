@@ -33,7 +33,7 @@ export default function AdminerNotifs(props: any) {
 	</head>
 	<body>
 		<div className="container">
-			<img src="{asset('uploads/images/enseignants/kyc/LOGO-KULMAPECK-1-64aed96a8e5f3.png')}" alt="DoDave Academy logo" />
+			<img src="{asset('uploads/images/enseignants/kyc/LOGO-DoDave Academy-1-64aed96a8e5f3.png')}" alt="DoDave Academy logo" />
 
 			{content|raw}
 			<br />

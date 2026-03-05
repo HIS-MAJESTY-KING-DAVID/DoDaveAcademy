@@ -32,7 +32,7 @@ export default function Show.html1.twig(props: any) {
                                         <img className="avatar-img rounded-circle" src="{asset(exam.user.personne.avatarPath)}" alt="avatar" />
                                     </div>
                                     <a href="#" className="h5 stretched-link mt-2 mb-0 d-block">{exam.user.personne.nomComplet}</a>
-                                    <p className="mb-2">Editor at kulmapeck</p>
+                                    <p className="mb-2">Editor at dodave-academy</p>
                                 </div>
                                 <!-- Info -->
                                 <ul className="list-inline list-unstyled">

@@ -94,20 +94,20 @@ export default function Index(props: any) {
 					<p className="mb-4"></p>
 					<p style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #333333;">
 						<strong>PROJET : FONCTIONNEMENT ET VALEUR</strong><br />
-						Au terme d'un diagnostic minutieux et rigoureux des carences et insuffisances aussi bien de l'approche gouvernementale de l'éducation à distance que celle de l'environnement concurrentiel, l'Entreprise KULMAPECK met à la disposition des différents acteurs de l'éducation une Application Web et Mobile produisant un contenu pédagogique sur mesure épousant la philosophie ministérielle pour l’éducation et reparti par classe, filière, matière de l’enseignement général à l’ enseignement technique, dans les sous-systèmes d'enseignement Francophone et Anglophone afin d'accroître véritablement le niveau et la qualité de l’éducation au Cameroun.<br /><br />
+						Au terme d'un diagnostic minutieux et rigoureux des carences et insuffisances aussi bien de l'approche gouvernementale de l'éducation à distance que celle de l'environnement concurrentiel, l'Entreprise DoDave Academy met à la disposition des différents acteurs de l'éducation une Application Web et Mobile produisant un contenu pédagogique sur mesure épousant la philosophie ministérielle pour l’éducation et reparti par classe, filière, matière de l’enseignement général à l’ enseignement technique, dans les sous-systèmes d'enseignement Francophone et Anglophone afin d'accroître véritablement le niveau et la qualité de l’éducation au Cameroun.<br /><br />
 						La plateforme pédagogique digitale reconnaît 02 catégories de profils : Les Enseignants et les Élèves.
 						<ul>
 							<li>Pour les élèves : l'accès à notre plateforme se fait par Abonnement mensuel, Trimestriel ou annuel aux montants respectifs de 2 500 FCFA, 6 000 FCFA, 18 000 FCFA.</li>
-							<li>Pour les Enseignants : Les meilleurs dans chaque discipline sont contractuellement engagés avec KULMAPECK en qualité d'Enseignants Certifiés, c’est-à-dire Enseignants Concepteurs de contenus pédagogiques de la plateforme d'Enseignement à distance KULMAPECK.</li>
+							<li>Pour les Enseignants : Les meilleurs dans chaque discipline sont contractuellement engagés avec DoDave Academy en qualité d'Enseignants Certifiés, c’est-à-dire Enseignants Concepteurs de contenus pédagogiques de la plateforme d'Enseignement à distance DoDave Academy.</li>
 						</ul>
-						Le Business model étant basé sur la recommandation de la plateforme KULMAPECK de chaque Enseignant auprès de ses élèves, celui-ci gagne passivement des commissions allant jusqu’à 30 % sur chaque abonnement effectué par son élève : Les Enseignants sont alors des Agents Publicitaires de KULMAPECK partout où il se trouve dans le territoire national.<br /><br />
+						Le Business model étant basé sur la recommandation de la plateforme DoDave Academy de chaque Enseignant auprès de ses élèves, celui-ci gagne passivement des commissions allant jusqu’à 30 % sur chaque abonnement effectué par son élève : Les Enseignants sont alors des Agents Publicitaires de DoDave Academy partout où il se trouve dans le territoire national.<br /><br />
 						<strong>ÉQUIPE</strong><br />
-						Monsieur NYEMB BISSAYA René Ivant, M. KENBOU Alain, Mme KOLLO Françoise Diela résidant à Douala et Monsieur ONDOUA NGAZOUA Benoit résidant à Paris - France tous de nationalité Camerounaise sont les promoteurs de KULMAPECK SARL.<br /><br />
+						Monsieur NYEMB BISSAYA René Ivant, M. KENBOU Alain, Mme KOLLO Françoise Diela résidant à Douala et Monsieur ONDOUA NGAZOUA Benoit résidant à Paris - France tous de nationalité Camerounaise sont les promoteurs de DoDave Academy SARL.<br /><br />
 						<strong>MARCHÉ ET CONCURRENCE</strong><br />
 						Nous avons 5 concurrents directs : Distance Education (MINESEC), Nomad éducation et Grand prof.org, Infoox.net, AIMS. Nos avantages concurrentiels par rapport à ces 5 entreprises sont les suivants :
 						<ul>
 							<li>Multidisciplinarité de l’équipe managériale ;</li>
-							<li>Disponibilité de l'application Mobile KULMAPECK ;</li>
+							<li>Disponibilité de l'application Mobile DoDave Academy ;</li>
 							<li>Possibilité d'accès et de navigation dans son compte hors connexion ;</li>
 							<li>Disponibilité des fora par matières, filières et par classes sous l’administration des Enseignants certifiés recrutés à cet effet ;</li>
 							<li>Marketing basé sur l'influence et la rémunération des enseignants ;</li>

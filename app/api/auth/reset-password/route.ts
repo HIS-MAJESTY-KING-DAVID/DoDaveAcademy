@@ -2,17 +2,13 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
 import { hash } from 'bcryptjs';
+import { resetPasswordSchema } from '@/lib/validations/auth';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function POST(req: Request) {
   try {
-    const { token, password } = await req.json();
-
-    if (!token || !password) {
-      return NextResponse.json(
-        { message: 'Token and password are required' },
-        { status: 400 }
-      );
-    }
+    const body = await req.json();
+    const { token, password } = resetPasswordSchema.parse(body);
 
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
@@ -55,10 +51,6 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Reset password error:', error);
-    return NextResponse.json(
-      { message: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return handleApiError(error);
   }
 }

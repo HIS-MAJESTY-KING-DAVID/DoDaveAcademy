@@ -2,19 +2,19 @@
 
 This document serves as the central roadmap for migrating the DoDave Academy platform from Symfony/PHP to Next.js/React. It synthesizes all technical analysis, feature audits, and entity flows into a sequential execution strategy.
 
-## 📚 Global Guidelines & Standards (Added from WC Checklist)
+## 1. Global Guidelines & Standards
 
-### 🛡️ Security Best Practices
+### 1.1 Security Best Practices
 -   **Input Validation**: Validate all API inputs using libraries like `zod`. Never trust client-side data.
 -   **Secure Headers**: Implement `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`.
 -   **Vulnerability Management**: Run `npm audit` regularly.
 
-### 🏗️ Maintainability Guidelines
+### 1.2 Maintainability Guidelines
 -   **Code Comments**: Explain *why*, not *what*, for complex logic.
 -   **READMEs**: Maintain a `README.md` in complex directories (`/lib`, `/hooks`).
 -   **Commit Messages**: Use conventional commits (e.g., `feat: add offline support`, `fix: resolve hydration error`).
 
-### ♻️ Reusability Principles
+### 1.3 Reusability Principles
 -   **Atomic Design**: Build small, stateless atoms (Buttons, Icons) before complex molecules.
 -   **Custom Hooks**: Extract logic (fetching, state) into hooks to separate UI from logic.
 -   **Service Layer**: Abstract API calls into services (e.g., `lib/services/supabase.ts`) rather than calling `fetch` directly in components.
@@ -95,6 +95,7 @@ This document serves as the central roadmap for migrating the DoDave Academy pla
     - [x] UI: Chat widget with polling simulation.
     - [x] Real-time: Configure Supabase Realtime (enabled for `chat_message`, `conversation`, `participant`, `notification`, `forum_message`).
     - [x] RLS: Implemented policies for Conversation, Participant, and ChatMessage.
+    - [x] Refinement: Fixed state updates and linting errors.
 - [ ] **Notifications**:
     - [ ] System alerts (Course validation, New message).
     - [ ] Push notifications (Firebase/FCM).
@@ -112,7 +113,12 @@ This document serves as the central roadmap for migrating the DoDave Academy pla
 
 - [ ] **Security Audit**:
     - [ ] **RLS Audit**: Review all tables against Supabase dashboard to ensure no data leakage.
-    - [ ] **Input Validation**: Install `zod` and validate all API routes.
+    - [x] **Input Validation**: Install `zod` and validate all API routes.
+        - [x] Install Zod.
+        - [x] Create `lib/validations/auth.ts`.
+        - [x] Refactor Auth API (`/register`, `/login`) to use Zod.
+        - [ ] Refactor Course API.
+    - [x] **Global Error Handling**: Create `lib/exceptions.ts` and standard response wrappers.
     - [ ] **Rate Limiting**: Implement rate limiting for critical endpoints (auth, payment).
 - [ ] **Performance Optimization**:
     - [ ] **Core Web Vitals**: Optimize LCP (Hero images), CLS (Layout shifts), and INP.
@@ -128,7 +134,9 @@ This document serves as the central roadmap for migrating the DoDave Academy pla
 - [ ] **Pre-Flight Checks**:
     - [ ] **Environment Variables**: Verify all Prod secrets are set in Vercel.
     - [ ] **SEO**: Check `robots.txt`, `sitemap.xml`, and Meta tags.
-    - [ ] **Build Check**: Run `npm run build` locally to catch static generation errors.
+    - [x] **Build Check**: Run `npm run build` locally to catch static generation errors.
+    - [x] **Cleanup**: Removed broken generated components and fixed linting errors.
+    - [x] **Renaming**: Project renamed to "dodave-academy".
 - [ ] **Data**: Bulk import from old PostgreSQL to new PostgreSQL.
 - [x] **Assets**: Supabase Storage Configured (`avatars`, `media`, `course-content`, `secure-docs`).
 - [ ] **Testing**: Full E2E testing (Playwright/Cypress).
@@ -168,3 +176,66 @@ Since the React app is built in a separate directory (`DoDave-Academy-React`):
 ### Deployment Rollback (Post-Cutover)
 1.  **DNS Reversion**: Switch DNS records back to the original PHP server IP.
 2.  **Database**: If the new app writes to the *same* database, ensure backward compatibility of schema changes. Ideally, use a fresh database for React and sync data until cutover.
+
+## Phase 9: Legacy Modernization (New)
+**Goal**: Remove technical debt and standardize UI.
+
+- [ ] **Component Audit**:
+    - [ ] Catalog all `components/generated` usage.
+    - [ ] Identify high-priority components (e.g., `CourseCard`, `Navbar`).
+- [ ] **Modernization Strategy (Strangler Fig)**:
+    - [ ] Create `components/ui` (Shadcn/UI or similar) for base atoms.
+    - [ ] Replace one legacy page at a time with new components.
+    - [ ] Delete `components/generated` files as they become unused.
+- [ ] **CSS Cleanup**:
+    - [ ] Remove Bootstrap CSS dependency.
+    - [ ] Ensure full Tailwind coverage.
+
+---
+
+## Appendix A: Detailed Feature Audit
+
+### 1. Authentication & User Management
+| Feature | Priority | Status | Description | Action Items | Functional Requirement Traceability |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **User Registration** | Primary | **Completed** | Student and Instructor sign-up flows. | - [x] Create Register UI<br>- [x] Create API Route (`/api/auth/register`)<br>- [ ] Implement Instructor specific fields<br>- [ ] Add email verification | **F-001**: `POST /api/register` (RegistrationController) |
+| **User Login** | Primary | **Completed** | JWT-based authentication. | - [x] Create Login UI<br>- [x] Create API Route (`/api/auth/login`)<br>- [ ] Implement Refresh Token logic<br>- [ ] Persist session (NextAuth or custom) | **F-001**: `POST /api/login` (SecurityController) |
+| **Password Reset** | Primary | Pending | Request and reset password flow via email. | - [ ] Create "Forgot Password" UI<br>- [ ] Create API Route for request<br>- [ ] Create API Route for reset<br>- [ ] Integrate Email Service | **F-001**: `POST /api/reset-password` |
+| **Role Management** | Primary | In Progress | Role-based access (Student, Instructor, Admin). | - [x] Define User Roles in Schema<br>- [ ] Implement Middleware for protected routes<br>- [ ] Add "Switch Role" feature for Admin/Instructor | - |
+| **User Profile** | Secondary | Pending | Edit profile, avatar, and personal info. | - [ ] Create Profile Page<br>- [ ] File Upload for Avatar<br>- [ ] Update User API | **F-001**: `PUT /api/users/{id}` |
+
+### 2. Course Management
+| Feature | Priority | Status | Description | Action Items | Functional Requirement Traceability |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Course Listing** | Primary | In Progress | Public catalog of courses with filters. | - [x] Create Course List Component<br>- [x] Create Course Card<br>- [ ] Implement Filters (Category, Price, Level)<br>- [ ] Pagination | **F-002**: `GET /api/courses` (CoursesController) |
+| **Course Details** | Primary | Pending | Detailed view of a course (syllabus, instructor, price). | - [ ] Create Course Detail Page<br>- [ ] Display Curriculum (Chapters/Lessons)<br>- [ ] Show Instructor Info | **F-002**: `GET /api/courses/{slug}` (DetailsController) |
+| **Course Consumption (Player)** | Primary | Pending | Video player and lesson content viewer. | - [ ] Create Video Player Component<br>- [ ] Track Lesson Progress (`Lecture` entity)<br>- [ ] Mark as Complete logic | **F-003**: `GET /api/lesson/{id}` (StudentLectureController) |
+| **Course Creation (Instructor)** | Primary | Pending | Form to create/edit courses, chapters, and lessons. | - [ ] Create Instructor Dashboard<br>- [ ] Course Editor (Forms)<br>- [ ] Chapter/Lesson Management<br>- [ ] Media Uploads (Video/Images) | - |
+| **Categories & Taxonomy** | Secondary | Pending | Manage Categories, Specialties, Classes. | - [ ] Admin Management UI<br>- [ ] Public Navigation Menu | **F-002**: `GET /api/categories` |
+
+### 3. Payments & Subscriptions
+| Feature | Priority | Status | Description | Action Items | Functional Requirement Traceability |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Course Purchase** | Primary | Pending | Buy individual courses via Mobile Money. | - [ ] Integrate Mobile Money API (Port `MobileApiService`)<br>- [ ] Checkout UI<br>- [ ] Payment Confirmation Webhook/Poller | **F-006**: `POST /api/payment/init` |
+
+---
+
+## Appendix B: Entity & Terminology Matrix
+
+This section maps the core entities from the legacy system (French) to the new architecture (English), ensuring consistent terminology across the implementation.
+
+| English Entity (New) | Legacy Entity (French) | Description | Key Relationships |
+| :--- | :--- | :--- | :--- |
+| **User** | `Utilisateur` | Central authentication entity. | 1:1 with `Profile`, `Student`, `Instructor`. |
+| **Profile** | `Personne` | Extended user details (bio, avatar). | Child of `User`. |
+| **Student** | `Eleve` | Learner profile with enrollments. | N:N with `Course` (via `StudentCourse`). |
+| **Instructor** | `Enseignant` | Content creator and teacher. | 1:N with `Course`. |
+| **Course** | `Cours` | The core learning product. | Contains `Chapters`, `Lessons`. |
+| **Chapter** | `Chapitre` | Section of a course. | Child of `Course`. |
+| **Lesson** | `Lecon` | Atomic learning unit (Video/Quiz). | Child of `Chapter`. |
+| **Program** | `Formation` | Collection of courses/curriculum. | N:N with `Course`. |
+| **Assessment** | `Evaluation` | Official graded test. | Linked to `Class` or `Course`. |
+| **Quiz** | `Quiz` | Auto-graded practice test. | Linked to `Lesson` or `Chapter`. |
+| **Forum** | `Forum` | Discussion board. | 1:1 with `Course`. |
+| **Topic** | `Sujet` | Discussion thread. | Child of `Forum`. |
+| **Payment** | `Paiement` | Financial transaction. | Linked to `Student` and `Course`/`Subscription`. |

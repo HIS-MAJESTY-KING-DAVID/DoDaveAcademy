@@ -19,8 +19,8 @@ export default function Index(props: any) {
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{'/media/sensei/Disque local/Projets/kulmapeck/src/Controller/Front/paymentController.php'|file_link(0)}">src/Controller/Front/paymentController.php</a></code></li>
-        <li>Your template at <code><a href="{'/media/sensei/Disque local/Projets/kulmapeck/templates/front/payment/index.html.twig'|file_link(0)}">templates/front/payment/index.html.twig</a></code></li>
+        <li>Your controller at <code><a href="{'/media/sensei/Disque local/Projets/dodave-academy/src/Controller/Front/paymentController.php'|file_link(0)}">src/Controller/Front/paymentController.php</a></code></li>
+        <li>Your template at <code><a href="{'/media/sensei/Disque local/Projets/dodave-academy/templates/front/payment/index.html.twig'|file_link(0)}">templates/front/payment/index.html.twig</a></code></li>
     </ul>
 </div>
 {% endblock %}

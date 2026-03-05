@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import { enrollSchema } from '@/lib/validations/student';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function POST(req: Request) {
   try {
@@ -9,14 +11,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const { courseId } = await req.json();
-    if (!courseId) {
-      return NextResponse.json({ message: 'Course ID is required' }, { status: 400 });
-    }
+    const body = await req.json();
+    const { courseId } = enrollSchema.parse(body);
 
     // 1. Get Course
     const course = await prisma.course.findUnique({
-      where: { id: Number(courseId) },
+      where: { id: courseId },
     });
 
     if (!course) {
@@ -70,7 +70,6 @@ export async function POST(req: Request) {
     }
 
   } catch (error) {
-    console.error('Enrollment error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return handleApiError(error);
   }
 }

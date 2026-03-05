@@ -69,7 +69,7 @@ export default function Home({ user, categories = [], trendingCourses = [], topR
           <div className="row align-items-center text-center">
             {/* Banner text */}
             <div className="col-md-12">
-              <p className="mb-4 fw-bold main-message">LEARN ON KULMAPECK</p>
+              <p className="mb-4 fw-bold main-message">LEARN ON DoDave Academy</p>
               <p className="mb-4 fw-bold sub-message">Education within everyone's reach.</p>
               <Link href="/courses/category" className="btn btn-lg" style={{ backgroundColor: '#fd7e14', color: 'white', fontSize: '20px' }}>
                 View all our courses

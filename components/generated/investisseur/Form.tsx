@@ -7,14 +7,14 @@ export default function Form(props: any) {
 <div className="container ">
 	<div className="card m-3">
 		<div className="card-body">
-			<p>L’entreprise KULMAPECK trouve ses origines dans l’idée de créer la plateforme pédagogique digitale KULMAPECK, qui a vu le jour il y a deux ans.</p>
+			<p>L’entreprise DoDave Academy trouve ses origines dans l’idée de créer la plateforme pédagogique digitale DoDave Academy, qui a vu le jour il y a deux ans.</p>
 			<p>À ce jour :</p>
 			<ul>
-				<li>Avant la création de l'entreprise KULMAPECK, nous avons mené une étude de marché en 2021 qui a abouti à la rédaction du business plan du projet KULMAPECK en 2022.</li>
-				<li>Nous avons lancé un premier appel à investissement d'un montant de 30 millions de FCFA, nous permettant de développer la version expérimentale de la plateforme KULMAPECK.</li>
-				<li>Nous avons réalisé 98% des travaux de développement de la plateforme KULMAPECK, comprenant l'application Web, la version mobile pour Android et iOS (hors ligne).</li>
+				<li>Avant la création de l'entreprise DoDave Academy, nous avons mené une étude de marché en 2021 qui a abouti à la rédaction du business plan du projet DoDave Academy en 2022.</li>
+				<li>Nous avons lancé un premier appel à investissement d'un montant de 30 millions de FCFA, nous permettant de développer la version expérimentale de la plateforme DoDave Academy.</li>
+				<li>Nous avons réalisé 98% des travaux de développement de la plateforme DoDave Academy, comprenant l'application Web, la version mobile pour Android et iOS (hors ligne).</li>
 				<li>Les enseignants ont déjà chargé des ressources pédagogiques dans certaines classes expérimentales.</li>
-				<li>Seulement six mois après l'assemblée générale de lancement officiel de la phase commerciale de la plateforme KULMAPECK, nous avons enregistré plus de 4 000 élèves inscrits, avec un chiffre d'affaires de 5 millions de FCFA.</li>
+				<li>Seulement six mois après l'assemblée générale de lancement officiel de la phase commerciale de la plateforme DoDave Academy, nous avons enregistré plus de 4 000 élèves inscrits, avec un chiffre d'affaires de 5 millions de FCFA.</li>
 				<li>Nous disposons d'une équipe de direction dévouée et passionnée pour la réussite de ce projet ambitieux.</li>
 			</ul>
 			<p>Voici notre plan de développement sur 4 ans :</p>
@@ -22,7 +22,7 @@ export default function Form(props: any) {
 				<strong>BESOINS FINANCIERS ET PROJECTION DE RENTABILITÉ</strong>
 			</p>
 			<p>Nous lançons une levée de fonds du 20 avril au 30 mai 2024 pour cette deuxième phase, d'un montant de 1 000 000 000 FCFA, répartis comme suit : 30% pour les besoins de démarrage, 30% pour le fonctionnement et 40% pour la charge salariale sur deux ans.</p>
-			<p>Nous prévoyons un résultat net comptable cumulé de 3 229 627 018,86 FCFA (4 925 181,20 €) en 2027 et de 6 388 999 585,12 FCFA (9 743 224,36 €) pour l'année 2028, ce qui représente une marge bénéficiaire potentielle de près de 160% chaque année à partir de fin 2027 sur votre investissement initial de 2024, vous faisant ainsi devenir un actionnaire à vie de KULMAPECK.</p>
+			<p>Nous prévoyons un résultat net comptable cumulé de 3 229 627 018,86 FCFA (4 925 181,20 €) en 2027 et de 6 388 999 585,12 FCFA (9 743 224,36 €) pour l'année 2028, ce qui représente une marge bénéficiaire potentielle de près de 160% chaque année à partir de fin 2027 sur votre investissement initial de 2024, vous faisant ainsi devenir un actionnaire à vie de DoDave Academy.</p>
 		</div>
 	</div>
 

@@ -1,17 +1,13 @@
 import { NextResponse } from 'next/server';
 import { hash } from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
+import { userRegisterSchema } from '@/lib/validations/auth';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = await req.json();
-    // Validate input
-    if (!email || !password || !name) {
-      return NextResponse.json(
-        { message: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
+    const body = await req.json();
+    const { name, email, password } = userRegisterSchema.parse(body);
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -59,10 +55,6 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
-    return NextResponse.json(
-      { message },
-      { status: 500 }
-    );
+    return handleApiError(error);
   }
 }
