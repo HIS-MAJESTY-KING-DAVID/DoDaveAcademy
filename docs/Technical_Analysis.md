@@ -29,10 +29,10 @@ The following PHP classes contain logic that has **not yet been ported** and is 
 ## 2. Folder Relocation Assessment (Completed)
 
 ### Summary
-The project was successfully relocated from a nested structure (`To_React_TSX/kulmapeck-next`) to a clean root structure at `Kulmapeck-React`.
+The project was successfully relocated from a nested structure (`To_React_TSX/dodave-academy`) to a clean root structure at `DoDave-Academy-React`.
 
 ### Changes Made
--   **Root**: Established at `c:\Users\KDave237\Projects\Kulmatest\Kulmapeck-React`.
+-   **Root**: Established at `c:\Users\KDave237\Projects\Kulmatest\DoDave-Academy-React`.
 -   **Code**: Merged `app`, `components`, `lib`, `entities`, `public` into the new root.
 -   **Config**: Consolidated `package.json`, `tsconfig.json`, `tailwind.config.ts`.
 -   **Data**: Moved `prisma/schema.prisma` and `.env`.

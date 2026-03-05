@@ -94,7 +94,7 @@ export async function POST(
     }
 
     const { slug } = await params;
-    const { title, content } = await req.json(); // content is mapped to 'content' in Subject model? No, title is likely content?
+    const { content } = await req.json(); // content is mapped to 'content' in Subject model? No, title is likely content?
     // Subject model: content, reference, isSolved. No explicit 'title'.
     // Usually 'content' is the title/initial message.
     

@@ -9,13 +9,13 @@ export default function VideoPlayer(props: any) {
 
 <!-- Mirrored from eduport.webestica.com/course-video-player.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 12 Mar 2023 00:44:17 GMT -->
 <head>
-	<title>Kulmapeck | Lecture</title>
+	<title>DoDave Academy | Lecture</title>
 
 	<!-- Meta Tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="author" content="Webestica.com">
-	<meta name="description" content="Kulmapeck">
+	<meta name="description" content="DoDave Academy">
 
 	<!-- Dark mode -->
 	<script>

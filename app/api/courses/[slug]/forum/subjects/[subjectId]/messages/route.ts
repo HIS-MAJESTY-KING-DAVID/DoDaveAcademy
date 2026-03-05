@@ -77,7 +77,7 @@ export async function POST(
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const { slug, subjectId } = await params;
+    const { subjectId } = await params;
     const sId = parseInt(subjectId);
     const { content } = await req.json();
 

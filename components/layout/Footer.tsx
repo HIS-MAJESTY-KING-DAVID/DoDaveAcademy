@@ -12,32 +12,24 @@ export default function Footer() {
   };
 
   return (
-    <footer className="pt-5">
+    <footer className="pt-5 bg-gray-800 text-white">
       <div className="container">
         {/* Row START */}
         <div className="row g-4">
-          {/* Widget 1 START */}
+          
+          {/* Col 1: Brand & Social */}
           <div className="col-lg-3">
-            {/* logo */}
             <Link className="me-0" href="/">
-              <Image
-                className="light-mode-item h-40px"
-                src="/assets/images/logo.svg"
-                alt="logo"
-                width={150}
-                height={40}
-                style={{ height: '40px', width: 'auto' }}
-              />
+               <span style={{ fontFamily: 'Pacifico, cursive', fontSize: '24px', color: '#fff' }}>DoDave Academy</span>
             </Link>
-
-            <a href="https://wa.me/+237698809093" title="Nous rejoindre sur Whatsapp" target="_blank" className="whatsapp-icon d-block mt-3">
-                <Image src="/assets/images/icone-whatsapp.png" alt="WhatsApp" width={70} height={70} />
-            </a>
-
-            <p className="my-3">DoDave Academy - {t('MAINMESSAGEDESCRIPTION_KEY')}</p>
+            
+            <p className="my-3 text-muted">{t('FOOTER_TAGLINE_KEY')}</p>
             
             {/* Social media icon */}
             <ul className="list-inline mb-0 mt-3">
+                <li className="list-inline-item">
+                    <a className="btn btn-white btn-sm shadow px-2 text-whatsapp" href="#"><i className="fab fa-fw fa-whatsapp"></i></a>
+                </li>
                 <li className="list-inline-item">
                     <a className="btn btn-white btn-sm shadow px-2 text-facebook" href="#"><i className="fab fa-fw fa-facebook-f"></i></a>
                 </li>
@@ -48,102 +40,105 @@ export default function Footer() {
                     <a className="btn btn-white btn-sm shadow px-2 text-twitter" href="#"><i className="fab fa-fw fa-twitter"></i></a>
                 </li>
                 <li className="list-inline-item">
-                    <a className="btn btn-white btn-sm shadow px-2 text-linkedin" href="#"><i className="fab fa-fw fa-linkedin-in"></i></a>
+                    <a className="btn btn-white btn-sm shadow px-2 text-linkedin" href="https://www.linkedin.com/in/kollodavid237/" target="_blank"><i className="fab fa-fw fa-linkedin-in"></i></a>
                 </li>
             </ul>
           </div>
-          {/* Widget 1 END */}
 
-          {/* Widget 2 START */}
-          <div className="col-lg-6">
-            <div className="row g-4">
-              {/* Link block */}
-              <div className="col-6 col-md-4">
-                <h5 className="mb-2 mb-md-4">{t('COMPANY_KEY')}</h5>
-                <ul className="nav flex-column">
-                  <li className="nav-item"><Link className="nav-link" href="#">{t('ABOUTUS_KEY')}</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">{t('CONTACTUS_KEY')}</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">News and Blogs</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">Library</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">Career</Link></li>
-                </ul>
-              </div>
-
-              {/* Link block */}
-              <div className="col-6 col-md-4">
-                <h5 className="mb-2 mb-md-4">{t('COMMUNITY_KEY')}</h5>
-                <ul className="nav flex-column">
-                  <li className="nav-item"><Link className="nav-link" href="#">Documentation</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">{t('FAQ_KEY')}</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">{t('FORUM_KEY')}</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">{t('SITEMAP_KEY')}</Link></li>
-                </ul>
-              </div>
-
-              {/* Link block */}
-              <div className="col-6 col-md-4">
-                <h5 className="mb-2 mb-md-4">{t('TEACHING_KEY')}</h5>
-                <ul className="nav flex-column">
-                  <li className="nav-item"><Link className="nav-link" href="#">{t('BECOMEATEACKER_KEY')}</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">{t('HOWTOGUIDE_KEY')}</Link></li>
-                  <li className="nav-item"><Link className="nav-link" href="#">{t('TERMSANDCONDITIONS_KEY')}</Link></li>
-                </ul>
-              </div>
-            </div>
+          {/* Col 2: Company Links */}
+          <div className="col-lg-2">
+            <h5 className="mb-2 mb-md-4 text-white">{t('COMPANY_KEY')}</h5>
+            <ul className="nav flex-column">
+              <li className="nav-item"><Link className="nav-link text-muted" href="/courses">{t('COURSES_KEY')}</Link></li>
+              <li className="nav-item"><Link className="nav-link text-muted" href="/exams">{t('EXAMS_KEY')}</Link></li>
+              <li className="nav-item"><Link className="nav-link text-muted" href="/about">{t('ABOUTUS_KEY')}</Link></li>
+              <li className="nav-item"><Link className="nav-link text-muted" href="/contact">{t('CONTACTUS_KEY')}</Link></li>
+            </ul>
           </div>
-          {/* Widget 2 END */}
 
-          {/* Widget 3 START */}
+          {/* Col 3: Community Links */}
+          <div className="col-lg-2">
+            <h5 className="mb-2 mb-md-4 text-white">{t('COMMUNITY_KEY')}</h5>
+            <ul className="nav flex-column">
+              <li className="nav-item"><Link className="nav-link text-muted" href="/faq">{t('FAQ_KEY')}</Link></li>
+              <li className="nav-item"><Link className="nav-link text-muted" href="/forum">{t('FORUM_KEY')}</Link></li>
+              <li className="nav-item"><Link className="nav-link text-muted" href="#">{t('SITEMAP_KEY')}</Link></li>
+            </ul>
+          </div>
+
+          {/* Col 4: Teaching & Legal */}
+          <div className="col-lg-2">
+            <h5 className="mb-2 mb-md-4 text-white">{t('TEACHING_KEY')}</h5>
+            <ul className="nav flex-column">
+              <li className="nav-item"><Link className="nav-link text-muted" href="/become-teacher">{t('BECOMEATEACKER_KEY')}</Link></li>
+              <li className="nav-item"><Link className="nav-link text-muted" href="/become-teacher#contactTitle">{t('HOWTOGUIDE_KEY')}</Link></li>
+              <li className="nav-item"><Link className="nav-link text-muted" href="/terms">{t('TERMSANDCONDITIONS_KEY')}</Link></li>
+            </ul>
+          </div>
+
+          {/* Col 5: Contact & Apps */}
           <div className="col-lg-3">
-            <h5 className="mb-2 mb-md-4">{t('CONTACT_KEY')}</h5>
-            {/* Time */}
-            <p className="mb-2">
-              {t('TOLLFREE_KEY')}:<span className="h6 fw-light ms-2">+237 650 96 70 64</span>
-              <span className="d-block small">(9:AM to 8:PM IST)</span>
-            </p>
-
-            <p className="mb-0">{t('EMAIL_KEY')}:<span className="h6 fw-light ms-2">akouma.net@gmail.com</span></p>
-
-            <div className="row g-2 mt-2">
-              {/* Google play store button */}
+            <h5 className="mb-2 mb-md-4 text-white">{t('CONTACT_INFO_KEY')}</h5>
+            <p className="mb-2 text-muted">{t('TOLLFREE_KEY')}: <span className="text-white">+237 673 14 77 53</span></p>
+            <p className="mb-2 text-muted">{t('EMAIL_KEY')}: <span className="text-white">dave@dodave.tech</span></p>
+            
+            <h5 className="mb-2 mb-md-4 text-white mt-4">{t('MOBILE_APPS_KEY')}</h5>
+            <div className="row g-2">
               <div className="col-6 col-sm-4 col-md-3 col-lg-6">
-                <a href="#">
-                  <Image src="/assets/images/client/google-play.svg" alt="" width={100} height={30} style={{ width: '100%', height: 'auto' }} />
-                </a>
+                <Link href="#"> <img src="/assets/images/client/google-play.svg" alt="" /> </Link>
               </div>
-              {/* App store button */}
               <div className="col-6 col-sm-4 col-md-3 col-lg-6">
-                <a href="#">
-                  <Image src="/assets/images/client/app-store.svg" alt="app-store" width={100} height={30} style={{ width: '100%', height: 'auto' }} />
-                </a>
+                <Link href="#"> <img src="/assets/images/client/app-store.svg" alt="app-store" /> </Link>
               </div>
             </div>
           </div>
-          {/* Widget 3 END */}
+
         </div>
         {/* Row END */}
 
         {/* Divider */}
-        <hr className="mt-4 mb-0" />
+        <hr className="mt-4 mb-0 border-top border-secondary" />
 
         {/* Bottom footer */}
         <div className="py-3">
           <div className="container px-0">
             <div className="d-lg-flex justify-content-between align-items-center py-3 text-center text-md-left">
               {/* copyright text */}
-              <div className="text-primary-hover">Copyrights 2023 Sensei237. All rights reserved</div>
+              <div className="text-muted text-primary-hover">
+                {t('COPYRIGHT_KEY', { year: new Date().getFullYear() })}
+                <span className="mx-2">|</span>
+                <Link href="/terms" className="text-muted">{t('TERMSOFUSE_KEY')}</Link>
+                <span className="mx-2">|</span>
+                <Link href="/terms" className="text-muted">{t('PRIVACYPOLICY_KEY')}</Link>
+              </div>
+              
               {/* copyright links*/}
               <div className="justify-content-center mt-3 mt-lg-0">
                 <ul className="nav list-inline justify-content-center mb-0">
                   <li className="list-inline-item">
                     {/* Language selector */}
                     <div className="dropup mt-0 text-center text-sm-end">
-                      <a className="dropdown-toggle nav-link" href="#" role="button" id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i className="fas fa-globe me-2"></i>{t('LANGUAGE_KEY')}
+                      <a className="dropdown-toggle nav-link text-muted" href="#" role="button" id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i className="fas fa-globe me-2"></i>{t('QUICK_SETTINGS_KEY')}
                       </a>
                       <ul className="dropdown-menu min-w-auto" aria-labelledby="languageSwitcher">
                         <li><button className="dropdown-item me-4" onClick={() => changeLanguage('en')}><Image className="fa-fw me-2" src="/assets/images/flags/us.svg" alt="" width={20} height={15} />{t('ENGLISH_KEY')}</button></li>
                         <li><button className="dropdown-item me-4" onClick={() => changeLanguage('fr')}><Image className="fa-fw me-2" src="/assets/images/flags/fr.svg" alt="" width={20} height={15} />{t('FRENCH_KEY')}</button></li>
+                        <li><hr className="dropdown-divider" /></li>
+                        <li>
+                            <div className="modeswitch-item theme-icon-active d-flex justify-content-center gap-3 align-items-center p-2 pb-0">
+                                <span>{t('THEME_KEY')}</span>
+                                <button type="button" className="btn btn-link btn-sm p-0 mb-0" data-bs-theme-value="light">
+                                    <i className="bi bi-sun fa-fw mode-switch"></i>
+                                </button>
+                                <button type="button" className="btn btn-link btn-sm p-0 mb-0" data-bs-theme-value="dark">
+                                    <i className="bi bi-moon-stars fa-fw mode-switch"></i>
+                                </button>
+                                <button type="button" className="btn btn-link btn-sm p-0 mb-0" data-bs-theme-value="auto">
+                                    <i className="bi bi-circle-half fa-fw mode-switch"></i>
+                                </button>
+                            </div>
+                        </li>
                       </ul>
                     </div>
                   </li>

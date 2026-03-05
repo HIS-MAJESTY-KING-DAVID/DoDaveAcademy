@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -49,6 +48,31 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
 
     const currentUser = { id: 0 }; // Placeholder
 
+    const fetchConversations = useCallback(async () => {
+        try {
+            const res = await fetch('/api/chat/conversations');
+            const data = await res.json();
+            if (data.data) {
+                setConversations(data.data);
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error('Failed to load conversations', error);
+        }
+    }, []);
+
+    const fetchMessages = useCallback(async (conversationId: number) => {
+        try {
+            const res = await fetch(`/api/chat/conversations/${conversationId}/messages`);
+            const data = await res.json();
+            if (data.data) {
+                setMessages(data.data);
+            }
+        } catch (error) {
+            console.error('Failed to load messages', error);
+        }
+    }, []);
+
     useEffect(() => {
         // Set the JWT for RLS
         supabase.realtime.setAuth(accessToken);
@@ -56,6 +80,7 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
 
     useEffect(() => {
         // Fetch initial conversations
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         fetchConversations();
 
         // Subscribe to conversation updates (e.g. new message in existing conversation updates 'updatedAt')
@@ -68,7 +93,7 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
                     schema: 'public',
                     table: 'conversation'
                 },
-                (payload) => {
+                () => {
                     fetchConversations();
                 }
             )
@@ -77,10 +102,11 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
         return () => {
             supabase.removeChannel(channel);
         };
-    }, []);
+    }, [fetchConversations]);
 
     useEffect(() => {
         if (selectedConversation) {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             fetchMessages(selectedConversation.id);
             
             // Subscribe to new messages in this conversation
@@ -94,7 +120,7 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
                         table: 'chat_message',
                         filter: `conversation_id=eq.${selectedConversation.id}`
                     },
-                    (payload) => {
+                    () => {
                         fetchMessages(selectedConversation.id);
                     }
                 )
@@ -104,36 +130,11 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
                 supabase.removeChannel(channel);
             };
         }
-    }, [selectedConversation]);
+    }, [selectedConversation, fetchMessages]);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
-
-    const fetchConversations = async () => {
-        try {
-            const res = await fetch('/api/chat/conversations');
-            const data = await res.json();
-            if (data.data) {
-                setConversations(data.data);
-                setIsLoading(false);
-            }
-        } catch (error) {
-            console.error('Failed to load conversations', error);
-        }
-    };
-
-    const fetchMessages = async (conversationId: number) => {
-        try {
-            const res = await fetch(`/api/chat/conversations/${conversationId}/messages`);
-            const data = await res.json();
-            if (data.data) {
-                setMessages(data.data);
-            }
-        } catch (error) {
-            console.error('Failed to load messages', error);
-        }
-    };
 
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -199,23 +200,27 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
                             <div className="p-3 border-bottom bg-light">
                                 <h6 className="mb-0">Chat with {getOtherParticipant(selectedConversation)}</h6>
                             </div>
-                            
-                            <div className="flex-grow-1 p-3 overflow-auto bg-white">
+                            <div className="flex-grow-1 p-3 overflow-auto">
                                 {messages.map(msg => (
-                                    <div key={msg.id} className={`d-flex mb-3 ${msg.senderId === currentUser.id ? 'justify-content-end' : 'justify-content-start'}`}>
-                                        <div className={`p-3 rounded-3 ${msg.senderId === currentUser.id ? 'bg-primary text-white' : 'bg-light text-dark'}`} style={{ maxWidth: '75%' }}>
-                                            <div className="small fw-bold mb-1">{msg.sender.person?.pseudo}</div>
+                                    <div
+                                        key={msg.id}
+                                        className={`d-flex mb-3 ${msg.senderId === currentUser.id ? 'justify-content-end' : 'justify-content-start'}`}
+                                    >
+                                        <div
+                                            className={`p-3 rounded ${msg.senderId === currentUser.id ? 'bg-primary text-white' : 'bg-light border'}`}
+                                            style={{ maxWidth: '75%' }}
+                                        >
+                                            <div className="small fw-bold mb-1">{msg.sender.person?.pseudo || 'User'}</div>
                                             <div>{msg.content}</div>
-                                            <div className="small mt-1 opacity-75 text-end" style={{ fontSize: '0.7rem' }}>
-                                                {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            <div className={`small mt-1 ${msg.senderId === currentUser.id ? 'text-light' : 'text-muted'}`}>
+                                                {new Date(msg.createdAt).toLocaleTimeString()}
                                             </div>
                                         </div>
                                     </div>
                                 ))}
                                 <div ref={messagesEndRef} />
                             </div>
-
-                            <div className="p-3 border-top bg-light">
+                            <div className="p-3 border-top">
                                 <form onSubmit={handleSendMessage} className="d-flex gap-2">
                                     <input
                                         type="text"
@@ -224,18 +229,13 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
                                         value={newMessage}
                                         onChange={(e) => setNewMessage(e.target.value)}
                                     />
-                                    <button type="submit" className="btn btn-primary">
-                                        <i className="fas fa-paper-plane"></i>
-                                    </button>
+                                    <button type="submit" className="btn btn-primary">Send</button>
                                 </form>
                             </div>
                         </>
                     ) : (
-                        <div className="h-100 d-flex align-items-center justify-content-center text-muted">
-                            <div className="text-center">
-                                <i className="fas fa-comments fa-3x mb-3"></i>
-                                <p>Select a conversation to start chatting</p>
-                            </div>
+                        <div className="d-flex align-items-center justify-content-center h-100 text-muted">
+                            Select a conversation to start chatting
                         </div>
                     )}
                 </div>

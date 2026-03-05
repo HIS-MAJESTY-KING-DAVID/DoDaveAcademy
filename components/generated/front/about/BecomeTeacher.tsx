@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 export default function BecomeTeacher() {
+  const { t } = useTranslation();
   return (
     <>
       {/* =======================
@@ -76,10 +78,10 @@ export default function BecomeTeacher() {
           <div className="row g-4 align-items-center">
             <div className="col-md-6">
               {/* Title */}
-              <h1>Become an Instructor</h1>
-              <p>Teach what you love. Kulmapeck gives you the tools to create a course.</p>
+              <h1>{t('BECOME_INSTRUCTOR_TITLE_KEY')}</h1>
+              <p>{t('BECOME_INSTRUCTOR_DESC_KEY')}</p>
               {/* Button */}
-              <Link href="/contact" className="btn btn-primary mb-0">Contact Us</Link>
+              <Link href="/contact" className="btn btn-primary mb-0">{t('CONTACTUS_KEY')}</Link>
             </div>
 
             <div className="col-md-6 text-center">

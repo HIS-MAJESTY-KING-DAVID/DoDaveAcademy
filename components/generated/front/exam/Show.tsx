@@ -85,7 +85,7 @@ export default function Show({ exam, data, display, courses = [] }: ShowProps) {
         zIndex: '9999',
         textAlign: 'center',
       });
-      warning.innerHTML = '<h3>Capture d\'écran détectée!</h3><p>La capture d\'écran n\'est pas autorisée sur Kulmapeck.</p>';
+      warning.innerHTML = '<h3>Capture d\'écran détectée!</h3><p>La capture d\'écran n\'est pas autorisée sur DoDave Academy.</p>';
       document.body.appendChild(warning);
       setTimeout(() => {
         if (warning && warning.parentNode) warning.parentNode.removeChild(warning);

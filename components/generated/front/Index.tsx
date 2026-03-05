@@ -1,15 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 export default function Index() {
+  const { t } = useTranslation();
   return (
     <>
       {/* ======= Hero Section ======= */}
       <section id="hero" className="d-flex justify-content-center align-items-center">
         <div className="container position-relative" data-aos="zoom-in" data-aos-delay="100">
-          <h1>Learning Today,<br />Leading Tomorrow</h1>
-          <h2>We are team of talented designers making websites with Bootstrap</h2>
-          <Link href="/courses" className="btn-get-started">Get Started</Link>
+          <h1>{t('HERO_TITLE_KEY')}</h1>
+          <h2>{t('HERO_SUBTITLE_KEY')}</h2>
+          <Link href="/courses" className="btn-get-started">{t('GET_STARTED_KEY')}</Link>
         </div>
       </section>
       {/* End Hero */}
@@ -53,22 +55,22 @@ export default function Index() {
 
               <div className="col-lg-3 col-6 text-center">
                 <span data-purecounter-start="0" data-purecounter-end="1232" data-purecounter-duration="1" className="purecounter">1232</span>
-                <p>Students</p>
+                <p>{t('STUDENTS_KEY')}</p>
               </div>
 
               <div className="col-lg-3 col-6 text-center">
                 <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" className="purecounter">64</span>
-                <p>Courses</p>
+                <p>{t('COURSES_COUNT_KEY')}</p>
               </div>
 
               <div className="col-lg-3 col-6 text-center">
                 <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1" className="purecounter">42</span>
-                <p>Anciens sujets</p>
+                <p>{t('PAST_PAPERS_KEY')}</p>
               </div>
 
               <div className="col-lg-3 col-6 text-center">
                 <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" className="purecounter">15</span>
-                <p>Trainers</p>
+                <p>{t('TRAINERS_KEY')}</p>
               </div>
 
             </div>
@@ -84,7 +86,7 @@ export default function Index() {
             <div className="row">
               <div className="col-lg-4 d-flex align-items-stretch">
                 <div className="content">
-                  <h3>Pourquoi Choisir Kulmapeck?</h3>
+                  <h3>{t('WHY_CHOOSE_US_KEY')}</h3>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
                     Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.

@@ -1,6 +1,6 @@
-# Master Implementation Plan: Kulmapeck Migration to Next.js
+# Master Implementation Plan: DoDave Academy Migration to Next.js
 
-This document serves as the central roadmap for migrating the Kulmapeck platform from Symfony/PHP to Next.js/React. It synthesizes all technical analysis, feature audits, and entity flows into a sequential execution strategy.
+This document serves as the central roadmap for migrating the DoDave Academy platform from Symfony/PHP to Next.js/React. It synthesizes all technical analysis, feature audits, and entity flows into a sequential execution strategy.
 
 ## 📚 Global Guidelines & Standards (Added from WC Checklist)
 
@@ -160,7 +160,7 @@ The following logic MUST be ported from PHP to maintain parity:
 ## Rollback Procedures
 
 ### Immediate Rollback (During Development)
-Since the React app is built in a separate directory (`Kulmapeck-React`):
+Since the React app is built in a separate directory (`DoDave-Academy-React`):
 1.  Stop the Next.js server.
 2.  Developers return to the `Kulmatest` (PHP) directory.
 3.  No data destruction occurs in the old system.

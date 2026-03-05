@@ -14,7 +14,7 @@ export default function Home() {
           <div className="row align-items-center text-center">
             {/* Texte de la bannière */}
             <div className="col-md-12">
-              <p className="mb-4 fw-bold main-message">{t('MAINMESSAGE_KEY')} KULMAPECK</p>
+              <p className="mb-4 fw-bold main-message">{t('MAINMESSAGE_KEY')} DoDave Academy</p>
               <p className="mb-4 fw-bold sub-message">{t('MAINMESSAGEDESCRIPTION_KEY')}</p>
               <Link href="/courses" className="btn btn-lg" style={{ backgroundColor: '#fd7e14', color: 'white', fontSize: '20px' }}>
                 {t('SEE_ALL_COURSES_KEY')}
@@ -39,7 +39,7 @@ export default function Home() {
       </section>
       {/* Custom Banner END */}
 
-      <div id="quizNotification" className="btn btn-success" style={{ display: 'none' }}>Quiz is available!</div>
+      <div id="quizNotification" className="btn btn-success" style={{ display: 'none' }}>{t('QUIZ_AVAILABLE_KEY')}</div>
 
       {/* Counter START */}
       <section className="py-0 py-xl-5 counter-block">

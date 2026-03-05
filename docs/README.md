@@ -1,4 +1,4 @@
-# Kulmapeck Migration Project
+# DoDave Academy Migration Project
 
 ## Overview
 This project targets the complete migration of the **Kulmapeck E-learning Platform** from a legacy Symfony (PHP) architecture to a modern **Next.js (React/TypeScript)** stack.
@@ -41,7 +41,7 @@ This project targets the complete migration of the **Kulmapeck E-learning Platfo
     *   Helper scripts and libraries used during migration.
 
 ## Project Context
-**Kulmapeck** is an LMS (Learning Management System) featuring:
+**DoDave Academy** is an LMS (Learning Management System) featuring:
 *   **User Roles**: Students, Instructors, Admins.
 *   **Course Content**: Video lessons, Quizzes, Exams.
 *   **Financials**: Mobile Money payments, Instructor payouts, Network marketing (MLM) distribution.

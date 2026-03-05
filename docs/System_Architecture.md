@@ -1,6 +1,6 @@
 # System Architecture
 
-This document outlines the architecture of the Kulmapeck platform, mapping the legacy Symfony implementation to the new Next.js structure.
+This document outlines the architecture of the DoDave Academy platform, mapping the legacy Symfony implementation to the new Next.js structure.
 
 ## 1. High-Level Architecture
 

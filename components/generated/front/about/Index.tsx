@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 export default function About() {
+  const { t } = useTranslation();
   return (
     <>
       {/* =======================
@@ -37,7 +39,7 @@ export default function About() {
               </figure>
 
               {/* Title */}
-              <h1 className="position-relative fs-2">ABOUT US</h1>
+              <h1 className="position-relative fs-2">{t('ABOUTUS_KEY')}</h1>
             </div>
             {/* Title and SVG END */}
           </div>
@@ -76,8 +78,8 @@ export default function About() {
                 {/* Content */}
                 <div className="col-sm-6 col-md-12">
                   <div className="bg-grad rounded-4 p-5 text-start">
-                    <span className="text-white">Our Goal:</span>
-                    <h3 className="text-white">“To provide the best learning experience.”</h3>
+                    <span className="text-white">{t('OUR_GOAL_KEY')}:</span>
+                    <h3 className="text-white">“{t('OUR_GOAL_TEXT_KEY')}”</h3>
                   </div>
                 </div>
                 {/* Image */}
@@ -100,9 +102,9 @@ export default function About() {
           {/* Title */}
           <div className="row mb-4">
             <div className="col-lg-8">
-              <h2>About Kulmapeck</h2>
+              <h2>{t('ABOUT_US_TITLE_KEY')}</h2>
               <p className="mb-0">
-                Kulmapeck is an online learning platform that offers courses on a wide range of subjects. Our mission is to make education accessible to everyone, everywhere.
+                {t('ABOUT_US_DESCRIPTION_KEY')}
               </p>
             </div>
           </div>

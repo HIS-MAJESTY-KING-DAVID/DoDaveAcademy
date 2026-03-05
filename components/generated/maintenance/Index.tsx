@@ -9,7 +9,7 @@ export default function Index(props: any) {
 
 <!-- Mirrored from eduport.webestica.com/coming-soon.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 12 Mar 2023 00:46:17 GMT -->
 <head>
-	<title>Kulmapeck</title>
+	<title>DoDave Academy</title>
 
 	<!-- Meta Tags -->
 	<meta charset="utf-8">

@@ -13,15 +13,16 @@ export default function Header() {
       <nav className="navbar navbar-expand-xl">
         <div className="container-fluid px-3 px-xl-5">
           {/* Logo START */}
-          <Link href="/" className="navbar-brand">
+          <Link href="/" className="navbar-brand d-flex align-items-center">
             <Image
               className="light-mode-item navbar-brand-item"
-              src="/assets/images/logo.svg"
-              alt="logo"
-              width={150}
+              src="/logo.svg"
+              alt="DoDave Academy"
+              width={40}
               height={40}
               style={{ height: '40px', width: 'auto' }}
             />
+            <span className="ms-2 d-none d-sm-inline-block" style={{ fontFamily: 'Pacifico, cursive', color: 'var(--brand-primary)', fontSize: '24px' }}>DoDave Academy</span>
           </Link>
           {/* Logo END */}
 
@@ -44,72 +45,51 @@ export default function Header() {
 
           {/* Main navbar START */}
           <div className="navbar-collapse w-100 collapse" id="navbarCollapse">
-            {/* Nav category menu START */}
-            <ul className="navbar-nav navbar-nav-scroll me-auto">
-              <li className="nav-item dropdown dropdown-menu-shadow-stacked">
-                <a
-                  className="nav-link bg-light rounded-3 text-primary px-3 py-3 py-xl-0"
-                  href="#"
-                  id="categoryMenu"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i className="bi bi-ui-radios-grid me-2"></i>
-                  <span>{t('CATEGORIES_KEY')}</span>
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="categoryMenu">
-                  {/* TODO: Fetch categories dynamically */}
-                  <li><Link className="dropdown-item" href="#">Development</Link></li>
-                  <li><Link className="dropdown-item" href="#">Design</Link></li>
-                  <li><Link className="dropdown-item" href="#">Marketing</Link></li>
-                </ul>
-              </li>
-            </ul>
-            {/* Nav category menu END */}
-
+            
             {/* Nav Main menu START */}
             <ul className="navbar-nav navbar-nav-scroll me-auto">
+              {/* Categories Dropdown */}
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="categoryMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {t('COURSESCATEGORY_KEY')}
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="categoryMenu">
+                  <li> <Link className="dropdown-item" href="#">Web Development</Link> </li>
+                  <li> <Link className="dropdown-item" href="#">Data Science</Link> </li>
+                  <li> <Link className="dropdown-item" href="#">Mobile Development</Link> </li>
+                </ul>
+              </li>
+
               <li className="nav-item">
-                <Link className="nav-link active" href="/">
+                <Link className="nav-link" href="/">
                   {t('HOME_KEY')}
                 </Link>
               </li>
               
-              <li className="nav-item dropdown dropdown-fullwidth">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
+              {/* Courses Dropdown */}
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="courseMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {t('COURSES_KEY')}
                 </a>
-                <div className="dropdown-menu dropdown-menu-end" data-bs-popper="none">
-                    {/* TODO: Mega menu content */}
-                    <div className="row p-4">
-                        <div className="col-md-6">
-                            <h6>Web Development</h6>
-                            <ul className="list-unstyled">
-                                <li><Link href="#">HTML</Link></li>
-                                <li><Link href="#">CSS</Link></li>
-                                <li><Link href="#">JavaScript</Link></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <ul className="dropdown-menu" aria-labelledby="courseMenu">
+                  <li> <Link className="dropdown-item" href="/courses">{t('ALLCOURSES_KEY')}</Link> </li>
+                  <li> <Link className="dropdown-item" href="/programs">{t('PROGRAMS_KEY')}</Link> </li>
+                </ul>
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link" href="/exam">
-                  {t('EXAM_KEY')}
+                <Link className="nav-link" href="/exams">
+                  {t('EXAMS_KEY')}
                 </Link>
               </li>
-
               <li className="nav-item">
                 <Link className="nav-link" href="/forum">
                   {t('FORUM_KEY')}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" href="/plan">
+                  {t('SUBSCRIBE_KEY')}
                 </Link>
               </li>
             </ul>
@@ -125,18 +105,22 @@ export default function Header() {
                   </button>
                 </form>
               </div>
-              <div className="nav-item">
+
+              <div className="nav-item ms-3">
                 <LanguageSwitcher />
               </div>
+              
+              <div className="nav-item ms-3 d-none d-sm-block">
+                 <Link className="btn btn-sm btn-outline-primary mb-0" href="/login">
+                    {t('SIGN_IN_KEY')}
+                 </Link>
+              </div>
+              <div className="nav-item ms-3 d-none d-sm-block">
+                 <Link className="btn btn-sm btn-primary mb-0" href="/register">
+                    {t('ENROLL_NOW_KEY')}
+                 </Link>
+              </div>
             </div>
-            
-             <ul className="navbar-nav navbar-nav-scroll">
-                 <li className="nav-item">
-                    <Link className="nav-link" href="/login">
-                       <b className="badge bg-success">{t('SIGN_IN_KEY')}</b>
-                    </Link>
-                 </li>
-             </ul>
              {/* Nav Right (Account) END */}
 
           </div>

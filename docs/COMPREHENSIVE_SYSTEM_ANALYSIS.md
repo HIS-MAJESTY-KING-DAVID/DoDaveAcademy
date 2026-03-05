@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary
 
-The **DoDaveAcademy** (Kulmapeck) platform is currently transitioning from a Symfony-based architecture to a modern **Next.js 16 (App Router)** application. The system leverages **Prisma ORM** with **MySQL** for data persistence and **React Server Components (RSC)** for performance-critical data fetching.
+The **DoDaveAcademy** platform is currently transitioning from a Symfony-based architecture to a modern **Next.js 16 (App Router)** application. The system leverages **Prisma ORM** with **MySQL** for data persistence and **React Server Components (RSC)** for performance-critical data fetching.
 
 While the core authentication and course browsing features are implemented using modern patterns, a significant portion of the UI components (`components/generated`) appears to be ported directly from the legacy system, creating a hybrid state that requires standardization.
 

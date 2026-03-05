@@ -74,7 +74,7 @@ export default function Base(props: any) {
 				width: 100%;
 				height: 1px;
 				background-color: #ccc;
-				z-order: 0;
+				z-index: 0;
 			}
 			.stepwizard-step {
 				display: table-cell;
@@ -304,9 +304,9 @@ export default function Base(props: any) {
 				<div className="row">
 					<div className="col-md-6 text-center text-md-start">
 						<span className="text-light">
-							<a href="https://kulmapeck.com" className="text-secondary">
+							<a href="https://dodave.tech" className="text-secondary">
 								<i className="fas fa-copyright text-secondary me-2"></i>
-								Kulmapeck
+								DoDave Academy
 							</a>, All right reserved.</span>
 					</div>
 					<div
@@ -315,7 +315,7 @@ export default function Base(props: any) {
 						<span className="text-light">Developped By<a href="https://akouma.net" className="text-secondary">
 								Akouma Developer</a>
 							Distributed By
-							<a href="https://kulmapeck.com">Kulmapeck</a>
+							<a href="https://dodave.tech">DoDave Academy</a>
 						</span>
 					</div>
 				</div>
