@@ -41,7 +41,7 @@ export async function POST(req: Request) {
     const total = chapter.quizzes.length;
 
     for (const quiz of chapter.quizzes) {
-        const studentAnswer = answers[quiz.id];
+        const studentAnswer = answers[String(quiz.id)];
         
         // Find correct proposition
         const correctProposition = quiz.propositions.find(p => p.isTrue);
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
             data: {
                 quizId: quiz.id,
                 studentId: student.id,
-                result: studentAnswer || '',
+                result: typeof studentAnswer === 'string' ? studentAnswer : '',
                 isCorrect: !!isCorrect,
                 score: isCorrect ? 1 : 0,
                 createdAt: new Date(),

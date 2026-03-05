@@ -16,7 +16,7 @@ export class AppError extends Error {
 export function handleApiError(error: unknown) {
   if (error instanceof z.ZodError) {
     return NextResponse.json(
-      { message: 'Validation Error', errors: error.errors },
+      { message: 'Validation Error', errors: error.issues },
       { status: 422 }
     );
   }
