@@ -10,7 +10,7 @@ if (!supabaseUrl || !supabaseKey) {
 
 // Query the 'Category' table (limit 1) to trigger database activity
 // This prevents Supabase from pausing the project due to inactivity
-const tableName = 'Category';
+const tableName = 'category';
 const url = `${supabaseUrl}/rest/v1/${tableName}?select=id&limit=1`;
 
 console.log(`Pinging Supabase at: ${supabaseUrl}...`);
