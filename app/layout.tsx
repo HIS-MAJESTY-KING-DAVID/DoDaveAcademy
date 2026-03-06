@@ -4,10 +4,35 @@ import Footer from '../components/layout/Footer';
 import Script from 'next/script';
 import I18nProvider from '../components/I18nProvider';
 import { AuthProvider } from '../context/AuthContext';
+import { Montserrat, Pacifico, Roboto } from 'next/font/google';
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['600', '700'],
+  variable: '--heading-font-family',
+  display: 'swap',
+});
+
+const pacifico = Pacifico({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--brand-font-family',
+  display: 'swap',
+});
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
+  variable: '--bs-body-font-family',
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'DoDave Academy - Welcome',
   description: 'La solution éducative innovante et digitalisée adaptée au contexte Africain.',
+  icons: {
+    icon: '/logo.svg',
+  },
 };
 
 export default function RootLayout({
@@ -16,18 +41,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${montserrat.variable} ${pacifico.variable} ${roboto.variable}`}>
       <head>
         <meta charSet="UTF-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         
-        {/* Google Web Fonts */}
-        {/* eslint-disable @next/next/no-page-custom-font */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Pacifico&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-        {/* eslint-enable @next/next/no-page-custom-font */}
-
         {/* Plugins CSS */}
         {/* eslint-disable @next/next/no-css-tags */}
         <link rel="stylesheet" type="text/css" href="/assets/vendor/font-awesome/css/all.min.css" />

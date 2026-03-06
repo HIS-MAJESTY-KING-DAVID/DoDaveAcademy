@@ -49,6 +49,21 @@ export default function Header() {
             {/* Nav Main menu START */}
             <ul className="navbar-nav navbar-nav-scroll me-auto">
 
+              {/* Categories Dropdown */}
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="categoryMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {t('CATEGORIES_KEY')}
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="categoryMenu">
+                   {/* TODO: Fetch categories dynamically */}
+                   <li><Link className="dropdown-item" href="/courses?category=web-design">Web Design</Link></li>
+                   <li><Link className="dropdown-item" href="/courses?category=development">Development</Link></li>
+                   <li><Link className="dropdown-item" href="/courses?category=graphic-design">Graphic Design</Link></li>
+                   <li><Link className="dropdown-item" href="/courses?category=marketing">Marketing</Link></li>
+                   <li><Link className="dropdown-item" href="/courses?category=finance">Finance</Link></li>
+                </ul>
+              </li>
+
               <li className="nav-item">
                 <Link className="nav-link" href="/">
                   {t('HOME_KEY')}
@@ -71,13 +86,15 @@ export default function Header() {
                   {t('EXAMS_KEY')}
                 </Link>
               </li>
+
               <li className="nav-item">
                 <Link className="nav-link" href="/forum">
                   {t('FORUM_KEY')}
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" href="/plan">
+
+              <li className="nav-item d-none d-lg-block">
+                <Link className="nav-link text-warning" href="/plan">
                   {t('SUBSCRIBE_KEY')}
                 </Link>
               </li>

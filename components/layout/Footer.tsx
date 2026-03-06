@@ -62,7 +62,7 @@ export default function Footer() {
             <ul className="nav flex-column">
               <li className="nav-item"><Link className="nav-link text-muted" href="/faq">{t('FAQ_KEY')}</Link></li>
               <li className="nav-item"><Link className="nav-link text-muted" href="/forum">{t('FORUM_KEY')}</Link></li>
-              <li className="nav-item"><Link className="nav-link text-muted" href="#">{t('SITEMAP_KEY')}</Link></li>
+              <li className="nav-item"><Link className="nav-link text-muted" href="/sitemap.xml">{t('SITEMAP_KEY')}</Link></li>
             </ul>
           </div>
 
