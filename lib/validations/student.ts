@@ -16,6 +16,12 @@ export const quizAttemptSchema = z.object({
   answers: z.record(z.string(), z.string()), // Record<string(quizId), string(proposition)>
 });
 
+export const reviewSchema = z.object({
+  rating: z.number().min(1).max(5),
+  message: z.string().min(3).max(1000),
+});
+
 export type EnrollSchema = z.infer<typeof enrollSchema>;
 export type ProgressSchema = z.infer<typeof progressSchema>;
 export type QuizAttemptSchema = z.infer<typeof quizAttemptSchema>;
+export type ReviewSchema = z.infer<typeof reviewSchema>;

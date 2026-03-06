@@ -80,7 +80,10 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
 
     useEffect(() => {
         // Fetch initial conversations
-        fetchConversations();
+        const loadConversations = async () => {
+            await fetchConversations();
+        };
+        loadConversations();
 
         // Subscribe to conversation updates (e.g. new message in existing conversation updates 'updatedAt')
         const channel = supabase
@@ -105,7 +108,10 @@ export default function ChatWindow({ accessToken }: ChatWindowProps) {
 
     useEffect(() => {
         if (selectedConversation) {
-            fetchMessages(selectedConversation.id);
+            const loadMessages = async () => {
+                await fetchMessages(selectedConversation.id);
+            };
+            loadMessages();
             
             // Subscribe to new messages in this conversation
             const channel = supabase

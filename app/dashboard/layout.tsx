@@ -30,7 +30,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
                   <li className="nav-item">
                     <Link className="nav-link" href="/plan">
                       <i className="fas fa-crown text-warning me-2"></i>
-                      S'ABONNER
+                      S&apos;ABONNER
                     </Link>
                   </li>
                   <li className="nav-item">

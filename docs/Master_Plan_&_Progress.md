@@ -226,6 +226,9 @@ Since the React app is built in a separate directory (`DoDave-Academy-React`):
     - [x] Linting passed.
     - [x] Type checking passed.
     - [x] Build passed successfully.
+    - [x] Prisma DATABASE_URL parsing fixed for special-character passwords.
+    - [x] Prisma connection fixed by using the correct Supabase pooler host and tenant user format.
+    - [x] Exams feature upgraded with listing filters, details viewer, secure premium PDF file delivery, and public list/details APIs.
 
 ---
 
