@@ -48,17 +48,6 @@ export default function Header() {
             
             {/* Nav Main menu START */}
             <ul className="navbar-nav navbar-nav-scroll me-auto">
-              {/* Categories Dropdown */}
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="categoryMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {t('COURSESCATEGORY_KEY')}
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="categoryMenu">
-                  <li> <Link className="dropdown-item" href="#">Web Development</Link> </li>
-                  <li> <Link className="dropdown-item" href="#">Data Science</Link> </li>
-                  <li> <Link className="dropdown-item" href="#">Mobile Development</Link> </li>
-                </ul>
-              </li>
 
               <li className="nav-item">
                 <Link className="nav-link" href="/">
