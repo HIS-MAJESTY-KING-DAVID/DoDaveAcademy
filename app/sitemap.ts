@@ -24,15 +24,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === '' ? 1 : 0.8,
   }));
 
-  const courses = await prisma.course.findMany({
-    where: { isPublished: true },
-    select: {
-      slug: true,
-      updatedAt: true,
-      publishedAt: true,
-      createdAt: true,
-    },
-  });
+  let courses: { slug: string; updatedAt: Date | null; publishedAt: Date | null; createdAt: Date }[] = [];
+  let exams: { reference: string; publishedAt: Date | null }[] = [];
+  try {
+    courses = await prisma.course.findMany({
+      where: { isPublished: true },
+      select: {
+        slug: true,
+        updatedAt: true,
+        publishedAt: true,
+        createdAt: true,
+      },
+    });
+    exams = await prisma.exam.findMany({
+      where: { isPublished: true },
+      select: {
+        reference: true,
+        publishedAt: true,
+      },
+    });
+  } catch {
+    courses = [];
+    exams = [];
+  }
 
   const courseRoutes = courses.map((course) => ({
     url: `${baseUrl}/courses/${course.slug}`,
@@ -41,17 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const exams = await prisma.exam.findMany({
-    where: { isPublished: true },
-    select: {
-      reference: true,
-      publishedAt: true,
-    },
-  });
-
   const examRoutes = exams.map((exam) => ({
     url: `${baseUrl}/exams/${exam.reference}`,
-    lastModified: exam.publishedAt,
+    lastModified: exam.publishedAt ?? new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
