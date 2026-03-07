@@ -51,15 +51,26 @@ const normalizeDatabaseUrl = (value: string | undefined) => {
   }
 };
 
-const normalizedDatabaseUrl = normalizeDatabaseUrl(process.env.DATABASE_URL);
+const normalizedDatabaseUrl = normalizeDatabaseUrl(
+  process.env.DATABASE_URL_IPV4 || process.env.DATABASE_URL
+);
 if (normalizedDatabaseUrl) {
   process.env.DATABASE_URL = normalizedDatabaseUrl;
 }
 
+const prismaClientOptions: any = {
+  log: ['query', 'error', 'warn'],
+};
+
+if (normalizedDatabaseUrl) {
+  prismaClientOptions.datasources = {
+    db: {
+      url: normalizedDatabaseUrl,
+    },
+  };
+}
+
 export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient({
-    log: ['query', 'error', 'warn'],
-  });
+  globalForPrisma.prisma || new PrismaClient(prismaClientOptions);
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
