@@ -1,4 +1,10 @@
 import React from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Pricing Plans',
+  description: 'Choose the best plan for your learning journey. Flexible pricing options for students and professionals at DoDave Academy.',
+};
 
 export default function PlanPage() {
   return (

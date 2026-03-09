@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
@@ -21,6 +22,15 @@ function buildExamPageHref(
 
   return `/exams?${params.toString()}`;
 }
+
+export const metadata: Metadata = {
+  title: 'Official Exams',
+  description: 'Prepare for your certifications with our collection of official exams and corrections. Test your knowledge and get ready for success.',
+  openGraph: {
+    title: 'Official Exams & Corrections | DoDave Academy',
+    description: 'Access our database of official exams. Practice with past papers and detailed corrections.',
+  },
+};
 
 export default async function ExamsPage({
   searchParams,

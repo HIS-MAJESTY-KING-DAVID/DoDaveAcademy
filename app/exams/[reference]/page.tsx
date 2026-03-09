@@ -1,7 +1,23 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+
+export async function generateMetadata({ params }: { params: Promise<{ reference: string }> }): Promise<Metadata> {
+  const { reference } = await params;
+  const exam = await prisma.exam.findFirst({
+    where: { reference, isPublished: true },
+    select: { title: true, reference: true },
+  });
+
+  if (!exam) return { title: 'Exam Not Found' };
+
+  return {
+    title: `${exam.title} (${exam.reference})`,
+    description: `Official exam paper and corrections for ${exam.title}. Reference: ${exam.reference}. Prepare for your certifications with DoDave Academy.`,
+  };
+}
 
 function isPrivilegedRole(roles: string) {
   return roles.includes('ROLE_ADMIN') || roles.includes('ROLE_INSTRUCTOR');

@@ -1,3 +1,4 @@
+import { Metadata, Viewport } from 'next';
 import './globals.css';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
@@ -5,6 +6,7 @@ import Script from 'next/script';
 import I18nProvider from '../components/I18nProvider';
 import { AuthProvider } from '../context/AuthContext';
 import { Montserrat, Pacifico, Roboto } from 'next/font/google';
+import GlobalStructuredData from '../components/SEO/GlobalStructuredData';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -27,12 +29,85 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-export const metadata = {
-  title: 'DoDave Academy - Welcome',
-  description: 'La solution éducative innovante et digitalisée adaptée au contexte Africain.',
-  icons: {
-    icon: '/logo.svg',
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://academy.dodave.tech';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#4f46e5',
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: 'DoDave Academy | Innovative Digital Education for Africa',
+    template: '%s | DoDave Academy',
   },
+  description:
+    'DoDave Academy offers innovative digital education solutions tailored for the African context. Explore our courses, exams, and programs to enhance your skills.',
+  keywords: [
+    'e-learning',
+    'Africa',
+    'education',
+    'courses',
+    'exams',
+    'digital learning',
+    'skills',
+    'DoDave Academy',
+    'Senegal',
+    'coding',
+    'professional training',
+  ],
+  authors: [{ name: 'DoDave Academy', url: baseUrl }],
+  creator: 'DoDave Academy',
+  publisher: 'DoDave Academy',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: './',
+    languages: {
+      en: '/en',
+      fr: '/fr',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: baseUrl,
+    siteName: 'DoDave Academy',
+    title: 'DoDave Academy | Innovative Digital Education for Africa',
+    description:
+      'Innovative digital education solutions tailored for the African context. Empowering students and professionals with cutting-edge courses and exams.',
+    images: [
+      {
+        url: '/logo.svg',
+        width: 800,
+        height: 600,
+        alt: 'DoDave Academy Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DoDave Academy | Innovative Digital Education for Africa',
+    description:
+      'Innovative digital education solutions tailored for the African context. Join our platform to enhance your skills and achieve your goals.',
+    images: ['/logo.svg'],
+  },
+  verification: {
+    google: 'GSC_VERIFICATION_CODE_PLACEHOLDER',
+  },
+  category: 'education',
 };
 
 export default function RootLayout({
@@ -43,8 +118,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${pacifico.variable} ${roboto.variable}`}>
       <head>
+        <GlobalStructuredData />
         <meta charSet="UTF-8" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         
         {/* Plugins CSS */}
         {/* eslint-disable @next/next/no-css-tags */}

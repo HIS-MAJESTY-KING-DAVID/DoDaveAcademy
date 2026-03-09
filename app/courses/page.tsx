@@ -5,7 +5,12 @@ import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 
 export const metadata = {
-  title: 'All Courses',
+  title: 'Online Courses',
+  description: 'Browse our wide range of online courses designed to help you master new skills. From programming to business, find the right course for your career.',
+  openGraph: {
+    title: 'Online Courses | DoDave Academy',
+    description: 'Explore our catalog of professional online courses. Learn at your own pace with expert instructors.',
+  },
 };
 
 // Helper to map Prisma course to Component course

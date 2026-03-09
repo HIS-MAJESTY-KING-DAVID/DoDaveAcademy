@@ -1,4 +1,10 @@
 import React from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'FAQ',
+  description: 'Find answers to common questions about DoDave Academy. Learn more about our courses, enrollment, and support.',
+};
 
 export default function FAQPage() {
   return (

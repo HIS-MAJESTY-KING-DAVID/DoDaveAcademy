@@ -7,7 +7,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const course = await prisma.course.findFirst({
     where: { slug },
-    select: { title: true, description: true },
+    select: { 
+      title: true, 
+      description: true,
+      media: {
+        select: {
+          imageFile: true,
+        },
+      },
+    },
   });
 
   if (!course) {
@@ -16,9 +24,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
+  const cleanDescription = course.description?.replace(/<[^>]*>/g, '').substring(0, 160) || '';
+
   return {
     title: course.title,
-    description: course.description,
+    description: cleanDescription,
+    openGraph: {
+      title: `${course.title} | DoDave Academy`,
+      description: cleanDescription,
+      type: 'article',
+      images: course.media?.imageFile ? [`/uploads/${course.media.imageFile}`] : ['/logo.svg'],
+    },
   };
 }
 

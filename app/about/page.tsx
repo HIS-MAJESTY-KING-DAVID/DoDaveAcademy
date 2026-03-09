@@ -1,7 +1,13 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 
-export const metadata = {
-  title: 'About us',
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn about DoDave Academy\'s mission to provide innovative digital education solutions tailored for Africa. Empowering learners and instructors.',
+  openGraph: {
+    title: 'About DoDave Academy',
+    description: 'Our mission is to democratize education in Africa through technology and expert-led training.',
+  },
 };
 
 export default function About() {

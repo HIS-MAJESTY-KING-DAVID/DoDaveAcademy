@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { PrismaClient } from '@prisma/client';
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
@@ -54,11 +55,12 @@ const normalizeDatabaseUrl = (value: string | undefined) => {
 const normalizedDatabaseUrl = normalizeDatabaseUrl(
   process.env.DATABASE_URL_IPV4 || process.env.DATABASE_URL
 );
+
 if (normalizedDatabaseUrl) {
   process.env.DATABASE_URL = normalizedDatabaseUrl;
 }
 
-const prismaClientOptions: any = {
+const prismaClientOptions: Prisma.PrismaClientOptions = {
   log: ['query', 'error', 'warn'],
 };
 

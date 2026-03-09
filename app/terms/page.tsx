@@ -1,4 +1,10 @@
 import React from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms & Conditions',
+  description: 'Review our terms of service and privacy policy. Understand your rights and responsibilities when using the DoDave Academy platform.',
+};
 
 export default function TermsPage() {
   return (
