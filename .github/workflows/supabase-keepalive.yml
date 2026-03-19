@@ -1,0 +1,38 @@
+name: Supabase Keep-Alive
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # Every 6 hours
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  keep-alive:
+    name: Prevent Supabase Inactivity Pause
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Perform Database Keep-Alive
+        run: |
+          curl -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/keep_alive" \
+          -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{}'
+        continue-on-error: false
+
+      - name: Verify Project Status
+        run: |
+          STATUS=$(curl -s -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/" \
+          -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          if [[ -z "$STATUS" ]]; then
+            echo "Verification failed: Could not reach Supabase REST API"
+            exit 1
+          else
+            echo "Project is ACTIVE"
+          fi
+
+      - name: Notify Failure
+        if: failure()
+        run: |
+          echo "Supabase Keep-Alive failed! Please check repository secrets and Supabase project status."
