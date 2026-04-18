@@ -282,3 +282,34 @@ This section maps the core entities from the legacy system (French) to the new a
 | **Forum**      | `Forum`              | Discussion board.                    | 1:1 with `Course`.                                   |
 | **Topic**      | `Sujet`              | Discussion thread.                   | Child of `Forum`.                                    |
 | **Payment**    | `Paiement`           | Financial transaction.               | Linked to `Student` and `Course`/`Subscription`. |
+
+---
+
+## Phase 11: Infrastructure Maintenance (New)
+**Goal**: Ensure reliable automated operations and secure secret management.
+
+**Status**: ✅ Completed (2026-04-18)
+
+- [x] **Supabase Keep-Alive Setup**:
+  - [x] Configured GitHub repository secrets for Supabase integration:
+    - [x] `SUPABASE_URL` → `https://qpxjcuvlyvaopexqdthb.supabase.co`
+    - [x] `SUPABASE_ANON_KEY` → Set (masked)
+    - [x] `SUPABASE_KEY` → Set (masked)
+    - [x] `SUPABASE_PROJECT_ID` → `qpxjcuvlyvaopexqdthb`
+  - [x] Verified keep-alive script (`scripts/keep_alive.js`) functionality:
+    - [x] Test run successful (HTTP 200 response)
+    - [x] Database confirmed active and responding
+  - [x] GitHub Actions workflows ready:
+    - [x] `supabase-keep-alive.yml` - Daily cron job (00:00 UTC)
+    - [x] `supabase-keepalive.yml` - Every 6 hours with verification
+- [x] **Environment Configuration**:
+  - [x] Updated `.env` file with Supabase credentials:
+    - [x] `SUPABASE_ACCESS_TOKEN`
+    - [x] `SUPABASE_URL`
+    - [x] `SUPABASE_ANON_KEY`
+    - [x] `SUPABASE_PROJECT_ID`
+    - [x] `GITHUB_TOKEN`
+
+**Verification**:
+- Keep-alive ping successful: Database is active (Status 200)
+- All GitHub secrets confirmed via `gh secret list`
