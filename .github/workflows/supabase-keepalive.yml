@@ -13,11 +13,10 @@ jobs:
     steps:
       - name: Perform Database Keep-Alive
         run: |
-          curl -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/keep_alive" \
+          curl -f -s -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/category?select=id&limit=1" \
           -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
           -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-          -H "Content-Type: application/json" \
-          -d '{}'
+          -H "Content-Type: application/json"
         continue-on-error: false
 
       - name: Verify Project Status

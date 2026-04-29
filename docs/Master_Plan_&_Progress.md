@@ -301,7 +301,9 @@ This section maps the core entities from the legacy system (French) to the new a
     - [x] Database confirmed active and responding
   - [x] GitHub Actions workflows ready:
     - [x] `supabase-keep-alive.yml` - Daily cron job (00:00 UTC)
-    - [x] `supabase-keepalive.yml` - Every 6 hours with verification
+    - [x] `supabase-keepalive.yml` - Every 6 hours with verification (Fixed non-existent RPC call)
+- [x] **Git Repository Keep-Alive Setup**:
+  - [x] Configured GitHub Actions workflow (`git-repo-keepalive.yml`) to prevent inactivity pause on workflows.
 - [x] **Environment Configuration**:
   - [x] Updated `.env` file with Supabase credentials:
     - [x] `SUPABASE_ACCESS_TOKEN`
