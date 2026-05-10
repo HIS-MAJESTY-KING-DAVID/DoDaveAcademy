@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { enrollSchema } from '@/lib/validations/student';
 import { handleApiError } from '@/lib/exceptions';
+import { notifyCourseEnrolled } from '@/lib/notifications';
 
 export async function POST(req: Request) {
   try {
@@ -63,6 +64,7 @@ export async function POST(req: Request) {
           courseId: course.id,
         },
       });
+      notifyCourseEnrolled(session.userId, course.title).catch(() => {});
       return NextResponse.json({ message: 'Enrolled successfully' }, { status: 201 });
     } else {
       // TODO: Handle paid enrollment (Phase 4)

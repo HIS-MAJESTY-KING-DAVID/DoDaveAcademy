@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { handleApiError } from '@/lib/exceptions';
+import { notifyCoursePublished } from '@/lib/notifications';
 
 export async function POST(
   req: Request,
@@ -52,6 +53,7 @@ export async function POST(
         },
       });
 
+      notifyCoursePublished(session.userId, course.title, course.id).catch(() => {});
       return NextResponse.json({ data: updated, message: 'Course submitted for validation' });
     }
 

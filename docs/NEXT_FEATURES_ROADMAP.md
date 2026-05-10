@@ -2,8 +2,8 @@
 
 **Date:** May 10, 2026  
 **Based on:** Migration Audit (`MIGRATION_AUDIT.md`)  
-**Overall Progress:** 52%  
-**Estimated Remaining:** ~674 hours
+**Overall Progress:** 54%  
+**Estimated Remaining:** ~650 hours
 
 ---
 
@@ -283,7 +283,7 @@ If you can only pick **one thing**, build the **Instructor Course CRUD** — wit
 
 These three together (~120h, roughly 3 weeks for a single developer) will take the project from **41% to ~52% completion** and make the platform usable for both instructors and students.
 
-**Update (2026-05-10):** Quick UX Wins (36h) + Instructor Course CRUD (64h) + Email Service (16h) + Profile & Account (18h) + In-App Notifications (16h) fully implemented. Overall progress moved from 41% → **52%**. Next priority: Payment system (92h) — without revenue, the platform can't sustain itself.
+**Update (2026-05-10):** Quick UX Wins (36h) + Instructor Course CRUD (64h) + Email Service (16h) + Profile & Account (18h) + In-App Notifications (16h) fully implemented. JWT client interceptor + Supabase Realtime + notification triggers + 41 tests added. Overall progress moved from 41% → **54%**.
 
 ---
 

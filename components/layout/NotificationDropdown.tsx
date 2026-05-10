@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import { subscribeToNotifications } from '@/lib/supabase';
 
 type NotificationItem = {
   id: number;
@@ -13,6 +15,7 @@ type NotificationItem = {
 };
 
 export default function NotificationDropdown() {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -30,6 +33,16 @@ export default function NotificationDropdown() {
       })
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    const unsubscribe = subscribeToNotifications(user.id, (payload) => {
+      const notif = payload.new as NotificationItem;
+      setNotifications((prev) => [notif, ...prev].slice(0, 10));
+      setUnreadCount((prev) => prev + 1);
+    });
+    return unsubscribe;
+  }, [user]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

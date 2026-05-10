@@ -10,7 +10,7 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **52%** ↑ *(was 41% pre-2026-05-10)*
+### Overall Migration Progress: **54%** ↑ *(was 41% pre-2026-05-10)*
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|
@@ -59,7 +59,7 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 | Change Email | `ProfileController::changeEmail()` | `api/profile/email/route.ts` | ✅ Complete *(2026-05-10)* | — | P2 |
 | Avatar Upload | `Api/Controller/User/ChangeAvatarController.php` | `api/profile/avatar/route.ts` | ✅ Complete *(2026-05-10)* | — | P2 |
 | Google Login | `GoogleController::login()` | ❌ **Missing** | ⚠️ 16h | P3 |
-| JWT Refresh Token | `Lexik JWT` + `gesdinet/jwt-refresh-token` | `app/api/auth/refresh/route.ts` | ✅ Complete *(2026-05-10)* | — | P1 |
+| JWT Refresh Token | `Lexik JWT` + `gesdinet/jwt-refresh-token` | `app/api/auth/refresh/route.ts` + `lib/api-client.ts` + `context/AuthContext.tsx` | ✅ Complete *(2026-05-10)* | — | P1 |
 | Email Verification | `RegistrationController::verifyUserEmail()` | ❌ **Missing** | ⚠️ 12h | P2 |
 
 **PHP Code Example (Avatar Upload):**
@@ -581,7 +581,7 @@ The `components/generated/` directory contains **385 files** that are direct aut
 | 🔵 **P3** | Google Login | 16h | Social login | None |
 | 🔵 **P3** | Analytics | 16h | Insights | Admin |
 
-### Total Remaining Effort: **~674 hours** ↓↓ *(was 780h; 106h completed 2026-05-10: JWT refresh, free trial, quiz cooldown, forum like/solve, loading/error/not-found pages, 68h Instructor Course CRUD, 10h email integration + notifications UI)*
+### Total Remaining Effort: **~650 hours** ↓↓ *(was 780h; 130h completed 2026-05-10: JWT refresh, free trial, quiz cooldown, forum like/solve, loading/error/not-found pages, 68h Instructor Course CRUD, 16h email integration + notifications, 14h tests setup + JWT client interceptor + Supabase Realtime)*
 
 ---
 
@@ -736,7 +736,7 @@ Phase 8 (Ongoing): Legacy Cleanup
 | Site Management | 10 | 3 | 30% |
 | Investor Module | 7 | 0 | 0% |
 
-**Overall Migration: 45%** ↑ *(was 41% pre-2026-05-10)*
+**Overall Migration: 54%** ↑↑ *(was 41% pre-2026-05-10)*
 
 ### Critical Next Steps (Immediate Actions)
 

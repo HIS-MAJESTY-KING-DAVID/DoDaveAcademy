@@ -7,13 +7,12 @@ interface User {
   id: number;
   email: string;
   roles: string;
-  // Add other user properties as needed
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  login: (token: string, user: User) => void;
+  login: (token: string, refreshToken: string, user: User) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -26,35 +25,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Check for token in localStorage on mount
     const storedToken = localStorage.getItem('authToken');
     const storedUser = localStorage.getItem('authUser');
-
     if (storedToken && storedUser) {
-      setToken(storedToken); // eslint-disable-line react-hooks/set-state-in-effect
+      setToken(storedToken);
       setUser(JSON.parse(storedUser));
     }
   }, []);
 
-  const login = (newToken: string, newUser: User) => {
+  const login = (newToken: string, newRefreshToken: string, newUser: User) => {
     setToken(newToken);
     setUser(newUser);
     localStorage.setItem('authToken', newToken);
+    localStorage.setItem('refreshToken', newRefreshToken);
     localStorage.setItem('authUser', JSON.stringify(newUser));
-    
-    // Cookie is set by the API route (httpOnly), but we might want to set a client-side cookie for middleware if needed
-    // For now, we rely on the API route setting the cookie for server-side checks
   };
 
   const logout = () => {
     setToken(null);
     setUser(null);
     localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('authUser');
-    
-    // Call logout API to clear cookie
     fetch('/api/auth/logout', { method: 'POST' });
-    
     router.push('/login');
   };
 
