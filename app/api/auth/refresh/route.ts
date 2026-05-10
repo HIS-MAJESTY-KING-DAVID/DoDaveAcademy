@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
-import { compare } from 'bcryptjs';
+import { sign, verify } from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
-import { sign } from 'jsonwebtoken';
-import { userAuthSchema } from '@/lib/validations/auth';
 import { handleApiError } from '@/lib/exceptions';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const REFRESH_SECRET = process.env.REFRESH_SECRET || 'your-refresh-secret-key';
 
 function generateRefreshToken(): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -18,46 +17,60 @@ function generateRefreshToken(): string {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { email, password } = userAuthSchema.parse(body);
+    const { refreshToken } = await req.json();
+
+    if (!refreshToken) {
+      return NextResponse.json(
+        { message: 'Refresh token is required' },
+        { status: 400 }
+      );
+    }
+
+    const stored = await prisma.refreshToken.findUnique({
+      where: { refreshToken },
+    });
+
+    if (!stored) {
+      return NextResponse.json(
+        { message: 'Invalid refresh token' },
+        { status: 401 }
+      );
+    }
+
+    if (new Date() > stored.valid) {
+      await prisma.refreshToken.delete({ where: { id: stored.id } });
+      return NextResponse.json(
+        { message: 'Refresh token expired' },
+        { status: 401 }
+      );
+    }
 
     const user = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
+      where: { email: stored.username },
     });
 
     if (!user) {
       return NextResponse.json(
-        { message: 'Invalid credentials' },
-        { status: 401 }
+        { message: 'User not found' },
+        { status: 404 }
       );
     }
 
-    const isValid = await compare(password, user.password);
-
-    if (!isValid) {
-      return NextResponse.json(
-        { message: 'Invalid credentials' },
-        { status: 401 }
-      );
-    }
-
-    // Generate JWT (1h expiry)
-    const token = sign(
+    const newToken = sign(
       { userId: user.id, email: user.email, roles: user.roles },
       JWT_SECRET,
       { expiresIn: '1h' }
     );
 
-    // Generate refresh token (7d expiry)
-    const refreshToken = generateRefreshToken();
+    await prisma.refreshToken.delete({ where: { id: stored.id } });
+
+    const newRefreshToken = generateRefreshToken();
     const validUntil = new Date();
     validUntil.setDate(validUntil.getDate() + 7);
 
     await prisma.refreshToken.create({
       data: {
-        refreshToken,
+        refreshToken: newRefreshToken,
         username: user.email,
         valid: validUntil,
       },
@@ -65,34 +78,23 @@ export async function POST(req: Request) {
 
     const response = NextResponse.json(
       {
-        message: 'Login successful',
-        token,
-        refreshToken,
-        user: { id: user.id, email: user.email, roles: user.roles },
+        message: 'Token refreshed',
+        token: newToken,
+        refreshToken: newRefreshToken,
       },
       { status: 200 }
     );
 
-    // Set HTTP-only JWT cookie
-    response.cookies.set('token', token, {
+    response.cookies.set('token', newToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
-      maxAge: 3600, // 1 hour
-      path: '/',
-    });
-
-    // Set HTTP-only refresh token cookie
-    response.cookies.set('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 604800, // 7 days
+      maxAge: 3600,
       path: '/',
     });
 
     return response;
-  } catch (error: unknown) {
+  } catch (error) {
     return handleApiError(error);
   }
 }

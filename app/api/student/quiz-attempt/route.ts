@@ -37,6 +37,23 @@ export async function POST(req: Request) {
         return NextResponse.json({ message: 'Chapter not found' }, { status: 404 });
     }
 
+    // Check 10-second cooldown before processing
+    const existingAttemptCheck = await prisma.quizLost.findFirst({
+        where: {
+            studentId: student.id,
+            chapterId: chapter.id,
+        },
+    });
+
+    if (existingAttemptCheck && !existingAttemptCheck.isOk && existingAttemptCheck.nextAt && new Date() < existingAttemptCheck.nextAt) {
+        const waitSeconds = Math.ceil((existingAttemptCheck.nextAt.getTime() - Date.now()) / 1000);
+        return NextResponse.json({
+            message: `Please wait ${waitSeconds}s before retrying`,
+            cooldown: true,
+            retryAfter: existingAttemptCheck.nextAt,
+        }, { status: 429 });
+    }
+
     let correctCount = 0;
     const total = chapter.quizzes.length;
     const results = [];
@@ -81,16 +98,36 @@ export async function POST(req: Request) {
     });
 
     if (existingAttempt) {
+        // Enforce 10-second cooldown if previous attempt was recent and failed
+        if (!isPassed && existingAttempt.nextAt && new Date() < existingAttempt.nextAt) {
+            const waitSeconds = Math.ceil((existingAttempt.nextAt.getTime() - Date.now()) / 1000);
+            return NextResponse.json({
+                message: `Please wait ${waitSeconds}s before retrying`,
+                cooldown: true,
+                retryAfter: existingAttempt.nextAt,
+            }, { status: 429 });
+        }
+
+        const nextAt = new Date();
+        if (!isPassed) {
+            nextAt.setSeconds(nextAt.getSeconds() + 10);
+        }
+
         await prisma.quizLost.update({
             where: { id: existingAttempt.id },
             data: {
                 attempt: { increment: 1 },
                 lastAt: new Date(),
                 isOk: isPassed,
-                nextAt: new Date() // No delay enforced here for now
+                nextAt,
             }
         });
     } else {
+        const nextAt = new Date();
+        if (!isPassed) {
+            nextAt.setSeconds(nextAt.getSeconds() + 10);
+        }
+
         await prisma.quizLost.create({
             data: {
                 studentId: student.id,
@@ -98,7 +135,7 @@ export async function POST(req: Request) {
                 courseId: chapter.courseId,
                 attempt: 1,
                 lastAt: new Date(),
-                nextAt: new Date(),
+                nextAt,
                 isOk: isPassed
             }
         });

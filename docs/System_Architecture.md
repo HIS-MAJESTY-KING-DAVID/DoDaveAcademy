@@ -286,3 +286,85 @@ The following PHP logic needs porting:
 | **Error Handling** | Medium | Implement `app/global-error.tsx` and standardize API errors. |
 | **Legacy Code** | High | Audit and progressively refactor `components/generated`. |
 | **Security** | Medium | Move from LocalStorage auth to pure HttpOnly cookie auth. |
+
+---
+
+## 10. SEO Maintenance
+
+### Current Implementation
+- **Title Template**: `%s | DoDave Academy`
+- **Description**: Optimized 150-160 char global description
+- **Open Graph / Twitter**: Comprehensive social sharing tags with fallback logo
+- **Verification**: Placeholder for Google Search Console in `app/layout.tsx`
+- **Canonical URLs**: Handled by Next.js `metadataBase` and `alternates`
+- **Structured Data (JSON-LD)**: Organization, WebSite (sitelinks searchbox), Course/Exam details
+- **Multilingual**: hreflang for English (`/en`) and French (`/fr`)
+- **Robots.txt**: Global indexing allowed, API/Dashboard paths disallowed
+- **Sitemap.xml**: Auto-generated via `app/sitemap.ts`
+
+### Maintenance Checklist
+- [ ] Replace `GSC_VERIFICATION_CODE_PLACEHOLDER` in `app/layout.tsx` with real code
+- [ ] Test course/exam URLs with Google's Rich Results Test
+- [ ] Verify sitemap.xml is accessible and complete
+- [ ] Verify robots.txt points to sitemap
+- [ ] Periodically crawl for broken links (Screaming Frog / GSC)
+- [ ] Monitor Core Web Vitals via PageSpeed Insights
+
+### When Adding New Modules
+- Define `export const metadata` in `page.tsx` (Server Component)
+- Keep descriptions 150-160 characters
+- Keep titles under 60 characters
+
+### When Updating Branding
+- Update `GlobalStructuredData.tsx` with new social links/logo
+- Update `layout.tsx` global metadata
+
+### When Expanding Regions
+- Update hreflang tags in `layout.tsx`
+
+---
+
+## 11. Supabase Infrastructure
+
+### Security & Access Control
+- [x] RLS enabled on all tables with policies for SELECT/INSERT/UPDATE/DELETE
+- [x] `service_role` key stored in `.env.local` only, used server-side (`lib/supabase-admin.ts`)
+- [x] `anon` key is public, `service_role` is private
+- [ ] Disable unused PostgreSQL extensions (`pg_stat_statements`, `pgcrypto`, etc.)
+- [ ] Network restrictions: limit DB access to known IPs if possible
+
+### Database Design & Performance
+- [x] Connection pooling via Supabase Transaction Pooler (Port 6543) for serverless
+- [x] `?pgbouncer=true` appended to connection string
+- [x] `DIRECT_URL` uses port 5432 for Prisma migrations
+- [x] Indexing: foreign keys indexed via Prisma
+- [ ] Database Webhooks: trigger Edge Functions for side effects (e.g., email on signup)
+
+### Storage
+- [x] Buckets created: `avatars` (public), `media` (public), `course-content` (private), `secure-docs` (private)
+- [x] RLS policies per bucket
+- [x] `service_role` NOT used for client uploads
+
+### Realtime
+- [x] Enabled selectively: `chat_message`, `conversation`, `participant`, `notification`, `forum_message`
+- [x] `supabase_realtime` publication verified
+
+### Auth & User Management
+- [x] Custom claims in JWTs for roles (`lib/supabase-admin.ts`)
+- [x] We manage user tables via Prisma (not Supabase Auth) — `auth.users` triggers N/A
+
+### Operations & Reliability
+- [ ] Point-in-Time Recovery (PITR) — Pro plan feature, pending
+- [ ] Automated daily backups — pending verification
+- [ ] Observability: `pg_stat_statements` for slow queries — pending
+
+### Development Workflow
+- [x] Prisma Migrations for version-controlled schema changes
+- [ ] Local Supabase CLI (`supabase start`) for offline dev — partial (remote dev DB in use)
+- [ ] Seed data script — pending
+
+### Action Plan (Remaining Items)
+1. Review and disable unused PostgreSQL extensions
+2. Configure Database Webhooks for email triggers
+3. Implement seed data script for development
+4. Enable PITR when upgrading to Pro plan

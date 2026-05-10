@@ -17,28 +17,21 @@ This project targets the complete migration of the **DoDave Academy E-learning P
 
 ## Documentation Index
 
-1.  [**Master Implementation Plan**](./Master_Implementation_Plan.md)
-    *   The central roadmap, current status, phased checklist, and rollback procedures.
-    *   **Start here** to understand the migration strategy.
+1.  [**System Architecture**](./System_Architecture.md)
+    *   Architecture overview, tech stack mapping, entity relationships, auth flows, SEO maintenance, and Supabase infrastructure.
+    *   **Start here** to understand the system.
 
-2.  [**Comprehensive System Analysis**](./COMPREHENSIVE_SYSTEM_ANALYSIS.md)
-    *   Deep dive into the current system architecture, entity relationships, and interaction patterns.
-    *   Replaces legacy architecture documents.
+2.  [**Migration Audit Report**](./MIGRATION_AUDIT.md)
+    *   Comprehensive feature-by-feature audit comparing legacy PHP codebase against React migration target. Includes schema coverage, API endpoint status, effort estimates (~780h remaining), frontend architecture, and design system.
 
-3.  [**System Architecture**](./System_Architecture.md)
-    *   Detailed breakdown of the Database Schema, Auth flows, Entity interactions, and API mapping.
+3.  [**Next Features Roadmap**](./NEXT_FEATURES_ROADMAP.md)
+    *   Prioritized build plan (P0-P3) with hourly estimates, phased weekly timeline, legacy phase reference, rollback procedures, and global guidelines.
 
-4.  [**Technical Analysis**](./Technical_Analysis.md)
-    *   Deep dive into dependencies, critical PHP logic to port (Payments), and stack comparison.
-
-5.  [**Frontend Components**](./Frontend_Components.md)
-    *   Strategy for porting specific UI components from Twig to React.
-
-6.  [**Feature Audit Checklist**](./Feature_Audit_Checklist.md)
-    *   Granular tracking of every feature and its migration status.
-
-7.  [**Tools & Resources**](./Tools_and_Resources.md)
+4.  [**Tools & Resources**](./Tools_and_Resources.md)
     *   Helper scripts and libraries used during migration.
+
+5.  [**Vercel Operations**](./Vercel_Operations.md)
+    *   Vercel CLI commands for deployment, environment management, and monitoring.
 
 ## Project Context
 **DoDave Academy** is an LMS (Learning Management System) featuring:
