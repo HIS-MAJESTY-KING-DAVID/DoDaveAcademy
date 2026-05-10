@@ -3,13 +3,7 @@ import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
 import { forgotPasswordSchema } from '@/lib/validations/auth';
 import { handleApiError } from '@/lib/exceptions';
-
-// In a real app, use a proper email service (Resend, SendGrid, Nodemailer)
-const sendResetEmail = async (email: string, token: string) => {
-  const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}`;
-  console.log(`[EMAIL MOCK] To: ${email}, Subject: Reset Password, Link: ${resetLink}`);
-  // TODO: Integrate actual email sending logic here
-};
+import { sendEmail, emailTemplates } from '@/lib/email';
 
 export async function POST(req: Request) {
   try {
@@ -45,7 +39,11 @@ export async function POST(req: Request) {
     });
 
     // Send email
-    await sendResetEmail(email, token);
+    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}`;
+    sendEmail({
+      to: email,
+      ...emailTemplates.resetPassword(resetLink),
+    }).catch((err) => console.error('[RESET EMAIL FAILED]', err));
 
     return NextResponse.json(
       { message: 'If an account exists with this email, you will receive a password reset link.' },

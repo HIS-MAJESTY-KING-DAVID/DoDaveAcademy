@@ -3,6 +3,7 @@ import { hash } from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { userRegisterSchema } from '@/lib/validations/auth';
 import { handleApiError } from '@/lib/exceptions';
+import { sendEmail, emailTemplates } from '@/lib/email';
 
 export async function POST(req: Request) {
   try {
@@ -49,6 +50,12 @@ export async function POST(req: Request) {
         }
       },
     });
+
+    // Send welcome email (fire-and-forget)
+    sendEmail({
+      to: email,
+      ...emailTemplates.welcome(name.split(' ')[0]),
+    }).catch((err) => console.error('[WELCOME EMAIL FAILED]', err));
 
     return NextResponse.json(
       { message: 'User created successfully', user: { id: user.id, email: user.email } },

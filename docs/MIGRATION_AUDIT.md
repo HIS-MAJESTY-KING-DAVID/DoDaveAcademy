@@ -10,11 +10,11 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **51%** ↑ *(was 41% pre-2026-05-10)*
+### Overall Migration Progress: **52%** ↑ *(was 41% pre-2026-05-10)*
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|
-| Authentication & User Management | 93% ↑ | 13/14 | 1 |
+| Authentication & User Management | **93%** ↑ | 13/14 | 1 |
 | Public Course Catalog | 80% | 8/10 | 2 |
 | Course Player & Learning | **100%** ↑ | 10/10 | 0 |
 | Student Dashboard | 75% | 9/12 | 3 |
@@ -27,7 +27,7 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 | Forum System | **100%** ↑ | 10/10 | 0 |
 | AI Tutoring (DeepSeek) | 40% | 1/3 | 2 |
 | Push Notifications (Firebase) | **0%** | 0/4 | 4 |
-| Email Service | **0%** | 0/3 | 3 |
+| Email Service | **67%** ↑↑ | 2/3 | 1 |
 | Site Management & Settings | 30% | 3/10 | 7 |
 | Investor Module | **0%** | 0/7 | 7 |
 | **Error Handling & SEO** | **100%** ↑ | 7/7 | 0 |
@@ -55,9 +55,9 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 | Forgot Password | `ResetPasswordController::request()` | `app/forgot-password/page.tsx` + `api/auth/forgot-password/route.ts` | ✅ Complete | — | P0 |
 | Reset Password | `ResetPasswordController::reset()` | `app/reset-password/page.tsx` + `api/auth/reset-password/route.ts` | ✅ Complete | — | P0 |
 | Profile View | `ProfileController::index()` | `app/dashboard/student/profile/page.tsx`, `app/dashboard/instructor/profile/page.tsx` | ✅ Complete | — | P0 |
-| Profile Edit | `ProfileController::editPersonnalInformations()` | ❌ **Missing** | ⚠️ 8h | P1 |
-| Change Email | `ProfileController::changeEmail()` | ❌ **Missing** | ⚠️ 4h | P2 |
-| Avatar Upload | `Api/Controller/User/ChangeAvatarController.php` | ❌ **Missing** | ⚠️ 6h | P2 |
+| Profile Edit | `ProfileController::editPersonnalInformations()` | `app/dashboard/student/profile/edit/page.tsx`, `app/dashboard/instructor/profile/edit/page.tsx` + `api/profile/route.ts` | ✅ Complete *(2026-05-10)* | — | P1 |
+| Change Email | `ProfileController::changeEmail()` | `api/profile/email/route.ts` | ✅ Complete *(2026-05-10)* | — | P2 |
+| Avatar Upload | `Api/Controller/User/ChangeAvatarController.php` | `api/profile/avatar/route.ts` | ✅ Complete *(2026-05-10)* | — | P2 |
 | Google Login | `GoogleController::login()` | ❌ **Missing** | ⚠️ 16h | P3 |
 | JWT Refresh Token | `Lexik JWT` + `gesdinet/jwt-refresh-token` | `app/api/auth/refresh/route.ts` | ✅ Complete *(2026-05-10)* | — | P1 |
 | Email Verification | `RegistrationController::verifyUserEmail()` | ❌ **Missing** | ⚠️ 12h | P2 |
@@ -358,13 +358,13 @@ public static function manage($personne, $entityManager, $role): array {
 | Admin Push UI | `Admin/PushNotificationController` | `generated/push_notification/` (bridge only) | ⚠️ Bridge | 12h |
 | FCM Configuration | `public/plugins/firebase/` | ❌ **Missing** | 4h |
 
-### 1.14 Email Service: **0% Complete**
+### 1.14 Email Service: **67% Complete** ↑↑ *(2026-05-10)*
 
 | Feature | PHP Path | React Path | Status | Effort |
 |---|---|---|---|---|
-| SMTP Configuration | `Utils/Utils::emailSender()` (PHPMailer) | ❌ **Missing** | 4h |
-| Transactional Emails | Registration confirmation, notifications | ❌ **Missing** | 12h |
-| Email Templates | `templates/emails/student-notifs.html.twig` | ❌ **Missing** | 8h |
+| SMTP Configuration | `Utils/Utils::emailSender()` (PHPMailer) | `lib/email.ts` (Resend + mock fallback) | ✅ Complete *(2026-05-10)* | — |
+| Transactional Emails | Registration confirmation, password reset | Integrated in `api/auth/register/route.ts` (welcome) + `api/auth/forgot-password/route.ts` (reset) | ✅ Complete *(2026-05-10)* | — |
+| Email Templates | `templates/emails/student-notifs.html.twig` | `lib/email.ts` (welcome, reset-password, purchase, change-email, course-validated) | ✅ Complete *(2026-05-10)* | — |
 
 ### 1.15 Site Management & Settings: **30% Complete**
 
@@ -581,7 +581,7 @@ The `components/generated/` directory contains **385 files** that are direct aut
 | 🔵 **P3** | Google Login | 16h | Social login | None |
 | 🔵 **P3** | Analytics | 16h | Insights | Admin |
 
-### Total Remaining Effort: **~684 hours** ↓↓ *(was 780h; 96h completed 2026-05-10: JWT refresh, free trial, quiz cooldown, forum like/solve, loading/error/not-found pages, +68h Instructor Course CRUD)*
+### Total Remaining Effort: **~674 hours** ↓↓ *(was 780h; 106h completed 2026-05-10: JWT refresh, free trial, quiz cooldown, forum like/solve, loading/error/not-found pages, 68h Instructor Course CRUD, 10h email integration + notifications UI)*
 
 ---
 

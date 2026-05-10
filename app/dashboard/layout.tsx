@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import { getSession } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import NotificationDropdown from '@/components/layout/NotificationDropdown';
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -67,6 +68,12 @@ export default async function DashboardLayout({ children }: { children: ReactNod
                     <Link className="nav-link" href="/dashboard/student/network">
                       <i className="bi bi-people me-2"></i>
                       Mon réseau
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" href="/dashboard/notifications">
+                      <i className="bi bi-bell me-2"></i>
+                      Notifications
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -141,6 +148,12 @@ export default async function DashboardLayout({ children }: { children: ReactNod
                     </Link>
                   </li>
                   <li className="nav-item">
+                    <Link className="nav-link" href="/dashboard/notifications">
+                      <i className="bi bi-bell me-2"></i>
+                      Notifications
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <Link className="nav-link" href="/dashboard/instructor/profile">
                       <i className="bi bi-person me-2"></i>
                       Profile
@@ -160,6 +173,9 @@ export default async function DashboardLayout({ children }: { children: ReactNod
         </nav>
 
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <div className="d-flex justify-content-end align-items-center py-2 border-bottom mb-3">
+            <NotificationDropdown />
+          </div>
           {children}
         </main>
       </div>
