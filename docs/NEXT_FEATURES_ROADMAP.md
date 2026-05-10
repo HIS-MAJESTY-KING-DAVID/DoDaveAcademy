@@ -20,23 +20,23 @@
 
 ## 🔴 P0 — Build Now (Revenue & Content Creation)
 
-### 1. Instructor Course CRUD
+### 1. Instructor Course CRUD — ✅ Completed 2026-05-10
 
 **Why:** Instructors can see their courses but cannot create, edit, or publish them. This blocks all content generation on the new platform.
 
 **PHP reference:** `Instructor/CoursesController.php`, `Instructor/ChapitreController.php`, `Instructor/LessonController.php`
 
-| Task | Hours | Files to Create |
-|---|---|---|
-| Course editor page (title, description, price, category, level, image) | 16h | `app/dashboard/instructor/courses/new/page.tsx`, `app/dashboard/instructor/courses/[id]/edit/page.tsx` |
-| Chapter management (add/reorder/delete chapters) | 8h | `app/dashboard/instructor/courses/[id]/chapters/page.tsx` |
-| Lesson editor (title, content, video link, poster) | 8h | `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx` |
-| Quiz editor (add questions, propositions, mark correct answers) | 12h | `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx` |
-| FAQ editor for course | 4h | include in course editor |
-| Course publish/validation workflow API | 8h | `app/api/instructor/courses/[id]/publish/route.ts` |
-| Media upload (course image, lesson video) | 8h | `app/api/upload/route.ts` + Supabase Storage integration |
-| Instructor course API routes (CRUD) | 4h | `app/api/instructor/courses/route.ts`, `app/api/instructor/courses/[id]/route.ts` |
-| **Total** | **68h** | |
+| Task | Hours | Files | Status |
+|---|---|---|---|
+| Course editor page (title, description, price, category, level, image) | 16h | `app/dashboard/instructor/courses/new/page.tsx`, `app/dashboard/instructor/courses/[id]/edit/page.tsx` | ✅ Done |
+| Chapter management (add/reorder/delete chapters) | 8h | `app/dashboard/instructor/courses/[id]/chapters/page.tsx`, `app/api/instructor/chapters` | ✅ Done |
+| Lesson editor (title, content, video link, poster) | 8h | `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx`, `app/api/instructor/lessons` | ✅ Done |
+| Quiz editor (add questions, propositions, mark correct answers) | 12h | `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx`, `app/api/instructor/quizzes` | ✅ Done |
+| FAQ editor for course | 4h | Built into course edit page (FAQ tab) | ✅ Done |
+| Course publish/validation workflow API | 8h | `app/api/instructor/courses/[id]/publish/route.ts` | ✅ Done |
+| Media upload (course image, lesson video) | 8h | `app/api/upload/route.ts` (local filesystem; Supabase Storage integration pending) | ⚠️ Partial |
+| Instructor course API routes (CRUD) | 4h | `app/api/instructor/courses/route.ts`, `app/api/instructor/courses/[id]/route.ts`, chapters/lessons/quizzes sub-APIs | ✅ Done |
+| **Total** | **68h** | | **✅ 64h/68h** |
 
 **Existing patterns to follow:** `app/dashboard/instructor/courses/page.tsx` (list), `app/dashboard/instructor/exams/page.tsx` (list pattern)
 
@@ -283,7 +283,7 @@ If you can only pick **one thing**, build the **Instructor Course CRUD** — wit
 
 These three together (~120h, roughly 3 weeks for a single developer) will take the project from **41% to ~52% completion** and make the platform usable for both instructors and students.
 
-**Update (2026-05-10):** Quick UX Wins (36h) fully implemented. Overall progress moved from 41% → **45%**. Next priority: Payment system (92h) — without revenue, the platform can't sustain itself.
+**Update (2026-05-10):** Quick UX Wins (36h) + Instructor Course CRUD (64h) fully implemented. Overall progress moved from 41% → **51%**. Next priority: Payment system (92h) — without revenue, the platform can't sustain itself.
 
 ---
 

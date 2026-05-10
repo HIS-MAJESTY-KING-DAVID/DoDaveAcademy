@@ -10,7 +10,7 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **45%** ↑ *(was 41% pre-2026-05-10)*
+### Overall Migration Progress: **51%** ↑ *(was 41% pre-2026-05-10)*
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|
@@ -18,7 +18,7 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 | Public Course Catalog | 80% | 8/10 | 2 |
 | Course Player & Learning | **100%** ↑ | 10/10 | 0 |
 | Student Dashboard | 75% | 9/12 | 3 |
-| Instructor Dashboard | 65% | 9/14 | 5 |
+| Instructor Dashboard | **89%** ↑↑ | 17/19 | 2 |
 | **Admin Dashboard** | **5%** | 0/34 | 34 |
 | Payment System (Mobile Money) | **0%** | 0/8 | 8 |
 | Network/MLM System | 30% | 3/10 | 7 |
@@ -144,20 +144,20 @@ if (!$periodeGratuiteActive && !$eleve->isIsPremium() && !$hasPaidForCourse) {
 | Profile | `ProfileController` | `app/dashboard/student/profile/page.tsx` | ✅ Complete | — | P1 |
 | Student Home | `Student/HomeController::index()` | ✅ (dashboard main page) | ✅ Complete | — | P2 |
 
-### 1.5 Instructor Dashboard: **65% Complete**
+### 1.5 Instructor Dashboard: **89% Complete** ↑↑ *(was 65%, Course CRUD implemented 2026-05-10)*
 
 | Feature | PHP Path | React Path | Status | Effort | Priority |
 |---|---|---|---|---|---|
 | Dashboard Home | `Instructor/HomeController::index()` | `app/dashboard/instructor/page.tsx` | ✅ Complete | — | P0 |
 | Course Manager | `Instructor/CoursesController::index()` | `app/dashboard/instructor/courses/page.tsx` | ✅ Complete | — | P0 |
-| Create Course | `Instructor/CoursesController::new()` | ❌ **Missing** | ⚠️ 24h | P0 |
-| Edit Course | `Instructor/CoursesController::edit()` | ❌ **Missing** | ⚠️ 16h | P0 |
-| Add Chapter | `Instructor/ChapitreController::new()` | ❌ **Missing** | ⚠️ 8h | P0 |
-| Add Lesson | `Instructor/LessonController::new()` | ❌ **Missing** | ⚠️ 8h | P0 |
-| Add Quiz | `Instructor/CoursesController::quizzes()` | ❌ **Missing** | ⚠️ 8h | P1 |
-| Add FAQ | `Instructor/CoursesController::addFaq()` | ❌ **Missing** | ⚠️ 4h | P2 |
-| Publish Course | `Instructor/CoursesController::published()` | ❌ **Missing** | ⚠️ 4h | P1 |
-| Delete Content | Various delete methods | ❌ **Missing** | ⚠️ 8h | P2 |
+| Create Course | `Instructor/CoursesController::new()` | `app/dashboard/instructor/courses/new/page.tsx` + `POST /api/instructor/courses` | ✅ Complete *(2026-05-10)* | — | P0 |
+| Edit Course | `Instructor/CoursesController::edit()` | `app/dashboard/instructor/courses/[id]/edit/page.tsx` + `PUT /api/instructor/courses/[id]` | ✅ Complete *(2026-05-10)* | — | P0 |
+| Add Chapter | `Instructor/ChapitreController::new()` | `app/dashboard/instructor/courses/[id]/chapters/page.tsx` + `POST /api/instructor/chapters` | ✅ Complete *(2026-05-10)* | — | P0 |
+| Add Lesson | `Instructor/LessonController::new()` | `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx` + `POST /api/instructor/lessons` | ✅ Complete *(2026-05-10)* | — | P0 |
+| Add Quiz | `Instructor/CoursesController::quizzes()` | `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx` + `POST /api/instructor/quizzes` | ✅ Complete *(2026-05-10)* | — | P1 |
+| Add FAQ | `Instructor/CoursesController::addFaq()` | Built into course edit page (`app/dashboard/instructor/courses/[id]/edit/page.tsx`) | ✅ Complete *(2026-05-10)* | — | P2 |
+| Publish Course | `Instructor/CoursesController::published()` | `POST /api/instructor/courses/[id]/publish` | ✅ Complete *(2026-05-10)* | — | P1 |
+| Delete Content | Various delete methods | `DELETE /api/instructor/courses/[id]`, `DELETE /api/instructor/chapters/[id]`, `DELETE /api/instructor/lessons/[id]`, `DELETE /api/instructor/quizzes/[id]` | ✅ Complete *(2026-05-10)* | — | P2 |
 | Network | `Instructor/NetworkController::index()` | `app/dashboard/instructor/network/page.tsx` | ✅ Complete | — | P2 |
 | Withdraw (Instructor) | `Instructor/NetworkController::retirer()` | ❌ **Missing** | ⚠️ 8h | P1 |
 | Orders/Earnings | `Instructor/OrdersController::index()` | `app/dashboard/instructor/orders/page.tsx` | ✅ Complete | — | P1 |
@@ -581,7 +581,7 @@ The `components/generated/` directory contains **385 files** that are direct aut
 | 🔵 **P3** | Google Login | 16h | Social login | None |
 | 🔵 **P3** | Analytics | 16h | Insights | Admin |
 
-### Total Remaining Effort: **~752 hours** ↓ *(was 780h; 28h completed 2026-05-10: JWT refresh, free trial, quiz cooldown, forum like/solve, loading/error/not-found pages)*
+### Total Remaining Effort: **~684 hours** ↓↓ *(was 780h; 96h completed 2026-05-10: JWT refresh, free trial, quiz cooldown, forum like/solve, loading/error/not-found pages, +68h Instructor Course CRUD)*
 
 ---
 

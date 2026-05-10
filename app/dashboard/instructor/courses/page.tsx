@@ -35,7 +35,7 @@ export default async function InstructorCoursesPage() {
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="mb-0">My Courses</h2>
-        <Link href="/become-teacher" className="btn btn-primary">
+        <Link href="/dashboard/instructor/courses/new" className="btn btn-primary">
           <i className="fas fa-plus me-2"></i>New Course
         </Link>
       </div>
