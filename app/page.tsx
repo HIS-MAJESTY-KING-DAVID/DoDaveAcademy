@@ -12,19 +12,32 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [totalCourses, totalStudents, totalInstructors, totalExams, courses, categories] = await Promise.all([
-    prisma.course.count({ where: { isPublished: true, isValidated: true, isRejected: false } }),
-    prisma.student.count(),
-    prisma.instructor.count(),
-    prisma.exam.count({ where: { isPublished: true } }),
-    prisma.course.findMany({
-      where: { isPublished: true, isValidated: true, isRejected: false },
-      include: { media: true, skillLevel: true, category: true, instructor: { include: { user: { include: { person: true } } } } },
-      orderBy: { createdAt: 'desc' },
-      take: 8,
-    }),
-    prisma.category.findMany({ where: { categoryId: null }, include: { categories: true }, orderBy: { name: 'asc' } }),
-  ]);
+  const totalCourses = await prisma.course.count({ where: { isPublished: true, isValidated: true, isRejected: false } });
+  const totalStudents = await prisma.student.count();
+  const totalInstructors = await prisma.instructor.count();
+  const totalExams = await prisma.exam.count({ where: { isPublished: true } });
+  const courses = await prisma.course.findMany({
+    where: { isPublished: true, isValidated: true, isRejected: false },
+    include: { media: true, skillLevel: true, category: true, instructor: { include: { user: { include: { person: true } } } } },
+    orderBy: { createdAt: 'desc' },
+    take: 8,
+  });
+  const categories = await prisma.category.findMany({ where: { categoryId: null }, include: { categories: true }, orderBy: { name: 'asc' } });
+  const featuredCourse = await prisma.course.findFirst({
+    where: { isPublished: true, isValidated: true, isRejected: false },
+    include: { media: true },
+    orderBy: { review: 'desc' },
+  });
+  const testimonials = await prisma.review.findMany({
+    include: {
+      student: {
+        include: { user: { include: { person: true } } },
+      },
+      course: { select: { title: true } },
+    },
+    orderBy: { createdAt: 'desc' },
+    take: 6,
+  });
 
   const mappedCourses = courses.map(c => ({
     id: c.id.toString(),
@@ -42,6 +55,24 @@ export default async function Home() {
       : 'Instructor',
   }));
 
+  const heroImage = featuredCourse?.media?.imageFile
+    ? `/assets/images/courses/${featuredCourse.media.imageFile}`
+    : '/assets/images/element/05.svg';
+
+  const mappedTestimonials = testimonials.map(r => ({
+    id: r.id,
+    name: r.student?.user?.person?.firstName
+      ? `${r.student.user.person.firstName} ${r.student.user.person.lastName || ''}`
+      : 'Student',
+    avatar: r.student?.user?.person?.avatar
+      ? `/assets/images/avatar/${r.student.user.person.avatar}`
+      : null,
+    rating: r.rating,
+    message: r.message,
+    courseTitle: r.course?.title || '',
+    date: r.createdAt.toISOString(),
+  }));
+
   return <HomeClient
     totalCourses={totalCourses}
     totalStudents={totalStudents}
@@ -49,5 +80,7 @@ export default async function Home() {
     totalExams={totalExams}
     courses={mappedCourses}
     categories={categories.map(c => ({ id: c.id, name: c.name }))}
+    heroImage={heroImage}
+    testimonials={mappedTestimonials}
   />;
 }

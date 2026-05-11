@@ -10,7 +10,7 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **56%** ↑ *(was 55%; all 12 public-facing pages completed — FAQ, Terms, Plan, Programs, Become Teacher, Forum, Contact)*
+### Overall Migration Progress: **57%** ↑ *(was 56%; home page content completed — testimonials, featured hero, dynamic data)*
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|
@@ -740,7 +740,7 @@ Phase 8 (Ongoing): Legacy Cleanup
 | Site Management | 12 | 9 | 70% |
 | Investor Module | 7 | 0 | 0% |
 
-**Overall Migration: 56%** ↑↑ *(was 55%; all 12 public-facing pages completed)*
+**Overall Migration: 57%** ↑↑ *(was 56%; home page content completed — testimonials, featured hero)*
 
 ### Critical Next Steps (Immediate Actions)
 

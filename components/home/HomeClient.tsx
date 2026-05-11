@@ -18,6 +18,16 @@ interface CourseData {
   instructorName: string;
 }
 
+interface TestimonialData {
+  id: number;
+  name: string;
+  avatar: string | null;
+  rating: number;
+  message: string;
+  courseTitle: string;
+  date: string;
+}
+
 interface HomeClientProps {
   totalCourses: number;
   totalStudents: number;
@@ -25,9 +35,11 @@ interface HomeClientProps {
   totalExams: number;
   courses: CourseData[];
   categories: { id: number; name: string }[];
+  heroImage: string;
+  testimonials: TestimonialData[];
 }
 
-export default function HomeClient({ totalCourses, totalStudents, totalInstructors, totalExams, courses, categories }: HomeClientProps) {
+export default function HomeClient({ totalCourses, totalStudents, totalInstructors, totalExams, courses, categories, heroImage, testimonials }: HomeClientProps) {
   const { t } = useTranslation();
 
   return (
@@ -63,17 +75,18 @@ export default function HomeClient({ totalCourses, totalStudents, totalInstructo
               </div>
             </div>
 
-            {/* Right Image */}
+            {/* Right Image - featured course or default hero */}
             <div className="col-lg-6 text-center">
                <div className="position-relative d-inline-block">
                   <div className="position-absolute top-50 start-50 translate-middle bg-primary rounded-circle opacity-10 blur-3xl" style={{width: '300px', height: '300px', filter: 'blur(50px)'}}></div>
                   <Image 
-                    src="/assets/images/element/05.svg" 
-                    alt="Hero Image" 
+                    src={heroImage} 
+                    alt="Featured Course" 
                     width={600} 
                     height={600} 
-                    className="img-fluid position-relative z-index-9"
+                    className="img-fluid position-relative z-index-9 rounded-3"
                     priority
+                    style={{ objectFit: 'cover', maxHeight: '450px' }}
                   />
                </div>
             </div>
@@ -199,6 +212,51 @@ export default function HomeClient({ totalCourses, totalStudents, totalInstructo
           </div>
         </div>
       </section>
+
+      {/* Testimonials START */}
+      {testimonials.length > 0 && (
+        <section className="py-5 bg-dark border-top border-light border-opacity-10" data-bs-theme="dark">
+          <div className="container">
+            <div className="row mb-4">
+              <div className="col-lg-8 mx-auto text-center">
+                <h2 className="fs-1 fw-bold text-white">What Our Students Say</h2>
+                <p className="mb-0 text-white-50">Real feedback from real learners</p>
+              </div>
+            </div>
+            <div className="row g-4">
+              {testimonials.map((t) => (
+                <div className="col-lg-4 col-md-6" key={t.id}>
+                  <div className="card bg-white bg-opacity-10 border border-light border-opacity-10 shadow-sm h-100 p-3">
+                    <div className="d-flex align-items-center mb-3">
+                      <div className="avatar avatar-md me-3 flex-shrink-0">
+                        {t.avatar ? (
+                          <Image src={t.avatar} alt={t.name} width={48} height={48} className="avatar-img rounded-circle" style={{ objectFit: 'cover' }} />
+                        ) : (
+                          <div className="avatar-img rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style={{width: '48px', height: '48px'}}>
+                            {t.name.charAt(0)}
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <h6 className="mb-0 text-white">{t.name}</h6>
+                        <small className="text-white-50">{t.courseTitle}</small>
+                      </div>
+                    </div>
+                    <ul className="list-inline mb-2">
+                      {[...Array(5)].map((_, i) => (
+                        <li key={i} className="list-inline-item me-0 small">
+                          <i className={`fas fa-star ${i < t.rating ? 'text-warning' : 'text-light opacity-25'}`}></i>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mb-0 small text-white-50">&ldquo;{t.message}&rdquo;</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
