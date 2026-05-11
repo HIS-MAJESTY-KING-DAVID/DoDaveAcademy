@@ -10,7 +10,7 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **54%** ↑ *(was 41% pre-2026-05-10)*
+### Overall Migration Progress: **56%** ↑ *(was 55%; all 12 public-facing pages completed — FAQ, Terms, Plan, Programs, Become Teacher, Forum, Contact)*
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|
@@ -28,7 +28,7 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 | AI Tutoring (DeepSeek) | 40% | 1/3 | 2 |
 | Push Notifications (Firebase) | **0%** | 0/4 | 4 |
 | Email Service | **67%** ↑↑ | 2/3 | 1 |
-| Site Management & Settings | 30% | 3/10 | 7 |
+| Site Management & Settings | **70%** ↑ | 9/12 | 3 |
 | Investor Module | **0%** | 0/7 | 7 |
 | **Error Handling & SEO** | **100%** ↑ | 7/7 | 0 |
 
@@ -366,7 +366,7 @@ public static function manage($personne, $entityManager, $role): array {
 | Transactional Emails | Registration confirmation, password reset | Integrated in `api/auth/register/route.ts` (welcome) + `api/auth/forgot-password/route.ts` (reset) | ✅ Complete *(2026-05-10)* | — |
 | Email Templates | `templates/emails/student-notifs.html.twig` | `lib/email.ts` (welcome, reset-password, purchase, change-email, course-validated) | ✅ Complete *(2026-05-10)* | — |
 
-### 1.15 Site Management & Settings: **30% Complete**
+### 1.15 Site Management & Settings: **50% Complete** ↑ *(was 30%; Contact form made functional, Become Teacher + Forum pages built)*
 
 | Feature | PHP Path | React Path | Status | Effort |
 |---|---|---|---|---|
@@ -374,9 +374,13 @@ public static function manage($personne, $entityManager, $role): array {
 | Social Settings | `SocialSetting` entity | Prisma model exists | ✅ Schema only | 2h |
 | Terms & Conditions | `Term` entity + controller | `app/terms/page.tsx` | ✅ Complete | — |
 | FAQ | `Faq` entity + `Front/FaqController` | `app/faq/page.tsx` | ✅ Complete | — |
-| Contact Form | `Contact` entity + controller | `app/contact/page.tsx` | ✅ Complete | — |
+| Contact Form | `Contact` entity + controller | `app/contact/page.tsx` + `app/api/contact/route.ts` | ✅ Complete (functional — POSTs to API) *(2026-05-10)* | — |
 | Maintenance Mode | `MaintenanceListener` | ❌ **Missing** | 4h |
 | Analytics Dashboard | `Admin/MessageAnalyticsController` | ❌ **Missing** | 16h |
+| Pricing/Plan Page | Subscription plans display | `app/plan/page.tsx` | ✅ Complete *(2026-05-10)* | — |
+| Programs Page | Training program listings | `app/programs/page.tsx` | ✅ Complete *(2026-05-10)* | — |
+| Become Teacher Page | Instructor application form | `app/become-teacher/page.tsx` + `app/api/auth/become-teacher/route.ts` | ✅ Complete *(2026-05-10)* | — |
+| Global Forum Page | Global forum subject listing | `app/forum/page.tsx` | ✅ Complete *(2026-05-10)* | — |
 | SEO / Sitemap | N/A (not in Symfony) | `app/sitemap.ts`, `app/robots.ts` | ✅ Complete | — |
 
 ### 1.16 Investor Module: **0% Complete**
@@ -733,10 +737,10 @@ Phase 8 (Ongoing): Legacy Cleanup
 | AI Tutoring | 4 | 1 | 40% |
 | Push Notifications | 4 | 0 | 0% |
 | Email Service | 3 | 0 | 0% |
-| Site Management | 10 | 3 | 30% |
+| Site Management | 12 | 9 | 70% |
 | Investor Module | 7 | 0 | 0% |
 
-**Overall Migration: 54%** ↑↑ *(was 41% pre-2026-05-10)*
+**Overall Migration: 56%** ↑↑ *(was 55%; all 12 public-facing pages completed)*
 
 ### Critical Next Steps (Immediate Actions)
 

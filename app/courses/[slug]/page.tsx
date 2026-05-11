@@ -100,15 +100,8 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
     ? `/assets/images/avatar/${course.instructor.user.person.avatar}`
     : '/assets/images/avatar/01.jpg';
 
-  const courseImage = course.media?.imageFile 
-    ? `/assets/images/courses/${course.media.imageFile}`
-    : '/assets/images/courses/4by3/08.jpg';
-
-  console.log(courseImage); // Use the variable to suppress unused warning
-
-  // Calculate stats
   const totalLessons = course.chapters.reduce((acc, chapter) => acc + chapter.lessons.length, 0);
-  // const totalDuration = ... (if needed to parse string duration)
+  const enrolledCount = await prisma.studentCourse.count({ where: { courseId: course.id } });
 
   return (
     <main>
@@ -132,9 +125,7 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
                 </li>
                 <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
                   <i className="fas fa-user-graduate text-orange me-2"></i>
-                  {/* Enrolled count not directly available, maybe count students? */}
-                  {/* {course.studentCourses?.length || 0} Enrolled */}
-                  1200 Enrolled
+                  {enrolledCount} Enrolled
                 </li>
                 <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
                   <i className="fas fa-signal text-success me-2"></i>
@@ -232,7 +223,7 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
                                   <div className="d-flex justify-content-between align-items-center mb-2" key={lesson.id}>
                                     <div className="position-relative d-flex align-items-center">
                                       <div className="d-flex align-items-center">
-                                        <Link href="#" className="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+                                        <Link href={`/learn/${course.slug}/${lesson.slug}`} className="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
                                           <i className="fas fa-play me-0"></i>
                                         </Link>
                                         <span className="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-200px w-sm-400px">
@@ -240,7 +231,7 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
                                         </span>
                                       </div>
                                     </div>
-                                    <p className="mb-0 text-truncate">10m</p> {/* Placeholder duration */}
+                                    <p className="mb-0 text-truncate"></p>
                                   </div>
                                 ))}
                               </div>
@@ -270,21 +261,7 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
                             <div className="card-body">
                               <h3 className="card-title mb-0">{instructorName}</h3>
                               <p className="mb-2">{course.instructor?.details || 'Instructor'}</p>
-                              {/* Social links */}
-                              <ul className="list-inline mb-0">
-                                <li className="list-inline-item">
-                                  <a className="mb-0 me-1 text-facebook" href="#"><i className="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li className="list-inline-item">
-                                  <a className="mb-0 me-1 text-instagram-gradient" href="#"><i className="fab fa-instagram"></i></a>
-                                </li>
-                                <li className="list-inline-item">
-                                  <a className="mb-0 me-1 text-twitter" href="#"><i className="fab fa-twitter"></i></a>
-                                </li>
-                                <li className="list-inline-item">
-                                  <a className="mb-0 text-linkedin" href="#"><i className="fab fa-linkedin-in"></i></a>
-                                </li>
-                              </ul>
+
                             </div>
                           </div>
                         </div>
