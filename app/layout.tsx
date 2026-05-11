@@ -138,10 +138,13 @@ export default function RootLayout({
         {/* eslint-enable @next/next/no-css-tags */}
       </head>
       <body>
+        <a href="#main-content" className="visually-hidden-focusable position-absolute start-0 z-3 p-2 bg-dark text-white text-decoration-none" style={{ top: 0 }}>
+          Skip to main content
+        </a>
         <AuthProvider>
           <I18nProvider>
             <Header />
-            {children}
+            <div id="main-content">{children}</div>
             <Footer />
           </I18nProvider>
         </AuthProvider>

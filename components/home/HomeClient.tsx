@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface CourseData {
@@ -16,6 +17,7 @@ interface CourseData {
   rating: number;
   price: string;
   instructorName: string;
+  categoryId: number | null;
 }
 
 interface TestimonialData {
@@ -41,6 +43,10 @@ interface HomeClientProps {
 
 export default function HomeClient({ totalCourses, totalStudents, totalInstructors, totalExams, courses, categories, heroImage, testimonials }: HomeClientProps) {
   const { t } = useTranslation();
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const filteredCourses = activeCategory
+    ? courses.filter(c => c.categoryId === activeCategory)
+    : courses;
 
   return (
     <>
@@ -158,9 +164,35 @@ export default function HomeClient({ totalCourses, totalStudents, totalInstructo
             </div>
           </div>
 
-          {courses.length > 0 ? (
+          {/* Category tabs */}
+          {categories.length > 0 && (
+            <div className="text-center mb-4">
+              <ul className="nav nav-pills justify-content-center">
+                <li className="nav-item me-2">
+                  <button
+                    className={`nav-link ${activeCategory === null ? 'active' : ''}`}
+                    onClick={() => setActiveCategory(null)}
+                  >
+                    All
+                  </button>
+                </li>
+                {categories.map((cat) => (
+                  <li key={cat.id} className="nav-item me-2">
+                    <button
+                      className={`nav-link ${activeCategory === cat.id ? 'active' : ''}`}
+                      onClick={() => setActiveCategory(cat.id)}
+                    >
+                      {cat.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {filteredCourses.length > 0 ? (
             <div className="row g-4">
-              {courses.map((course) => (
+              {filteredCourses.map((course) => (
                 <div className="col-sm-6 col-lg-4 col-xl-3" key={course.id}>
                   <Link href={`/courses/${course.slug}`} className="text-decoration-none">
                     <div className="card bg-white bg-opacity-10 border border-light border-opacity-10 shadow-sm h-100 hover-shadow transition-all">

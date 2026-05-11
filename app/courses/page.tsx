@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import CourseCard, { Course as CourseType } from '@/components/courses/CourseCard';
 import CourseFilter from '@/components/courses/CourseFilter';
+import SortSelect from '@/components/courses/SortSelect';
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 
@@ -40,6 +41,7 @@ export default async function CoursesPage({
   const categoryId = typeof resolvedSearchParams.categoryId === 'string' ? parseInt(resolvedSearchParams.categoryId) : undefined;
   const levelId = typeof resolvedSearchParams.levelId === 'string' ? parseInt(resolvedSearchParams.levelId) : undefined;
   const isFree = typeof resolvedSearchParams.isFree === 'string' ? resolvedSearchParams.isFree === 'true' : undefined;
+  const sortBy = typeof resolvedSearchParams.sort === 'string' ? resolvedSearchParams.sort : 'newest';
 
   const where: Prisma.CourseWhereInput = {
     isPublished: true,
@@ -66,6 +68,13 @@ export default async function CoursesPage({
     where.isFree = isFree;
   }
 
+  const orderBy: Prisma.CourseOrderByWithRelationInput =
+    sortBy === 'price-asc' ? { subscriptionPrice: { sort: 'asc', nulls: 'last' } }
+    : sortBy === 'price-desc' ? { subscriptionPrice: { sort: 'desc', nulls: 'last' } }
+    : sortBy === 'rating' ? { review: 'desc' }
+    : sortBy === 'title' ? { title: 'asc' }
+    : { createdAt: 'desc' };
+
   // Fetch courses, total count, categories, and levels in parallel
   const [courses, total, categories, levels] = await Promise.all([
     prisma.course.findMany({
@@ -76,9 +85,7 @@ export default async function CoursesPage({
         media: true,
         skillLevel: true,
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy,
     }),
     prisma.course.count({ where }),
     prisma.category.findMany({
@@ -144,6 +151,10 @@ export default async function CoursesPage({
                   </button>
                 </div>
               </form>
+            </div>
+            {/* Sort */}
+            <div className="col-xl-3 mt-2 mt-xl-0">
+              <SortSelect current={sortBy} />
             </div>
           </div>
           {/* Filter bar END */}

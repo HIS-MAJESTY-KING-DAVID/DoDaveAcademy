@@ -53,6 +53,7 @@ export default async function Home() {
     instructorName: c.instructor?.user?.person?.firstName
       ? `${c.instructor.user.person.firstName} ${c.instructor.user.person.lastName || ''}`
       : 'Instructor',
+    categoryId: c.categoryId,
   }));
 
   const heroImage = featuredCourse?.media?.imageFile
