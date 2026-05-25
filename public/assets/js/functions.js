@@ -577,12 +577,12 @@ var e = {
     // START: 13 Dashboard Chart
     dashboardChart: function () {
       var ac = e.select('#ChartPayout');
-      console.log($('#chartPayout').attr('data-earnings-uri'))
       if (e.isVariableDefined(ac)) {
-        $.ajax({
-          url: baseUrl + "/dashboardEarningsData",
-          type: "GET",
-          success: function(response) {
+        var earningsUri = document.getElementById('chartPayout')?.getAttribute('data-earnings-uri');
+        console.log(earningsUri)
+        fetch(baseUrl + "/dashboardEarningsData")
+          .then(function(r) { return r.json(); })
+          .then(function(response) {
             console.table(response.data)
             let data = response.data
             let jours = response.jours
@@ -639,8 +639,7 @@ var e = {
             };
             var chart = new ApexCharts(document.querySelector("#ChartPayout"), options);
             chart.render();
-            }
-        })
+            })
       }
     },
     // END: Dashboard Chart

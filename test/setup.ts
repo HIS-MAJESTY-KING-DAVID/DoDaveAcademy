@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
 process.env.JWT_SECRET = 'test-secret-key';

@@ -10,8 +10,8 @@ export default function Index(props: any) {
 
 {% block script %}
     <script>
-		$('#admin_filter_select_courses').on('change', (e) => {
-			window.location.href = $(e.currentTarget).val()
+		document.getElementById('admin_filter_select_courses')?.addEventListener('change', (e) => {
+			window.location.href = e.currentTarget.value
 		})
 	</script>
 {% endblock %}

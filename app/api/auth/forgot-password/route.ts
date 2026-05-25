@@ -3,10 +3,15 @@ import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
 import { forgotPasswordSchema } from '@/lib/validations/auth';
 import { handleApiError } from '@/lib/exceptions';
+import { rateLimit, rateLimitResponse, getClientIp } from '@/lib/rate-limit';
 import { sendEmail, emailTemplates } from '@/lib/email';
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = rateLimit(`forgot-password:${ip}`, { max: 3, windowMs: 15 * 60 * 1000 });
+    if (!rl.success) return rateLimitResponse(rl.headers);
+
     const body = await req.json();
     const { email } = forgotPasswordSchema.parse(body);
 

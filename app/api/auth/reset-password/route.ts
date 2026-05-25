@@ -4,9 +4,14 @@ import crypto from 'crypto';
 import { hash } from 'bcryptjs';
 import { resetPasswordSchema } from '@/lib/validations/auth';
 import { handleApiError } from '@/lib/exceptions';
+import { rateLimit, rateLimitResponse, getClientIp } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = rateLimit(`reset-password:${ip}`, { max: 5, windowMs: 15 * 60 * 1000 });
+    if (!rl.success) return rateLimitResponse(rl.headers);
+
     const body = await req.json();
     const { token, password } = resetPasswordSchema.parse(body);
 

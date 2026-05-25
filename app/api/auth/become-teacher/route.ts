@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function POST(req: Request) {
   try {
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ message: 'Application submitted successfully' });
-  } catch {
-    return NextResponse.json({ message: 'Failed to submit application' }, { status: 500 });
+  } catch (error) {
+    return handleApiError(error);
   }
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -80,10 +81,6 @@ export async function GET(request: Request) {
       },
     });
   } catch (error) {
-    console.error('Error fetching courses:', error);
-    return NextResponse.json(
-      { message: 'Error fetching courses' },
-      { status: 500 }
-    );
+    return handleApiError(error);
   }
 }

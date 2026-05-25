@@ -8,24 +8,24 @@ datasource db {
 }
 
 model Subscription {
-  id                         Int                        @id @default(autoincrement())
-  label                      String
-  slug                       String
-  amount                     Float
-  duration                   Int
-  isRecommended              Boolean                    @map("is_recommended")
-  pointsCount                Int?                       @map("points_count")
+  id                            Int                            @id @default(autoincrement())
+  label                         String
+  slug                          String
+  amount                        Float
+  duration                      Int
+  isRecommended                 Boolean                        @map("is_recommended")
+  pointsCount                   Int?                           @map("points_count")
   subscriptionSubscriptionItems SubscriptionSubscriptionItem[] @relation("SubscriptionSubscriptionItem_subscriptionId")
-  subscriptionPaymentMethods SubscriptionPaymentMethod[] @relation("SubscriptionPaymentMethod_subscriptionId")
-  payments                   Payment[]                  @relation("Payment_subscriptionId")
+  subscriptionPaymentMethods    SubscriptionPaymentMethod[]    @relation("SubscriptionPaymentMethod_subscriptionId")
+  payments                      Payment[]                      @relation("Payment_subscriptionId")
 
   @@map("subscription")
 }
 
 model SubscriptionSubscriptionItem {
-  subscriptionId     Int             @map("subscription_id")
-  subscription       Subscription?   @relation("SubscriptionSubscriptionItem_subscriptionId", fields: [subscriptionId], references: [id])
-  subscriptionItemId Int             @map("subscription_item_id")
+  subscriptionId     Int               @map("subscription_id")
+  subscription       Subscription?     @relation("SubscriptionSubscriptionItem_subscriptionId", fields: [subscriptionId], references: [id])
+  subscriptionItemId Int               @map("subscription_item_id")
   subscriptionItem   SubscriptionItem? @relation("SubscriptionSubscriptionItem_subscriptionItemId", fields: [subscriptionItemId], references: [id])
 
   @@id([subscriptionId, subscriptionItemId])
@@ -35,18 +35,18 @@ model SubscriptionSubscriptionItem {
 }
 
 model SubscriptionItem {
-  id                           Int                          @id @default(autoincrement())
-  label                        String
+  id                            Int                            @id @default(autoincrement())
+  label                         String
   subscriptionSubscriptionItems SubscriptionSubscriptionItem[] @relation("SubscriptionSubscriptionItem_subscriptionItemId")
 
   @@map("subscription_item")
 }
 
 model SubscriptionPaymentMethod {
-  subscriptionId    Int            @map("subscription_id")
-  subscription      Subscription?  @relation("SubscriptionPaymentMethod_subscriptionId", fields: [subscriptionId], references: [id])
-  paymentMethodId   Int            @map("payment_method_id")
-  paymentMethod     PaymentMethod? @relation("SubscriptionPaymentMethod_paymentMethodId", fields: [paymentMethodId], references: [id])
+  subscriptionId  Int            @map("subscription_id")
+  subscription    Subscription?  @relation("SubscriptionPaymentMethod_subscriptionId", fields: [subscriptionId], references: [id])
+  paymentMethodId Int            @map("payment_method_id")
+  paymentMethod   PaymentMethod? @relation("SubscriptionPaymentMethod_paymentMethodId", fields: [paymentMethodId], references: [id])
 
   @@id([subscriptionId, paymentMethodId])
   @@index([subscriptionId])
@@ -123,46 +123,46 @@ model Contact {
 }
 
 model Course {
-  id                   Int                  @id @default(autoincrement())
-  instructorId         Int                  @map("instructor_id")
-  instructor           Instructor?          @relation("Course_instructorId", fields: [instructorId], references: [id])
-  categoryId           Int?                 @map("category_id")
-  category             Category?            @relation("Course_categoryId", fields: [categoryId], references: [id])
-  skillLevelId         Int?                 @map("skill_level_id")
-  skillLevel           SkillLevel?          @relation("Course_skillLevelId", fields: [skillLevelId], references: [id])
+  id                   Int                   @id @default(autoincrement())
+  instructorId         Int                   @map("instructor_id")
+  instructor           Instructor?           @relation("Course_instructorId", fields: [instructorId], references: [id])
+  categoryId           Int?                  @map("category_id")
+  category             Category?             @relation("Course_categoryId", fields: [categoryId], references: [id])
+  skillLevelId         Int?                  @map("skill_level_id")
+  skillLevel           SkillLevel?           @relation("Course_skillLevelId", fields: [skillLevelId], references: [id])
   title                String
   slug                 String
   content              String
   description          String
-  isPublished          Boolean              @map("is_published")
-  isFree               Boolean              @map("is_free")
-  difficultyLevel      String               @map("difficulty_level")
+  isPublished          Boolean               @map("is_published")
+  isFree               Boolean               @map("is_free")
+  difficultyLevel      String                @map("difficulty_level")
   duration             String
-  createdAt            DateTime             @map("created_at")
+  createdAt            DateTime              @map("created_at")
   views                Int
-  isValidated          Boolean              @map("is_validated")
-  subscriptionPrice    Int?                 @map("subscription_price")
+  isValidated          Boolean               @map("is_validated")
+  subscriptionPrice    Int?                  @map("subscription_price")
   language             String
-  numberOfLessons      Int                  @map("number_of_lessons")
+  numberOfLessons      Int                   @map("number_of_lessons")
   tags                 String?
-  isRejected           Boolean?             @map("is_rejected")
+  isRejected           Boolean?              @map("is_rejected")
   review               Int?
-  updatedAt            DateTime?            @map("updated_at")
-  publishedAt          DateTime?            @map("published_at")
-  chapters             Chapter[]            @relation("Chapter_courseId")
-  courseClasses        CourseClass[]        @relation("CourseClass_courseId")
+  updatedAt            DateTime?             @map("updated_at")
+  publishedAt          DateTime?             @map("published_at")
+  chapters             Chapter[]             @relation("Chapter_courseId")
+  courseClasses        CourseClass[]         @relation("CourseClass_courseId")
   coursePaymentMethods CoursePaymentMethod[] @relation("CoursePaymentMethod_courseId")
-  studentCourses       StudentCourse[]      @relation("StudentCourse_courseId")
-  faqs                 Faq[]                @relation("Faq_courseId")
-  trainingCourses      TrainingCourse[]     @relation("TrainingCourse_courseId")
-  forum                Forum?               @relation("Forum_courseId")
-  likes                CourseLike[]         @relation("CourseLike_courseId")
-  lectures             Lecture[]            @relation("Lecture_courseId")
-  media                Media?               @relation("Media_courseId")
-  payments             Payment[]            @relation("Payment_courseId")
-  quizzes              Quiz[]               @relation("Quiz_courseId")
-  quizLosts            QuizLost[]           @relation("QuizLost_courseId")
-  reviews              Review[]             @relation("Review_courseId")
+  studentCourses       StudentCourse[]       @relation("StudentCourse_courseId")
+  faqs                 Faq[]                 @relation("Faq_courseId")
+  trainingCourses      TrainingCourse[]      @relation("TrainingCourse_courseId")
+  forum                Forum?                @relation("Forum_courseId")
+  likes                CourseLike[]          @relation("CourseLike_courseId")
+  lectures             Lecture[]             @relation("Lecture_courseId")
+  media                Media?                @relation("Media_courseId")
+  payments             Payment[]             @relation("Payment_courseId")
+  quizzes              Quiz[]                @relation("Quiz_courseId")
+  quizLosts            QuizLost[]            @relation("QuizLost_courseId")
+  reviews              Review[]              @relation("Review_courseId")
 
   @@index([instructorId])
   @@index([categoryId])
@@ -171,9 +171,9 @@ model Course {
 }
 
 model CourseClass {
-  courseId Int    @map("course_id")
+  courseId Int     @map("course_id")
   course   Course? @relation("CourseClass_courseId", fields: [courseId], references: [id])
-  classId  Int    @map("class_id")
+  classId  Int     @map("class_id")
   class    Class?  @relation("CourseClass_classId", fields: [classId], references: [id])
 
   @@id([courseId, classId])
@@ -221,26 +221,26 @@ model DoctrineMigrationVersions {
 }
 
 model Student {
-  id                 Int                @id @default(autoincrement())
-  classId            Int?               @map("class_id")
-  class              Class?             @relation("Student_classId", fields: [classId], references: [id])
-  userId             Int                @unique @map("user_id")
-  user               User?              @relation("Student_userId", fields: [userId], references: [id])
-  institutionId      Int?               @map("institution_id")
-  institution        Institution?       @relation("Student_institutionId", fields: [institutionId], references: [id])
-  reference          String             @unique
-  joinAt             DateTime           @map("join_at")
-  isPremium          Boolean?           @map("is_premium")
-  studentCourses     StudentCourse[]    @relation("StudentCourse_studentId")
+  id                 Int                 @id @default(autoincrement())
+  classId            Int?                @map("class_id")
+  class              Class?              @relation("Student_classId", fields: [classId], references: [id])
+  userId             Int                 @unique @map("user_id")
+  user               User?               @relation("Student_userId", fields: [userId], references: [id])
+  institutionId      Int?                @map("institution_id")
+  institution        Institution?        @relation("Student_institutionId", fields: [institutionId], references: [id])
+  reference          String              @unique
+  joinAt             DateTime            @map("join_at")
+  isPremium          Boolean?            @map("is_premium")
+  studentCourses     StudentCourse[]     @relation("StudentCourse_studentId")
   evaluationStudents EvaluationStudent[] @relation("EvaluationStudent_studentId")
-  evaluationResults  EvaluationResult[] @relation("EvaluationResult_studentId")
-  trainingStudents   TrainingStudent[]  @relation("TrainingStudent_studentId")
-  lectures           Lecture[]          @relation("Lecture_studentId")
-  payments           Payment[]          @relation("Payment_studentId")
-  quizLosts          QuizLost[]         @relation("QuizLost_studentId")
-  quizResults        QuizResult[]       @relation("QuizResult_studentId")
-  answers            Answer[]           @relation("Answer_studentId")
-  reviews            Review[]           @relation("Review_studentId")
+  evaluationResults  EvaluationResult[]  @relation("EvaluationResult_studentId")
+  trainingStudents   TrainingStudent[]   @relation("TrainingStudent_studentId")
+  lectures           Lecture[]           @relation("Lecture_studentId")
+  payments           Payment[]           @relation("Payment_studentId")
+  quizLosts          QuizLost[]          @relation("QuizLost_studentId")
+  quizResults        QuizResult[]        @relation("QuizResult_studentId")
+  answers            Answer[]            @relation("Answer_studentId")
+  reviews            Review[]            @relation("Review_studentId")
 
   @@index([classId])
   @@index([institutionId])
@@ -248,9 +248,9 @@ model Student {
 }
 
 model StudentCourse {
-  studentId Int     @map("student_id")
+  studentId Int      @map("student_id")
   student   Student? @relation("StudentCourse_studentId", fields: [studentId], references: [id])
-  courseId  Int     @map("course_id")
+  courseId  Int      @map("course_id")
   course    Course?  @relation("StudentCourse_courseId", fields: [courseId], references: [id])
 
   @@id([studentId, courseId])
@@ -288,6 +288,11 @@ model Instructor {
   joinAt        DateTime?    @map("join_at")
   aboutMe       String?      @map("about_me")
   isCertified   Boolean?     @map("is_certified")
+  facebookLink  String?      @map("facebook_link")
+  twitterLink   String?      @map("twitter_link")
+  linkedinLink  String?      @map("linkedin_link")
+  instagramLink String?      @map("instagram_link")
+  websiteLink   String?      @map("website_link")
   courses       Course[]     @relation("Course_instructorId")
   evaluations   Evaluation[] @relation("Evaluation_instructorId")
 
@@ -335,10 +340,10 @@ model Evaluation {
 }
 
 model EvaluationClass {
-  evaluationId Int        @map("evaluation_id")
+  evaluationId Int         @map("evaluation_id")
   evaluation   Evaluation? @relation("EvaluationClass_evaluationId", fields: [evaluationId], references: [id])
-  classId      Int        @map("class_id")
-  class        Class?     @relation("EvaluationClass_classId", fields: [classId], references: [id])
+  classId      Int         @map("class_id")
+  class        Class?      @relation("EvaluationClass_classId", fields: [classId], references: [id])
 
   @@id([evaluationId, classId])
   @@index([evaluationId])
@@ -347,10 +352,10 @@ model EvaluationClass {
 }
 
 model EvaluationStudent {
-  evaluationId Int        @map("evaluation_id")
+  evaluationId Int         @map("evaluation_id")
   evaluation   Evaluation? @relation("EvaluationStudent_evaluationId", fields: [evaluationId], references: [id])
-  studentId    Int        @map("student_id")
-  student      Student?   @relation("EvaluationStudent_studentId", fields: [studentId], references: [id])
+  studentId    Int         @map("student_id")
+  student      Student?    @relation("EvaluationStudent_studentId", fields: [studentId], references: [id])
 
   @@id([evaluationId, studentId])
   @@index([evaluationId])
@@ -374,14 +379,14 @@ model EvaluationQuestion {
 }
 
 model EvaluationResult {
-  id          Int        @id @default(autoincrement())
-  evaluationId Int       @map("evaluation_id")
-  evaluation  Evaluation? @relation("EvaluationResult_evaluationId", fields: [evaluationId], references: [id])
-  studentId   Int        @map("student_id")
-  student     Student?   @relation("EvaluationResult_studentId", fields: [studentId], references: [id])
-  contents    String
-  score       Float      @map("score")
-  evaluatedAt DateTime   @map("evaluated_at")
+  id           Int         @id @default(autoincrement())
+  evaluationId Int         @map("evaluation_id")
+  evaluation   Evaluation? @relation("EvaluationResult_evaluationId", fields: [evaluationId], references: [id])
+  studentId    Int         @map("student_id")
+  student      Student?    @relation("EvaluationResult_studentId", fields: [studentId], references: [id])
+  contents     String
+  score        Float       @map("score")
+  evaluatedAt  DateTime    @map("evaluated_at")
 
   @@index([evaluationId])
   @@index([studentId])
@@ -415,8 +420,8 @@ model Exam {
 }
 
 model Faq {
-  id       Int    @id @default(autoincrement())
-  courseId Int    @map("course_id")
+  id       Int     @id @default(autoincrement())
+  courseId Int     @map("course_id")
   course   Course? @relation("Faq_courseId", fields: [courseId], references: [id])
   question String
   answer   String
@@ -426,14 +431,14 @@ model Faq {
 }
 
 model Major {
-  id              Int               @id @default(autoincrement())
-  teachingTypeId  Int               @map("teaching_type_id")
-  teachingType    TeachingType?     @relation("Major_teachingTypeId", fields: [teachingTypeId], references: [id])
+  id              Int              @id @default(autoincrement())
+  teachingTypeId  Int              @map("teaching_type_id")
+  teachingType    TeachingType?    @relation("Major_teachingTypeId", fields: [teachingTypeId], references: [id])
   name            String
   slug            String
-  majorSubSystems MajorSubSystem[]  @relation("MajorSubSystem_majorId")
-  specialties     Specialty[]       @relation("Specialty_majorId")
-  userMajors      UserMajor[]       @relation("UserMajor_majorId")
+  majorSubSystems MajorSubSystem[] @relation("MajorSubSystem_majorId")
+  specialties     Specialty[]      @relation("Specialty_majorId")
+  userMajors      UserMajor[]      @relation("UserMajor_majorId")
 
   @@index([teachingTypeId])
   @@map("major")
@@ -540,49 +545,49 @@ model CourseLike {
 }
 
 model User {
-  id                   Int                    @id @default(autoincrement())
-  email                String                 @unique
-  roles                String
-  password             String
-  isVerified           Boolean                @map("is_verified")
-  isBlocked            Boolean?               @map("is_blocked")
-  isAdmin              Boolean?               @map("is_admin")
-  points               Float?
-  cash                 Float
-  contacts             Contact[]              @relation("Contact_userId")
-  devices              Device[]               @relation("Device_deviceTokenId")
-  student              Student?               @relation("Student_userId")
-  instructor           Instructor?            @relation("Instructor_userId")
-  exams                Exam[]                 @relation("Exam_userId")
-  courseLikes          CourseLike[]           @relation("CourseLike_authorId")
-  member               Member?                @relation("Member_userId")
-  notifications        Notification[]         @relation("Notification_recipientId")
-  notificationSettings NotificationSetting[]  @relation("NotificationSetting_userId")
-  person               Person?                @relation("Person_userId")
+  id                    Int                    @id @default(autoincrement())
+  email                 String                 @unique
+  roles                 String
+  password              String
+  isVerified            Boolean                @map("is_verified")
+  isBlocked             Boolean?               @map("is_blocked")
+  isAdmin               Boolean?               @map("is_admin")
+  points                Float?
+  cash                  Float
+  contacts              Contact[]              @relation("Contact_userId")
+  devices               Device[]               @relation("Device_deviceTokenId")
+  student               Student?               @relation("Student_userId")
+  instructor            Instructor?            @relation("Instructor_userId")
+  exams                 Exam[]                 @relation("Exam_userId")
+  courseLikes           CourseLike[]           @relation("CourseLike_authorId")
+  member                Member?                @relation("Member_userId")
+  notifications         Notification[]         @relation("Notification_recipientId")
+  notificationSettings  NotificationSetting[]  @relation("NotificationSetting_userId")
+  person                Person?                @relation("Person_userId")
   resetPasswordRequests ResetPasswordRequest[] @relation("ResetPasswordRequest_userId")
-  withdrawals          Withdrawal[]           @relation("Withdrawal_userId")
-  userMajors           UserMajor[]            @relation("UserMajor_userId")
-  conversations        Participant[]
-  chatMessages         ChatMessage[]
+  withdrawals           Withdrawal[]           @relation("Withdrawal_userId")
+  userMajors            UserMajor[]            @relation("UserMajor_userId")
+  conversations         Participant[]
+  chatMessages          ChatMessage[]
 
   @@map("user")
 }
 
 model Lecture {
-  id        Int      @id @default(autoincrement())
-  studentId Int      @map("student_id")
-  student   Student? @relation("Lecture_studentId", fields: [studentId], references: [id])
-  lessonId  Int?     @map("lesson_id")
-  lesson    Lesson?  @relation("Lecture_lessonId", fields: [lessonId], references: [id])
-  chapterId Int?     @map("chapter_id")
-  chapter   Chapter? @relation("Lecture_chapterId", fields: [chapterId], references: [id])
-  courseId  Int?     @map("course_id")
-  course    Course?  @relation("Lecture_courseId", fields: [courseId], references: [id])
-  startAt   DateTime @map("start_at")
-  endAt     DateTime? @map("end_at")
-  isFinished Boolean @map("is_finished")
-  reference String?
-  note      Float?
+  id         Int       @id @default(autoincrement())
+  studentId  Int       @map("student_id")
+  student    Student?  @relation("Lecture_studentId", fields: [studentId], references: [id])
+  lessonId   Int?      @map("lesson_id")
+  lesson     Lesson?   @relation("Lecture_lessonId", fields: [lessonId], references: [id])
+  chapterId  Int?      @map("chapter_id")
+  chapter    Chapter?  @relation("Lecture_chapterId", fields: [chapterId], references: [id])
+  courseId   Int?      @map("course_id")
+  course     Course?   @relation("Lecture_courseId", fields: [courseId], references: [id])
+  startAt    DateTime  @map("start_at")
+  endAt      DateTime? @map("end_at")
+  isFinished Boolean   @map("is_finished")
+  reference  String?
+  note       Float?
 
   @@index([studentId])
   @@index([lessonId])
@@ -634,13 +639,13 @@ model Media {
 }
 
 model Member {
-  id               Int                @id @default(autoincrement())
-  userId           Int                @unique @map("user_id")
-  user             User?              @relation("Member_userId", fields: [userId], references: [id])
-  forumMessages    ForumMessage[]     @relation("ForumMessage_memberId")
+  id                Int                @id @default(autoincrement())
+  userId            Int                @unique @map("user_id")
+  user              User?              @relation("Member_userId", fields: [userId], references: [id])
+  forumMessages     ForumMessage[]     @relation("ForumMessage_memberId")
   likeMessageForums LikeMessageForum[] @relation("LikeMessageForum_memberId")
-  memberForums     MemberForum[]      @relation("MemberForum_memberId")
-  subjects         Subject[]          @relation("Subject_memberId")
+  memberForums      MemberForum[]      @relation("MemberForum_memberId")
+  subjects          Subject[]          @relation("Subject_memberId")
 
   @@map("member")
 }
@@ -754,14 +759,14 @@ model Payment {
 }
 
 model PaymentMethod {
-  id                          Int                         @id @default(autoincrement())
-  label                       String
-  code                        String
-  slug                        String
-  subscriptionPaymentMethods  SubscriptionPaymentMethod[] @relation("SubscriptionPaymentMethod_paymentMethodId")
-  coursePaymentMethods        CoursePaymentMethod[]       @relation("CoursePaymentMethod_paymentMethodId")
-  payments                    Payment[]                   @relation("Payment_paymentMethodId")
-  withdrawals                 Withdrawal[]                @relation("Withdrawal_paymentMethodId")
+  id                         Int                         @id @default(autoincrement())
+  label                      String
+  code                       String
+  slug                       String
+  subscriptionPaymentMethods SubscriptionPaymentMethod[] @relation("SubscriptionPaymentMethod_paymentMethodId")
+  coursePaymentMethods       CoursePaymentMethod[]       @relation("CoursePaymentMethod_paymentMethodId")
+  payments                   Payment[]                   @relation("Payment_paymentMethodId")
+  withdrawals                Withdrawal[]                @relation("Withdrawal_paymentMethodId")
 
   @@map("payment_method")
 }
@@ -794,6 +799,11 @@ model Person {
   avatar         String?
   address        String?
   phoneNumber    String?   @map("phone_number")
+  facebookLink   String?   @map("facebook_link")
+  twitterLink    String?   @map("twitter_link")
+  linkedinLink   String?   @map("linkedin_link")
+  instagramLink  String?   @map("instagram_link")
+  websiteLink    String?   @map("website_link")
   invitationCode String    @unique @map("invitation_code")
   invitationLink String    @map("invitation_link")
   joinAt         DateTime? @map("join_at")
@@ -1050,9 +1060,9 @@ model TeachingType {
 }
 
 model UserMajor {
-  userId  Int   @map("user_id")
-  user    User? @relation("UserMajor_userId", fields: [userId], references: [id])
-  majorId Int   @map("major_id")
+  userId  Int    @map("user_id")
+  user    User?  @relation("UserMajor_userId", fields: [userId], references: [id])
+  majorId Int    @map("major_id")
   major   Major? @relation("UserMajor_majorId", fields: [majorId], references: [id])
 
   @@id([userId, majorId])
@@ -1062,10 +1072,10 @@ model UserMajor {
 }
 
 model Conversation {
-  id        Int           @id @default(autoincrement())
-  createdAt DateTime      @default(now()) @map("created_at")
-  updatedAt DateTime      @updatedAt @map("updated_at")
-  messages  ChatMessage[]
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  messages     ChatMessage[]
   participants Participant[]
 
   @@map("conversation")

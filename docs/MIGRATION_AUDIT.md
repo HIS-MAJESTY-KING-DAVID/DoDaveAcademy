@@ -1,6 +1,6 @@
 # Migration Audit Report: Symfony (Kulmapeck) → Next.js (DoDave Academy)
 
-**Date:** May 10, 2026  
+**Date:** May 12, 2026  
 **Auditor:** Automated Codebase Analysis  
 **Version:** 1.0
 
@@ -10,7 +10,7 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **57%** ↑ *(was 56%; home page content completed — testimonials, featured hero, dynamic data)*
+### Overall Migration Progress: **62%** ↑ *(was 57%; Phase 2 polish: API error standardization, rate limiting, social links, jQuery→vanilla JS, Tailwind activation)*
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|
@@ -596,9 +596,9 @@ The `components/generated/` directory contains **385 files** that are direct aut
 | Issue | Location | Impact | Recommendation |
 |---|---|---|---|
 | 385 generated bridge components | `components/generated/` | High maintenance burden, blocks refactoring | Phase out gradually using strangler fig pattern |
-| Bootstrap 5 still referenced | `app/layout.tsx` imports Bootstrap CSS | CSS bloat, conflicts with Tailwind v4 | Global find-and-replace to Tailwind utilities |
-| No auth refresh token | `lib/auth.ts` / no `api/auth/refresh` | Users logged out after JWT expiry | Add refresh token endpoint + client interceptor |
-| No rate limiting on auth | `api/auth/login/route.ts` | Brute force vulnerability | Add rate limiter (Redis or in-memory) |
+| Bootstrap + Tailwind dual loading | `app/globals.css` imports Tailwind, layout loads Bootstrap CSS | CSS bloat, potential conflicts | Incrementally migrate Bootstrap classes → Tailwind utilities |
+| ~~No auth refresh token~~ | ✅ Resolved | — | Refresh token endpoint + client interceptor shipped |
+| ~~No rate limiting on auth~~ | ✅ Resolved | — | In-memory rate limiter on all 5 auth endpoints (login 5/15m, register 3/15m, forgot-password 3/15m, reset-password 5/15m, refresh 10/15m) |
 | Payment callback has no IP validation | PHP side | Security risk in legacy | Ensure new implementation validates source |
 | Hardcoded SMTP credentials | PHP `Utils.php` | Security risk | Use environment variables + Resend/Mailgun |
 | `any` types in Prisma queries | `app/dashboard/student/page.tsx:7` | Type safety hole | Replace with proper Prisma-generated types |
@@ -607,6 +607,9 @@ The `components/generated/` directory contains **385 files** that are direct aut
 
 | Issue | Location | Impact | Recommendation |
 |---|---|---|---|
+| ~~jQuery dependency~~ | ✅ Resolved — replaced in layout.tsx, main.js, functions.js, 6 admin files, Quiz.tsx, exam Index.tsx | — | Remaining: New.tsx, Edit.tsx (instructor courses) |
+| ~~Social link fields missing~~ | ✅ Resolved — `facebookLink`, `twitterLink`, `linkedinLink`, `instagramLink`, `websiteLink` added to Instructor & Person models | — | Migration SQL in `prisma/migrations/add_social_links.sql` |
+| ~~API error responses inconsistent~~ | ✅ Resolved — all 30 API routes now use `handleApiError` from `lib/exceptions.ts` | — | Standardized error format: `{ message, errors? }` |
 | Inline styles in pages | Various `app/` pages | Poor maintainability | Use Tailwind classes consistently |
 | No loading states | No `loading.tsx` files | Poor UX on slow connections | Add skeleton loaders |
 | No error boundaries | No `error.tsx` files | Crash → white screen | Add per-route error boundaries |

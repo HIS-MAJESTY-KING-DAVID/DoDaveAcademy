@@ -150,7 +150,6 @@ export default function RootLayout({
         </AuthProvider>
 
         {/* JavaScript Libraries */}
-        <Script src="/assets/vendor/jquery/jquery-3.6.4.min.js" strategy="beforeInteractive" />
         <Script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
         <Script src="/assets/vendor/tiny-slider/tiny-slider.js" strategy="lazyOnload" />
         <Script src="/assets/vendor/glightbox/js/glightbox.js" strategy="lazyOnload" />
@@ -163,12 +162,15 @@ export default function RootLayout({
         {/* Custom Scripts */}
         <Script id="custom-scripts" strategy="lazyOnload">
           {`
-            // Custom scripts from base.html.twig
-             if (typeof $ !== 'undefined') {
-                $('.pagination-container nav').addClass('mt-4 d-flex justify-content-center');
-                $('.pagination-container nav ul.pagination li').addClass('mb-0');
-                $('.pagination-container nav ul.pagination').addClass('pagination-primary-soft d-inline-block d-md-flex rounded mb-0');
-             }
+            document.querySelectorAll('.pagination-container nav').forEach(function(el) {
+              el.classList.add('mt-4', 'd-flex', 'justify-content-center');
+            });
+            document.querySelectorAll('.pagination-container nav ul.pagination li').forEach(function(el) {
+              el.classList.add('mb-0');
+            });
+            document.querySelectorAll('.pagination-container nav ul.pagination').forEach(function(el) {
+              el.classList.add('pagination-primary-soft', 'd-inline-block', 'd-md-flex', 'rounded', 'mb-0');
+            });
           `}
         </Script>
       </body>

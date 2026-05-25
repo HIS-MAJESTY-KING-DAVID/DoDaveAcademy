@@ -12,14 +12,19 @@ export default function Index(props: any) {
     <script>
 		const showRejectedFormModal = (e) => {
 			const action = e.currentTarget.dataset.uri;
-			$('#RejectedCourseForumMessage form').attr('action', action)
-			$('#RejectedCourseForumMessage form').attr('method', 'POST')
-
-			$('#RejectedCourseForumMessage').modal("show")
+			const form = document.querySelector('#RejectedCourseForumMessage form');
+			if (form) {
+				form.setAttribute('action', action);
+				form.setAttribute('method', 'POST');
+			}
+			const modalEl = document.getElementById('RejectedCourseForumMessage');
+			if (window.bootstrap) {
+				new window.bootstrap.Modal(modalEl).show();
+			}
 		}
 
-		$('#admin_filter_select_courses').on('change', (e) => {
-			window.location.href = $(e.currentTarget).val()
+		document.getElementById('admin_filter_select_courses')?.addEventListener('change', (e) => {
+			window.location.href = e.currentTarget.value
 		})
 
 		document.querySelectorAll('.reject-course-btn').forEach(btn => {

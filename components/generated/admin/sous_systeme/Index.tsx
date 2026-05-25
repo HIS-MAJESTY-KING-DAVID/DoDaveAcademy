@@ -16,13 +16,15 @@ export default function Index(props: any) {
     <script>
         const showEditModal = (e) => {
             const url = e.currentTarget.dataset.url;
-            $.ajax({
-                url: url,
-                success: (response) => {
-                    $('#editCategoryModal').html(response)
-                    $('#editCategoryModal').modal('show')
-                }
-            })
+            fetch(url)
+                .then(r => r.text())
+                .then((response) => {
+                    document.getElementById('editCategoryModal').innerHTML = response;
+                    const modalEl = document.getElementById('editCategoryModal');
+                    if (window.bootstrap) {
+                        new window.bootstrap.Modal(modalEl).show();
+                    }
+                })
         }
 
         document.querySelectorAll('.edit_category_btn').forEach(btn => { btn.addEventListener("click", showEditModal) });

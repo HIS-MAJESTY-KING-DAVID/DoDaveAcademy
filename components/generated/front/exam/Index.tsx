@@ -228,7 +228,7 @@ export default function Index(props: any) {
 
 						<!-- Button -->
 						<div className="d-grid p-2 p-xl-0 bg-body text-center">
-							<button className="btn btn-primary mb-0" type="button" onclick="$('#filter-form').submit()">{% trans %}FILTERRESULTS_KEY{% endtrans %}</button>
+							<button className="btn btn-primary mb-0" type="button" onclick="document.getElementById('filter-form').submit()">{% trans %}FILTERRESULTS_KEY{% endtrans %}</button>
 						</div>
 					</div>
 					<!-- Responsive offcanvas body END -->

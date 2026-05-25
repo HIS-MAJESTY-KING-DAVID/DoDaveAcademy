@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function GET(
   req: Request,
@@ -78,8 +79,7 @@ export async function GET(
     return NextResponse.json({ data: course.forum.subjects });
 
   } catch (error) {
-    console.error('Forum subjects fetch error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return handleApiError(error);
   }
 }
 
@@ -145,7 +145,6 @@ export async function POST(
     return NextResponse.json({ data: subject }, { status: 201 });
 
   } catch (error) {
-    console.error('Forum subject create error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return handleApiError(error);
   }
 }

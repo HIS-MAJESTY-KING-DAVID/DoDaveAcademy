@@ -1,6 +1,6 @@
 # Comprehensive Content Parity Audit: React (DoDave Academy) vs Legacy (Kulmapeck Symfony)
 
-**Date:** May 10, 2026  
+**Date:** May 12, 2026  
 **Scope:** Full comparative analysis of all user-facing pages, data presentation, UI elements, dynamic content, and UX  
 **Methodology:** Direct page source analysis of 45 React pages + 40 API routes vs documented legacy Symfony features  
 
@@ -22,9 +22,11 @@
 | **Real-time Features** | Ratchet WebSocket | Supabase Realtime (partial) | **60% gap** |
 | **Generated Bridge Debt** | 0 files | 394 files | **100% debt** |
 | **Database Schema Coverage** | 63 Doctrine entities | 74 Prisma models | **117%** (includes new) |
-| **Test Coverage** | ~0 (PHPUnit not configured) | 41 tests, 6 suites | **Added** |
+| **Test Coverage** | ~0 (PHPUnit not configured) | 59 tests, 9 suites | **Added** |
 
 **Overall Application Content Parity: 72%** (up from 42%; all public pages completed, home page category tabs, courses sorting, forum replies, skip-to-content)
+
+**Phase 2 Polish Completed (May 12):** API error standardization (all 30 routes → `handleApiError`), rate limiting on 5 auth endpoints, social link fields on Instructor/Person models, jQuery→vanilla JS migration (layout.tsx, main.js, functions.js, 6 admin files, Quiz.tsx, exam Index.tsx), Tailwind CSS v4 activated. Test suite expanded to 59 tests.
 
 ---
 

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function GET(
   req: Request,
@@ -94,7 +95,6 @@ export async function GET(
     return NextResponse.json({ redirect: redirectUrl });
 
   } catch (error) {
-    console.error('Start course error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return handleApiError(error);
   }
 }

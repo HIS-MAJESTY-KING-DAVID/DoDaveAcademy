@@ -19,20 +19,21 @@ export default function Quiz(props: any) {
     
     <script>
         const toogleRequiredAttr = (e) => {
-            if ($(e.currentTarget).attr('type') == 'checkbox') {
-                if ($(e.currentTarget).is(':checked')) {
-                    $(e.currentTarget.dataset.parent + ' .btn-quiz-check').attr('required', false)
+            const target = e.currentTarget;
+            const parent = target.dataset.parent || '';
+            const siblings = document.querySelectorAll(parent + ' .btn-quiz-check');
+            if (target.getAttribute('type') == 'checkbox') {
+                if (target.checked) {
+                    siblings.forEach(function(el) { el.removeAttribute('required'); });
                 } else {
-                    let isChecked = false
-                    $(e.currentTarget.dataset.parent + ' .btn-quiz-check').each((index, item) => {
-                        if ($(item).is(':checked')) {
-                            isChecked = true
-                        }
-                    })
+                    let isChecked = false;
+                    siblings.forEach(function(el) {
+                        if (el.checked) isChecked = true;
+                    });
                     if (isChecked) {
-                        $(e.currentTarget.dataset.parent + ' .btn-quiz-check').attr('required', false)
+                        siblings.forEach(function(el) { el.removeAttribute('required'); });
                     } else {
-                        $(e.currentTarget.dataset.parent + ' .btn-quiz-check').attr('required', true)
+                        siblings.forEach(function(el) { el.setAttribute('required', ''); });
                     }
                 }
             }

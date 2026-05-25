@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { sign } from 'jsonwebtoken';
 import { userAuthSchema } from '@/lib/validations/auth';
 import { handleApiError } from '@/lib/exceptions';
+import { rateLimit, rateLimitResponse, getClientIp } from '@/lib/rate-limit';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
@@ -18,6 +19,10 @@ function generateRefreshToken(): string {
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = rateLimit(`login:${ip}`, { max: 5, windowMs: 15 * 60 * 1000 });
+    if (!rl.success) return rateLimitResponse(rl.headers);
+
     const body = await req.json();
     const { email, password } = userAuthSchema.parse(body);
 

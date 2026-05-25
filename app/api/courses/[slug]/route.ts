@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { handleApiError } from '@/lib/exceptions';
 
 export async function GET(
   request: Request,
@@ -64,10 +65,6 @@ export async function GET(
 
     return NextResponse.json(course);
   } catch (error) {
-    console.error('Error fetching course:', error);
-    return NextResponse.json(
-      { message: 'Error fetching course' },
-      { status: 500 }
-    );
+    return handleApiError(error);
   }
 }

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { sign, verify } from 'jsonwebtoken';
 import { prisma } from '@/lib/prisma';
 import { handleApiError } from '@/lib/exceptions';
+import { rateLimit, rateLimitResponse, getClientIp } from '@/lib/rate-limit';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const REFRESH_SECRET = process.env.REFRESH_SECRET || 'your-refresh-secret-key';
@@ -17,6 +18,10 @@ function generateRefreshToken(): string {
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = rateLimit(`refresh:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 });
+    if (!rl.success) return rateLimitResponse(rl.headers);
+
     const { refreshToken } = await req.json();
 
     if (!refreshToken) {
