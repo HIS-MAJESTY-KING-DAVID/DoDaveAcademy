@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
+import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Pricing Plans',
-  description: 'Choose the best plan for your learning journey. Flexible pricing options for students and professionals at DoDave Academy.',
-};
+export const dynamic = 'force-dynamic';
 
 export default async function PlanPage() {
   const subscriptions = await prisma.subscription.findMany({

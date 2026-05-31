@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Community Forum',
   description: 'Join the discussion with other students and instructors. Ask questions, share knowledge, and learn together.',
