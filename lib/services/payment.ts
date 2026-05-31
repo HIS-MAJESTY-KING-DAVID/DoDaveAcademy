@@ -45,7 +45,7 @@ const RECEIVER_NUMBER = process.env.RECEIVER_NUMBER || '641201000';
 const MERCHANT_KEY = process.env.MERCHANT_KEY || '';
 const MERCHANT_SECRET = process.env.MERCHANT_SECRET || '';
 
-function generateReference(): string {
+export function generateReference(): string {
   const timestamp = Date.now().toString(36).toUpperCase();
   const random = Math.random().toString(36).substring(2, 6).toUpperCase();
   return `PAY-${timestamp}-${random}`;

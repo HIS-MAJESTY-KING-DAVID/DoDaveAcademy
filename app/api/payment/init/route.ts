@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
-import { initCoursePayment, initSubscriptionPayment } from '@/lib/services/payment';
+import { prisma } from '@/lib/prisma';
+import { initCoursePayment, initSubscriptionPayment, generateReference } from '@/lib/services/payment';
 
 export async function POST(req: NextRequest) {
   const session = await getSession();
@@ -10,7 +11,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { type, amount, phone, customerName, customerEmail, itemLabel } = body;
+    const { type, amount, phone, customerName, customerEmail, itemLabel, courseId, subscriptionId } = body;
 
     if (!amount || !phone || !customerName || !customerEmail) {
       return NextResponse.json(
@@ -18,6 +19,32 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    const student = await prisma.student.findUnique({ where: { userId: session.userId } });
+    if (!student) {
+      return NextResponse.json({ message: 'Student profile not found' }, { status: 404 });
+    }
+
+    const paymentMethod = await prisma.paymentMethod.findFirst();
+    if (!paymentMethod) {
+      return NextResponse.json({ message: 'No payment method configured' }, { status: 500 });
+    }
+
+    const ref = generateReference();
+
+    await prisma.payment.create({
+      data: {
+        studentId: student.id,
+        paymentMethodId: paymentMethod.id,
+        subscriptionId: type === 'subscription' && subscriptionId ? parseInt(subscriptionId, 10) : null,
+        courseId: type === 'course' && courseId ? parseInt(courseId, 10) : null,
+        reference: ref,
+        amount,
+        status: 'PENDING',
+        paidAt: new Date(),
+        isExpired: false,
+      },
+    });
 
     let result;
     if (type === 'course') {
@@ -29,10 +56,14 @@ export async function POST(req: NextRequest) {
     }
 
     if (!result.success) {
+      await prisma.payment.updateMany({
+        where: { reference: ref },
+        data: { status: 'FAILED' },
+      });
       return NextResponse.json({ message: result.message || 'Payment initiation failed' }, { status: 502 });
     }
 
-    return NextResponse.json({ transactionId: result.transactionId, reference: result.reference });
+    return NextResponse.json({ transactionId: result.transactionId, reference: ref });
   } catch (error) {
     return NextResponse.json(
       { message: error instanceof Error ? error.message : 'Internal server error' },

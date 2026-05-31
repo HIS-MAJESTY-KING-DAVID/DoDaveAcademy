@@ -8,6 +8,8 @@ interface PaymentCheckoutProps {
   type: 'course' | 'subscription';
   customerEmail: string;
   customerName: string;
+  courseId?: number;
+  subscriptionId?: number;
   onSuccess?: (reference: string) => void;
   onError?: (message: string) => void;
 }
@@ -18,6 +20,8 @@ export default function PaymentCheckout({
   type,
   customerEmail,
   customerName,
+  courseId,
+  subscriptionId,
   onSuccess,
   onError,
 }: PaymentCheckoutProps) {
@@ -41,6 +45,8 @@ export default function PaymentCheckout({
           customerName,
           customerEmail,
           itemLabel,
+          courseId,
+          subscriptionId,
         }),
       });
 

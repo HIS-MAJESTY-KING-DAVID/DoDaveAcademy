@@ -10,7 +10,7 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **65%** ↑ *(was 62%; May 31: jQuery fully removed from codebase, Footer→Tailwind, Admin Dashboard started (layout + users + courses + validate API), Payment Service created (lib + API + checkout UI))*
+### Overall Migration Progress: **68%** ↑ *(was 65%; May 31: Admin Dashboard expanded (instructors, categories, settings), Header→Tailwind, Payment webhook + subscription billing, Evaluation System begin/result/submit flow)*
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|
@@ -19,10 +19,10 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 | Course Player & Learning | **100%** ↑ | 10/10 | 0 |
 | Student Dashboard | 75% | 9/12 | 3 |
 | Instructor Dashboard | **89%** ↑↑ | 17/19 | 2 |
-| **Admin Dashboard** | **12%** ↑ | 4/34 | 30 |
-| Payment System (Mobile Money) | **15%** ↑ | 3/8 | 5 |
+| **Admin Dashboard** | **24%** ↑↑ | 8/34 | 26 |
+| Payment System (Mobile Money) | **25%** ↑ | 4/8 | 4 |
 | Network/MLM System | 30% | 3/10 | 7 |
-| Evaluation/Examination System | 15% | 2/13 | 11 |
+| Evaluation/Examination System | **25%** ↑ | 4/13 | 9 |
 | Chat & Real-time Messaging | 70% | 5/7 | 2 |
 | Forum System | **100%** ↑ | 10/10 | 0 |
 | AI Tutoring (DeepSeek) | 40% | 1/3 | 2 |
@@ -34,9 +34,9 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 
 ### Critical Findings
 
-1. **Payment System (15%)** — Core payment service created (`lib/services/payment.ts`) with `sendPayIn`/`sendPayOut`/`initCoursePayment`/`initSubscriptionPayment`, phone validation utility (`lib/utils/phone.ts`), API endpoints (`POST /api/payment/init`, `POST /api/payment/webhook`), and a reusable checkout UI component (`components/payment/PaymentCheckout.tsx`). Requires real payment gateway credentials and production testing.
+1. **Payment System (25%)** — Core payment service created (`lib/services/payment.ts`) with `sendPayIn`/`sendPayOut`/`initCoursePayment`/`initSubscriptionPayment`, phone validation utility (`lib/utils/phone.ts`), API endpoints (`POST /api/payment/init`, `POST /api/payment/webhook`), reusable checkout UI component (`components/payment/PaymentCheckout.tsx`). Webhook now processes callbacks: creates Payment records, enrolls students in courses on success, sets `isPremium` for subscription payments with expiry tracking.
 
-2. **Admin Dashboard (12%)** — Admin section created at `/admin` with Tailwind-based layout + sidebar. Pages: Dashboard (stats), Users (list with roles/flags), Courses (list with validation status). Course validation API (`POST /api/admin/courses/[id]/validate`). 30 controllers remain unported.
+2. **Admin Dashboard (24%)** — Admin section at `/admin` with Tailwind sidebar layout. Pages: Dashboard (stats), Users (list with roles/flags), Courses (list with validation), **Instructors** (validation/rejection), **Categories** (CRUD table + create form), **Settings** (site settings form, social links CRUD, network config). Course validation API, instructor validate/reject APIs, category CRUD APIs, settings update APIs. 26 controllers remain unported.
 
 3. **Business Logic Gaps** — Critical PHP services (ManageNetwork, PaymentUtil, MobileApiService, SubjectChatService) have no React equivalents.
 

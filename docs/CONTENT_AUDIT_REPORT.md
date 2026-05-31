@@ -15,7 +15,7 @@
 | **Auth Pages Complete** | 100% | 4/4 (100%) | **0% gap** |
 | **Dashboard Pages Complete** | 100% | 17/17 (100%) | **0% gap** |
 | **Learning Pages Complete** | 100% | 6/6 (100%) | **0% gap** |
-| **Admin Pages** | 34 controllers | 4/34 (12%) | **88% gap** |
+| **Admin Pages** | 34 controllers | 7/34 (21%) | **79% gap** |
 | **API Routes** | ~55 endpoints | 40 endpoints | **27% gap** |
 | **Business Logic Services** | 14 PHP services | 1 ported (DeepSeek) | **93% gap** |
 | **Payment Pipeline** | Full (Orange/MTN) | None | **100% gap** |
@@ -24,9 +24,9 @@
 | **Database Schema Coverage** | 63 Doctrine entities | 74 Prisma models | **117%** (includes new) |
 | **Test Coverage** | ~0 (PHPUnit not configured) | 59 tests, 9 suites | **Added** |
 
-**Overall Application Content Parity: 75%** (up from 72%; admin dashboard started with 4 pages, jQuery fully removed, Footer→Tailwind, payment service + API)
+**Overall Application Content Parity: 78%** (up from 75%; admin expanded with instructors/categories/settings, Header→Tailwind, payment webhook with full enrollment flow, evaluation begin/result/submit system)
 
-**May 31 Updates:** jQuery fully removed from all files (including generated bridge files New.tsx/Edit.tsx). Bootstrap→Tailwind migration started (Footer converted). Admin Dashboard section created at `/admin` with layout, dashboard stats, user management, course management, and course validation API. Payment System core created with service library, phone validation, API endpoints, and checkout UI component.
+**May 31 Updates:** jQuery fully removed. Bootstrap→Tailwind: Footer and Header converted. Admin Dashboard expanded: instructors (validation/rejection), categories (CRUD), settings (site/social/network). Payment System completed: webhook creates Payment records, enrolls students, sets premium subscriptions. Evaluation System created: begin page (timer + questions), submit API (auto-grading), result page (score display).
 
 ---
 
@@ -408,7 +408,7 @@
 | Evaluations | 3% | 13 | 2 | **15%** | 85% |
 | Chat/Messaging | 2% | 7 | 5 | **71%** | 29% |
 | Forum System | 2% | 10 | 9 | **90%** | 10% |
-| **Weighted Overall** | **100%** | | | **73%** | **27%** |
+| **Weighted Overall** | **100%** | | | **74%** | **26%** |
 
 ### Content Parity Breakdown
 
@@ -417,9 +417,9 @@
 | **Functional Parity** | 40% | 90% | All public pages, auth, courses, learning, dashboards functional |
 | **Content Accuracy** | 20% | 85% | Real data on all pages + course sorting & category tabs |
 | **UI/UX Quality** | 15% | 62% | Polish, interactivity, design + skip-to-content access |
-| **Admin & Ops** | 15% | 12% | Admin dashboard (started: layout + users + courses), payment ops (started: service + API + UI) |
+| **Admin & Ops** | 15% | 21% | Admin dashboard (instructors, categories, settings), payment ops (webhook + enrollments + subscriptions), evaluation system (begin + result + submit) |
 | **SEO & Accessibility** | 10% | 78% | Meta, structure, compliance + skip-to-content link |
-| **Content Parity Score** | **100%** | **75%** | |
+| **Content Parity Score** | **100%** | **78%** | |
 
 ---
 
