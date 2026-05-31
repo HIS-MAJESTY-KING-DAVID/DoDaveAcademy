@@ -4,131 +4,113 @@ import Link from 'next/link';
 import Image from 'next/image';
 import LanguageSwitcher from '../LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 export default function Header() {
   const { t } = useTranslation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="navbar-light navbar-sticky header-static">
-      <nav className="navbar navbar-expand-xl">
-        <div className="container-fluid px-3 px-xl-5">
-          {/* Logo START */}
-          <Link href="/" className="navbar-brand d-flex align-items-center">
+    <header className="bg-white shadow-sm sticky top-0 z-50">
+      <nav className="max-w-full mx-auto px-3 px-xl-5">
+        <div className="flex items-center justify-between h-16">
+
+          <Link href="/" className="flex items-center flex-shrink-0">
             <Image
-              className="light-mode-item navbar-brand-item"
               src="/logo.svg"
               alt="DoDave Academy"
               width={40}
               height={40}
               style={{ height: '40px', width: 'auto' }}
             />
-            <span className="ms-2 d-none d-sm-inline-block" style={{ fontFamily: 'Pacifico, cursive', color: 'var(--brand-primary)', fontSize: '24px' }}>DoDave Academy</span>
+            <span className="ml-2 hidden sm:inline-block" style={{ fontFamily: 'Pacifico, cursive', color: 'var(--brand-primary)', fontSize: '24px' }}>DoDave Academy</span>
           </Link>
-          {/* Logo END */}
 
-          {/* Responsive navbar toggler */}
           <button
-            className="navbar-toggler ms-auto"
+            className="xl:hidden ml-auto p-2 rounded hover:bg-gray-100"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-controls="navbarCollapse"
-            aria-expanded="false"
+            aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-animation">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
+            <span className="block w-5 h-0.5 bg-gray-600 mb-1 transition"></span>
+            <span className="block w-5 h-0.5 bg-gray-600 mb-1 transition"></span>
+            <span className="block w-5 h-0.5 bg-gray-600 transition"></span>
           </button>
 
-          {/* Main navbar START */}
-          <div className="navbar-collapse w-100 collapse" id="navbarCollapse">
-            
-            {/* Nav Main menu START */}
-            <ul className="navbar-nav navbar-nav-scroll me-auto">
+          <div className={`${mobileMenuOpen ? 'block' : 'hidden'} xl:flex xl:items-center xl:w-auto w-full absolute xl:static top-16 left-0 bg-white xl:bg-transparent shadow-md xl:shadow-none z-40`} id="navbarCollapse">
 
-              {/* Categories Dropdown */}
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="categoryMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <ul className="flex flex-col xl:flex-row xl:items-center gap-0 xl:gap-1 p-4 xl:p-0">
+
+              <li className="relative group">
+                <button className="flex items-center gap-1 px-3 py-2 text-sm text-gray-700 hover:text-[var(--brand-primary)] rounded hover:bg-gray-50 w-full xl:w-auto text-left">
                   {t('CATEGORIES_KEY')}
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="categoryMenu">
-                   {/* TODO: Fetch categories dynamically */}
-                   <li><Link className="dropdown-item" href="/courses?category=web-design">Web Design</Link></li>
-                   <li><Link className="dropdown-item" href="/courses?category=development">Development</Link></li>
-                   <li><Link className="dropdown-item" href="/courses?category=graphic-design">Graphic Design</Link></li>
-                   <li><Link className="dropdown-item" href="/courses?category=marketing">Marketing</Link></li>
-                   <li><Link className="dropdown-item" href="/courses?category=finance">Finance</Link></li>
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <ul className="xl:absolute left-0 mt-0 xl:mt-1 w-full xl:w-48 bg-white xl:shadow-lg xl:rounded xl:border xl:opacity-0 xl:invisible group-hover:xl:opacity-100 group-hover:xl:visible transition-all duration-200">
+                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=web-design">Web Design</Link></li>
+                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=development">Development</Link></li>
+                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=graphic-design">Graphic Design</Link></li>
+                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=marketing">Marketing</Link></li>
+                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=finance">Finance</Link></li>
                 </ul>
               </li>
 
-              <li className="nav-item">
-                <Link className="nav-link" href="/">
+              <li>
+                <Link className="block px-3 py-2 text-sm text-gray-700 hover:text-[var(--brand-primary)] rounded hover:bg-gray-50" href="/">
                   {t('HOME_KEY')}
                 </Link>
               </li>
-              
-              {/* Courses Dropdown */}
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="courseMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+              <li className="relative group">
+                <button className="flex items-center gap-1 px-3 py-2 text-sm text-gray-700 hover:text-[var(--brand-primary)] rounded hover:bg-gray-50 w-full xl:w-auto text-left">
                   {t('COURSES_KEY')}
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="courseMenu">
-                  <li> <Link className="dropdown-item" href="/courses">{t('ALLCOURSES_KEY')}</Link> </li>
-                  <li> <Link className="dropdown-item" href="/programs">{t('PROGRAMS_KEY')}</Link> </li>
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <ul className="xl:absolute left-0 mt-0 xl:mt-1 w-full xl:w-48 bg-white xl:shadow-lg xl:rounded xl:border xl:opacity-0 xl:invisible group-hover:xl:opacity-100 group-hover:xl:visible transition-all duration-200">
+                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses">{t('ALLCOURSES_KEY')}</Link></li>
+                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/programs">{t('PROGRAMS_KEY')}</Link></li>
                 </ul>
               </li>
 
-              <li className="nav-item">
-                <Link className="nav-link" href="/exams">
+              <li>
+                <Link className="block px-3 py-2 text-sm text-gray-700 hover:text-[var(--brand-primary)] rounded hover:bg-gray-50" href="/exams">
                   {t('EXAMS_KEY')}
                 </Link>
               </li>
 
-              <li className="nav-item">
-                <Link className="nav-link" href="/forum">
+              <li>
+                <Link className="block px-3 py-2 text-sm text-gray-700 hover:text-[var(--brand-primary)] rounded hover:bg-gray-50" href="/forum">
                   {t('FORUM_KEY')}
                 </Link>
               </li>
 
-              <li className="nav-item d-none d-lg-block">
-                <Link className="nav-link text-warning" href="/plan">
+              <li className="hidden xl:block">
+                <Link className="block px-3 py-2 text-sm text-yellow-600 hover:text-yellow-700 rounded hover:bg-yellow-50" href="/plan">
                   {t('SUBSCRIBE_KEY')}
                 </Link>
               </li>
             </ul>
-            {/* Nav Main menu END */}
-            
-            {/* Nav Right (Account) START */}
-            <div className="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-              <div className="nav-item w-100">
-                <form className="position-relative">
-                  <input className="form-control pe-5 bg-transparent" type="search" placeholder={t('SEARCH_KEY')} aria-label="Search" />
-                  <button className="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
-                    <i className="fas fa-search fs-6"></i>
-                  </button>
-                </form>
-              </div>
 
-              <div className="nav-item ms-3">
+            <div className="flex flex-col xl:flex-row items-stretch xl:items-center gap-2 p-4 xl:p-0 xl:ml-4 border-t xl:border-t-0 border-gray-100">
+              <form className="relative">
+                <input className="w-full px-3 py-2 pr-8 text-sm border rounded bg-transparent focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]" type="search" placeholder={t('SEARCH_KEY')} aria-label="Search" />
+                <button className="bg-transparent p-1.5 absolute top-1/2 right-1 -translate-y-1/2 border-0 text-gray-500 hover:text-[var(--brand-primary)]" type="submit">
+                  <i className="fas fa-search"></i>
+                </button>
+              </form>
+
+              <div className="flex items-center gap-2">
                 <LanguageSwitcher />
-              </div>
-              
-              <div className="nav-item ms-3 d-none d-sm-block">
-                 <Link className="btn btn-sm btn-outline-primary mb-0" href="/login">
-                    {t('SIGN_IN_KEY')}
-                 </Link>
-              </div>
-              <div className="nav-item ms-3 d-none d-sm-block">
-                 <Link className="btn btn-sm btn-primary mb-0" href="/register">
-                    {t('ENROLL_NOW_KEY')}
-                 </Link>
+                <Link className="inline-flex items-center px-4 py-2 text-sm font-medium text-[var(--brand-primary)] border border-[var(--brand-primary)] rounded hover:bg-[var(--brand-primary)] hover:text-white transition-colors" href="/login">
+                  {t('SIGN_IN_KEY')}
+                </Link>
+                <Link className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[var(--brand-primary)] rounded hover:opacity-90 transition-colors" href="/register">
+                  {t('ENROLL_NOW_KEY')}
+                </Link>
               </div>
             </div>
-             {/* Nav Right (Account) END */}
-
           </div>
         </div>
       </nav>

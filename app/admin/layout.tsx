@@ -28,6 +28,15 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <Link href="/admin/courses" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
             <i className="bi bi-book"></i> Courses
           </Link>
+          <Link href="/admin/instructors" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-person-workspace"></i> Instructors
+          </Link>
+          <Link href="/admin/categories" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-tags"></i> Categories
+          </Link>
+          <Link href="/admin/settings" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-gear"></i> Settings
+          </Link>
           <hr className="my-2" />
           <Link href="/dashboard/student" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-500 text-sm">
             <i className="bi bi-arrow-left"></i> Back to Dashboard
