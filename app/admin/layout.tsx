@@ -37,6 +37,21 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <Link href="/admin/settings" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
             <i className="bi bi-gear"></i> Settings
           </Link>
+          <Link href="/admin/classes" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-mortarboard"></i> Classes
+          </Link>
+          <Link href="/admin/levels" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-bar-chart"></i> Levels
+          </Link>
+          <Link href="/admin/exams" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-pencil-square"></i> Exams
+          </Link>
+          <Link href="/admin/faq" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-question-circle"></i> FAQ
+          </Link>
+          <Link href="/admin/subscription-plans" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-credit-card"></i> Plans
+          </Link>
           <hr className="my-2" />
           <Link href="/dashboard/student" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-500 text-sm">
             <i className="bi bi-arrow-left"></i> Back to Dashboard

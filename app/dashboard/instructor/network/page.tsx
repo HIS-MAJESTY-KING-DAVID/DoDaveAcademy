@@ -1,6 +1,7 @@
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default async function InstructorNetworkPage() {
   const session = await getSession();
@@ -77,6 +78,31 @@ export default async function InstructorNetworkPage() {
           </div>
         </div>
       )}
+
+      <div className="row g-4 mt-2">
+        <div className="col-md-6">
+          <Link href="/dashboard/student/network/retrait" className="text-decoration-none">
+            <div className="card shadow-sm border-0 text-center p-4 h-100">
+              <div className="display-6 text-primary mb-2">
+                <i className="fas fa-hand-holding-usd"></i>
+              </div>
+              <h5>Withdraw Earnings</h5>
+              <p className="text-muted mb-0">Request a withdrawal</p>
+            </div>
+          </Link>
+        </div>
+        <div className="col-md-6">
+          <Link href="/dashboard/student/network/retraits" className="text-decoration-none">
+            <div className="card shadow-sm border-0 text-center p-4 h-100">
+              <div className="display-6 text-info mb-2">
+                <i className="fas fa-history"></i>
+              </div>
+              <h5>Withdrawal History</h5>
+              <p className="text-muted mb-0">View your withdrawals</p>
+            </div>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

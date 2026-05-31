@@ -15,7 +15,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { courseId } = enrollSchema.parse(body);
 
-    // 1. Get Course
     const course = await prisma.course.findUnique({
       where: { id: courseId },
     });
@@ -24,25 +23,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Course not found' }, { status: 404 });
     }
 
-    // 2. Get or Create Student
     let student = await prisma.student.findUnique({
       where: { userId: session.userId },
     });
 
     if (!student) {
-        // Reference is unique string.
-        const reference = `STU-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-        
-        student = await prisma.student.create({
-            data: {
-                userId: session.userId,
-                reference: reference,
-                joinAt: new Date(),
-            }
-        });
+      const reference = `STU-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      student = await prisma.student.create({
+        data: {
+          userId: session.userId,
+          reference,
+          joinAt: new Date(),
+        },
+      });
     }
 
-    // 3. Check existing enrollment
     const existingEnrollment = await prisma.studentCourse.findUnique({
       where: {
         studentId_courseId: {
@@ -56,7 +51,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Already enrolled' }, { status: 409 });
     }
 
-    // 4. Check if free
     if (course.isFree) {
       await prisma.studentCourse.create({
         data: {
@@ -66,10 +60,12 @@ export async function POST(req: Request) {
       });
       notifyCourseEnrolled(session.userId, course.title).catch(() => {});
       return NextResponse.json({ message: 'Enrolled successfully' }, { status: 201 });
-    } else {
-      // TODO: Handle paid enrollment (Phase 4)
-      return NextResponse.json({ message: 'Payment required' }, { status: 402 });
     }
+
+    return NextResponse.json({
+      message: 'Payment required',
+      redirectTo: `/payment?courseId=${course.id}`,
+    }, { status: 402 });
 
   } catch (error) {
     return handleApiError(error);

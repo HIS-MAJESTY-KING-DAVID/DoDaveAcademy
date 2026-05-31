@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'FAQ',
   description: 'Find answers to common questions about DoDave Academy. Learn more about our courses, enrollment, and support.',
