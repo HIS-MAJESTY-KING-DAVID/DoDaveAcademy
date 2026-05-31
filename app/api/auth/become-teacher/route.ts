@@ -11,10 +11,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
-    // Store the application in a contact record for now
+    const user = email ? await prisma.user.findUnique({ where: { email } }) : null;
+    if (!user) {
+      return NextResponse.json({ message: 'No account found with this email. Please register first.' }, { status: 404 });
+    }
+
     await prisma.contact.create({
       data: {
-        userId: 0,
+        userId: user.id,
         object: `Instructor Application - ${expertise}`,
         content: `Name: ${fullName}\nEmail: ${email}\nPhone: ${phone || 'N/A'}\nExpertise: ${expertise}\nBio: ${bio}`,
         createAt: new Date(),
