@@ -288,11 +288,11 @@ model Instructor {
   joinAt        DateTime?    @map("join_at")
   aboutMe       String?      @map("about_me")
   isCertified   Boolean?     @map("is_certified")
-  facebookLink  String?      @map("facebook_link")
-  twitterLink   String?      @map("twitter_link")
-  linkedinLink  String?      @map("linkedin_link")
-  instagramLink String?      @map("instagram_link")
-  websiteLink   String?      @map("website_link")
+  // facebookLink  String?      @map("facebook_link") -- pending DB migration
+  // twitterLink   String?      @map("twitter_link")
+  // linkedinLink  String?      @map("linkedin_link")
+  // instagramLink String?      @map("instagram_link")
+  // websiteLink   String?      @map("website_link")
   courses       Course[]     @relation("Course_instructorId")
   evaluations   Evaluation[] @relation("Evaluation_instructorId")
 
@@ -799,11 +799,11 @@ model Person {
   avatar         String?
   address        String?
   phoneNumber    String?   @map("phone_number")
-  facebookLink   String?   @map("facebook_link")
-  twitterLink    String?   @map("twitter_link")
-  linkedinLink   String?   @map("linkedin_link")
-  instagramLink  String?   @map("instagram_link")
-  websiteLink    String?   @map("website_link")
+  // facebookLink   String?   @map("facebook_link") -- pending DB migration
+  // twitterLink    String?   @map("twitter_link")
+  // linkedinLink   String?   @map("linkedin_link")
+  // instagramLink  String?   @map("instagram_link")
+  // websiteLink    String?   @map("website_link")
   invitationCode String    @unique @map("invitation_code")
   invitationLink String    @map("invitation_link")
   joinAt         DateTime? @map("join_at")

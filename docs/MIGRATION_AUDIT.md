@@ -1,8 +1,8 @@
 # Migration Audit Report: Symfony (Kulmapeck) → Next.js (DoDave Academy)
 
-**Date:** May 12, 2026  
+**Date:** May 31, 2026  
 **Auditor:** Automated Codebase Analysis  
-**Version:** 1.0
+**Version:** 2.0
 
 ---
 
@@ -10,7 +10,7 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **62%** ↑ *(was 57%; Phase 2 polish: API error standardization, rate limiting, social links, jQuery→vanilla JS, Tailwind activation)*
+### Overall Migration Progress: **65%** ↑ *(was 62%; May 31: jQuery fully removed from codebase, Footer→Tailwind, Admin Dashboard started (layout + users + courses + validate API), Payment Service created (lib + API + checkout UI))*
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|
@@ -19,8 +19,8 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 | Course Player & Learning | **100%** ↑ | 10/10 | 0 |
 | Student Dashboard | 75% | 9/12 | 3 |
 | Instructor Dashboard | **89%** ↑↑ | 17/19 | 2 |
-| **Admin Dashboard** | **5%** | 0/34 | 34 |
-| Payment System (Mobile Money) | **0%** | 0/8 | 8 |
+| **Admin Dashboard** | **12%** ↑ | 4/34 | 30 |
+| Payment System (Mobile Money) | **15%** ↑ | 3/8 | 5 |
 | Network/MLM System | 30% | 3/10 | 7 |
 | Evaluation/Examination System | 15% | 2/13 | 11 |
 | Chat & Real-time Messaging | 70% | 5/7 | 2 |
@@ -34,9 +34,9 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 
 ### Critical Findings
 
-1. **Payment System (0%)** — The entire Mobile Money payment pipeline (Orange Money/MTN), including the payment callback webhook, is skipped. This is the single biggest risk as the platform cannot process revenue.
+1. **Payment System (15%)** — Core payment service created (`lib/services/payment.ts`) with `sendPayIn`/`sendPayOut`/`initCoursePayment`/`initSubscriptionPayment`, phone validation utility (`lib/utils/phone.ts`), API endpoints (`POST /api/payment/init`, `POST /api/payment/webhook`), and a reusable checkout UI component (`components/payment/PaymentCheckout.tsx`). Requires real payment gateway credentials and production testing.
 
-2. **Admin Dashboard (5%)** — 34 admin controllers with zero migrated pages. All admin functionality exists only as generated bridge components (unmaintainable).
+2. **Admin Dashboard (12%)** — Admin section created at `/admin` with Tailwind-based layout + sidebar. Pages: Dashboard (stats), Users (list with roles/flags), Courses (list with validation status). Course validation API (`POST /api/admin/courses/[id]/validate`). 30 controllers remain unported.
 
 3. **Business Logic Gaps** — Critical PHP services (ManageNetwork, PaymentUtil, MobileApiService, SubjectChatService) have no React equivalents.
 
@@ -569,9 +569,9 @@ The `components/generated/` directory contains **385 files** that are direct aut
 
 | Priority | Category | Effort (Hours) | Business Value | Dependencies |
 |---|---|---|---|---|
-| 🔴 **P0** | Payment System | 92h | Revenue-critical | None |
+| 🔴 **P0** | Payment System | 78h | Revenue-critical | None |
 | 🔴 **P0** | Instructor Course CRUD | 68h | Content creation | None |
-| 🔴 **P0** | Admin Dashboard | 240h | Platform management | None |
+| 🔴 **P0** | Admin Dashboard | 216h | Platform management | None |
 | 🟡 **P1** | Business Logic Porting | 80h | Feature parity | Payment system |
 | 🟡 **P1** | Email Service | 24h | User communication | None |
 | 🟡 **P1** | Profile Edit/Avatar | 18h | UX improvement | None |
@@ -585,7 +585,7 @@ The `components/generated/` directory contains **385 files** that are direct aut
 | 🔵 **P3** | Google Login | 16h | Social login | None |
 | 🔵 **P3** | Analytics | 16h | Insights | Admin |
 
-### Total Remaining Effort: **~650 hours** ↓↓ *(was 780h; 130h completed 2026-05-10: JWT refresh, free trial, quiz cooldown, forum like/solve, loading/error/not-found pages, 68h Instructor Course CRUD, 16h email integration + notifications, 14h tests setup + JWT client interceptor + Supabase Realtime)*
+### Total Remaining Effort: **~590 hours** ↓↓ *(was 650h; May 31: jQuery cleanup, Footer→Tailwind, Admin layout + 3 pages, Payment service + API + UI)*
 
 ---
 
@@ -607,7 +607,7 @@ The `components/generated/` directory contains **385 files** that are direct aut
 
 | Issue | Location | Impact | Recommendation |
 |---|---|---|---|
-| ~~jQuery dependency~~ | ✅ Resolved — replaced in layout.tsx, main.js, functions.js, 6 admin files, Quiz.tsx, exam Index.tsx | — | Remaining: New.tsx, Edit.tsx (instructor courses) |
+| ~~jQuery dependency~~ | ✅ Resolved — all jQuery calls removed from app code and generated bridge files (New.tsx, Edit.tsx) | — | Cleanup complete |
 | ~~Social link fields missing~~ | ✅ Resolved — `facebookLink`, `twitterLink`, `linkedinLink`, `instagramLink`, `websiteLink` added to Instructor & Person models | — | Migration SQL in `prisma/migrations/add_social_links.sql` |
 | ~~API error responses inconsistent~~ | ✅ Resolved — all 30 API routes now use `handleApiError` from `lib/exceptions.ts` | — | Standardized error format: `{ message, errors? }` |
 | Inline styles in pages | Various `app/` pages | Poor maintainability | Use Tailwind classes consistently |
