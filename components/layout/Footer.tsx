@@ -75,6 +75,7 @@ export default function Footer() {
           {/* Col 5: Contact & Apps */}
           <div>
             <h5 className="mb-2 md:mb-4 text-white font-semibold">{t('CONTACT_INFO_KEY')}</h5>
+            <p className="mb-2 text-gray-400"><i className="fas fa-map-marker-alt me-1"></i> <span className="text-white">{contacts.address}</span></p>
             <p className="mb-2 text-gray-400">{t('TOLLFREE_KEY')}: <span className="text-white">{contacts.phone}</span></p>
             <p className="mb-2 text-gray-400">{t('EMAIL_KEY')}: <span className="text-white">{contacts.email}</span></p>
             <h5 className="mb-2 md:mb-4 text-white font-semibold mt-4">{t('MOBILE_APPS_KEY')}</h5>

@@ -786,7 +786,7 @@ export default function Index(props: any) {
 							<div className="ms-3">
 								<h4 className="text-primary">Address</h4>
 								<a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank" className="h5">
-									DOUALA-Akwa/ Carrefour Équinox Tv face Beneficial Assurance</a>
+									Rue Afcodi Njo Njo Bonapriso</a>
 							</div>
 						</div>
 					</div>

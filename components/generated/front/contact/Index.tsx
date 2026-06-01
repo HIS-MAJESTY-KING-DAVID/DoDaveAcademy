@@ -62,7 +62,7 @@ export default function Contact() {
                 <ul className="list-inline mb-0">
                   {/* Address */}
                   <li className="list-item mb-3">
-                    <a href="#" className="text-white"> <i className="fas fa-fw fa-map-marker-alt me-2 mt-1"></i>Douala-Akwa / Carrefour Equinox TV, face Beneficial Assurance</a>
+                    <a href="#" className="text-white"> <i className="fas fa-fw fa-map-marker-alt me-2 mt-1"></i>Rue Afcodi Njo Njo Bonapriso</a>
                   </li>
                   {/* Phone number */}
                   <li className="list-item mb-3">
@@ -84,7 +84,7 @@ export default function Contact() {
                 <ul className="list-inline mb-0">
                   {/* Address */}
                   <li className="list-item mb-3 h6 fw-light">
-                    <a href="#"> <i className="fas fa-fw fa-map-marker-alt me-2 mt-1"></i>Douala-Akwa / Carrefour Equinox TV, face Beneficial Assurance</a>
+                    <a href="#"> <i className="fas fa-fw fa-map-marker-alt me-2 mt-1"></i>Rue Afcodi Njo Njo Bonapriso</a>
                   </li>
                   {/* Phone number */}
                   <li className="list-item mb-3 h6 fw-light">
@@ -106,7 +106,7 @@ export default function Contact() {
                 <ul className="list-inline mb-0">
                   {/* Address */}
                   <li className="list-item mb-3 h6 fw-light">
-                    <a href="#"> <i className="fas fa-fw fa-map-marker-alt me-2 mt-1"></i>Douala-Akwa / Carrefour Equinox TV, face Beneficial Assurance </a>
+                    <a href="#"> <i className="fas fa-fw fa-map-marker-alt me-2 mt-1"></i>Rue Afcodi Njo Njo Bonapriso </a>
                   </li>
                   {/* Phone number */}
                   <li className="list-item mb-3 h6 fw-light">
