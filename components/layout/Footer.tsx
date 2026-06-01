@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
+import { contacts } from '@/lib/contacts';
 
 export default function Footer() {
   const { t, i18n } = useTranslation();
@@ -74,8 +75,8 @@ export default function Footer() {
           {/* Col 5: Contact & Apps */}
           <div>
             <h5 className="mb-2 md:mb-4 text-white font-semibold">{t('CONTACT_INFO_KEY')}</h5>
-            <p className="mb-2 text-gray-400">{t('TOLLFREE_KEY')}: <span className="text-white">+237 673 14 77 53</span></p>
-            <p className="mb-2 text-gray-400">{t('EMAIL_KEY')}: <span className="text-white">dave@dodave.tech</span></p>
+            <p className="mb-2 text-gray-400">{t('TOLLFREE_KEY')}: <span className="text-white">{contacts.phone}</span></p>
+            <p className="mb-2 text-gray-400">{t('EMAIL_KEY')}: <span className="text-white">{contacts.email}</span></p>
             <h5 className="mb-2 md:mb-4 text-white font-semibold mt-4">{t('MOBILE_APPS_KEY')}</h5>
             <div className="grid grid-cols-2 gap-2">
               <div>

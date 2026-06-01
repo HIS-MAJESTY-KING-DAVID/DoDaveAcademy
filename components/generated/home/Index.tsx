@@ -797,7 +797,7 @@ export default function Index(props: any) {
 							</div>
 							<div className="ms-3">
 								<h4 className="text-primary">Appelez nous</h4>
-								<a className="h5" href="tel:+0123456789" target="_blank">+237 675391197 / +237 698809093</a>
+								<a className="h5" href="tel:+0123456789" target="_blank">+237 673 14 77 53</a>
 
 							</div>
 						</div>
@@ -809,7 +809,7 @@ export default function Index(props: any) {
 							</div>
 							<div className="ms-3">
 								<h4 className="text-primary">Email Us</h4>
-								<a className="h5" href="mailto:contact@dodave-academy.com" target="_blank">contact@dodave-academy.com</a>
+								<a className="h5" href="mailto:dave@dodave.tech" target="_blank">dave@dodave.tech</a>
 							</div>
 						</div>
 					</div>

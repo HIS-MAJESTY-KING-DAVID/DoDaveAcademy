@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { contacts } from '@/lib/contacts';
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions',
@@ -68,7 +69,7 @@ export default function TermsPage() {
                   <p>We may update these terms at any time. Continued use of the platform after changes constitutes acceptance of the new terms. We will notify users of material changes via email or platform notification.</p>
 
                   <h2 className="mt-4">11. Contact</h2>
-                  <p>For questions about these terms, contact us at <a href="mailto:contact@dodaveacademy.com">contact@dodaveacademy.com</a> or visit our <Link href="/contact">Contact page</Link>.</p>
+                  <p>For questions about these terms, contact us at <a href={`mailto:${contacts.email}`}>{contacts.email}</a> or visit our <Link href="/contact">Contact page</Link>.</p>
 
                   <p className="text-muted mt-5"><em>Last updated: May 10, 2026</em></p>
                 </div>

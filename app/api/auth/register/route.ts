@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { hash } from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { userRegisterSchema } from '@/lib/validations/auth';
+import { contacts } from '@/lib/contacts';
 import { handleApiError } from '@/lib/exceptions';
 import { rateLimit, rateLimitResponse, getClientIp } from '@/lib/rate-limit';
 import { sendEmail, emailTemplates } from '@/lib/email';
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
             bornAt: new Date(), // Default date, should be required from frontend
             gender: 'M', // Default, should be required from frontend
             invitationCode: invitationCode,
-            invitationLink: `https://dodaveacademy.com/register?ref=${invitationCode}`,
+            invitationLink: `${contacts.domain}/register?ref=${invitationCode}`,
           }
         }
       },

@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import Image from 'next/image';
+import { contacts } from '@/lib/contacts';
 
 export default function ContactClient() {
   const [name, setName] = useState('');
@@ -52,10 +53,10 @@ export default function ContactClient() {
                     <a href="#" className="text-white"><i className="fas fa-fw fa-map-marker-alt me-2 mt-1"></i>Douala-Akwa / Carrefour Equinox TV, face Beneficial Assurance</a>
                   </li>
                   <li className="list-item mb-3">
-                    <a href="#" className="text-white"><i className="fas fa-fw fa-phone-alt me-2"></i>(+237) 698809093</a>
+                    <a href="#" className="text-white"><i className="fas fa-fw fa-phone-alt me-2"></i>{contacts.phone}</a>
                   </li>
                   <li className="list-item mb-0">
-                    <a href="#" className="text-white"><i className="far fa-fw fa-envelope me-2"></i>contact@dodaveacademy.com</a>
+                    <a href="#" className="text-white"><i className="far fa-fw fa-envelope me-2"></i>{contacts.email}</a>
                   </li>
                 </ul>
               </div>
@@ -66,7 +67,7 @@ export default function ContactClient() {
                 <h5 className="mb-3">MTN</h5>
                 <ul className="list-inline mb-0">
                   <li className="list-item mb-3 h6 fw-light">
-                    <a href="#"><i className="fas fa-fw fa-phone-alt me-2"></i>+237 678507398</a>
+                    <a href="#"><i className="fas fa-fw fa-phone-alt me-2"></i>{contacts.phone}</a>
                   </li>
                 </ul>
               </div>
@@ -77,7 +78,7 @@ export default function ContactClient() {
                 <h5 className="mb-3">Orange</h5>
                 <ul className="list-inline mb-0">
                   <li className="list-item mb-3 h6 fw-light">
-                    <a href="#"><i className="fas fa-fw fa-phone-alt me-2"></i>+237 698809093</a>
+                    <a href="#"><i className="fas fa-fw fa-phone-alt me-2"></i>{contacts.phone}</a>
                   </li>
                 </ul>
               </div>

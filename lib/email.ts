@@ -1,3 +1,5 @@
+import { contacts } from '@/lib/contacts';
+
 type EmailPayload = {
   to: string;
   subject: string;
@@ -39,7 +41,7 @@ export async function sendEmail(payload: EmailPayload): Promise<void> {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: process.env.EMAIL_FROM || 'noreply@dodaveacademy.com',
+          from: process.env.EMAIL_FROM || contacts.fromEmail,
           to: payload.to,
           subject: payload.subject,
           html,
