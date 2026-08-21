@@ -108,6 +108,11 @@ export const metadata: Metadata = {
     google: 'GSC_VERIFICATION_CODE_PLACEHOLDER',
   },
   category: 'education',
+  icons: {
+    icon: '/logo.svg',
+    shortcut: '/logo.svg',
+    apple: '/logo.svg',
+  },
 };
 
 export default function RootLayout({
