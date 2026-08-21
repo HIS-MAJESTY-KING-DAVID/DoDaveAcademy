@@ -1,13 +1,14 @@
 # DoDave Academy
 
-Next.js 16 e-learning platform (migrated from Symfony/Kulmapeck).
+Next.js 16 e-learning platform for **DoDave Academy**, migrated from Lionelle’s [Kulmapeck Symfony source](https://github.com/adjimi-lionelle/staging-kulmapeck).
 
 ## Status
 
-- **Build**: ✅ Passes (68 pages, 0 errors)
-- **Tests**: 59/59 passing (Vitest)
-- **DB**: ⚠️ Supabase PostgreSQL unreachable (IPv6) — `prisma db push` pending
-- **Content parity**: 78% vs legacy
+- **Tests**: 95/95 passing (Vitest)
+- **Lint**: ✅ 0 blocking errors (33 non-blocking warnings remain)
+- **Build**: ✅ Production build completes; database-backed pages require `DATABASE_URL` at runtime
+- **Migration batch**: Referral-code hierarchy, five-level network rewards, payment callback idempotency, course view counters, and registration hydration are implemented
+- **Content parity**: 78% vs legacy; remaining work is tracked in `zDocs/MIGRATION_AUDIT.md`
 
 ## Routes
 
@@ -111,7 +112,7 @@ Next.js 16 e-learning platform (migrated from Symfony/Kulmapeck).
 
 **Instructor:** `GET|POST /api/instructor/courses`, `GET|PUT /api/instructor/courses/[id]`, `POST .../publish`, `POST /api/instructor/chapters`, `PUT|DELETE /api/instructor/chapters/[id]`, `POST /api/instructor/lessons`, `PUT|DELETE /api/instructor/lessons/[id]`, `POST /api/instructor/quizzes`, `PUT|DELETE /api/instructor/quizzes/[id]`
 
-**Student:** `GET|POST /api/student/enrollments`, `POST /api/student/quiz-attempt`, `/api/student/progress`
+**Student:** `GET|POST /api/student/enrollments`, `POST /api/student/quiz-attempt`, `/api/student/progress`, `/api/student/withdraw`
 
 **Notifications:** `GET /api/notifications`, `PUT|DELETE /api/notifications/[id]`, `POST /api/notifications/read-all`, `/api/notifications/device`
 
@@ -121,7 +122,7 @@ Next.js 16 e-learning platform (migrated from Symfony/Kulmapeck).
 
 **Evaluation:** `POST /api/evaluation/submit`
 
-**Payments:** `POST /api/payment/init`, `/api/payment/webhook`
+**Payments:** `POST /api/payment/init`, `/api/payment/webhook` (success enrollment/premium activation and referral reward distribution)
 
 **Admin:** `GET|POST /api/admin/categories`, `POST /api/admin/categories/[id]/delete`, `POST /api/admin/courses/[id]/validate`, `POST /api/admin/instructors/[id]/validate`, `/reject`, `POST /api/admin/settings/site`, `/social`, `/social/[id]/delete`, `/network`
 
@@ -129,7 +130,7 @@ Next.js 16 e-learning platform (migrated from Symfony/Kulmapeck).
 
 ## Known Issues
 
-- **DB unreachable** — Supabase IPv6 issue. All server-rendered pages that query the DB will return 500 until resolved.
+- **Database configuration** — Build-time static generation can complete without a database, but server-rendered pages and APIs require a valid `DATABASE_URL` at runtime.
 - **Become-teacher** — Fixed `userId: 0` FK bug. Now looks up user by email and returns 404 if unregistered.
 - **`/admin/users/[id]`** — Link exists in admin dashboard but page not yet implemented.
 - **Social link migration** — SQL in `prisma/migrations/add_social_links.sql` needs to be applied when DB is reachable.
