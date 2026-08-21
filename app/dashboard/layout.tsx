@@ -65,6 +65,12 @@ export default async function DashboardLayout({ children }: { children: ReactNod
                     </Link>
                   </li>
                   <li className="nav-item">
+                    <Link className="nav-link" href="/dashboard/student/evaluations">
+                      <i className="bi bi-clipboard-check me-2"></i>
+                      Mes évaluations
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <Link className="nav-link" href="/dashboard/student/network">
                       <i className="bi bi-people me-2"></i>
                       Mon réseau

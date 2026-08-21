@@ -34,7 +34,10 @@ export default async function InstructorExamsPage() {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-4">Exam</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="mb-0">Exam</h2>
+        <Link href="/dashboard/instructor/exams/new" className="btn btn-primary">New exam</Link>
+      </div>
 
       {exams.length === 0 ? (
         <div className="alert alert-info">No exams found.</div>
@@ -59,6 +62,7 @@ export default async function InstructorExamsPage() {
                     <Link href={`/exams/${exam.reference}`} className="text-decoration-none">
                       {exam.title}
                     </Link>
+                    <div><Link href={`/dashboard/instructor/exams/${exam.reference}/edit`} className="small">Manage</Link></div>
                   </td>
                   <td>{exam.subject}</td>
                   <td>{exam.category?.name || 'N/A'}</td>

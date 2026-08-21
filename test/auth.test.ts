@@ -23,6 +23,29 @@ describe('Auth validation schemas', () => {
     ).toThrow();
   });
 
+  it('normalizes a valid referral code', async () => {
+    const { userRegisterSchema } = await import('@/lib/validations/auth');
+    const valid = userRegisterSchema.parse({
+      name: 'Jane Doe',
+      email: 'jane@test.com',
+      password: 'Password123!',
+      referralCode: 'ab12cd',
+    });
+    expect(valid.referralCode).toBe('AB12CD');
+  });
+
+  it('rejects malformed referral codes', async () => {
+    const { userRegisterSchema } = await import('@/lib/validations/auth');
+    expect(() =>
+      userRegisterSchema.parse({
+        name: 'Jane Doe',
+        email: 'jane@test.com',
+        password: 'Password123!',
+        referralCode: 'wrong-code',
+      }),
+    ).toThrow();
+  });
+
   it('validates login schema', async () => {
     const { userAuthSchema } = await import('@/lib/validations/auth');
     const valid = userAuthSchema.parse({
