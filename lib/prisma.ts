@@ -53,7 +53,7 @@ const normalizeDatabaseUrl = (value: string | undefined) => {
 };
 
 const normalizedDatabaseUrl = normalizeDatabaseUrl(
-  process.env.DATABASE_URL_IPV4 || process.env.DATABASE_URL
+  process.env.DATABASE_URL_POOLER || process.env.DATABASE_URL_IPV4 || process.env.DATABASE_URL
 );
 
 if (normalizedDatabaseUrl) {
