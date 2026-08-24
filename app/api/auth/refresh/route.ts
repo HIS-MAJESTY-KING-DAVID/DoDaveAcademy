@@ -97,6 +97,13 @@ export async function POST(req: Request) {
       maxAge: 3600,
       path: '/',
     });
+    response.cookies.set('refreshToken', newRefreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 604800,
+      path: '/',
+    });
 
     return response;
   } catch (error) {

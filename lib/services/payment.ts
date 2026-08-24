@@ -57,12 +57,13 @@ function buildPayInRequest(params: {
   phone: string;
   customerName: string;
   customerEmail: string;
+  reference?: string;
 }): PayInRequest {
   return {
     amount: params.amount,
     currency: 'XAF',
     reason: params.reason,
-    reference: generateReference(),
+    reference: params.reference || generateReference(),
     phone: params.phone,
     customerName: params.customerName,
     customerEmail: params.customerEmail,
@@ -155,6 +156,7 @@ export async function initCoursePayment(params: {
   phone: string;
   customerName: string;
   customerEmail: string;
+  reference?: string;
 }): Promise<PaymentResponse> {
   const request = buildPayInRequest({
     amount: params.amount,
@@ -162,6 +164,7 @@ export async function initCoursePayment(params: {
     phone: params.phone,
     customerName: params.customerName,
     customerEmail: params.customerEmail,
+    reference: params.reference,
   });
   return sendPayIn(request);
 }
@@ -172,6 +175,7 @@ export async function initSubscriptionPayment(params: {
   phone: string;
   customerName: string;
   customerEmail: string;
+  reference?: string;
 }): Promise<PaymentResponse> {
   const request = buildPayInRequest({
     amount: params.amount,
@@ -179,6 +183,7 @@ export async function initSubscriptionPayment(params: {
     phone: params.phone,
     customerName: params.customerName,
     customerEmail: params.customerEmail,
+    reference: params.reference,
   });
   return sendPayIn(request);
 }

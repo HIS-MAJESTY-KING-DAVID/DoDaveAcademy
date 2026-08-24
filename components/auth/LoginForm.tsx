@@ -3,9 +3,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginForm() {
   const router = useRouter();
+  const { t } = useTranslation();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -28,12 +32,19 @@ export default function LoginForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || 'Something went wrong');
+        const message = data.message === 'Invalid credentials'
+          ? t('INVALID_CREDENTIALS_KEY')
+          : (data.message || t('SOMETHING_WENT_WRONG_KEY'));
+        throw new Error(message);
       }
 
-      // Store token
-      localStorage.setItem('token', data.token);
-      
+      if (!data.token || !data.refreshToken || !data.user) {
+        throw new Error(t('SOMETHING_WENT_WRONG_KEY'));
+      }
+
+      login(data.token, data.refreshToken, data.user);
+      localStorage.removeItem('token');
+
       // Redirect to home or dashboard
       router.push('/');
       router.refresh(); // Refresh to update auth state if using cookies/server components
@@ -41,7 +52,7 @@ export default function LoginForm() {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('An unexpected error occurred');
+        setError(t('SOMETHING_WENT_WRONG_KEY'));
       }
     } finally {
       setLoading(false);
@@ -51,9 +62,9 @@ export default function LoginForm() {
   return (
     <div className="card card-body shadow p-4 p-sm-5">
       {/* Title */}
-      <h2 className="mb-0 h3">Welcome Back</h2>
+      <h3 className="mb-3">{t('WELCOME_BACK_KEY')}</h3>
       <p className="mb-0">
-        New here? <Link href="/register">Create an account</Link>
+        {t('NEW_HERE_KEY')} <Link href="/register">{t('CREATE_ACCOUNT_KEY')}</Link>
       </p>
 
       {error && (
@@ -66,7 +77,7 @@ export default function LoginForm() {
       <form className="mt-3 mt-sm-4 text-start" onSubmit={handleSubmit}>
         {/* Email */}
         <div className="mb-3">
-          <label className="form-label">Email Address</label>
+          <label className="form-label">{t('EMAIL_ADDRESS_KEY')}</label>
           <input 
             type="email" 
             className="form-control" 
@@ -78,7 +89,7 @@ export default function LoginForm() {
         </div>
         {/* Password */}
         <div className="mb-3">
-          <label className="form-label">Password</label>
+          <label className="form-label">{t('PASSWORD_KEY')}</label>
           <input 
             className="form-control" 
             type="password" 
@@ -91,38 +102,20 @@ export default function LoginForm() {
         <div className="mb-3 d-sm-flex justify-content-between">
           <div>
             <input type="checkbox" className="form-check-input" id="rememberCheck" />
-            <label className="form-check-label ms-1" htmlFor="rememberCheck">Remember me</label>
+            <label className="form-check-label ms-1" htmlFor="rememberCheck">{t('REMEMBER_ME_KEY')}</label>
           </div>
           <Link href="/forgot-password" className="text-primary-hover">
-            Forgot Password?
+            {t('FORGOT_PASSWORD_KEY')}
           </Link>
         </div>
         {/* Button */}
         <div className="d-grid">
           <button type="submit" className="btn btn-dark mb-0" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? t('LOGGING_IN_KEY') : t('LOGIN_KEY')}
           </button>
         </div>
 
-        {/* Divider */}
-        <div className="position-relative my-4">
-          <hr />
-          <p className="small position-absolute top-50 start-50 translate-middle bg-body px-2">Or sign in with</p>
-        </div>
 
-        <div className="row g-3">
-          <div className="col-sm-6 d-grid">
-            <a href="#" className="btn btn-outline-light mb-0">
-              <i className="fab fa-fw fa-google text-google-icon me-2"></i>Google
-            </a>
-          </div>
-
-          <div className="col-sm-6 d-grid">
-            <a href="#" className="btn btn-outline-light mb-0">
-              <i className="fab fa-fw fa-facebook-f text-facebook me-2"></i>Facebook
-            </a>
-          </div>
-        </div>
       </form>
       {/* Form END */}
     </div>

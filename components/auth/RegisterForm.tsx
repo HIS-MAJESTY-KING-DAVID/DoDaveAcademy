@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 export default function RegisterForm() {
   const router = useRouter();
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     firstName: '',
@@ -28,7 +30,7 @@ export default function RegisterForm() {
     setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('PASSWORD_MISMATCH_KEY'));
       setLoading(false);
       return;
     }
@@ -59,7 +61,7 @@ export default function RegisterForm() {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('An unexpected error occurred');
+        setError(t('SOMETHING_WENT_WRONG_KEY'));
       }
     } finally {
       setLoading(false);
@@ -70,9 +72,9 @@ export default function RegisterForm() {
     <div className="bg-light rounded-3 p-4 p-sm-5 position-relative">
       {/* Title */}
       <div className="text-center mb-4">
-        <h2 className="mb-0">Create your account</h2>
+        <h2 className="mb-0">{t('CREATE_ACCOUNT_KEY')}</h2>
         <p className="mb-0">
-          Already have an account? <Link href="/login">Log in</Link>
+          {t('ALREADY_HAVE_ACCOUNT_KEY')} <Link href="/login">{t('LOGIN_LINK_KEY')}</Link>
         </p>
       </div>
 
@@ -87,7 +89,7 @@ export default function RegisterForm() {
         <div className="row">
           {/* First Name */}
           <div className="col-md-6 mb-3">
-            <label className="form-label">First Name</label>
+            <label className="form-label">{t('FIRST_NAME_KEY')}</label>
             <input 
               type="text" 
               className="form-control" 
@@ -99,7 +101,7 @@ export default function RegisterForm() {
           </div>
           {/* Last Name */}
           <div className="col-md-6 mb-3">
-            <label className="form-label">Last Name</label>
+            <label className="form-label">{t('LAST_NAME_KEY')}</label>
             <input 
               type="text" 
               className="form-control" 
@@ -112,7 +114,7 @@ export default function RegisterForm() {
 
           {/* Email */}
           <div className="col-12 mb-3">
-            <label className="form-label">Email Address</label>
+            <label className="form-label">{t('EMAIL_ADDRESS_KEY')}</label>
             <input 
               type="email" 
               className="form-control" 
@@ -125,7 +127,7 @@ export default function RegisterForm() {
 
           {/* Password */}
           <div className="col-md-6 mb-3">
-            <label className="form-label">Password</label>
+            <label className="form-label">{t('PASSWORD_KEY')}</label>
             <input 
               type="password" 
               className="form-control" 
@@ -138,7 +140,7 @@ export default function RegisterForm() {
 
           {/* Confirm Password */}
           <div className="col-md-6 mb-3">
-            <label className="form-label">Confirm Password</label>
+            <label className="form-label">{t('CONFIRM_PASSWORD_KEY')}</label>
             <input 
               type="password" 
               className="form-control" 
@@ -151,7 +153,7 @@ export default function RegisterForm() {
 
           {/* Referral code */}
           <div className="col-12 mb-3">
-            <label className="form-label" htmlFor="referralCode">Referral Code <span className="text-muted">(optional)</span></label>
+            <label className="form-label" htmlFor="referralCode">{t('INVITATION_CODE_KEY')} <span className="text-muted">({t('OPTIONAL_KEY')})</span></label>
             <input
               type="text"
               className="form-control text-uppercase"
@@ -161,9 +163,9 @@ export default function RegisterForm() {
               pattern="[A-Za-z0-9]{6}"
               value={formData.referralCode}
               onChange={handleChange}
-              placeholder="Enter your inviter's code"
+              placeholder={t('INVITATION_CODE_PLACEHOLDER_KEY')}
             />
-            <small className="text-muted">Use the code shared by the person who invited you to DoDave Academy.</small>
+            <small className="text-muted">{t('REFERRAL_HELP_KEY')}</small>
           </div>
 
           {/* Terms */}
@@ -171,7 +173,7 @@ export default function RegisterForm() {
             <div className="form-check">
               <input className="form-check-input" type="checkbox" id="termsCheck" required />
               <label className="form-check-label" htmlFor="termsCheck">
-                I agree to the <Link href="/terms">Terms of Service</Link> and <Link href="/privacy">Privacy Policy</Link>
+                {t('AGREE_TERMS_PREFIX_KEY')} <Link href="/terms">{t('TERMS_OF_SERVICE_KEY')}</Link> {t('AND_KEY')} <Link href="/privacy">{t('PRIVACYPOLICY_KEY')}</Link>
               </label>
             </div>
           </div>
@@ -179,32 +181,14 @@ export default function RegisterForm() {
           {/* Button */}
           <div className="col-12 d-grid">
             <button type="submit" className="btn btn-primary mb-0" disabled={loading}>
-              {loading ? 'Creating account...' : 'Sign Up'}
+              {loading ? t('CREATING_ACCOUNT_KEY') : t('SIGN_UP_KEY')}
             </button>
           </div>
         </div>
       </form>
       {/* Form END */}
 
-      {/* Divider */}
-      <div className="position-relative my-4">
-        <hr />
-        <p className="small position-absolute top-50 start-50 translate-middle bg-body px-2">Or sign up with</p>
-      </div>
 
-      {/* Social Buttons */}
-      <div className="row g-3 justify-content-center">
-        <div className="col-sm-6 col-md-4 d-grid">
-          <a href="#" className="btn btn-outline-light mb-0 bg-white">
-            <i className="fab fa-fw fa-google text-google-icon me-2"></i>Google
-          </a>
-        </div>
-        <div className="col-sm-6 col-md-4 d-grid">
-          <a href="#" className="btn btn-outline-light mb-0 bg-white">
-            <i className="fab fa-fw fa-facebook-f text-facebook me-2"></i>Facebook
-          </a>
-        </div>
-      </div>
     </div>
   );
 }

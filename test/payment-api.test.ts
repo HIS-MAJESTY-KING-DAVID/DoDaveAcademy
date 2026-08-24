@@ -5,7 +5,8 @@ const mockPrisma = {
   student: { findUnique: vi.fn(), update: vi.fn() },
   payment: { create: vi.fn(), findFirst: vi.fn(), update: vi.fn(), updateMany: vi.fn() },
   paymentMethod: { findFirst: vi.fn() },
-  studentCourse: { upsert: vi.fn() },
+  studentCourse: { findUnique: vi.fn(), upsert: vi.fn() },
+  course: { findUnique: vi.fn() },
   subscription: { findUnique: vi.fn() },
   networkConfig: { findFirst: vi.fn() },
 };
@@ -42,10 +43,12 @@ describe('POST /api/payment/init', () => {
     expect(res.status).toBe(401);
   });
 
-  it('creates payment and initiates course payment', async () => {
+  it('creates payment at the server price and initiates course payment', async () => {
     (getSession as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: 1, roles: 'ROLE_STUDENT' });
     mockPrisma.student.findUnique.mockResolvedValue({ id: 10 });
     mockPrisma.paymentMethod.findFirst.mockResolvedValue({ id: 1 });
+    mockPrisma.course.findUnique.mockResolvedValue({ id: 42, title: 'React Course', isFree: false, subscriptionPrice: 4200 });
+    mockPrisma.studentCourse.findUnique.mockResolvedValue(null);
     mockPrisma.payment.create.mockResolvedValue({ id: 100 });
     const { initCoursePayment } = await import('@/lib/services/payment');
     (initCoursePayment as ReturnType<typeof vi.fn>).mockResolvedValue({ success: true, transactionId: 'txn_123' });
@@ -66,16 +69,22 @@ describe('POST /api/payment/init', () => {
     expect(mockPrisma.payment.create).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({
-          studentId: 10, courseId: 42, amount: 5000, status: 'PENDING',
+          studentId: 10, courseId: 42, amount: 4200, status: 'PENDING',
         }),
       }),
     );
+    expect(initCoursePayment).toHaveBeenCalledWith(expect.objectContaining({
+      amount: 4200,
+      reference: 'PAY-TEST-XXXX',
+    }));
   });
 
   it('returns 502 when gateway fails', async () => {
     (getSession as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: 1 });
     mockPrisma.student.findUnique.mockResolvedValue({ id: 10 });
     mockPrisma.paymentMethod.findFirst.mockResolvedValue({ id: 1 });
+    mockPrisma.course.findUnique.mockResolvedValue({ id: 42, title: 'React Course', isFree: false, subscriptionPrice: 5000 });
+    mockPrisma.studentCourse.findUnique.mockResolvedValue(null);
     mockPrisma.payment.create.mockResolvedValue({ id: 100 });
     const { initCoursePayment } = await import('@/lib/services/payment');
     (initCoursePayment as ReturnType<typeof vi.fn>).mockResolvedValue({ success: false, message: 'Gateway down' });
@@ -84,7 +93,7 @@ describe('POST /api/payment/init', () => {
     const req = new Request('http://localhost/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'course', amount: 5000, phone: '671234567', customerName: 'T', customerEmail: 't@t.com' }),
+      body: JSON.stringify({ type: 'course', amount: 5000, phone: '671234567', customerName: 'T', customerEmail: 't@t.com', courseId: 42 }),
     });
     const res = await POST(req);
     expect(res.status).toBe(502);

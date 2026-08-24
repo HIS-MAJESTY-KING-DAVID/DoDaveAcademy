@@ -2,8 +2,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
+const mockPush = vi.fn();
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: vi.fn() }),
+  useRouter: () => ({ push: mockPush }),
 }));
 
 vi.mock('next/image', () => ({
@@ -15,13 +16,26 @@ vi.mock('next/image', () => ({
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key,
+    t: (key: string, values?: Record<string, string>) => {
+      const labels: Record<string, string> = {
+        TOGGLE_NAVIGATION_KEY: 'Toggle navigation',
+        PAYMENT_CHECKOUT_KEY: 'Payment Checkout',
+        PHONE_NUMBER_KEY: 'Phone number',
+        ORANGE_MTN_KEY: 'Use an Orange or MTN number.',
+        PROCESSING_KEY: 'Processing...',
+        PAYMENT_INITIATED_KEY: 'Payment initiated. Reference: {{reference}}. Check your phone to complete it.',
+        PAYMENT_INITIATION_FAILED_KEY: 'Payment initiation failed.',
+        NETWORK_ERROR_KEY: 'Network error. Please try again.',
+      };
+      if (key === 'PAY_AMOUNT_KEY') return `Pay ${values?.amount} FCFA`;
+      return (labels[key] || key).replace(/\{\{(\w+)\}\}/g, (_, name) => values?.[name] || '');
+    },
   }),
 }));
 
 beforeEach(() => {
   vi.clearAllMocks();
-  global.fetch = vi.fn();
+  global.fetch = vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve([]) });
 });
 
 describe('Header (Tailwind)', () => {
@@ -56,6 +70,15 @@ describe('Header (Tailwind)', () => {
     const Header = (await import('@/components/layout/Header')).default;
     render(<Header />);
     expect(screen.getByPlaceholderText('SEARCH_KEY')).toBeInTheDocument();
+  });
+
+  it('submits search to the courses search route', async () => {
+    const Header = (await import('@/components/layout/Header')).default;
+    render(<Header />);
+    const input = screen.getByPlaceholderText('SEARCH_KEY');
+    fireEvent.change(input, { target: { value: 'python basics' } });
+    fireEvent.submit(input.closest('form')!);
+    expect(mockPush).toHaveBeenCalledWith('/courses?search=python%20basics');
   });
 
   it('toggles mobile menu on hamburger click', async () => {

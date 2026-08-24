@@ -104,9 +104,6 @@ export const metadata: Metadata = {
       'Innovative digital education solutions tailored for the African context. Join our platform to enhance your skills and achieve your goals.',
     images: ['/logo.svg'],
   },
-  verification: {
-    google: 'GSC_VERIFICATION_CODE_PLACEHOLDER',
-  },
   category: 'education',
   icons: {
     icon: '/logo.svg',

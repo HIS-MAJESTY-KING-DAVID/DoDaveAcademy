@@ -1,0 +1,1024 @@
+# Application-wide audit
+
+Active page routes: 71
+
+## Active routes
+
+- `/`
+- `/about`
+- `/admin`
+- `/admin/categories`
+- `/admin/classes`
+- `/admin/courses`
+- `/admin/evaluations`
+- `/admin/evaluations/[id]`
+- `/admin/exams`
+- `/admin/faq`
+- `/admin/instructors`
+- `/admin/levels`
+- `/admin/settings`
+- `/admin/subscription-plans`
+- `/admin/users`
+- `/admin/users/[id]`
+- `/become-teacher`
+- `/contact`
+- `/courses`
+- `/courses/[slug]`
+- `/courses/[slug]/enroll`
+- `/dashboard/instructor`
+- `/dashboard/instructor/courses`
+- `/dashboard/instructor/courses/[id]/chapters`
+- `/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons`
+- `/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes`
+- `/dashboard/instructor/courses/[id]/edit`
+- `/dashboard/instructor/courses/new`
+- `/dashboard/instructor/evaluations`
+- `/dashboard/instructor/evaluations/[id]`
+- `/dashboard/instructor/evaluations/new`
+- `/dashboard/instructor/exams`
+- `/dashboard/instructor/exams/[reference]/edit`
+- `/dashboard/instructor/exams/new`
+- `/dashboard/instructor/network`
+- `/dashboard/instructor/orders`
+- `/dashboard/instructor/profile`
+- `/dashboard/instructor/profile/edit`
+- `/dashboard/instructor/reviews`
+- `/dashboard/notifications`
+- `/dashboard/student`
+- `/dashboard/student/courses`
+- `/dashboard/student/evaluations`
+- `/dashboard/student/messages`
+- `/dashboard/student/network`
+- `/dashboard/student/network/retrait`
+- `/dashboard/student/network/retraits`
+- `/dashboard/student/payments`
+- `/dashboard/student/profile`
+- `/dashboard/student/profile/edit`
+- `/dashboard/student/subscriptions`
+- `/evaluation/[slug]/begin`
+- `/evaluation/[slug]/result`
+- `/exams`
+- `/exams/[reference]`
+- `/faq`
+- `/forgot-password`
+- `/forum`
+- `/learn/[courseSlug]`
+- `/learn/[courseSlug]/[lessonSlug]`
+- `/learn/[courseSlug]/forum`
+- `/learn/[courseSlug]/forum/[subjectId]`
+- `/learn/[courseSlug]/quiz/[chapterId]`
+- `/login`
+- `/logout`
+- `/plan`
+- `/privacy`
+- `/programs`
+- `/register`
+- `/reset-password`
+- `/terms`
+
+## Unresolved internal links (0)
+
+
+## Hardcoded user-facing candidates
+
+- `app/error.tsx:14`: Something went wrong
+- `app/error.tsx:18`: Try Again
+- `app/layout.tsx:143`: Skip to main content
+- `app/loading.tsx:6`: Loading...
+- `app/loading.tsx:8`: Loading DoDave Academy...
+- `app/not-found.tsx:8`: Page Not Found
+- `app/not-found.tsx:9`: The page you are looking for does not exist or has been moved.
+- `app/not-found.tsx:12`: Back to Home
+- `app/about/page.tsx:21`: About Us
+- `app/about/page.tsx:49`: Our Goal:
+- `app/admin/layout.tsx:17`: Admin Panel
+- `app/admin/layout.tsx:23`: Dashboard
+- `app/admin/layout.tsx:26`: Users
+- `app/admin/layout.tsx:29`: Courses
+- `app/admin/layout.tsx:32`: Instructors
+- `app/admin/layout.tsx:35`: Categories
+- `app/admin/layout.tsx:38`: Settings
+- `app/admin/layout.tsx:41`: Classes
+- `app/admin/layout.tsx:44`: Levels
+- `app/admin/layout.tsx:47`: Exams
+- `app/admin/layout.tsx:50`: Evaluations
+- `app/admin/layout.tsx:53`: FAQ
+- `app/admin/layout.tsx:56`: Plans
+- `app/admin/layout.tsx:60`: Back to Dashboard
+- `app/admin/page.tsx:27`: Admin Dashboard
+- `app/admin/page.tsx:36`: Total Users
+- `app/admin/page.tsx:47`: Total Courses
+- `app/admin/page.tsx:58`: Instructors
+- `app/admin/page.tsx:69`: Pending Validations
+- `app/admin/page.tsx:78`: Recent Registrations
+- `app/admin/page.tsx:85`: Name
+- `app/admin/page.tsx:86`: Email
+- `app/admin/page.tsx:87`: Roles
+- `app/admin/page.tsx:88`: Actions
+- `app/admin/page.tsx:101`: View
+- `app/admin/page.tsx:106`: No users found
+- `app/become-teacher/page.tsx:19`: breadcrumb
+- `app/become-teacher/page.tsx:16`: Become an Instructor
+- `app/become-teacher/page.tsx:17`: Share your knowledge and earn money
+- `app/become-teacher/page.tsx:21`: Home
+- `app/become-teacher/page.tsx:22`: Become Teacher
+- `app/become-teacher/page.tsx:36`: Why become an instructor?
+- `app/become-teacher/page.tsx:40`: Reach Millions
+- `app/become-teacher/page.tsx:41`: Share your knowledge with students across Africa
+- `app/become-teacher/page.tsx:45`: Earn Revenue
+- `app/become-teacher/page.tsx:46`: Get paid for your expertise and content
+- `app/become-teacher/page.tsx:50`: Easy Tools
+- `app/become-teacher/page.tsx:51`: Simple course creation and management tools
+- `app/become-teacher/page.tsx:55`: To become an instructor, please
+- `app/become-teacher/page.tsx:56`: create an account
+- `app/contact/ContactClient.tsx:104`: setName(e.target.value)} required />
+- `app/contact/ContactClient.tsx:108`: setEmail(e.target.value)} required />
+- `app/contact/ContactClient.tsx:112`: setMessage(e.target.value)} required>
+- `app/courses/page.tsx:115`: breadcrumb
+- `app/courses/page.tsx:145`: Search course
+- `app/courses/page.tsx:195`: navigation
+- `app/courses/page.tsx:112`: Courses
+- `app/courses/page.tsx:118`: Home
+- `app/courses/page.tsx:120`: Courses
+- `app/courses/page.tsx:150`: Search
+- `app/courses/page.tsx:183`: No courses found matching your criteria.
+- `app/courses/page.tsx:184`: Clear Filters
+- `app/dashboard/layout.tsx:28`: Student Menu
+- `app/dashboard/layout.tsx:33`: S&apos;ABONNER
+- `app/dashboard/layout.tsx:39`: Dashboard
+- `app/dashboard/layout.tsx:45`: Voir tous nos cours
+- `app/dashboard/layout.tsx:51`: Mes subscriptions
+- `app/dashboard/layout.tsx:57`: Mes cours
+- `app/dashboard/layout.tsx:63`: Mes paiements
+- `app/dashboard/layout.tsx:69`: Mes évaluations
+- `app/dashboard/layout.tsx:75`: Mon réseau
+- `app/dashboard/layout.tsx:81`: Notifications
+- `app/dashboard/layout.tsx:87`: Mon profile
+- `app/dashboard/layout.tsx:93`: Discuter avec nos profs
+- `app/dashboard/layout.tsx:99`: Se déconnecter
+- `app/dashboard/layout.tsx:111`: Instructor Menu
+- `app/dashboard/layout.tsx:116`: Dashboard
+- `app/dashboard/layout.tsx:122`: My Courses
+- `app/dashboard/layout.tsx:128`: My Network
+- `app/dashboard/layout.tsx:134`: Orders
+- `app/dashboard/layout.tsx:140`: Exam
+- `app/dashboard/layout.tsx:146`: Evaluations
+- `app/dashboard/layout.tsx:152`: Reviews
+- `app/dashboard/layout.tsx:158`: Notifications
+- `app/dashboard/layout.tsx:164`: Profile
+- `app/dashboard/layout.tsx:170`: Sign Out
+- `app/exams/page.tsx:134`: breadcrumb
+- `app/exams/page.tsx:165`: Title, description, reference
+- `app/exams/page.tsx:270`: Exam pagination
+- `app/exams/page.tsx:132`: Exams
+- `app/exams/page.tsx:137`: Home
+- `app/exams/page.tsx:139`: Exams
+- `app/exams/page.tsx:156`: Filter Exams
+- `app/exams/page.tsx:159`: Search
+- `app/exams/page.tsx:170`: Category
+- `app/exams/page.tsx:172`: All categories
+- `app/exams/page.tsx:182`: Class
+- `app/exams/page.tsx:184`: All classes
+- `app/exams/page.tsx:194`: Level
+- `app/exams/page.tsx:196`: All levels
+- `app/exams/page.tsx:206`: Language
+- `app/exams/page.tsx:208`: All languages
+- `app/exams/page.tsx:209`: English
+- `app/exams/page.tsx:210`: French
+- `app/exams/page.tsx:214`: Apply Filters
+- `app/exams/page.tsx:217`: Reset
+- `app/exams/page.tsx:226`: Available Exams
+- `app/exams/page.tsx:231`: No exams found with the selected filters.
+- `app/exams/page.tsx:259`: Open Exam
+- `app/exams/page.tsx:289`: index + 1).map((pageNumber) => (
+- `app/faq/page.tsx:38`: breadcrumb
+- `app/faq/page.tsx:36`: Frequently Asked Questions
+- `app/faq/page.tsx:40`: Home
+- `app/faq/page.tsx:41`: FAQ
+- `app/faq/page.tsx:54`: No FAQs available yet. Check back soon!
+- `app/forgot-password/page.tsx:74`: E-mail
+- `app/forgot-password/page.tsx:48`: Welcome to our community
+- `app/forgot-password/page.tsx:49`: Let&apos;s learn something new today!
+- `app/forgot-password/page.tsx:60`: Forgot Password?
+- `app/forgot-password/page.tsx:61`: To receive a new password, enter your email address below.
+- `app/forgot-password/page.tsx:66`: Email address *
+- `app/forgot-password/page.tsx:103`: Back to
+- `app/forgot-password/page.tsx:103`: Sign in
+- `app/forum/page.tsx:31`: breadcrumb
+- `app/forum/page.tsx:28`: Community Forum
+- `app/forum/page.tsx:29`: Join the discussion with other students and instructors
+- `app/forum/page.tsx:33`: Home
+- `app/forum/page.tsx:34`: Forum
+- `app/forum/page.tsx:47`: No discussions yet. Be the first to start a conversation!
+- `app/forum/page.tsx:48`: Browse Courses
+- `app/forum/page.tsx:53`: Recent Discussions
+- `app/forum/page.tsx:77`: in
+- `app/forum/page.tsx:81`: Solved
+- `app/privacy/page.tsx:8`: Privacy Policy
+- `app/privacy/page.tsx:10`: Information we collect
+- `app/privacy/page.tsx:12`: How we use information
+- `app/privacy/page.tsx:14`: Your choices
+- `app/privacy/page.tsx:15`: contact page
+- `app/privacy/page.tsx:15`: for account and privacy questions.
+- `app/privacy/page.tsx:16`: Updates
+- `app/login/page.tsx:19`: Welcome to our largest community
+- `app/login/page.tsx:20`: Let&apos;s learn something new today!
+- `app/login/page.tsx:21`: Explore Courses
+- `app/logout/page.tsx:19`: Déconnexion...
+- `app/logout/page.tsx:21`: Déconnexion en cours...
+- `app/plan/page.tsx:25`: breadcrumb
+- `app/plan/page.tsx:22`: Subscription Plans
+- `app/plan/page.tsx:23`: Choose the best plan for your learning journey
+- `app/plan/page.tsx:27`: Home
+- `app/plan/page.tsx:28`: Plans
+- `app/plan/page.tsx:41`: No subscription plans available yet. Check back soon!
+- `app/plan/page.tsx:42`: Browse Courses
+- `app/plan/page.tsx:51`: RECOMMENDED
+- `app/plan/page.tsx:58`: CFA
+- `app/programs/page.tsx:32`: breadcrumb
+- `app/programs/page.tsx:29`: Programs
+- `app/programs/page.tsx:30`: Explore our comprehensive learning programs
+- `app/programs/page.tsx:34`: Home
+- `app/programs/page.tsx:35`: Programs
+- `app/programs/page.tsx:48`: No programs available yet. Check back soon!
+- `app/programs/page.tsx:49`: Browse Courses
+- `app/programs/page.tsx:75`: Courses:
+- `app/programs/page.tsx:89`: Enroll in Program
+- `app/reset-password/page.tsx:85`: ********
+- `app/reset-password/page.tsx:104`: ********
+- `app/reset-password/page.tsx:62`: Invalid Link
+- `app/reset-password/page.tsx:63`: The password reset link is invalid or missing.
+- `app/reset-password/page.tsx:64`: Request a new link
+- `app/reset-password/page.tsx:71`: Reset Password
+- `app/reset-password/page.tsx:72`: Enter your new password below.
+- `app/reset-password/page.tsx:77`: New Password *
+- `app/reset-password/page.tsx:96`: Confirm Password *
+- `app/reset-password/page.tsx:145`: Secure your account
+- `app/reset-password/page.tsx:146`: Choose a strong password!
+- `app/reset-password/page.tsx:157`: Loading...
+- `app/terms/page.tsx:18`: breadcrumb
+- `app/terms/page.tsx:16`: Terms & Conditions
+- `app/terms/page.tsx:20`: Home
+- `app/terms/page.tsx:21`: Terms & Conditions
+- `app/terms/page.tsx:51`: Users agree to:
+- `app/terms/page.tsx:53`: Respect other users and instructors
+- `app/terms/page.tsx:54`: Not engage in harassment, hate speech, or discriminatory behavior
+- `app/terms/page.tsx:55`: Not attempt to circumvent payment systems or access controls
+- `app/terms/page.tsx:56`: Not use the platform for illegal activities
+- `app/terms/page.tsx:72`: For questions about these terms, contact us at
+- `app/terms/page.tsx:72`: or visit our
+- `app/terms/page.tsx:72`: Contact page
+- `app/terms/page.tsx:74`: Last updated: May 10, 2026
+- `app/admin/categories/page.tsx:20`: Category Management
+- `app/admin/categories/page.tsx:29`: Name
+- `app/admin/categories/page.tsx:30`: Slug
+- `app/admin/categories/page.tsx:31`: Type
+- `app/admin/categories/page.tsx:32`: Subcategories
+- `app/admin/categories/page.tsx:33`: Actions
+- `app/admin/categories/page.tsx:44`: Sub
+- `app/admin/categories/page.tsx:46`: Parent
+- `app/admin/categories/page.tsx:51`: s.name).join(', ')}
+- `app/admin/categories/page.tsx:58`: Delete
+- `app/admin/categories/page.tsx:64`: No categories found
+- `app/admin/categories/page.tsx:72`: Add Category
+- `app/admin/categories/page.tsx:75`: Name *
+- `app/admin/categories/page.tsx:80`: Parent Category
+- `app/admin/categories/page.tsx:83`: None (Top-level)
+- `app/admin/categories/page.tsx:90`: Image (URL)
+- `app/admin/categories/page.tsx:95`: Create Category
+- `app/admin/classes/page.tsx:17`: Class Management
+- `app/admin/classes/page.tsx:26`: Name
+- `app/admin/classes/page.tsx:27`: Actions
+- `app/admin/classes/page.tsx:37`: Delete
+- `app/admin/classes/page.tsx:43`: No classes found
+- `app/admin/classes/page.tsx:51`: Add Class
+- `app/admin/classes/page.tsx:54`: Name *
+- `app/admin/classes/page.tsx:59`: Create Class
+- `app/admin/courses/page.tsx:22`: Course Management
+- `app/admin/courses/page.tsx:30`: Title
+- `app/admin/courses/page.tsx:31`: Instructor
+- `app/admin/courses/page.tsx:32`: Category
+- `app/admin/courses/page.tsx:33`: Price
+- `app/admin/courses/page.tsx:34`: Published
+- `app/admin/courses/page.tsx:35`: Validated
+- `app/admin/courses/page.tsx:36`: Actions
+- `app/admin/courses/page.tsx:50`: Free
+- `app/admin/courses/page.tsx:57`: Yes
+- `app/admin/courses/page.tsx:64`: Yes
+- `app/admin/courses/page.tsx:66`: Pending
+- `app/admin/courses/page.tsx:71`: View
+- `app/admin/courses/page.tsx:74`: Validate
+- `app/admin/courses/page.tsx:82`: No courses found
+- `app/admin/exams/page.tsx:18`: Exam Management
+- `app/admin/exams/page.tsx:26`: Reference
+- `app/admin/exams/page.tsx:27`: Title
+- `app/admin/exams/page.tsx:28`: Category
+- `app/admin/exams/page.tsx:29`: Duration
+- `app/admin/exams/page.tsx:30`: Status
+- `app/admin/exams/page.tsx:31`: Actions
+- `app/admin/exams/page.tsx:44`: Validated
+- `app/admin/exams/page.tsx:46`: Pending
+- `app/admin/exams/page.tsx:52`: Validate
+- `app/admin/exams/page.tsx:59`: No exams found
+- `app/admin/faq/page.tsx:21`: FAQ Management
+- `app/admin/faq/page.tsx:30`: Course
+- `app/admin/faq/page.tsx:31`: Question
+- `app/admin/faq/page.tsx:32`: Actions
+- `app/admin/faq/page.tsx:43`: Delete
+- `app/admin/faq/page.tsx:49`: No FAQs found
+- `app/admin/faq/page.tsx:57`: Add FAQ
+- `app/admin/faq/page.tsx:60`: Course *
+- `app/admin/faq/page.tsx:63`: Select course...
+- `app/admin/faq/page.tsx:70`: Question *
+- `app/admin/faq/page.tsx:75`: Answer *
+- `app/admin/faq/page.tsx:80`: Create FAQ
+- `app/admin/instructors/page.tsx:23`: Instructor Management
+- `app/admin/instructors/page.tsx:30`: Name
+- `app/admin/instructors/page.tsx:31`: Email
+- `app/admin/instructors/page.tsx:32`: Category
+- `app/admin/instructors/page.tsx:33`: Institution
+- `app/admin/instructors/page.tsx:34`: Status
+- `app/admin/instructors/page.tsx:35`: Certified
+- `app/admin/instructors/page.tsx:36`: Actions
+- `app/admin/instructors/page.tsx:51`: Validated
+- `app/admin/instructors/page.tsx:53`: Rejected
+- `app/admin/instructors/page.tsx:55`: Pending
+- `app/admin/instructors/page.tsx:60`: Yes
+- `app/admin/instructors/page.tsx:70`: Validate
+- `app/admin/instructors/page.tsx:73`: Reject
+- `app/admin/instructors/page.tsx:78`: Rejected
+- `app/admin/instructors/page.tsx:81`: Approved
+- `app/admin/instructors/page.tsx:88`: No instructors found
+- `app/admin/levels/page.tsx:17`: Skill Level Management
+- `app/admin/levels/page.tsx:26`: Name
+- `app/admin/levels/page.tsx:27`: Actions
+- `app/admin/levels/page.tsx:37`: Delete
+- `app/admin/levels/page.tsx:43`: No levels found
+- `app/admin/levels/page.tsx:51`: Add Level
+- `app/admin/levels/page.tsx:54`: Name *
+- `app/admin/levels/page.tsx:59`: Create Level
+- `app/admin/settings/page.tsx:116`: Facebook
+- `app/admin/settings/page.tsx:126`: bi bi-facebook
+- `app/admin/settings/page.tsx:19`: Settings
+- `app/admin/settings/page.tsx:22`: Site Settings
+- `app/admin/settings/page.tsx:25`: Site Name
+- `app/admin/settings/page.tsx:30`: Site Email
+- `app/admin/settings/page.tsx:35`: Support Email
+- `app/admin/settings/page.tsx:40`: Contact Phone
+- `app/admin/settings/page.tsx:45`: Contact Address
+- `app/admin/settings/page.tsx:50`: Site Description
+- `app/admin/settings/page.tsx:55`: Copyright
+- `app/admin/settings/page.tsx:60`: Main Site URL
+- `app/admin/settings/page.tsx:69`: Maintenance Mode
+- `app/admin/settings/page.tsx:72`: Maintenance Text
+- `app/admin/settings/page.tsx:77`: Save Site Settings
+- `app/admin/settings/page.tsx:85`: Social Links
+- `app/admin/settings/page.tsx:90`: Name
+- `app/admin/settings/page.tsx:91`: URL
+- `app/admin/settings/page.tsx:92`: Icon
+- `app/admin/settings/page.tsx:93`: Actions
+- `app/admin/settings/page.tsx:104`: Delete
+- `app/admin/settings/page.tsx:114`: Name
+- `app/admin/settings/page.tsx:119`: URL
+- `app/admin/settings/page.tsx:124`: Icon Class
+- `app/admin/settings/page.tsx:129`: Add
+- `app/admin/settings/page.tsx:136`: Network Configuration
+- `app/admin/settings/page.tsx:139`: Points per Invitation
+- `app/admin/settings/page.tsx:144`: Instructor Distribution (%)
+- `app/admin/settings/page.tsx:150`: Student Distribution (%)
+- `app/admin/settings/page.tsx:156`: Exchange Rate
+- `app/admin/settings/page.tsx:161`: Minimum Withdrawable
+- `app/admin/settings/page.tsx:168`: Save Network Config
+- `app/admin/subscription-plans/page.tsx:17`: Subscription Plans
+- `app/admin/subscription-plans/page.tsx:26`: Label
+- `app/admin/subscription-plans/page.tsx:27`: Amount
+- `app/admin/subscription-plans/page.tsx:28`: Duration
+- `app/admin/subscription-plans/page.tsx:29`: Recommended
+- `app/admin/subscription-plans/page.tsx:30`: Actions
+- `app/admin/subscription-plans/page.tsx:41`: Yes
+- `app/admin/subscription-plans/page.tsx:45`: Delete
+- `app/admin/subscription-plans/page.tsx:51`: No plans found
+- `app/admin/subscription-plans/page.tsx:59`: Add Plan
+- `app/admin/subscription-plans/page.tsx:62`: Label *
+- `app/admin/subscription-plans/page.tsx:67`: Amount (CFA) *
+- `app/admin/subscription-plans/page.tsx:72`: Duration (days) *
+- `app/admin/subscription-plans/page.tsx:79`: Recommended
+- `app/admin/subscription-plans/page.tsx:82`: Create Plan
+- `app/admin/users/page.tsx:19`: User Management
+- `app/admin/users/page.tsx:26`: Name
+- `app/admin/users/page.tsx:27`: Email
+- `app/admin/users/page.tsx:28`: Role
+- `app/admin/users/page.tsx:29`: Student
+- `app/admin/users/page.tsx:30`: Instructor
+- `app/admin/users/page.tsx:31`: Admin
+- `app/admin/users/page.tsx:32`: Verified
+- `app/admin/users/page.tsx:46`: Yes
+- `app/admin/users/page.tsx:53`: Yes
+- `app/admin/users/page.tsx:60`: Admin
+- `app/admin/users/page.tsx:67`: Yes
+- `app/admin/evaluations/page.tsx:10`: Evaluations
+- `app/admin/evaluations/page.tsx:10`: Review assessments, assignments, questions, and results.
+- `app/admin/evaluations/page.tsx:10`: Back to admin
+- `app/admin/evaluations/page.tsx:11`: Title
+- `app/admin/evaluations/page.tsx:11`: Instructor
+- `app/admin/evaluations/page.tsx:11`: Questions
+- `app/admin/evaluations/page.tsx:11`: Assigned
+- `app/admin/evaluations/page.tsx:11`: Results
+- `app/admin/evaluations/page.tsx:11`: State
+- `app/admin/evaluations/page.tsx:11`: Published
+- `app/admin/evaluations/page.tsx:11`: Draft
+- `app/admin/evaluations/page.tsx:11`: Manage
+- `app/admin/evaluations/page.tsx:12`: No evaluations found.
+- `app/admin/users/[id]/page.tsx:47`: Account Info
+- `app/admin/users/[id]/page.tsx:49`: Email
+- `app/admin/users/[id]/page.tsx:50`: Roles
+- `app/admin/users/[id]/page.tsx:51`: Points
+- `app/admin/users/[id]/page.tsx:52`: Cash
+- `app/admin/users/[id]/page.tsx:53`: Verified
+- `app/admin/users/[id]/page.tsx:53`: Yes
+- `app/admin/users/[id]/page.tsx:62`: No payments found.
+- `app/admin/users/[id]/page.tsx:68`: Reference
+- `app/admin/users/[id]/page.tsx:69`: For
+- `app/admin/users/[id]/page.tsx:70`: Amount
+- `app/admin/users/[id]/page.tsx:71`: Status
+- `app/admin/users/[id]/page.tsx:72`: Date
+- `app/admin/users/[id]/page.tsx:82`: Completed
+- `app/admin/users/[id]/page.tsx:83`: Pending
+- `app/admin/users/[id]/page.tsx:98`: Person Details
+- `app/admin/users/[id]/page.tsx:101`: Name
+- `app/admin/users/[id]/page.tsx:102`: Phone
+- `app/admin/users/[id]/page.tsx:103`: Gender
+- `app/admin/users/[id]/page.tsx:104`: Address
+- `app/admin/users/[id]/page.tsx:105`: Pseudo
+- `app/admin/users/[id]/page.tsx:106`: Invitation Code
+- `app/admin/users/[id]/page.tsx:108`: No person record.
+- `app/admin/users/[id]/page.tsx:112`: Instructor Info
+- `app/admin/users/[id]/page.tsx:115`: Status
+- `app/admin/users/[id]/page.tsx:116`: Validated
+- `app/admin/users/[id]/page.tsx:116`: Rejected
+- `app/admin/users/[id]/page.tsx:116`: Pending
+- `app/admin/users/[id]/page.tsx:118`: Certified
+- `app/admin/users/[id]/page.tsx:119`: Category
+- `app/admin/users/[id]/page.tsx:120`: Institution
+- `app/admin/users/[id]/page.tsx:122`: Not an instructor.
+- `app/admin/users/[id]/page.tsx:128`: None.
+- `app/admin/evaluations/[id]/AdminEvaluationActions.tsx:29`: Delete
+- `app/admin/evaluations/[id]/page.tsx:14`: No questions configured.
+- `app/admin/evaluations/[id]/page.tsx:14`: Assignments
+- `app/admin/evaluations/[id]/page.tsx:14`: No submissions yet.
+- `app/api/contact/route.ts:47`: Name:
+- `app/api/contact/route.ts:47`: Email:
+- `app/api/contact/route.ts:47`: Message:
+- `app/courses/[slug]/page.tsx:281`: instructor
+- `app/courses/[slug]/page.tsx:187`: Overview
+- `app/courses/[slug]/page.tsx:190`: Curriculum
+- `app/courses/[slug]/page.tsx:193`: Instructor
+- `app/courses/[slug]/page.tsx:196`: Reviews
+- `app/courses/[slug]/page.tsx:208`: Course Description
+- `app/courses/[slug]/page.tsx:214`: Frequently Asked Questions
+- `app/courses/[slug]/page.tsx:302`: Student Reviews
+- `app/courses/[slug]/page.tsx:332`: No reviews yet.
+- `app/courses/[slug]/page.tsx:351`: Price
+- `app/courses/[slug]/page.tsx:359`: Enroll Now
+- `app/courses/[slug]/page.tsx:365`: This course includes:
+- `app/courses/[slug]/page.tsx:368`: Lessons
+- `app/courses/[slug]/page.tsx:372`: Duration
+- `app/courses/[slug]/page.tsx:376`: Skills
+- `app/courses/[slug]/page.tsx:380`: Language
+- `app/courses/[slug]/enroll/page.tsx:26`: Complete enrollment to start learning at DoDave Academy.
+- `app/dashboard/instructor/page.tsx:23`: Instructor Dashboard
+- `app/dashboard/instructor/page.tsx:24`: No instructor profile found.
+- `app/dashboard/instructor/page.tsx:34`: Instructor Dashboard
+- `app/dashboard/instructor/page.tsx:42`: Courses
+- `app/dashboard/instructor/page.tsx:51`: Students
+- `app/dashboard/instructor/page.tsx:60`: Reviews
+- `app/dashboard/instructor/page.tsx:69`: Evaluations
+- `app/dashboard/instructor/page.tsx:77`: Quick Links
+- `app/dashboard/instructor/page.tsx:81`: My Courses
+- `app/dashboard/instructor/page.tsx:86`: My Network
+- `app/dashboard/instructor/page.tsx:91`: Orders
+- `app/dashboard/instructor/page.tsx:96`: Profile
+- `app/dashboard/notifications/page.tsx:140`: Mark as read
+- `app/dashboard/notifications/page.tsx:148`: Delete
+- `app/dashboard/notifications/page.tsx:97`: Mark all as read
+- `app/dashboard/notifications/page.tsx:100`: Back
+- `app/dashboard/notifications/page.tsx:110`: No notifications yet.
+- `app/dashboard/student/page.tsx:35`: My Learning
+- `app/dashboard/student/page.tsx:36`: You are not enrolled in any courses yet.
+- `app/dashboard/student/page.tsx:59`: My Learning
+- `app/dashboard/student/page.tsx:69`: You haven&apos;t enrolled in any courses yet.
+- `app/dashboard/instructor/courses/page.tsx:28`: My Courses
+- `app/dashboard/instructor/courses/page.tsx:29`: No instructor profile found.
+- `app/dashboard/instructor/courses/page.tsx:37`: My Courses
+- `app/dashboard/instructor/courses/page.tsx:39`: New Course
+- `app/dashboard/instructor/courses/page.tsx:44`: You haven&apos;t created any courses yet.
+- `app/dashboard/instructor/courses/page.tsx:50`: Title
+- `app/dashboard/instructor/courses/page.tsx:51`: Category
+- `app/dashboard/instructor/courses/page.tsx:52`: Level
+- `app/dashboard/instructor/courses/page.tsx:53`: Students
+- `app/dashboard/instructor/courses/page.tsx:54`: Reviews
+- `app/dashboard/instructor/courses/page.tsx:55`: Status
+- `app/dashboard/instructor/courses/page.tsx:56`: Created
+- `app/dashboard/instructor/courses/page.tsx:74`: Published
+- `app/dashboard/instructor/courses/page.tsx:76`: Pending
+- `app/dashboard/instructor/courses/page.tsx:79`: Draft
+- `app/dashboard/instructor/evaluations/page.tsx:24`: Instructor profile not found.
+- `app/dashboard/instructor/evaluations/page.tsx:31`: Evaluations
+- `app/dashboard/instructor/evaluations/page.tsx:32`: Create assessments, maintain questions, and review submissions.
+- `app/dashboard/instructor/evaluations/page.tsx:35`: Back
+- `app/dashboard/instructor/evaluations/page.tsx:36`: New evaluation
+- `app/dashboard/instructor/evaluations/page.tsx:41`: No evaluations created yet. Create the first DoDave Academy assessment.
+- `app/dashboard/instructor/evaluations/page.tsx:47`: Title
+- `app/dashboard/instructor/evaluations/page.tsx:48`: Category
+- `app/dashboard/instructor/evaluations/page.tsx:49`: Questions
+- `app/dashboard/instructor/evaluations/page.tsx:50`: Assigned
+- `app/dashboard/instructor/evaluations/page.tsx:51`: Submissions
+- `app/dashboard/instructor/evaluations/page.tsx:52`: Status
+- `app/dashboard/instructor/evaluations/page.tsx:53`: Actions
+- `app/dashboard/instructor/evaluations/page.tsx:67`: Published
+- `app/dashboard/instructor/evaluations/page.tsx:67`: Draft
+- `app/dashboard/instructor/evaluations/page.tsx:70`: Manage
+- `app/dashboard/instructor/evaluations/page.tsx:71`: Results
+- `app/dashboard/instructor/exams/page.tsx:27`: Exam
+- `app/dashboard/instructor/exams/page.tsx:28`: No instructor profile found.
+- `app/dashboard/instructor/exams/page.tsx:38`: Exam
+- `app/dashboard/instructor/exams/page.tsx:39`: New exam
+- `app/dashboard/instructor/exams/page.tsx:43`: No exams found.
+- `app/dashboard/instructor/exams/page.tsx:49`: Title
+- `app/dashboard/instructor/exams/page.tsx:50`: Subject
+- `app/dashboard/instructor/exams/page.tsx:51`: Category
+- `app/dashboard/instructor/exams/page.tsx:52`: Class
+- `app/dashboard/instructor/exams/page.tsx:53`: Duration
+- `app/dashboard/instructor/exams/page.tsx:54`: Status
+- `app/dashboard/instructor/exams/page.tsx:55`: Published
+- `app/dashboard/instructor/exams/page.tsx:65`: Manage
+- `app/dashboard/instructor/exams/page.tsx:74`: Published
+- `app/dashboard/instructor/exams/page.tsx:76`: Pending
+- `app/dashboard/instructor/exams/page.tsx:79`: Draft
+- `app/dashboard/instructor/exams/ExamEditor.tsx:62`: 90 min
+- `app/dashboard/instructor/exams/ExamEditor.tsx:56`: Create and submit a DoDave Academy exam for admin validation.
+- `app/dashboard/instructor/exams/ExamEditor.tsx:56`: router.push('/dashboard/instructor/exams')}>Back
+- `app/dashboard/instructor/exams/ExamEditor.tsx:59`: Title
+- `app/dashboard/instructor/exams/ExamEditor.tsx:59`: update('title', event.target.value)} />
+- `app/dashboard/instructor/exams/ExamEditor.tsx:60`: Subject
+- `app/dashboard/instructor/exams/ExamEditor.tsx:60`: update('subject', event.target.value)} />
+- `app/dashboard/instructor/exams/ExamEditor.tsx:61`: Description
+- `app/dashboard/instructor/exams/ExamEditor.tsx:61`: update('description', event.target.value)} />
+- `app/dashboard/instructor/exams/ExamEditor.tsx:62`: Duration
+- `app/dashboard/instructor/exams/ExamEditor.tsx:62`: update('duration', event.target.value)} />
+- `app/dashboard/instructor/exams/ExamEditor.tsx:63`: Language
+- `app/dashboard/instructor/exams/ExamEditor.tsx:63`: update('language', event.target.value)}>
+- `app/dashboard/instructor/exams/ExamEditor.tsx:63`: French
+- `app/dashboard/instructor/exams/ExamEditor.tsx:63`: English
+- `app/dashboard/instructor/exams/ExamEditor.tsx:64`: Category
+- `app/dashboard/instructor/exams/ExamEditor.tsx:64`: update('categoryId', event.target.value)}>
+- `app/dashboard/instructor/exams/ExamEditor.tsx:64`: Select category
+- `app/dashboard/instructor/exams/ExamEditor.tsx:65`: Class
+- `app/dashboard/instructor/exams/ExamEditor.tsx:65`: update('classId', event.target.value)}>
+- `app/dashboard/instructor/exams/ExamEditor.tsx:65`: Select class
+- `app/dashboard/instructor/exams/ExamEditor.tsx:66`: Correction / answer key
+- `app/dashboard/instructor/exams/ExamEditor.tsx:66`: update('correction', event.target.value)} />
+- `app/dashboard/instructor/exams/ExamEditor.tsx:67`: Uploaded subject file name
+- `app/dashboard/instructor/exams/ExamEditor.tsx:67`: update('imageFile', event.target.value)} />
+- `app/dashboard/instructor/exams/ExamEditor.tsx:68`: Delete
+- `app/dashboard/instructor/network/page.tsx:22`: My Network
+- `app/dashboard/instructor/network/page.tsx:30`: My Points
+- `app/dashboard/instructor/network/page.tsx:39`: My Earnings
+- `app/dashboard/instructor/network/page.tsx:48`: Invitation Code
+- `app/dashboard/instructor/network/page.tsx:59`: Network Configuration
+- `app/dashboard/instructor/network/page.tsx:62`: Points per Invitation
+- `app/dashboard/instructor/network/page.tsx:66`: Instructor Distribution
+- `app/dashboard/instructor/network/page.tsx:70`: Student Distribution
+- `app/dashboard/instructor/network/page.tsx:74`: Minimum Withdrawal
+- `app/dashboard/instructor/network/page.tsx:89`: Withdraw Earnings
+- `app/dashboard/instructor/network/page.tsx:90`: Request a withdrawal
+- `app/dashboard/instructor/network/page.tsx:100`: Withdrawal History
+- `app/dashboard/instructor/network/page.tsx:101`: View your withdrawals
+- `app/dashboard/instructor/orders/page.tsx:30`: Orders
+- `app/dashboard/instructor/orders/page.tsx:31`: No instructor profile found.
+- `app/dashboard/instructor/orders/page.tsx:41`: Orders & Earnings
+- `app/dashboard/instructor/orders/page.tsx:49`: Total Revenue
+- `app/dashboard/instructor/orders/page.tsx:58`: Total Orders
+- `app/dashboard/instructor/orders/page.tsx:67`: Courses
+- `app/dashboard/instructor/orders/page.tsx:74`: No orders yet.
+- `app/dashboard/instructor/orders/page.tsx:80`: Reference
+- `app/dashboard/instructor/orders/page.tsx:81`: Student
+- `app/dashboard/instructor/orders/page.tsx:82`: Course
+- `app/dashboard/instructor/orders/page.tsx:83`: Amount
+- `app/dashboard/instructor/orders/page.tsx:84`: Method
+- `app/dashboard/instructor/orders/page.tsx:85`: Date
+- `app/dashboard/instructor/orders/page.tsx:86`: Status
+- `app/dashboard/instructor/orders/page.tsx:104`: Completed
+- `app/dashboard/instructor/orders/page.tsx:106`: Pending
+- `app/dashboard/instructor/orders/page.tsx:108`: Expired
+- `app/dashboard/instructor/profile/page.tsx:35`: Avatar
+- `app/dashboard/instructor/profile/page.tsx:26`: Profile
+- `app/dashboard/instructor/profile/page.tsx:52`: Certified
+- `app/dashboard/instructor/profile/page.tsx:61`: Personal Information
+- `app/dashboard/instructor/profile/page.tsx:64`: Email
+- `app/dashboard/instructor/profile/page.tsx:68`: First Name
+- `app/dashboard/instructor/profile/page.tsx:72`: Last Name
+- `app/dashboard/instructor/profile/page.tsx:76`: Phone
+- `app/dashboard/instructor/profile/page.tsx:80`: Address
+- `app/dashboard/instructor/profile/page.tsx:84`: About Me
+- `app/dashboard/instructor/profile/page.tsx:88`: Specialty
+- `app/dashboard/instructor/profile/page.tsx:92`: Institution
+- `app/dashboard/instructor/profile/page.tsx:96`: Reference
+- `app/dashboard/instructor/profile/page.tsx:100`: Points
+- `app/dashboard/instructor/profile/page.tsx:104`: Joined
+- `app/dashboard/instructor/reviews/page.tsx:28`: Reviews
+- `app/dashboard/instructor/reviews/page.tsx:29`: No instructor profile found.
+- `app/dashboard/instructor/reviews/page.tsx:41`: Reviews
+- `app/dashboard/instructor/reviews/page.tsx:49`: Average Rating
+- `app/dashboard/instructor/reviews/page.tsx:58`: Total Reviews
+- `app/dashboard/instructor/reviews/page.tsx:67`: Courses
+- `app/dashboard/instructor/reviews/page.tsx:74`: No reviews yet.
+- `app/dashboard/instructor/courses/new/page.tsx:70`: e.g., Introduction to Python
+- `app/dashboard/instructor/courses/new/page.tsx:82`: Describe what students will learn...
+- `app/dashboard/instructor/courses/new/page.tsx:134`: e.g., 5000
+- `app/dashboard/instructor/courses/new/page.tsx:146`: e.g., python, programming, beginner
+- `app/dashboard/instructor/courses/new/page.tsx:54`: New Course
+- `app/dashboard/instructor/courses/new/page.tsx:56`: Back
+- `app/dashboard/instructor/courses/new/page.tsx:66`: Course Title
+- `app/dashboard/instructor/courses/new/page.tsx:78`: Description
+- `app/dashboard/instructor/courses/new/page.tsx:91`: Difficulty
+- `app/dashboard/instructor/courses/new/page.tsx:97`: Beginner
+- `app/dashboard/instructor/courses/new/page.tsx:98`: Intermediate
+- `app/dashboard/instructor/courses/new/page.tsx:99`: Advanced
+- `app/dashboard/instructor/courses/new/page.tsx:103`: Language
+- `app/dashboard/instructor/courses/new/page.tsx:109`: French
+- `app/dashboard/instructor/courses/new/page.tsx:110`: English
+- `app/dashboard/instructor/courses/new/page.tsx:114`: Free Course?
+- `app/dashboard/instructor/courses/new/page.tsx:130`: Price (XAF)
+- `app/dashboard/instructor/courses/new/page.tsx:142`: Tags (comma separated)
+- `app/dashboard/instructor/courses/new/page.tsx:154`: Creating...
+- `app/dashboard/instructor/courses/new/page.tsx:156`: Create Course
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:107`: Chapters & Lessons
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:110`: Add Chapter
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:112`: Back
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:124`: Chapter Title
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:134`: Description (optional)
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:145`: setShowForm(false)} className="btn btn-outline-secondary ms-2">Cancel
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:152`: No chapters yet. Click &quot;Add Chapter&quot; to get started.
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:185`: handleDelete(chapter.id)} className="btn btn-sm btn-outline-danger ms-auto">
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:186`: Delete
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:192`: Lessons
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:354`: Question
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:363`: Answer
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:141`: Loading...
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:150`: Course not found
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:151`: Back
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:173`: Unpublish
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:181`: Back
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:205`: Title
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:214`: Description
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:223`: Full Content (syllabus, goals)
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:233`: Difficulty
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:239`: Beginner
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:240`: Intermediate
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:241`: Advanced
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:245`: Language
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:251`: French
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:252`: English
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:256`: Free Course?
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:271`: Price (XAF)
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:281`: Tags
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:300`: Manage Chapters & Lessons
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:330`: No chapters yet. Click the button above to add one.
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:339`: Course FAQ
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:341`: Add FAQ
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:345`: No FAQs yet. Add common questions students ask about this course.
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:368`: removeFaq(i)} className="btn btn-sm btn-outline-danger">
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:369`: Remove
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:113`: Lessons
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:119`: Add Lesson
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:121`: Back
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:133`: Lesson Title
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:137`: Content (HTML or Markdown)
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:142`: Video Link (URL)
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:146`: Poster Image (URL)
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:153`: setShowForm(false)} className="btn btn-outline-secondary ms-2">Cancel
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:160`: No lessons yet. Click &quot;Add Lesson&quot; to get started.
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:167`: Video
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:170`: handleEdit(lesson)} className="btn btn-sm btn-outline-primary">
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:173`: handleDelete(lesson.id)} className="btn btn-sm btn-outline-danger">
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:167`: Quizzes
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:181`: Add Question
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:183`: Back
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:195`: Question
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:199`: Answers (mark the correct one)
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:229`: Add Answer
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:236`: setShowForm(false)} className="btn btn-outline-secondary ms-2">Cancel
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:244`: No quiz questions yet. Click &quot;Add Question&quot; to get started.
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:264`: handleEdit(quiz)} className="btn btn-sm btn-outline-primary">
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:267`: handleDelete(quiz.id)} className="btn btn-sm btn-outline-danger">
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:184`: Question
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:157`: This evaluation is passed and locked against structural changes.
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:162`: Evaluation settings
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:165`: Title
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:166`: Category
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:167`: Description
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:168`: Duration (minutes)
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:169`: Starts
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:170`: Ends
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:171`: Publish for assigned students
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:175`: Delete evaluation
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:182`: Add at least one question before publishing.
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:183`: Edit
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:183`: deleteQuestion(question.id)}>Delete
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:184`: Correct propositions
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:184`: Cancel
+- `app/dashboard/instructor/evaluations/[id]/page.tsx:46`: View results page
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:39`: Question
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:37`: New evaluation
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:37`: Create an assessment and assign it to classes or individual students.
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:37`: router.push('/dashboard/instructor/evaluations')}>Back
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Title
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Category
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Select category
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Description
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Duration (minutes)
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Starts
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Ends
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Classes
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:38`: Students
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:39`: First question (optional)
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:39`: Correct propositions
+- `app/dashboard/instructor/profile/edit/page.tsx:80`: Edit Profile
+- `app/dashboard/instructor/profile/edit/page.tsx:81`: Cancel
+- `app/dashboard/instructor/profile/edit/page.tsx:92`: First Name
+- `app/dashboard/instructor/profile/edit/page.tsx:96`: Last Name
+- `app/dashboard/instructor/profile/edit/page.tsx:102`: Username (pseudo)
+- `app/dashboard/instructor/profile/edit/page.tsx:108`: Phone Number
+- `app/dashboard/instructor/profile/edit/page.tsx:112`: Gender
+- `app/dashboard/instructor/profile/edit/page.tsx:114`: Male
+- `app/dashboard/instructor/profile/edit/page.tsx:115`: Female
+- `app/dashboard/instructor/profile/edit/page.tsx:121`: Address
+- `app/dashboard/instructor/profile/edit/page.tsx:126`: About Me
+- `app/dashboard/student/courses/page.tsx:30`: Mes cours
+- `app/dashboard/student/courses/page.tsx:31`: No student profile found.
+- `app/dashboard/student/courses/page.tsx:40`: Mes cours
+- `app/dashboard/student/courses/page.tsx:44`: Parcourir les cours
+- `app/dashboard/student/courses/page.tsx:64`: Continuer
+- `app/dashboard/student/messages/page.tsx:22`: Messages
+- `app/dashboard/student/messages/page.tsx:24`: Real-time chat enabled via Supabase (RLS Protected).
+- `app/dashboard/student/network/page.tsx:21`: Mon réseau
+- `app/dashboard/student/network/page.tsx:29`: Mes points
+- `app/dashboard/student/network/page.tsx:38`: Ma cagnotte
+- `app/dashboard/student/network/page.tsx:47`: Mon code d&apos;invitation
+- `app/dashboard/student/network/page.tsx:58`: Configuration du réseau
+- `app/dashboard/student/network/page.tsx:61`: Points par invitation
+- `app/dashboard/student/network/page.tsx:65`: Distribution instructeur
+- `app/dashboard/student/network/page.tsx:69`: Distribution étudiant
+- `app/dashboard/student/network/page.tsx:73`: Retrait minimum
+- `app/dashboard/student/network/page.tsx:88`: Demander un retrait
+- `app/dashboard/student/network/page.tsx:89`: Retirez vos gains
+- `app/dashboard/student/network/page.tsx:99`: Historique des retraits
+- `app/dashboard/student/network/page.tsx:100`: Consultez vos retraits
+- `app/dashboard/student/payments/page.tsx:26`: Mes paiements
+- `app/dashboard/student/payments/page.tsx:27`: No student profile found.
+- `app/dashboard/student/payments/page.tsx:34`: Mes paiements
+- `app/dashboard/student/payments/page.tsx:36`: Aucun paiement enregistré.
+- `app/dashboard/student/payments/page.tsx:42`: Référence
+- `app/dashboard/student/payments/page.tsx:43`: Pour
+- `app/dashboard/student/payments/page.tsx:44`: Montant
+- `app/dashboard/student/payments/page.tsx:45`: Méthode
+- `app/dashboard/student/payments/page.tsx:46`: Date
+- `app/dashboard/student/payments/page.tsx:47`: Statut
+- `app/dashboard/student/payments/page.tsx:62`: Complété
+- `app/dashboard/student/payments/page.tsx:64`: En attente
+- `app/dashboard/student/payments/page.tsx:66`: Expiré
+- `app/dashboard/student/profile/page.tsx:32`: Avatar
+- `app/dashboard/student/profile/page.tsx:23`: Mon profile
+- `app/dashboard/student/profile/page.tsx:53`: Informations personnelles
+- `app/dashboard/student/profile/page.tsx:56`: Email
+- `app/dashboard/student/profile/page.tsx:60`: Prénom
+- `app/dashboard/student/profile/page.tsx:64`: Nom
+- `app/dashboard/student/profile/page.tsx:68`: Téléphone
+- `app/dashboard/student/profile/page.tsx:72`: Adresse
+- `app/dashboard/student/profile/page.tsx:76`: Date de naissance
+- `app/dashboard/student/profile/page.tsx:82`: Genre
+- `app/dashboard/student/profile/page.tsx:86`: Points
+- `app/dashboard/student/subscriptions/page.tsx:24`: Mes subscriptions
+- `app/dashboard/student/subscriptions/page.tsx:25`: No student profile found.
+- `app/dashboard/student/subscriptions/page.tsx:32`: Mes subscriptions
+- `app/dashboard/student/subscriptions/page.tsx:36`: Voir les plans
+- `app/dashboard/student/subscriptions/page.tsx:43`: Plan
+- `app/dashboard/student/subscriptions/page.tsx:44`: Montant
+- `app/dashboard/student/subscriptions/page.tsx:45`: Date
+- `app/dashboard/student/subscriptions/page.tsx:46`: Statut
+- `app/dashboard/student/subscriptions/page.tsx:57`: Expiré
+- `app/dashboard/student/subscriptions/page.tsx:59`: Actif
+- `app/dashboard/student/evaluations/page.tsx:12`: Student profile not found.
+- `app/dashboard/student/evaluations/page.tsx:37`: My Evaluations
+- `app/dashboard/student/evaluations/page.tsx:38`: Assigned assessments and completed results.
+- `app/dashboard/student/evaluations/page.tsx:40`: Back to dashboard
+- `app/dashboard/student/evaluations/page.tsx:44`: No evaluations have been assigned to you yet.
+- `app/dashboard/student/evaluations/page.tsx:71`: View result
+- `app/dashboard/student/network/retrait/page.tsx:84`: 6XX XX XX XX
+- `app/dashboard/student/network/retrait/page.tsx:56`: Demander un retrait
+- `app/dashboard/student/network/retrait/page.tsx:67`: Montant (CFA) *
+- `app/dashboard/student/network/retrait/page.tsx:78`: Numéro de téléphone *
+- `app/dashboard/student/network/retrait/page.tsx:89`: Méthode de retrait *
+- `app/dashboard/student/network/retrait/page.tsx:96`: Choisir...
+- `app/dashboard/student/network/retraits/page.tsx:21`: Historique des retraits
+- `app/dashboard/student/network/retraits/page.tsx:22`: Nouveau retrait
+- `app/dashboard/student/network/retraits/page.tsx:30`: Faire une demande
+- `app/dashboard/student/network/retraits/page.tsx:37`: Montant
+- `app/dashboard/student/network/retraits/page.tsx:38`: Méthode
+- `app/dashboard/student/network/retraits/page.tsx:39`: Téléphone
+- `app/dashboard/student/network/retraits/page.tsx:40`: Status
+- `app/dashboard/student/network/retraits/page.tsx:41`: Date
+- `app/dashboard/student/network/retraits/page.tsx:42`: Référence
+- `app/dashboard/student/network/retraits/page.tsx:53`: Complété
+- `app/dashboard/student/network/retraits/page.tsx:55`: En attente
+- `app/dashboard/student/profile/edit/page.tsx:77`: Edit Profile
+- `app/dashboard/student/profile/edit/page.tsx:78`: Cancel
+- `app/dashboard/student/profile/edit/page.tsx:89`: First Name
+- `app/dashboard/student/profile/edit/page.tsx:93`: Last Name
+- `app/dashboard/student/profile/edit/page.tsx:99`: Username (pseudo)
+- `app/dashboard/student/profile/edit/page.tsx:105`: Phone Number
+- `app/dashboard/student/profile/edit/page.tsx:109`: Gender
+- `app/dashboard/student/profile/edit/page.tsx:111`: Male
+- `app/dashboard/student/profile/edit/page.tsx:112`: Female
+- `app/dashboard/student/profile/edit/page.tsx:118`: Address
+- `app/dashboard/student/profile/edit/page.tsx:123`: Date of Birth
+- `app/evaluation/[slug]/result/page.tsx:70`: Category:
+- `app/evaluation/[slug]/result/page.tsx:71`: Submitted:
+- `app/evaluation/[slug]/result/page.tsx:72`: Pass mark:
+- `app/evaluation/[slug]/result/page.tsx:78`: Back to Dashboard
+- `app/exams/[reference]/page.tsx:122`: Display mode
+- `app/exams/[reference]/page.tsx:64`: Exam not found.
+- `app/exams/[reference]/page.tsx:126`: Subject
+- `app/exams/[reference]/page.tsx:132`: Correction
+- `app/exams/[reference]/page.tsx:140`: Premium access is required to view this exam.
+- `app/exams/[reference]/page.tsx:142`: Upgrade your plan
+- `app/learn/[courseSlug]/layout.tsx:56`: DoDaveAcademy
+- `app/learn/[courseSlug]/layout.tsx:84`: Quiz
+- `app/learn/[courseSlug]/layout.tsx:94`: Discussion Forum
+- `app/learn/[courseSlug]/page.tsx:47`: This course has no lessons yet.
+- `app/learn/[courseSlug]/page.tsx:50`: Back to Dashboard
+- `app/learn/[courseSlug]/[lessonSlug]/page.tsx:53`: No video available for this lesson.
+- `app/learn/[courseSlug]/[lessonSlug]/page.tsx:58`: Description
+- `app/learn/[courseSlug]/forum/page.tsx:57`: Discussion Forum
+- `app/learn/[courseSlug]/forum/page.tsx:58`: Ask questions and discuss with your peers and instructor.
+- `app/learn/[courseSlug]/forum/page.tsx:66`: No discussions yet.
+- `app/learn/[courseSlug]/forum/page.tsx:67`: Be the first to start a conversation!
+- `app/learn/[courseSlug]/forum/page.tsx:91`: Solved
+- `app/learn/[courseSlug]/forum/[subjectId]/page.tsx:63`: Back to Forum
+- `app/learn/[courseSlug]/forum/[subjectId]/page.tsx:81`: Solved
+- `app/learn/[courseSlug]/quiz/[chapterId]/page.tsx:44`: No questions in this quiz.
+- `components/LanguageSwitcher.tsx:37`: changeLanguage('en')}>
+- `components/LanguageSwitcher.tsx:47`: changeLanguage('fr')}>
+- `components/auth/BecomeTeacherForm.tsx:60`: Your full name
+- `components/auth/BecomeTeacherForm.tsx:65`: your@email.com
+- `components/auth/BecomeTeacherForm.tsx:70`: +237 XXX XXX XXX
+- `components/auth/BecomeTeacherForm.tsx:91`: Tell us about your teaching experience and qualifications...
+- `components/auth/BecomeTeacherForm.tsx:59`: Full Name *
+- `components/auth/BecomeTeacherForm.tsx:64`: Email *
+- `components/auth/BecomeTeacherForm.tsx:69`: Phone Number
+- `components/auth/BecomeTeacherForm.tsx:74`: Area of Expertise *
+- `components/auth/BecomeTeacherForm.tsx:76`: Select your expertise
+- `components/auth/BecomeTeacherForm.tsx:77`: Web Development
+- `components/auth/BecomeTeacherForm.tsx:78`: Mobile Development
+- `components/auth/BecomeTeacherForm.tsx:79`: Data Science & AI
+- `components/auth/BecomeTeacherForm.tsx:80`: Design & Graphics
+- `components/auth/BecomeTeacherForm.tsx:81`: Business & Management
+- `components/auth/BecomeTeacherForm.tsx:82`: Languages
+- `components/auth/BecomeTeacherForm.tsx:83`: Mathematics & Sciences
+- `components/auth/BecomeTeacherForm.tsx:84`: Music & Arts
+- `components/auth/BecomeTeacherForm.tsx:85`: Other
+- `components/auth/BecomeTeacherForm.tsx:90`: Bio / About You *
+- `components/chat/ChatWindow.tsx:232`: Type a message...
+- `components/chat/ChatWindow.tsx:170`: Loading chats...
+- `components/chat/ChatWindow.tsx:178`: Messages
+- `components/chat/ChatWindow.tsx:181`: No conversations yet.
+- `components/chat/ChatWindow.tsx:236`: Send
+- `components/chat/ChatWindow.tsx:241`: Select a conversation to start chatting
+- `components/courses/CourseFilter.tsx:48`: Filter
+- `components/courses/CourseFilter.tsx:53`: Category
+- `components/courses/CourseFilter.tsx:59`: All Categories
+- `components/courses/CourseFilter.tsx:74`: Skill Level
+- `components/courses/CourseFilter.tsx:99`: All Levels
+- `components/courses/CourseFilter.tsx:107`: Price
+- `components/courses/CourseFilter.tsx:117`: All
+- `components/courses/CourseFilter.tsx:130`: Free
+- `components/courses/CourseFilter.tsx:143`: Paid
+- `components/courses/CourseFilter.tsx:151`: Clear all
+- `components/courses/SortSelect.tsx:24`: Newest
+- `components/courses/SortSelect.tsx:25`: Highest Rated
+- `components/courses/SortSelect.tsx:26`: Price: Low to High
+- `components/courses/SortSelect.tsx:27`: Price: High to Low
+- `components/courses/SortSelect.tsx:28`: Alphabetical
+- `components/forum/CreateSubjectModal.tsx:68`: What
+- `components/forum/CreateSubjectModal.tsx:44`: setIsOpen(true)}>
+- `components/forum/CreateSubjectModal.tsx:45`: New Discussion
+- `components/forum/CreateSubjectModal.tsx:55`: Start a New Discussion
+- `components/forum/CreateSubjectModal.tsx:56`: setIsOpen(false)}>
+- `components/forum/CreateSubjectModal.tsx:61`: Topic / Question
+- `components/forum/CreateSubjectModal.tsx:73`: setIsOpen(false)}>Cancel
+- `components/forum/ReplyForm.tsx:54`: Type your reply here...
+- `components/forum/ReplyForm.tsx:46`: Leave a Reply
+- `components/home/HomeClient.tsx:90`: Featured Course
+- `components/home/HomeClient.tsx:60`: DoDave Academy
+- `components/home/HomeClient.tsx:75`: Trusted by students from:
+- `components/home/HomeClient.tsx:175`: All
+- `components/home/HomeClient.tsx:236`: No courses available yet.
+- `components/home/HomeClient.tsx:254`: What Our Students Say
+- `components/home/HomeClient.tsx:255`: Real feedback from real learners
+- `components/layout/Footer.tsx:38`: WhatsApp
+- `components/layout/Footer.tsx:41`: Email DoDave Academy
+- `components/layout/Footer.tsx:44`: LinkedIn
+- `components/layout/Footer.tsx:33`: DoDave Academy
+- `components/layout/Footer.tsx:115`: changeLanguage('en')}>
+- `components/layout/Footer.tsx:116`: changeLanguage('fr')}>
+- `components/layout/Header.tsx:45`: DoDave Academy
+- `components/layout/Header.tsx:50`: DoDave Academy
+- `components/layout/Header.tsx:119`: setSearch(event.target.value)} />
+- `components/layout/NotificationDropdown.tsx:89`: Notifications
+- `components/layout/NotificationDropdown.tsx:140`: Mark as read
+- `components/layout/NotificationDropdown.tsx:106`: Notifications
+- `components/layout/NotificationDropdown.tsx:111`: View all
+- `components/layout/NotificationDropdown.tsx:118`: No notifications
+- `components/payment/PaymentCheckout.tsx:94`: 6XXXXXXXX
+- `components/player/VideoPlayer.tsx:39`: Your browser does not support the video tag.
+- `components/quiz/QuizRunner.tsx:60`: Retry quiz
+- `components/quiz/QuizRunner.tsx:61`: Continue learning
+- `components/quiz/QuizRunner.tsx:72`: Previous
+- `components/quiz/QuizRunner.tsx:72`: Next
+- `components/public/courses/CourseList.tsx:25`: No courses found
+- `components/public/home/HeroSection.tsx:10`: WELCOME TO DODAVE ACADEMY
+- `components/public/home/HeroSection.tsx:11`: Education within everyone&apos;s reach.
+- `components/public/home/HeroSection.tsx:12`: View All Courses
+- `components/public/home/HeroSection.tsx:18`: Create Account
+- `components/public/home/HeroSection.tsx:23`: Sign In
+- `lib/email.ts:67`: Hi
+- `lib/email.ts:68`: Welcome to DoDave Academy! Your account has been created successfully.
+- `lib/email.ts:69`: Start exploring our courses and begin your learning journey today.
+- `lib/email.ts:70`: Browse Courses
+- `lib/email.ts:75`: You requested a password reset.
+- `lib/email.ts:76`: Click the button below to reset your password. This link expires in 1 hour.
+- `lib/email.ts:77`: Reset Password
+- `lib/email.ts:78`: If you did not request this, please ignore this email.
+- `lib/email.ts:83`: Thank you for your purchase!
+- `lib/email.ts:84`: Course:
+- `lib/email.ts:85`: Amount:
+- `lib/email.ts:86`: You can now access your course from your student dashboard.
+- `lib/email.ts:87`: Go to Dashboard
+- `lib/email.ts:92`: Hi
+- `lib/email.ts:93`: Please click the button below to confirm your new email address.
+- `lib/email.ts:94`: Confirm Email
+- `lib/email.ts:95`: If you did not request this change, please contact support.
+- `lib/email.ts:100`: Congratulations!
+- `lib/email.ts:101`: Your course
+- `lib/email.ts:101`: has been validated and is now published.
+- `lib/email.ts:102`: View Course
+
+## Translation key usage (105 unique keys)
+
+Missing English keys: none
+Missing French keys: none
+
+## Correctness-risk markers
+
+- `app/layout.tsx:143`: `href="#`
+- `app/courses/page.tsx:145`: `placeholder`
+- `app/exams/page.tsx:165`: `placeholder`
+- `app/forgot-password/page.tsx:74`: `placeholder`
+- `app/reset-password/page.tsx:85`: `placeholder`
+- `app/reset-password/page.tsx:104`: `placeholder`
+- `app/admin/settings/page.tsx:116`: `placeholder`
+- `app/admin/settings/page.tsx:121`: `placeholder`
+- `app/admin/settings/page.tsx:126`: `placeholder`
+- `app/dashboard/instructor/exams/ExamEditor.tsx:62`: `placeholder`
+- `app/dashboard/instructor/courses/new/page.tsx:70`: `placeholder`
+- `app/dashboard/instructor/courses/new/page.tsx:82`: `placeholder`
+- `app/dashboard/instructor/courses/new/page.tsx:134`: `placeholder`
+- `app/dashboard/instructor/courses/new/page.tsx:146`: `placeholder`
+- `app/dashboard/instructor/courses/[id]/chapters/page.tsx:54`: `placeholder`
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:354`: `placeholder`
+- `app/dashboard/instructor/courses/[id]/edit/page.tsx:363`: `placeholder`
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:143`: `placeholder`
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx:147`: `placeholder`
+- `app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx:213`: `placeholder`
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:184`: `placeholder`
+- `app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx:184`: `placeholder`
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:39`: `placeholder`
+- `app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx:39`: `placeholder`
+- `app/dashboard/student/network/retrait/page.tsx:84`: `placeholder`
+- `components/RuntimeLocalization.tsx:10`: `placeholder`
+- `components/auth/BecomeTeacherForm.tsx:60`: `placeholder`
+- `components/auth/BecomeTeacherForm.tsx:65`: `placeholder`
+- `components/auth/BecomeTeacherForm.tsx:70`: `placeholder`
+- `components/auth/BecomeTeacherForm.tsx:91`: `placeholder`
+- `components/auth/RegisterForm.tsx:166`: `placeholder`
+- `components/auth/RegisterForm.tsx:166`: `PLACEHOLDER`
+- `components/chat/ChatWindow.tsx:49`: `Placeholder`
+- `components/chat/ChatWindow.tsx:232`: `placeholder`
+- `components/forum/CreateSubjectModal.tsx:68`: `placeholder`
+- `components/forum/ReplyForm.tsx:54`: `placeholder`
+- `components/layout/Header.tsx:119`: `placeholder`
+- `components/payment/PaymentCheckout.tsx:94`: `placeholder`
+- `components/public/courses/CourseCard.tsx:13`: `placeholder`
+- `lib/email.ts:60`: `console.log(`
+- `lib/email.ts:61`: `console.log(`

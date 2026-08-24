@@ -15,6 +15,21 @@ vi.mock('next/image', () => ({
   },
 }));
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => ({
+      CONTACTPAGE_HELP_KEY: "We're here to help!",
+      FULL_NAME_KEY: 'Full name',
+      EMAIL_ADDRESS_KEY: 'Email Address',
+      MESSAGE_KEY: 'Message',
+      CONTACTPAGE_SENDMESSAGEBTN_KEY: 'Send Message',
+      MESSAGE_SENT_SUCCESS_KEY: 'Message sent successfully!',
+      MESSAGE_SEND_FAILED_KEY: 'Failed to send message. Please try again.',
+      SENDING_KEY: 'Sending...',
+    }[key] || key),
+  }),
+}));
+
 beforeEach(() => {
   vi.clearAllMocks();
   global.fetch = vi.fn();
@@ -92,8 +107,8 @@ describe('ContactClient', () => {
     render(<ContactClient />);
 
     expect(screen.getByText(/We're here to help/)).toBeInTheDocument();
-    expect(screen.getByLabelText('Your name *')).toBeInTheDocument();
-    expect(screen.getByLabelText('Email address *')).toBeInTheDocument();
+    expect(screen.getByLabelText('Full name *')).toBeInTheDocument();
+    expect(screen.getByLabelText('Email Address *')).toBeInTheDocument();
     expect(screen.getByLabelText('Message *')).toBeInTheDocument();
     expect(screen.getByText('Send Message')).toBeInTheDocument();
   });
@@ -103,8 +118,8 @@ describe('ContactClient', () => {
     const ContactClient = (await import('@/app/contact/ContactClient')).default;
     render(<ContactClient />);
 
-    fireEvent.change(screen.getByLabelText('Your name *'), { target: { value: 'Alice' } });
-    fireEvent.change(screen.getByLabelText('Email address *'), { target: { value: 'alice@test.com' } });
+    fireEvent.change(screen.getByLabelText('Full name *'), { target: { value: 'Alice' } });
+    fireEvent.change(screen.getByLabelText('Email Address *'), { target: { value: 'alice@test.com' } });
     fireEvent.change(screen.getByLabelText('Message *'), { target: { value: 'Hello!' } });
     fireEvent.click(screen.getByText('Send Message'));
 
@@ -118,8 +133,8 @@ describe('ContactClient', () => {
     const ContactClient = (await import('@/app/contact/ContactClient')).default;
     render(<ContactClient />);
 
-    fireEvent.change(screen.getByLabelText('Your name *'), { target: { value: 'Alice' } });
-    fireEvent.change(screen.getByLabelText('Email address *'), { target: { value: 'alice@test.com' } });
+    fireEvent.change(screen.getByLabelText('Full name *'), { target: { value: 'Alice' } });
+    fireEvent.change(screen.getByLabelText('Email Address *'), { target: { value: 'alice@test.com' } });
     fireEvent.change(screen.getByLabelText('Message *'), { target: { value: 'Hello!' } });
     fireEvent.click(screen.getByText('Send Message'));
 
@@ -133,8 +148,8 @@ describe('ContactClient', () => {
     const ContactClient = (await import('@/app/contact/ContactClient')).default;
     render(<ContactClient />);
 
-    fireEvent.change(screen.getByLabelText('Your name *'), { target: { value: 'Alice' } });
-    fireEvent.change(screen.getByLabelText('Email address *'), { target: { value: 'alice@test.com' } });
+    fireEvent.change(screen.getByLabelText('Full name *'), { target: { value: 'Alice' } });
+    fireEvent.change(screen.getByLabelText('Email Address *'), { target: { value: 'alice@test.com' } });
     fireEvent.change(screen.getByLabelText('Message *'), { target: { value: 'Hello!' } });
     fireEvent.click(screen.getByText('Send Message'));
 

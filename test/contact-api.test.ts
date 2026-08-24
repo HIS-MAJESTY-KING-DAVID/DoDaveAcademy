@@ -13,6 +13,10 @@ vi.mock('@/lib/prisma', () => ({
   prisma: mockPrisma,
 }));
 
+vi.mock('@/lib/email', () => ({
+  sendEmail: vi.fn(),
+}));
+
 beforeEach(() => {
   vi.clearAllMocks();
 });
@@ -48,9 +52,10 @@ describe('POST /api/contact', () => {
     );
   });
 
-  it('creates contact with userId 0 when user email not found', async () => {
+  it('routes anonymous contact messages to support email without creating an invalid contact row', async () => {
     mockPrisma.user.findUnique.mockResolvedValue(null);
-    mockPrisma.contact.create.mockResolvedValue({ id: 2 });
+    const { sendEmail } = await import('@/lib/email');
+    (sendEmail as ReturnType<typeof vi.fn>).mockResolvedValue(undefined);
 
     const { POST } = await import('@/app/api/contact/route');
     const req = new Request('http://localhost/api/contact', {
@@ -67,11 +72,11 @@ describe('POST /api/contact', () => {
 
     expect(response.status).toBe(200);
     expect(body.message).toBe('Message sent successfully');
-    expect(mockPrisma.contact.create).toHaveBeenCalledWith(
-      expect.objectContaining({
-        data: expect.objectContaining({ userId: 0 }),
-      }),
-    );
+    expect(mockPrisma.contact.create).not.toHaveBeenCalled();
+    expect(sendEmail).toHaveBeenCalledWith(expect.objectContaining({
+      to: 'dave@dodave.tech',
+      subject: 'Website contact from Bob',
+    }));
   });
 
   it('rejects missing required fields with 400', async () => {

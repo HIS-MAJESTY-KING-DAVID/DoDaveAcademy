@@ -4,11 +4,35 @@ import Link from 'next/link';
 import Image from 'next/image';
 import LanguageSwitcher from '../LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+type HeaderCategory = { id: number; name: string; slug: string };
 
 export default function Header() {
   const { t } = useTranslation();
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const [categories, setCategories] = useState<HeaderCategory[]>([]);
+
+  function handleSearch(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const query = search.trim();
+    router.push(query ? `/courses?search=${encodeURIComponent(query)}` : '/courses');
+    setMobileMenuOpen(false);
+  }
+
+  useEffect(() => {
+    let active = true;
+    fetch('/api/categories')
+      .then((response) => response.ok ? response.json() : [])
+      .then((data) => {
+        if (active) setCategories(Array.isArray(data) ? data.slice(0, 8) : []);
+      })
+      .catch(() => { if (active) setCategories([]); });
+    return () => { active = false; };
+  }, []);
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -32,7 +56,7 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-controls="navbarCollapse"
             aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation"
+            aria-label={t('TOGGLE_NAVIGATION_KEY')}
           >
             <span className="block w-5 h-0.5 bg-gray-600 mb-1 transition"></span>
             <span className="block w-5 h-0.5 bg-gray-600 mb-1 transition"></span>
@@ -49,11 +73,8 @@ export default function Header() {
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 <ul className="xl:absolute left-0 mt-0 xl:mt-1 w-full xl:w-48 bg-white xl:shadow-lg xl:rounded xl:border xl:opacity-0 xl:invisible group-hover:xl:opacity-100 group-hover:xl:visible transition-all duration-200">
-                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=web-design">Web Design</Link></li>
-                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=development">Development</Link></li>
-                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=graphic-design">Graphic Design</Link></li>
-                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=marketing">Marketing</Link></li>
-                  <li><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href="/courses?category=finance">Finance</Link></li>
+                  {categories.map((category) => <li key={category.id}><Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[var(--brand-primary)]" href={`/courses?categoryId=${category.id}`}>{category.name}</Link></li>)}
+                  <li><Link className="block px-4 py-2 text-sm text-[var(--brand-primary)] hover:bg-gray-50" href="/courses">{t('VIEWALLCATEGORIES_KEY')}</Link></li>
                 </ul>
               </li>
 
@@ -94,8 +115,8 @@ export default function Header() {
             </ul>
 
             <div className="flex flex-col xl:flex-row items-stretch xl:items-center gap-2 p-4 xl:p-0 xl:ml-4 border-t xl:border-t-0 border-gray-100">
-              <form className="relative">
-                <input className="w-full px-3 py-2 pr-8 text-sm border rounded bg-transparent focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]" type="search" placeholder={t('SEARCH_KEY')} aria-label="Search" />
+              <form className="relative" onSubmit={handleSearch}>
+                <input className="w-full px-3 py-2 pr-8 text-sm border rounded bg-transparent focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]" type="search" placeholder={t('SEARCH_KEY')} aria-label={t('SEARCH_KEY')} value={search} onChange={(event) => setSearch(event.target.value)} />
                 <button className="bg-transparent p-1.5 absolute top-1/2 right-1 -translate-y-1/2 border-0 text-gray-500 hover:text-[var(--brand-primary)]" type="submit">
                   <i className="fas fa-search"></i>
                 </button>

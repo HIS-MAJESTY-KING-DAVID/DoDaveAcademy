@@ -359,9 +359,6 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
                       <Link href={`/courses/${slug}/enroll`} className="btn btn-primary mb-2">
                         Enroll Now
                       </Link>
-                      <Link href="#" className="btn btn-outline-primary mb-2">
-                        Add to Cart
-                      </Link>
                     </div>
                     {/* Includes */}
                     <div className="mt-4">
