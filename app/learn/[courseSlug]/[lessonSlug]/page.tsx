@@ -42,6 +42,8 @@ export default async function LessonPage({
             <div className="mb-4">
                 <LessonPlayer 
                     lessonId={lesson.id}
+                    courseId={course.id}
+                    chapterId={lesson.chapterId}
                     videoUrl={lesson.videoLink}
                     poster={lesson.poster || undefined}
                     nextLessonUrl={nextLessonUrl}
