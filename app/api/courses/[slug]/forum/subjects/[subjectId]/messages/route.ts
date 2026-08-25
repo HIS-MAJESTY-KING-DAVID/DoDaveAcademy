@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { handleApiError } from '@/lib/exceptions';
+import { getCourseForumAccess } from '@/lib/forum-access';
 
 export async function GET(
   req: Request,
@@ -60,6 +61,11 @@ export async function GET(
         return NextResponse.json({ message: 'Subject not found' }, { status: 404 });
     }
 
+    const access = await getCourseForumAccess(slug, session.userId);
+    if (!access.allowed) {
+        return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
+    }
+
     return NextResponse.json({ data: subject });
 
   } catch (error) {
@@ -77,12 +83,32 @@ export async function POST(
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const { subjectId } = await params;
+    const { slug, subjectId } = await params;
     const sId = parseInt(subjectId);
-    const { content } = await req.json();
+    if (Number.isNaN(sId)) {
+        return NextResponse.json({ message: 'Invalid subject ID' }, { status: 400 });
+    }
 
-    if (!content) {
-        return NextResponse.json({ message: 'Content is required' }, { status: 400 });
+    const body = await req.json();
+    const content = typeof body.content === 'string' ? body.content.trim() : '';
+    if (!content || content.length > 10000) {
+        return NextResponse.json({ message: 'Content is required and must be at most 10,000 characters' }, { status: 400 });
+    }
+
+    const access = await getCourseForumAccess(slug, session.userId);
+    if (!access.allowed) {
+        return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
+    }
+
+    const subject = await prisma.subject.findFirst({
+        where: {
+            id: sId,
+            forum: { courseId: access.course?.id },
+        },
+        select: { id: true },
+    });
+    if (!subject) {
+        return NextResponse.json({ message: 'Subject not found' }, { status: 404 });
     }
 
     // Ensure Member exists

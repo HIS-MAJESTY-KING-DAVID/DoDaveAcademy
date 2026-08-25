@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { handleApiError } from '@/lib/exceptions';
+import { getCourseForumAccess } from '@/lib/forum-access';
 
 export async function GET(
   req: Request,
@@ -102,11 +103,18 @@ export async function POST(
         return NextResponse.json({ message: 'Content is required' }, { status: 400 });
     }
 
-    const course = await prisma.course.findFirst({
-      where: { slug },
-      include: { forum: true }
-    });
+    const access = await getCourseForumAccess(slug, session.userId);
+    if (!access.course) {
+      return NextResponse.json({ message: 'Course not found' }, { status: 404 });
+    }
+    if (!access.allowed) {
+      return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
+    }
 
+    const course = await prisma.course.findUnique({
+      where: { id: access.course.id },
+      include: { forum: true },
+    });
     if (!course) {
       return NextResponse.json({ message: 'Course not found' }, { status: 404 });
     }

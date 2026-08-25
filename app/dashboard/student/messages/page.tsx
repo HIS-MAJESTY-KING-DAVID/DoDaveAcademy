@@ -24,7 +24,7 @@ export default async function MessagesPage() {
         <i className="fas fa-check-circle me-2"></i>
         Real-time chat enabled via Supabase (RLS Protected).
       </div>
-      <ChatWindow accessToken={supabaseToken} />
+      <ChatWindow accessToken={supabaseToken} currentUserId={session.userId} />
     </div>
   );
 }

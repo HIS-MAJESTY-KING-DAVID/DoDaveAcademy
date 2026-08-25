@@ -37,5 +37,6 @@
 ### Build
 - **71 pages, 0 errors** (was 68)
 - **27 new files** created
-- Migration progress: **68% → ~72%**
+- Historical implementation progress at this snapshot: **68% → ~72%**
+- Current behavioral parity reference: **52%** across 21 PHP capability groups; see `FEATURE_PARITY_PRODUCTION_READINESS.md`.
 - Pushed to `origin/main` (2 commits)

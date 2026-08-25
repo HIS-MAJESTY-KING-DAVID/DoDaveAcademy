@@ -15,9 +15,9 @@ export async function GET(
     }
 
     const { id } = await params;
-    const conversationId = parseInt(id);
+    const conversationId = parseInt(id, 10);
 
-    if (isNaN(conversationId)) {
+    if (Number.isNaN(conversationId)) {
         return NextResponse.json({ message: 'Invalid conversation ID' }, { status: 400 });
     }
 
@@ -34,6 +34,11 @@ export async function GET(
     if (!participant) {
       return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
     }
+
+    await prisma.chatMessage.updateMany({
+      where: { conversationId, senderId: { not: session.userId }, isRead: false },
+      data: { isRead: true },
+    });
 
     const messages = await prisma.chatMessage.findMany({
       where: { conversationId },
@@ -64,11 +69,15 @@ export async function POST(
     }
 
     const { id } = await params;
-    const conversationId = parseInt(id);
-    const { content } = await req.json();
+    const conversationId = parseInt(id, 10);
+    if (Number.isNaN(conversationId)) {
+      return NextResponse.json({ message: 'Invalid conversation ID' }, { status: 400 });
+    }
 
-    if (!content) {
-        return NextResponse.json({ message: 'Content is required' }, { status: 400 });
+    const body = await req.json();
+    const content = typeof body.content === 'string' ? body.content.trim() : '';
+    if (!content || content.length > 5000) {
+      return NextResponse.json({ message: 'Content is required and must be at most 5,000 characters' }, { status: 400 });
     }
 
     // Verify participation

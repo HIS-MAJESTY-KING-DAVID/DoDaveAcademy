@@ -3,6 +3,8 @@
 This matrix compares Lionelle’s verified **staging-kulmapeck** Symfony application with the active DoDave Academy Next.js route tree. The comparison distinguishes between a page that merely exists and a workflow whose data access, authorization, recursive children, state transitions, and persistence behavior are implemented.
 
 > The existing Prisma schema is treated as the database contract. This migration does not introduce a parallel schema or replace the already-migrated relational model.
+>
+> **Current behavioral parity score: 52% (2026-08-25).** This conservative score covers 21 capability groups and weights full parity as 1 point, partial/unverified parity as 0.5 points, and missing/unconfirmed parity as 0 points. See `FEATURE_PARITY_PRODUCTION_READINESS.md` for the calculation and production-readiness interpretation.
 
 | Domain | Legacy source surface | DoDave Academy active surface | Current state | Required completion work |
 |---|---|---|---|---|

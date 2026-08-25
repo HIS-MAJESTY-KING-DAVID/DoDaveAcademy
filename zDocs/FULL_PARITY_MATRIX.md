@@ -3,6 +3,8 @@
 This matrix compares Lionelle’s verified **staging-kulmapeck** Symfony application with the active DoDave Academy Next.js route tree. The comparison distinguishes between a page that merely exists and a workflow whose data access, authorization, recursive children, state transitions, and persistence behavior are implemented.
 
 > The existing Prisma schema is treated as the database contract. This migration does not introduce a parallel schema or replace the already-migrated relational model.
+>
+> **Current behavioral parity score: 52% (2026-08-25).** This conservative score covers 21 capability groups and weights full parity as 1 point, partial/unverified parity as 0.5 points, and missing/unconfirmed parity as 0 points. See `FEATURE_PARITY_PRODUCTION_READINESS.md` for the calculation and production-readiness interpretation.
 
 | Domain | Legacy source surface | DoDave Academy active surface | Current state | Required completion work |
 |---|---|---|---|---|
@@ -17,9 +19,9 @@ This matrix compares Lionelle’s verified **staging-kulmapeck** Symfony applica
 | Instructor exams | Instructor exam create/edit/publish/delete and file upload | Instructor exam list, new/edit pages, APIs | Repaired in current pass | Complete subject/correction file upload and align validation/publish state with admin workflow. |
 | Public exams | Exam catalog, detail, gated subject/correction downloads | `/exams`, `/exams/[reference]`, exam APIs/file route | Partially migrated | Verify premium gating, download authorization, and source file/media path compatibility. |
 | Student network | Registration hierarchy, points distribution, withdrawal | Network dashboards, referral registration, reward service, payout API | Partially repaired | Reconcile legacy point/cash semantics, withdrawal statuses, gateway response mapping, and admin approval flows. |
-| Payments and subscriptions | Course/subscription payment controllers and payment history | Payment checkout, init/webhook, subscription pages, history | Partially migrated | Implement payment status polling, failed/cancelled UI, subscription expiry handling, and full history parity. |
-| Forums | Global forum, course forum, subject/messages, likes, solved state | Global/course forum pages and APIs | Partially migrated | Test nested thread creation/reply/like/solve authorization and render pagination/empty states. |
-| Chat and messaging | Chat, group chat, Firebase/push surfaces | Supabase/chat conversation APIs and student messages page | Partially migrated | Verify conversation creation, participant authorization, realtime delivery, unread state, and fallback behavior. |
+| Payments and subscriptions | Course/subscription payment controllers and payment history | Payment checkout, init/webhook, subscription pages, history | Hardened partial parity | HMAC callback verification and server-side pricing are implemented; configure the production secret, verify provider payloads, and add reconciliation/polling. |
+| Forums | Global forum, course forum, subject/messages, likes, solved state | Global/course forum pages and APIs | Hardened partial parity | Shared instructor/enrollment authorization now covers forum reads and writes; continue nested interaction and moderation acceptance. |
+| Chat and messaging | Chat, group chat, Firebase/push surfaces | Supabase/chat conversation APIs and student messages page | Hardened partial parity | Direct-chat identity and exact conversation creation are repaired; true PHP subject rooms, unread state, and full realtime acceptance remain. |
 | Notifications | Student notifications, templates, push device registration | Notification APIs, dashboard, dropdown | Partially migrated | Wire all source notification events and verify device token lifecycle/push delivery. |
 | Admin catalog CRUD | Generated CRUD controllers for categories, classes, courses, FAQs, levels, plans | Admin pages/APIs for those entities | Partially migrated | Complete show/edit/new/delete recursive pages and validation error handling. |
 | Admin learning CRUD | Chapters, lessons, quizzes, propositions, media | No complete active admin route family | Missing | Add recursive admin resource pages and APIs, preserving relation constraints and ownership-independent admin access. |

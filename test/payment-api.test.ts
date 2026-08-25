@@ -21,6 +21,8 @@ vi.mock('@/lib/services/payment', () => ({
   initCoursePayment: vi.fn(),
   initSubscriptionPayment: vi.fn(),
   generateReference: () => 'PAY-TEST-XXXX',
+  isPaymentWebhookConfigured: () => true,
+  verifyPaymentWebhookSignature: () => true,
 }));
 
 const { getSession } = await import('@/lib/auth');

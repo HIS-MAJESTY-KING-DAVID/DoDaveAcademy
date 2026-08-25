@@ -889,12 +889,18 @@ Active page routes: 71
 - `components/auth/BecomeTeacherForm.tsx:84`: Music & Arts
 - `components/auth/BecomeTeacherForm.tsx:85`: Other
 - `components/auth/BecomeTeacherForm.tsx:90`: Bio / About You *
-- `components/chat/ChatWindow.tsx:232`: Type a message...
-- `components/chat/ChatWindow.tsx:170`: Loading chats...
-- `components/chat/ChatWindow.tsx:178`: Messages
-- `components/chat/ChatWindow.tsx:181`: No conversations yet.
-- `components/chat/ChatWindow.tsx:236`: Send
-- `components/chat/ChatWindow.tsx:241`: Select a conversation to start chatting
+- `components/chat/ChatWindow.tsx:247`: Type a message...
+- `components/chat/ChatWindow.tsx:187`: Loading chats...
+- `components/chat/ChatWindow.tsx:194`: Messages
+- `components/chat/ChatWindow.tsx:195`: New conversation
+- `components/chat/ChatWindow.tsx:201`: Choose a recipient
+- `components/chat/ChatWindow.tsx:202`: setSelectedRecipientId(event.target.value)} required>
+- `components/chat/ChatWindow.tsx:203`: Select a user
+- `components/chat/ChatWindow.tsx:212`: No conversations yet.
+- `components/chat/ChatWindow.tsx:214`: setSelectedConversation(conversation)}>
+- `components/chat/ChatWindow.tsx:247`: setNewMessage(event.target.value)} />
+- `components/chat/ChatWindow.tsx:248`: Send
+- `components/chat/ChatWindow.tsx:253`: Select a conversation to start chatting
 - `components/courses/CourseFilter.tsx:48`: Filter
 - `components/courses/CourseFilter.tsx:53`: Category
 - `components/courses/CourseFilter.tsx:59`: All Categories
@@ -1013,8 +1019,7 @@ Missing French keys: none
 - `components/auth/BecomeTeacherForm.tsx:91`: `placeholder`
 - `components/auth/RegisterForm.tsx:166`: `placeholder`
 - `components/auth/RegisterForm.tsx:166`: `PLACEHOLDER`
-- `components/chat/ChatWindow.tsx:49`: `Placeholder`
-- `components/chat/ChatWindow.tsx:232`: `placeholder`
+- `components/chat/ChatWindow.tsx:247`: `placeholder`
 - `components/forum/CreateSubjectModal.tsx:68`: `placeholder`
 - `components/forum/ReplyForm.tsx:54`: `placeholder`
 - `components/layout/Header.tsx:119`: `placeholder`

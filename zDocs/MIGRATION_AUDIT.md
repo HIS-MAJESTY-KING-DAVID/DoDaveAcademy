@@ -10,7 +10,9 @@
 
 This report presents a comprehensive feature-by-feature audit comparing the legacy **Kulmapeck** Symfony/PHP 6.2 codebase against the **DoDave Academy** Next.js 16.1.6 migration target. The analysis spans ~103 PHP controllers, ~150+ Twig templates, ~63 Doctrine entities, and ~20 business-logic services mapped against 37 React pages, 20 API routes, 55 Prisma models, and ~20 custom React components.
 
-### Overall Migration Progress: **68%** ↑ *(was 65%; May 31: Admin Dashboard expanded (instructors, categories, settings), Header→Tailwind, Payment webhook + subscription billing, Evaluation System begin/result/submit flow)*
+### Historical implementation progress: **68%** *(May 31, 2026 snapshot)*
+
+> **Current parity reference:** The dated module percentages below use an older implementation-counting denominator. For current PHP behavioral parity, use the updated **52% score** in `zDocs/FEATURE_PARITY_PRODUCTION_READINESS.md`, calculated across 21 capability groups with full/partial/missing weighting.
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|

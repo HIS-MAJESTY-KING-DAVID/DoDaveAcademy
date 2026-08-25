@@ -1,5 +1,7 @@
 export type PaymentProvider = 'orange' | 'mtn';
 
+import { createHmac, timingSafeEqual } from 'node:crypto';
+
 export interface PaymentRequest {
   amount: number;
   currency: string;
@@ -44,6 +46,24 @@ const PAYMENT_GATEWAY_URL = process.env.PAYMENT_GATEWAY_URL || 'https://api.exam
 const RECEIVER_NUMBER = process.env.RECEIVER_NUMBER || '641201000';
 const MERCHANT_KEY = process.env.MERCHANT_KEY || '';
 const MERCHANT_SECRET = process.env.MERCHANT_SECRET || '';
+const PAYMENT_WEBHOOK_SECRET = process.env.PAYMENT_WEBHOOK_SECRET || '';
+
+export function verifyPaymentWebhookSignature(rawBody: string, signature: string | null): boolean {
+  if (!PAYMENT_WEBHOOK_SECRET || !signature) return false;
+
+  const normalizedSignature = signature.replace(/^sha256=/i, '').trim().toLowerCase();
+  const expectedSignature = createHmac('sha256', PAYMENT_WEBHOOK_SECRET)
+    .update(rawBody, 'utf8')
+    .digest('hex');
+
+  const provided = Buffer.from(normalizedSignature, 'utf8');
+  const expected = Buffer.from(expectedSignature, 'utf8');
+  return provided.length === expected.length && timingSafeEqual(provided, expected);
+}
+
+export function isPaymentWebhookConfigured(): boolean {
+  return Boolean(PAYMENT_WEBHOOK_SECRET);
+}
 
 export function generateReference(): string {
   const timestamp = Date.now().toString(36).toUpperCase();

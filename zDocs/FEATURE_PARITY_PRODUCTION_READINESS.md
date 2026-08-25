@@ -10,14 +10,14 @@ This assessment compares the current Next.js repository at release commits `1c95
 
 ## Current implementation baseline
 
-The Next.js application currently exposes **71 page routes**, **75 API route handlers**, and a Prisma schema containing **74 models**. The implemented product surface includes public course discovery, course details and enrollment, learner course playback, lessons, quizzes, exams, evaluations, course forums, direct conversations, student and instructor dashboards, administration, subscriptions, payments, referrals/network withdrawals, notifications, profiles, contact, authentication, and bilingual English/French UI coverage.
+The Next.js application currently exposes **71 page routes**, **76 API route handlers**, and a Prisma schema containing **74 models**. The implemented product surface includes public course discovery, course details and enrollment, learner course playback, lessons, quizzes, exams, evaluations, course forums, direct conversations, student and instructor dashboards, administration, subscriptions, payments, referrals/network withdrawals, notifications, profiles, contact, authentication, and bilingual English/French UI coverage.
 
 The latest local release validation produced the following results:
 
 | Validation area | Result |
 |---|---|
 | TypeScript | Passed with `npx tsc --noEmit` |
-| Automated regression suite | 98 tests passed across 14 files |
+| Automated regression suite | 106 tests passed across 17 files after the current hardening work |
 | Lint | 0 errors; 34 warnings remain, including existing unused-variable/image warnings and the Next middleware deprecation warning |
 | Production build | Passed |
 | Locale JSON parsing | English, French, and runtime French catalog passed parsing |
@@ -28,6 +28,19 @@ The latest local release validation produced the following results:
 The last live smoke check returned HTTP 200 for `/`, `/courses`, `/exams`, `/forum`, `/plan`, `/faq`, `/contact`, `/become-teacher`, `/privacy`, `/terms`, `/api/courses`, `/api/categories`, and `/api/exams`. The cache-busted browser check also confirmed that the latest footer-link repairs and French runtime localization were deployed.
 
 These results establish a healthy deployment baseline. They do **not**, by themselves, prove that every authenticated workflow, payment callback, role boundary, realtime channel, or legacy feature is production-complete.
+
+## Measured behavioral parity score
+
+The current conservative parity score is **52%** as of 2026-08-25. This is a feature-group score, not a percentage of source files or routes. The denominator is the 21 user-visible or operational capability groups in the matrix below. A fully behaviorally migrated group receives 1 point, a partial or unverified group receives 0.5 points, and a missing or intentionally unconfirmed group receives 0 points. The current result is **7 fully migrated groups + 8 partial groups × 0.5 = 11 / 21 = 52.4%, rounded to 52%**.
+
+| Scoring category | Groups | Points |
+|---|---:|---:|
+| Full behavioral parity | 7 | 7.0 |
+| Partial or unverified parity | 8 | 4.0 |
+| Missing or not confirmed | 6 | 0.0 |
+| **Total** | **21** | **11.0 / 21 = 52%** |
+
+This score supersedes older historical figures such as the 57%, 68%, 72%, and 54% progress values in dated migration notes. Those figures used different denominators and implementation-counting rules and must not be presented as the current PHP behavioral-parity score. The score remains 52% after the current hardening work because the fixes improve security and reliability of already-present features; they do not yet add the missing PHP subject-chat product or other absent legacy capability groups.
 
 ## Subject chat: exact parity finding
 
@@ -108,11 +121,10 @@ The following issues remain material:
 
 | Priority | Remaining issue | Why it matters | Recommended treatment |
 |---|---|---|---|
-| P0 | Subject-chat parity is incomplete | A required legacy learner workflow is absent, not merely cosmetically different | Decide whether PHP subject chat is a launch requirement; if yes, implement a dedicated Next.js subject-chat domain and realtime transport |
-| P0 | Payment webhook has no visible signature/authentication verification | An attacker who can call the callback may be able to mark a payment successful and trigger enrollment/premium effects | Implement provider-specific signature validation, replay protection, amount/currency/reference checks, and an audit trail before relying on automated fulfillment |
-| P0 | Forum subject/reply write APIs have weaker authorization than their read paths | Logged-in users may be able to create/reply against resources without course enrollment or correct course ownership | Enforce a shared server-side authorization helper on every read and write route; add negative tests for cross-course and non-enrolled access |
-| P0 | Direct chat uses `currentUser = { id: 0 }` | Own messages are misclassified visually, and user-specific behavior is unreliable | Derive the session user from a trusted server/API response; never accept the client’s user ID as authority |
-| P0 | Direct chat has no user-facing “start conversation” workflow | Users can only browse conversations that already exist | Add recipient discovery/selection with role and privacy rules, then create or reuse an exact participant set |
+| P0 | True PHP subject-chat parity is incomplete | A required legacy learner workflow is absent, not merely cosmetically different | Implement a dedicated subject-chat domain and realtime transport if this remains launch-required |
+| P0 | Payment webhook secret/provider configuration is still required in production | The callback now fails closed without `PAYMENT_WEBHOOK_SECRET`; deployment must configure the secret and match the gateway signature header/algorithm | Configure `PAYMENT_WEBHOOK_SECRET`, verify the real provider contract in staging, and add replay/event reconciliation |
+| P0 | Forum subject/reply authorization was hardened in code | The shared helper now requires course instructor ownership or student enrollment on reads and writes | Complete UI moderation controls and retain negative cross-course/non-enrolled regression tests |
+| P0 | Direct chat identity and conversation creation were repaired in code | The UI now receives the trusted session user ID, supports recipient discovery, rejects self-chat, and reuses only exact two-person conversations | Run authenticated browser acceptance with Supabase realtime/RLS and add read-state semantics |
 | P1 | Payment callback and reward fulfillment need stronger idempotency and reconciliation | Duplicate callbacks, delayed callbacks, or inconsistent gateway states can create entitlement/reward errors | Add unique provider transaction constraints, a payment-event table or equivalent, state-transition rules, and reconciliation tooling |
 | P1 | Authenticated workflows have not all been browser-tested with real accounts | Unit tests and public HTTP 200 checks do not prove role redirects, cookies, protected mutations, or database side effects | Run a staging acceptance matrix for student, instructor, and admin accounts, including failure and refresh cases |
 | P1 | Forum interaction controls are incomplete | Like/solve/edit/delete APIs or legacy behaviors are not consistently visible in the UI | Map every API to an intended UI action, or remove unsupported endpoints; add ownership/moderation tests |
@@ -171,8 +183,8 @@ For every legacy area not migrated, choose one of three outcomes: implement it, 
 | Authentication | Amber | Core cookie/session alignment was repaired; real-account role and refresh acceptance testing remains |
 | Payments | Amber-red | Initialization is improved, but callback signature verification and reconciliation are still required |
 | Forum/discussion | Amber-red | Threaded forum exists, but mutation authorization and moderation UI are incomplete |
-| PHP subject chat parity | Red | The true PHP subject-chat product is not yet migrated |
-| Direct messaging | Amber-red | Basic realtime conversation UI exists, but identity and conversation-start workflows are incomplete |
+| PHP subject chat parity | Red | The true PHP subject-chat product is not yet migrated; current conservative parity score is 52% |
+| Direct messaging | Amber | Identity and conversation-start workflows were repaired; realtime/RLS/read-state acceptance remains |
 | Localization | Amber | Shared EN/FR coverage is strong for audited literals; runtime translation remains a transitional strategy and does not translate database content automatically |
 | Overall | **Amber / conditionally production-ready** | Suitable for continued public operation of the validated surface, but not for claiming complete PHP feature parity or unrestricted production readiness across all workflows |
 
@@ -180,4 +192,4 @@ For every legacy area not migrated, choose one of three outcomes: implement it, 
 
 The application is **not yet a complete replacement for the PHP project**, and the answer to the subject-chat question is **no for true parity**. It does have a usable course discussion thread system and a separate partial direct messenger, but those are not equivalent to the PHP subject-chat rooms.
 
-The application is **production-operational for the validated public surface**, but I would not sign it off as fully production-ready until the P0 items are closed: true subject-chat scope is decided and implemented if required, payment webhooks are cryptographically verified and idempotent, forum mutation authorization is enforced, and direct-chat identity/conversation creation are corrected. After that, a role-based staging acceptance pass should be the formal go/no-go gate.
+The application is **production-operational for the validated public surface**. Forum mutation authorization and direct-chat identity/conversation creation have now been corrected in code, while payment callbacks are cryptographically verified when the required production secret is configured. I still would not sign off the application as a complete PHP replacement until true subject-chat scope is decided and implemented if required, the payment provider contract is verified in staging, and role-based authenticated acceptance testing is completed.
