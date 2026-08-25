@@ -56,7 +56,13 @@ export default async function StudentDashboard() {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-4">My Learning</h2>
+      <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <h2 className="mb-0">My Learning</h2>
+        <div className="d-flex gap-2">
+          <a className="btn btn-primary" href="/dashboard/student/subject-chat">Subject Chat</a>
+          <a className="btn btn-outline-secondary" href="/dashboard/student/messages">Direct Messages</a>
+        </div>
+      </div>
       <div className="row g-4">
         {courses.length > 0 ? (
           courses.map((course) => (

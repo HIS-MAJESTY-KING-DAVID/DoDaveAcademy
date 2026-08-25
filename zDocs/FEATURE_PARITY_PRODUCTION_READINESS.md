@@ -10,18 +10,20 @@ This assessment compares the current Next.js repository at release commits `1c95
 
 ## Current implementation baseline
 
-The Next.js application currently exposes **71 page routes**, **76 API route handlers**, and a Prisma schema containing **74 models**. The implemented product surface includes public course discovery, course details and enrollment, learner course playback, lessons, quizzes, exams, evaluations, course forums, direct conversations, student and instructor dashboards, administration, subscriptions, payments, referrals/network withdrawals, notifications, profiles, contact, authentication, and bilingual English/French UI coverage.
+The Next.js application currently exposes **73 page routes**, **82 API route handlers**, and a Prisma schema containing **76 models**. The implemented product surface includes public course discovery, course details and enrollment, learner course playback, lessons, quizzes, exams, evaluations, course forums, direct conversations, student and instructor dashboards, administration, subscriptions, payments, referrals/network withdrawals, notifications, profiles, contact, authentication, and bilingual English/French UI coverage.
 
 The latest local release validation produced the following results:
+
+> **Deployment prerequisite:** Run `npm run db:migrate` against the target Supabase database before enabling `/dashboard/student/subject-chat`. The migration creates the additive `dodave_subject_chat` and `dodave_subject_chat_message` tables, enables message RLS, and adds the message table to the Supabase realtime publication when available. This release does not apply the migration automatically and does not change the future payment provider.
 
 | Validation area | Result |
 |---|---|
 | TypeScript | Passed with `npx tsc --noEmit` |
-| Automated regression suite | 106 tests passed across 17 files after the current hardening work |
+| Automated regression suite | 111 tests passed across 19 files after the current parity work |
 | Lint | 0 errors; 34 warnings remain, including existing unused-variable/image warnings and the Next middleware deprecation warning |
 | Production build | Passed |
 | Locale JSON parsing | English, French, and runtime French catalog passed parsing |
-| Static link audit | 71 active page routes; 0 unresolved internal links |
+| Static link audit | 73 active page routes; 0 unresolved internal links |
 | Locale-key parity | 0 missing English keys; 0 missing French keys |
 | Production smoke | HTTP 200 for public pages and tested course/category/exam APIs |
 
@@ -31,16 +33,16 @@ These results establish a healthy deployment baseline. They do **not**, by thems
 
 ## Measured behavioral parity score
 
-The current conservative parity score is **52%** as of 2026-08-25. This is a feature-group score, not a percentage of source files or routes. The denominator is the 21 user-visible or operational capability groups in the matrix below. A fully behaviorally migrated group receives 1 point, a partial or unverified group receives 0.5 points, and a missing or intentionally unconfirmed group receives 0 points. The current result is **7 fully migrated groups + 8 partial groups × 0.5 = 11 / 21 = 52.4%, rounded to 52%**.
+The current conservative parity score is **57%** as of 2026-08-25. This is a feature-group score, not a percentage of source files or routes. The denominator is the 21 user-visible or operational capability groups in the matrix below. A fully behaviorally migrated group receives 1 point, a partial or unverified group receives 0.5 points, and a missing or intentionally unconfirmed group receives 0 points. The current result is **7 fully migrated groups + 10 partial groups × 0.5 = 12 / 21 = 57.1%, rounded to 57%**.
 
 | Scoring category | Groups | Points |
 |---|---:|---:|
 | Full behavioral parity | 7 | 7.0 |
-| Partial or unverified parity | 8 | 4.0 |
-| Missing or not confirmed | 6 | 0.0 |
-| **Total** | **21** | **11.0 / 21 = 52%** |
+| Partial or unverified parity | 10 | 5.0 |
+| Missing or not confirmed | 4 | 0.0 |
+| **Total** | **21** | **12.0 / 21 = 57%** |
 
-This score supersedes older historical figures such as the 57%, 68%, 72%, and 54% progress values in dated migration notes. Those figures used different denominators and implementation-counting rules and must not be presented as the current PHP behavioral-parity score. The score remains 52% after the current hardening work because the fixes improve security and reliability of already-present features; they do not yet add the missing PHP subject-chat product or other absent legacy capability groups.
+This score supersedes older historical figures such as the 68%, 72%, and 54% progress values in dated migration notes. Those figures used different denominators and implementation-counting rules and must not be presented as the current PHP behavioral-parity score. The score increased from 52% to 57% because the current release adds a partial PHP-equivalent subject-chat workflow and a partial admin recursive course-content workflow, including per-learner rooms, premium gating, unread counts, Supabase realtime with polling fallback, mobile switching, and message edit/delete. Full parity remains incomplete because exact teacher-persona assignment, legacy WebSocket event compatibility, profile-setup exceptions, and the AI response pipeline are not yet migrated. The future payment-provider integration is intentionally deferred and is not included in this release.
 
 ## Subject chat: exact parity finding
 
@@ -58,24 +60,25 @@ Next.js has two related but different experiences:
 |---|---|---|
 | `/learn/[courseSlug]/forum` | Authenticated, enrolled learners can view a course’s discussion subjects and create new discussions | Partial equivalent to a course forum, not equivalent to PHP subject chat |
 | `/learn/[courseSlug]/forum/[subjectId]` | Displays a subject and ordered replies through `ReplyForm` | Threaded forum replies exist, but no live room transport or subject-chat semantics |
-| `/api/courses/[slug]/forum/subjects` | Lists and creates course subjects | Creation does not repeat the read-path enrollment/instructor authorization check |
-| `/api/courses/[slug]/forum/subjects/[subjectId]/messages` | Reads and creates forum replies | Write path does not verify requested course ownership or enrollment/instructor access |
-| `/dashboard/student/messages` | Displays a separate conversation messenger backed by `/api/chat/conversations*` and Supabase realtime | Basic direct messaging, not the PHP subject-chat product |
-| `components/chat/ChatWindow.tsx` | Loads existing conversations, selects a conversation, loads/sends messages, subscribes to realtime inserts | Incomplete: current user is hardcoded to ID `0`, there is no new-conversation UI, and errors are largely logged rather than surfaced |
+| `/api/courses/[slug]/forum/subjects` | Lists and creates course subjects | Read and create paths now require course instructor ownership or student enrollment |
+| `/api/courses/[slug]/forum/subjects/[subjectId]/messages` | Reads and creates forum replies | Course ownership and enrollment/instructor authorization are now enforced on read and write |
+| `/dashboard/student/subject-chat` | Dedicated subject-room UI with room search, unread badges, mobile switching, polling/realtime, and message edit/delete | Partial PHP subject-chat parity; production migration and full staging acceptance remain |
+| `/dashboard/student/messages` | Displays direct conversations backed by `/api/chat/conversations*` and Supabase realtime | Direct messaging has trusted identity, recipient discovery, exact conversation reuse, read-state, and bounded messages |
+| `components/chat/SubjectChatWindow.tsx` | Dedicated room/message client with realtime subscription and polling fallback | Missing legacy teacher persona, AI behavior, and full WebSocket compatibility |
 
-Therefore, **subject discussions exist, but the PHP subject-chat feature is not fully migrated**. If by “subject chat” the requirement means the PHP `/chat/subject/{subject}` experience, the answer is no.
+Therefore, **subject discussions and a partial PHP-equivalent subject-chat workflow now exist, but the PHP subject-chat feature is not fully migrated**. If by “subject chat” the requirement means exact PHP parity, including teacher personas, WebSocket token compatibility, AI behavior, and all profile-aware provisioning rules, the answer remains no.
 
 ### Subject-chat gaps that must be closed
 
 The highest-impact missing capabilities are:
 
-1. **Subject-room domain model and provisioning.** Next.js uses course forum `Forum`, `Subject`, and `ForumMessage` records. It does not reproduce PHP `SubjectChat` rooms provisioned from class/cycle/specialty eligibility.
-2. **Real-time subject chat transport.** The PHP system uses WebSocket authentication and room-scoped broadcasts. Next.js course forum replies use ordinary HTTP POST plus `router.refresh()`; there is no WebSocket subject-room implementation.
-3. **Premium and profile gating.** The PHP chat checks student profile completeness, premium status, and teacher exceptions. The Next.js learner forum primarily relies on course enrollment and does not implement the same chat entitlement rules.
-4. **Unread/read state.** PHP exposes unread counts and read handling. Next.js forum subject lists show reply counts but no unread state; the direct messenger does not expose a reliable current-user/read model.
-5. **Message operations.** PHP has edit/delete-related event handling and push behavior. Next.js thread UI has no visible like, edit, delete, or solve controls; some corresponding forum APIs exist but are not fully surfaced.
-6. **AI subject-chat behavior.** The PHP repository contains AI message handling and DeepSeek integration hooks. Next.js has no equivalent subject-room AI workflow.
-7. **Mobile chat behavior.** PHP has explicit mobile list/chat-pane switching and reconnect handling. Next.js forum pages are ordinary route-based pages, and the direct messenger is not a functional replacement for that UX.
+1. **Profile-aware room provisioning.** Next.js now provisions `SubjectChat` rooms per learner and enrolled course category, with a cycle value derived from the learner’s skill level. Exact PHP specialty/cycle eligibility and teacher-persona assignment still need parity work.
+2. **Realtime transport compatibility.** Next.js now uses Supabase Realtime with polling fallback and exposes a short-lived Supabase token endpoint. Exact compatibility with the PHP WebSocket server, reconnect protocol, and event names remains to be verified.
+3. **Premium and profile gating.** Premium entitlement and student-profile requirements are enforced. Legacy teacher exceptions and complete profile-setup workflow remain to be migrated.
+4. **Unread/read state.** Subject-room unread counts are returned and incoming messages are marked read when history loads. Cross-device read synchronization and authenticated staging acceptance remain.
+5. **Message operations.** Subject-room send, edit, soft-delete, and mobile list/detail behavior are implemented. AI-generated messages, moderation events, and legacy copy/edit event compatibility remain.
+6. **AI subject-chat behavior.** The PHP repository contains AI message handling and DeepSeek integration hooks. Next.js still needs a provider-neutral AI service and explicit product decision before implementing this dependency.
+7. **Mobile chat behavior.** Subject-room list/detail switching is implemented for mobile, with realtime plus polling fallback. Full legacy UI parity and reconnect acceptance remain.
 
 ## Broader feature-parity analysis
 
@@ -89,15 +92,15 @@ The PHP source contains more than the LMS core. Some legacy controllers are clea
 | Recursive quizzes and quiz attempts | Present | Requires deeper parity acceptance against all legacy scoring and retry rules |
 | Exams and exam files | Present | Instructor/admin/student paths exist; needs role-based acceptance testing and file-security review |
 | Evaluations and results | Present | Core routes/components exist; needs broader behavioral parity testing |
-| Course forum subjects/replies | Present in partial form | Missing write-path authorization hardening and visible moderation/interaction controls |
-| PHP subject chat rooms | Missing as a true equivalent | Must be implemented separately from the course forum if parity is required |
-| Direct user-to-user messenger | Partial | Basic API and realtime UI exist, but current-user identity and conversation creation are incomplete |
+| Course forum subjects/replies | Hardened partial parity | Write authorization and visible like/solve controls are present; nested moderation and authenticated acceptance remain |
+| PHP subject chat rooms | Partial parity now implemented | Dedicated per-learner rooms, premium gating, unread state, realtime/polling, mobile UX, and edit/delete are present; teacher persona, WebSocket token compatibility, AI, and production migration application remain |
+| Direct user-to-user messenger | Hardened partial parity | Session identity, recipient discovery, exact conversation reuse, read-state, and bounded messages are present; realtime/RLS acceptance remains |
 | Course reviews/likes | Partial | Review and like APIs exist in areas, but UI coverage and moderation behavior need confirmation |
 | Notifications and device/push features | Partial/present | Routes exist, but delivery, device registration, and production credentials require acceptance testing |
 | Student profile and instructor profile | Present | Needs full update, avatar, email, and role-boundary testing |
 | Referral/network points and withdrawals | Present | Requires financial-control review, idempotency, and manual approval acceptance tests |
 | Subscription plans and premium status | Present | Subscription entitlement must be reconciled with legacy chat and course-access rules |
-| Admin users, instructors, categories, classes, levels, courses, exams, FAQs, settings | Present in broad form | Need a role matrix and destructive-action tests; not all legacy admin screens are confirmed behaviorally identical |
+| Admin users, instructors, categories, classes, levels, courses, exams, FAQs, settings | Present in broad form | Need a role matrix and destructive-action tests; recursive course chapter/lesson creation is now available, while edit/delete and quiz/proposition/media management remain |
 | Blog | No corresponding active Next.js route found | Missing or intentionally deferred; confirm product requirement |
 | Project/investor/team/testimony areas | No corresponding active Next.js route found | Missing or intentionally deferred; confirm product requirement |
 | Firebase/social/Google integrations | Not confirmed as equivalent | Legacy infrastructure exists; current Next.js parity and credentials need explicit decision |
@@ -121,8 +124,8 @@ The following issues remain material:
 
 | Priority | Remaining issue | Why it matters | Recommended treatment |
 |---|---|---|---|
-| P0 | True PHP subject-chat parity is incomplete | A required legacy learner workflow is absent, not merely cosmetically different | Implement a dedicated subject-chat domain and realtime transport if this remains launch-required |
-| P0 | Payment webhook secret/provider configuration is still required in production | The callback now fails closed without `PAYMENT_WEBHOOK_SECRET`; deployment must configure the secret and match the gateway signature header/algorithm | Configure `PAYMENT_WEBHOOK_SECRET`, verify the real provider contract in staging, and add replay/event reconciliation |
+| P0 | Subject-chat parity is partial, not complete | The core learner room workflow is present, but legacy teacher persona, WebSocket token compatibility, AI, and migration rollout remain | Apply the additive migration, verify Supabase realtime/RLS in staging, then implement the remaining persona/token/AI capabilities if launch-required |
+| P0 | Future payment-provider integration is intentionally deferred | The current payment adapter is not the final provider and should not be treated as the completed payment-parity implementation | Select and integrate the replacement provider later; preserve server-authoritative amounts and callback verification requirements |
 | P0 | Forum subject/reply authorization was hardened in code | The shared helper now requires course instructor ownership or student enrollment on reads and writes | Complete UI moderation controls and retain negative cross-course/non-enrolled regression tests |
 | P0 | Direct chat identity and conversation creation were repaired in code | The UI now receives the trusted session user ID, supports recipient discovery, rejects self-chat, and reuses only exact two-person conversations | Run authenticated browser acceptance with Supabase realtime/RLS and add read-state semantics |
 | P1 | Payment callback and reward fulfillment need stronger idempotency and reconciliation | Duplicate callbacks, delayed callbacks, or inconsistent gateway states can create entitlement/reward errors | Add unique provider transaction constraints, a payment-event table or equivalent, state-transition rules, and reconciliation tooling |
@@ -183,7 +186,7 @@ For every legacy area not migrated, choose one of three outcomes: implement it, 
 | Authentication | Amber | Core cookie/session alignment was repaired; real-account role and refresh acceptance testing remains |
 | Payments | Amber-red | Initialization is improved, but callback signature verification and reconciliation are still required |
 | Forum/discussion | Amber-red | Threaded forum exists, but mutation authorization and moderation UI are incomplete |
-| PHP subject chat parity | Red | The true PHP subject-chat product is not yet migrated; current conservative parity score is 52% |
+| PHP subject chat parity | Amber | Core learner subject rooms are implemented; teacher persona, WebSocket token compatibility, AI, migration rollout, and full staging acceptance remain |
 | Direct messaging | Amber | Identity and conversation-start workflows were repaired; realtime/RLS/read-state acceptance remains |
 | Localization | Amber | Shared EN/FR coverage is strong for audited literals; runtime translation remains a transitional strategy and does not translate database content automatically |
 | Overall | **Amber / conditionally production-ready** | Suitable for continued public operation of the validated surface, but not for claiming complete PHP feature parity or unrestricted production readiness across all workflows |
@@ -192,4 +195,4 @@ For every legacy area not migrated, choose one of three outcomes: implement it, 
 
 The application is **not yet a complete replacement for the PHP project**, and the answer to the subject-chat question is **no for true parity**. It does have a usable course discussion thread system and a separate partial direct messenger, but those are not equivalent to the PHP subject-chat rooms.
 
-The application is **production-operational for the validated public surface**. Forum mutation authorization and direct-chat identity/conversation creation have now been corrected in code, while payment callbacks are cryptographically verified when the required production secret is configured. I still would not sign off the application as a complete PHP replacement until true subject-chat scope is decided and implemented if required, the payment provider contract is verified in staging, and role-based authenticated acceptance testing is completed.
+The application is **production-operational for the validated public surface**, and the learner subject-chat workflow is now partially migrated. I still would not sign off the application as a complete PHP replacement until the subject-chat migration is applied to the production database, Supabase realtime/RLS is accepted with real accounts, the remaining legacy chat capabilities are scoped, and role-based authenticated acceptance testing is completed. The payment-provider replacement remains deliberately deferred.

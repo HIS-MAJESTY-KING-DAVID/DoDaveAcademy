@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { redirect, notFound } from 'next/navigation';
 import ReplyForm from '@/components/forum/ReplyForm';
+import { ForumMessageActions, SubjectSolveAction } from '@/components/forum/ForumMessageActions';
 import Link from 'next/link';
 
 export default async function ForumThreadPage({
@@ -78,7 +79,7 @@ export default async function ForumThreadPage({
                     </small>
                 </div>
             </div>
-            {subject.isSolved && <span className="badge bg-success">Solved</span>}
+            <SubjectSolveAction courseSlug={courseSlug} subjectId={subject.id} initialSolved={subject.isSolved} />
         </div>
         <div className="card-body px-4 pb-4">
             <div className="fs-5 text-dark" style={{ whiteSpace: 'pre-wrap' }}>
@@ -105,11 +106,11 @@ export default async function ForumThreadPage({
                             </small>
                         </div>
                     </div>
-                    {/* Like button could go here */}
                 </div>
                 <div className="text-dark" style={{ whiteSpace: 'pre-wrap' }}>
                     {msg.content}
                 </div>
+                <ForumMessageActions courseSlug={courseSlug} subjectId={subject.id} messageId={msg.id} initialLikes={msg.likes || 0} />
             </div>
         </div>
       ))}

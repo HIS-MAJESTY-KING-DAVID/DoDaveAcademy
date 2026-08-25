@@ -3,10 +3,10 @@
 **Date:** May 10, 2026
 **Based on:** Migration Audit (`MIGRATION_AUDIT.md`)
 **Historical implementation progress:** 54% *(May 10, 2026 snapshot)*
-**Current behavioral parity reference:** 52% — see `FEATURE_PARITY_PRODUCTION_READINESS.md`
+**Current behavioral parity reference:** 57% — see `FEATURE_PARITY_PRODUCTION_READINESS.md`
 **Estimated Remaining:** ~650 hours
 
-> The 54% figure uses the roadmap’s older task-counting denominator. The current 52% score is the conservative PHP behavioral-parity score across 21 capability groups.
+> The 54% figure uses the roadmap’s older task-counting denominator. The current 57% score is the conservative PHP behavioral-parity score across 21 capability groups after partial subject-chat and admin recursive-content implementation.
 
 ---
 

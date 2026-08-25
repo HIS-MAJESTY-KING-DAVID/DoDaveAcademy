@@ -1,6 +1,6 @@
 # Application-wide audit
 
-Active page routes: 71
+Active page routes: 73
 
 ## Active routes
 
@@ -10,6 +10,7 @@ Active page routes: 71
 - `/admin/categories`
 - `/admin/classes`
 - `/admin/courses`
+- `/admin/courses/[id]/content`
 - `/admin/evaluations`
 - `/admin/evaluations/[id]`
 - `/admin/exams`
@@ -54,6 +55,7 @@ Active page routes: 71
 - `/dashboard/student/payments`
 - `/dashboard/student/profile`
 - `/dashboard/student/profile/edit`
+- `/dashboard/student/subject-chat`
 - `/dashboard/student/subscriptions`
 - `/evaluation/[slug]/begin`
 - `/evaluation/[slug]/result`
@@ -307,8 +309,9 @@ Active page routes: 71
 - `app/admin/courses/page.tsx:64`: Yes
 - `app/admin/courses/page.tsx:66`: Pending
 - `app/admin/courses/page.tsx:71`: View
-- `app/admin/courses/page.tsx:74`: Validate
-- `app/admin/courses/page.tsx:82`: No courses found
+- `app/admin/courses/page.tsx:72`: Content
+- `app/admin/courses/page.tsx:76`: Validate
+- `app/admin/courses/page.tsx:84`: No courses found
 - `app/admin/exams/page.tsx:18`: Exam Management
 - `app/admin/exams/page.tsx:26`: Reference
 - `app/admin/exams/page.tsx:27`: Title
@@ -429,6 +432,19 @@ Active page routes: 71
 - `app/admin/evaluations/page.tsx:11`: Draft
 - `app/admin/evaluations/page.tsx:11`: Manage
 - `app/admin/evaluations/page.tsx:12`: No evaluations found.
+- `app/admin/courses/[id]/content/page.tsx:43`: Lesson title
+- `app/admin/courses/[id]/content/page.tsx:44`: Lesson content
+- `app/admin/courses/[id]/content/page.tsx:45`: Optional video URL
+- `app/admin/courses/[id]/content/page.tsx:55`: Chapter title
+- `app/admin/courses/[id]/content/page.tsx:56`: Chapter description
+- `app/admin/courses/[id]/content/page.tsx:30`: View learner course
+- `app/admin/courses/[id]/content/page.tsx:32`: Content created successfully.
+- `app/admin/courses/[id]/content/page.tsx:35`: Chapters and lessons
+- `app/admin/courses/[id]/content/page.tsx:36`: No chapters yet.
+- `app/admin/courses/[id]/content/page.tsx:41`: video
+- `app/admin/courses/[id]/content/page.tsx:46`: Add lesson
+- `app/admin/courses/[id]/content/page.tsx:53`: Add chapter
+- `app/admin/courses/[id]/content/page.tsx:57`: Create chapter
 - `app/admin/users/[id]/page.tsx:47`: Account Info
 - `app/admin/users/[id]/page.tsx:49`: Email
 - `app/admin/users/[id]/page.tsx:50`: Roles
@@ -505,8 +521,10 @@ Active page routes: 71
 - `app/dashboard/notifications/page.tsx:110`: No notifications yet.
 - `app/dashboard/student/page.tsx:35`: My Learning
 - `app/dashboard/student/page.tsx:36`: You are not enrolled in any courses yet.
-- `app/dashboard/student/page.tsx:59`: My Learning
-- `app/dashboard/student/page.tsx:69`: You haven&apos;t enrolled in any courses yet.
+- `app/dashboard/student/page.tsx:60`: My Learning
+- `app/dashboard/student/page.tsx:62`: Subject Chat
+- `app/dashboard/student/page.tsx:63`: Direct Messages
+- `app/dashboard/student/page.tsx:75`: You haven&apos;t enrolled in any courses yet.
 - `app/dashboard/instructor/courses/page.tsx:28`: My Courses
 - `app/dashboard/instructor/courses/page.tsx:29`: No instructor profile found.
 - `app/dashboard/instructor/courses/page.tsx:37`: My Courses
@@ -815,6 +833,9 @@ Active page routes: 71
 - `app/dashboard/student/evaluations/page.tsx:40`: Back to dashboard
 - `app/dashboard/student/evaluations/page.tsx:44`: No evaluations have been assigned to you yet.
 - `app/dashboard/student/evaluations/page.tsx:71`: View result
+- `app/dashboard/student/subject-chat/page.tsx:20`: Subject Chat
+- `app/dashboard/student/subject-chat/page.tsx:21`: Discuss your enrolled subjects in dedicated rooms.
+- `app/dashboard/student/subject-chat/page.tsx:23`: Direct messages
 - `app/dashboard/student/network/retrait/page.tsx:84`: 6XX XX XX XX
 - `app/dashboard/student/network/retrait/page.tsx:56`: Demander un retrait
 - `app/dashboard/student/network/retrait/page.tsx:67`: Montant (CFA) *
@@ -865,8 +886,7 @@ Active page routes: 71
 - `app/learn/[courseSlug]/forum/page.tsx:66`: No discussions yet.
 - `app/learn/[courseSlug]/forum/page.tsx:67`: Be the first to start a conversation!
 - `app/learn/[courseSlug]/forum/page.tsx:91`: Solved
-- `app/learn/[courseSlug]/forum/[subjectId]/page.tsx:63`: Back to Forum
-- `app/learn/[courseSlug]/forum/[subjectId]/page.tsx:81`: Solved
+- `app/learn/[courseSlug]/forum/[subjectId]/page.tsx:64`: Back to Forum
 - `app/learn/[courseSlug]/quiz/[chapterId]/page.tsx:44`: No questions in this quiz.
 - `components/LanguageSwitcher.tsx:37`: changeLanguage('en')}>
 - `components/LanguageSwitcher.tsx:47`: changeLanguage('fr')}>
@@ -901,6 +921,26 @@ Active page routes: 71
 - `components/chat/ChatWindow.tsx:247`: setNewMessage(event.target.value)} />
 - `components/chat/ChatWindow.tsx:248`: Send
 - `components/chat/ChatWindow.tsx:253`: Select a conversation to start chatting
+- `components/chat/SubjectChatWindow.tsx:182`: Search subjects...
+- `components/chat/SubjectChatWindow.tsx:231`: Type a message...
+- `components/chat/SubjectChatWindow.tsx:170`: Loading subject chats...
+- `components/chat/SubjectChatWindow.tsx:177`: Subjects
+- `components/chat/SubjectChatWindow.tsx:181`: Search subjects
+- `components/chat/SubjectChatWindow.tsx:182`: setSearch(event.target.value)} />
+- `components/chat/SubjectChatWindow.tsx:185`: No subject rooms are available yet.
+- `components/chat/SubjectChatWindow.tsx:187`: selectRoom(room)}>
+- `components/chat/SubjectChatWindow.tsx:203`: setIsMobileRoomOpen(false)}>Back
+- `components/chat/SubjectChatWindow.tsx:207`: Start the conversation for this subject.
+- `components/chat/SubjectChatWindow.tsx:214`: Message deleted
+- `components/chat/SubjectChatWindow.tsx:216`: setEditingContent(event.target.value)} />
+- `components/chat/SubjectChatWindow.tsx:217`: saveEdit(message.id)}>Save
+- `components/chat/SubjectChatWindow.tsx:218`: setEditingMessageId(null)}>Cancel
+- `components/chat/SubjectChatWindow.tsx:222`: Edit
+- `components/chat/SubjectChatWindow.tsx:222`: deleteMessage(message.id)}>Delete
+- `components/chat/SubjectChatWindow.tsx:230`: Type a message
+- `components/chat/SubjectChatWindow.tsx:231`: setDraft(event.target.value)} />
+- `components/chat/SubjectChatWindow.tsx:232`: Send
+- `components/chat/SubjectChatWindow.tsx:236`: Select a subject to start chatting.
 - `components/courses/CourseFilter.tsx:48`: Filter
 - `components/courses/CourseFilter.tsx:53`: Category
 - `components/courses/CourseFilter.tsx:59`: All Categories
@@ -925,6 +965,7 @@ Active page routes: 71
 - `components/forum/CreateSubjectModal.tsx:73`: setIsOpen(false)}>Cancel
 - `components/forum/ReplyForm.tsx:54`: Type your reply here...
 - `components/forum/ReplyForm.tsx:46`: Leave a Reply
+- `components/forum/ForumMessageActions.tsx:63`: Solved
 - `components/home/HomeClient.tsx:90`: Featured Course
 - `components/home/HomeClient.tsx:60`: DoDave Academy
 - `components/home/HomeClient.tsx:75`: Trusted by students from:
@@ -996,6 +1037,11 @@ Missing French keys: none
 - `app/admin/settings/page.tsx:116`: `placeholder`
 - `app/admin/settings/page.tsx:121`: `placeholder`
 - `app/admin/settings/page.tsx:126`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:43`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:44`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:45`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:55`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:56`: `placeholder`
 - `app/dashboard/instructor/exams/ExamEditor.tsx:62`: `placeholder`
 - `app/dashboard/instructor/courses/new/page.tsx:70`: `placeholder`
 - `app/dashboard/instructor/courses/new/page.tsx:82`: `placeholder`
@@ -1020,6 +1066,8 @@ Missing French keys: none
 - `components/auth/RegisterForm.tsx:166`: `placeholder`
 - `components/auth/RegisterForm.tsx:166`: `PLACEHOLDER`
 - `components/chat/ChatWindow.tsx:247`: `placeholder`
+- `components/chat/SubjectChatWindow.tsx:182`: `placeholder`
+- `components/chat/SubjectChatWindow.tsx:231`: `placeholder`
 - `components/forum/CreateSubjectModal.tsx:68`: `placeholder`
 - `components/forum/ReplyForm.tsx:54`: `placeholder`
 - `components/layout/Header.tsx:119`: `placeholder`

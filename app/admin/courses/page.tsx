@@ -68,7 +68,9 @@ export default async function AdminCoursesPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex gap-2">
-                      <Link href={`/courses/${course.slug}`} className="text-blue-600 hover:underline text-xs">View</Link>
+                                              <Link href={`/courses/${course.slug}`} className="text-blue-600 hover:underline text-xs">View</Link>
+                        <Link href={`/admin/courses/${course.id}/content`} className="text-purple-600 hover:underline text-xs">Content</Link>
+
                       {!course.isValidated && (
                         <form action={`/api/admin/courses/${course.id}/validate`} method="POST" className="inline">
                           <button type="submit" className="text-green-600 hover:underline text-xs">Validate</button>

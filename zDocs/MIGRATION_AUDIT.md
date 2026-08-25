@@ -12,7 +12,7 @@ This report presents a comprehensive feature-by-feature audit comparing the lega
 
 ### Historical implementation progress: **68%** *(May 31, 2026 snapshot)*
 
-> **Current parity reference:** The dated module percentages below use an older implementation-counting denominator. For current PHP behavioral parity, use the updated **52% score** in `zDocs/FEATURE_PARITY_PRODUCTION_READINESS.md`, calculated across 21 capability groups with full/partial/missing weighting.
+> **Current parity reference:** The dated module percentages below use an older implementation-counting denominator. For current PHP behavioral parity, use the updated **57% score** in `zDocs/FEATURE_PARITY_PRODUCTION_READINESS.md`, calculated across 21 capability groups with full/partial/missing weighting.
 
 | Feature Category | Progress | Pages/APIs Migrated | Pages/APIs Remaining |
 |---|---|---|---|

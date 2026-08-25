@@ -38,5 +38,5 @@
 - **71 pages, 0 errors** (was 68)
 - **27 new files** created
 - Historical implementation progress at this snapshot: **68% → ~72%**
-- Current behavioral parity reference: **52%** across 21 PHP capability groups; see `FEATURE_PARITY_PRODUCTION_READINESS.md`.
+- Current behavioral parity reference: **57%** across 21 PHP capability groups after partial subject-chat and admin recursive-content implementation; see `FEATURE_PARITY_PRODUCTION_READINESS.md`.
 - Pushed to `origin/main` (2 commits)

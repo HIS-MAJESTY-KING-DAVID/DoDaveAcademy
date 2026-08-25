@@ -2,109 +2,60 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { handleApiError } from '@/lib/exceptions';
+import { getCourseForumAccess } from '@/lib/forum-access';
 
 export async function POST(
   req: Request,
-  { params }: { params: Promise<{ slug: string; subjectId: string }> }
+  { params }: { params: Promise<{ slug: string; subjectId: string }> },
 ) {
   try {
     const session = await getSession();
-    if (!session) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-    }
+    if (!session) return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
 
-    const { subjectId } = await params;
-    const sId = parseInt(subjectId);
+    const { slug, subjectId } = await params;
+    const sId = Number.parseInt(subjectId, 10);
+    if (Number.isNaN(sId)) return NextResponse.json({ message: 'Invalid subject ID' }, { status: 400 });
 
-    if (isNaN(sId)) {
-      return NextResponse.json({ message: 'Invalid subject ID' }, { status: 400 });
-    }
+    const access = await getCourseForumAccess(slug, session.userId);
+    if (!access.course) return NextResponse.json({ message: 'Course not found' }, { status: 404 });
+    if (!access.allowed) return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
 
-    let member = await prisma.member.findUnique({
-      where: { userId: session.userId },
+    const subject = await prisma.subject.findFirst({
+      where: { id: sId, forum: { courseId: access.course.id } },
+      select: { id: true },
     });
+    if (!subject) return NextResponse.json({ message: 'Subject not found' }, { status: 404 });
 
-    if (!member) {
-      member = await prisma.member.create({
-        data: { userId: session.userId },
-      });
-    }
+    let member = await prisma.member.findUnique({ where: { userId: session.userId } });
+    if (!member) member = await prisma.member.create({ data: { userId: session.userId } });
 
-    const messageIds = await req.json().then(b => b.messageIds).catch(() => null);
+    const body = await req.json().catch(() => ({}));
+    const requestedIds = Array.isArray(body.messageIds)
+      ? body.messageIds.filter((id: unknown): id is number => typeof id === 'number' && Number.isInteger(id) && id > 0)
+      : [];
 
-    // If specific message IDs provided, toggle likes on those messages
-    if (Array.isArray(messageIds) && messageIds.length > 0) {
-      const results = [];
-      for (const msgId of messageIds) {
-        const existing = await prisma.likeMessageForum.findFirst({
-          where: {
-            forumMessageId: msgId,
-            memberId: member.id,
-          },
-        });
+    const messages = requestedIds.length > 0
+      ? await prisma.forumMessage.findMany({ where: { id: { in: requestedIds }, subjectId: sId }, orderBy: { createdAt: 'asc' } })
+      : await prisma.forumMessage.findMany({ where: { subjectId: sId }, orderBy: { createdAt: 'asc' }, take: 1 });
 
-        if (existing) {
-          await prisma.likeMessageForum.delete({ where: { id: existing.id } });
-          await prisma.forumMessage.update({
-            where: { id: msgId },
-            data: { likes: { decrement: 1 } },
-          });
-          results.push({ messageId: msgId, liked: false });
-        } else {
-          await prisma.likeMessageForum.create({
-            data: {
-              forumMessageId: msgId,
-              memberId: member.id,
-            },
-          });
-          await prisma.forumMessage.update({
-            where: { id: msgId },
-            data: { likes: { increment: 1 } },
-          });
-          results.push({ messageId: msgId, liked: true });
-        }
+    if (messages.length === 0) return NextResponse.json({ message: 'No messages in this subject' }, { status: 404 });
+    if (requestedIds.length > 0 && messages.length !== requestedIds.length) return NextResponse.json({ message: 'One or more messages do not belong to this subject' }, { status: 400 });
+
+    const results = [];
+    for (const message of messages) {
+      const existing = await prisma.likeMessageForum.findFirst({ where: { forumMessageId: message.id, memberId: member.id } });
+      if (existing) {
+        await prisma.likeMessageForum.delete({ where: { id: existing.id } });
+        await prisma.forumMessage.update({ where: { id: message.id }, data: { likes: { decrement: 1 } } });
+        results.push({ messageId: message.id, liked: false, likes: Math.max((message.likes || 1) - 1, 0) });
+      } else {
+        await prisma.likeMessageForum.create({ data: { forumMessageId: message.id, memberId: member.id } });
+        await prisma.forumMessage.update({ where: { id: message.id }, data: { likes: { increment: 1 } } });
+        results.push({ messageId: message.id, liked: true, likes: (message.likes || 0) + 1 });
       }
-      return NextResponse.json({ data: results });
     }
 
-    // Legacy behavior: like the subject's first message (the original post)
-    const firstMessage = await prisma.forumMessage.findFirst({
-      where: { subjectId: sId },
-      orderBy: { createdAt: 'asc' },
-    });
-
-    if (!firstMessage) {
-      return NextResponse.json({ message: 'No messages in this subject' }, { status: 404 });
-    }
-
-    const existing = await prisma.likeMessageForum.findFirst({
-      where: {
-        forumMessageId: firstMessage.id,
-        memberId: member.id,
-      },
-    });
-
-    if (existing) {
-      await prisma.likeMessageForum.delete({ where: { id: existing.id } });
-      await prisma.forumMessage.update({
-        where: { id: firstMessage.id },
-        data: { likes: { decrement: 1 } },
-      });
-      return NextResponse.json({ data: { liked: false, likes: (firstMessage.likes || 1) - 1 } });
-    }
-
-    await prisma.likeMessageForum.create({
-      data: {
-        forumMessageId: firstMessage.id,
-        memberId: member.id,
-      },
-    });
-    await prisma.forumMessage.update({
-      where: { id: firstMessage.id },
-      data: { likes: { increment: 1 } },
-    });
-
-    return NextResponse.json({ data: { liked: true, likes: (firstMessage.likes || 0) + 1 } });
+    return NextResponse.json({ data: results.length === 1 ? results[0] : results });
   } catch (error) {
     return handleApiError(error);
   }

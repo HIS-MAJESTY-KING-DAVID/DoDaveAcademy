@@ -55,18 +55,19 @@ model SubscriptionPaymentMethod {
 }
 
 model Category {
-  id            Int          @id @default(autoincrement())
-  categoryId    Int?         @map("category_id")
-  category      Category?    @relation("Category_categoryId", fields: [categoryId], references: [id])
+  id            Int           @id @default(autoincrement())
+  categoryId    Int?          @map("category_id")
+  category      Category?     @relation("Category_categoryId", fields: [categoryId], references: [id])
   name          String
   slug          String
-  imageFile     String?      @map("image_file")
-  isSubCategory Boolean      @map("is_sub_category")
-  categories    Category[]   @relation("Category_categoryId")
-  courses       Course[]     @relation("Course_categoryId")
-  instructors   Instructor[] @relation("Instructor_categoryId")
-  evaluations   Evaluation[] @relation("Evaluation_categoryId")
-  exams         Exam[]       @relation("Exam_categoryId")
+  imageFile     String?       @map("image_file")
+  isSubCategory Boolean       @map("is_sub_category")
+  categories    Category[]    @relation("Category_categoryId")
+  courses       Course[]      @relation("Course_categoryId")
+  instructors   Instructor[]  @relation("Instructor_categoryId")
+  evaluations   Evaluation[]  @relation("Evaluation_categoryId")
+  exams         Exam[]        @relation("Exam_categoryId")
+  subjectChats  SubjectChat[] @relation("SubjectChat_categoryId")
 
   @@index([categoryId])
   @@map("category")
@@ -232,15 +233,17 @@ model Student {
   joinAt             DateTime            @map("join_at")
   isPremium          Boolean?            @map("is_premium")
   studentCourses     StudentCourse[]     @relation("StudentCourse_studentId")
+  subjectChats       SubjectChat[]       @relation("SubjectChat_studentId")
   evaluationStudents EvaluationStudent[] @relation("EvaluationStudent_studentId")
-  evaluationResults  EvaluationResult[]  @relation("EvaluationResult_studentId")
-  trainingStudents   TrainingStudent[]   @relation("TrainingStudent_studentId")
-  lectures           Lecture[]           @relation("Lecture_studentId")
-  payments           Payment[]           @relation("Payment_studentId")
-  quizLosts          QuizLost[]          @relation("QuizLost_studentId")
-  quizResults        QuizResult[]        @relation("QuizResult_studentId")
-  answers            Answer[]            @relation("Answer_studentId")
-  reviews            Review[]            @relation("Review_studentId")
+
+  evaluationResults EvaluationResult[] @relation("EvaluationResult_studentId")
+  trainingStudents  TrainingStudent[]  @relation("TrainingStudent_studentId")
+  lectures          Lecture[]          @relation("Lecture_studentId")
+  payments          Payment[]          @relation("Payment_studentId")
+  quizLosts         QuizLost[]         @relation("QuizLost_studentId")
+  quizResults       QuizResult[]       @relation("QuizResult_studentId")
+  answers           Answer[]           @relation("Answer_studentId")
+  reviews           Review[]           @relation("Review_studentId")
 
   @@index([classId])
   @@index([institutionId])
@@ -569,6 +572,7 @@ model User {
   userMajors            UserMajor[]            @relation("UserMajor_userId")
   conversations         Participant[]
   chatMessages          ChatMessage[]
+  subjectChatMessages   SubjectChatMessage[]   @relation("SubjectChatMessage_senderId")
 
   @@map("user")
 }
@@ -1022,6 +1026,41 @@ model Specialty {
 
   @@index([majorId])
   @@map("specialty")
+}
+
+model SubjectChat {
+  id         Int                  @id @default(autoincrement())
+  studentId  Int                  @map("student_id")
+  student    Student              @relation("SubjectChat_studentId", fields: [studentId], references: [id])
+  categoryId Int                  @map("category_id")
+  category   Category             @relation("SubjectChat_categoryId", fields: [categoryId], references: [id])
+  cycle      Int?
+  name       String
+  createdAt  DateTime             @default(now()) @map("created_at")
+  messages   SubjectChatMessage[]
+
+  @@unique([studentId, categoryId])
+  @@index([studentId])
+  @@index([categoryId])
+  @@map("dodave_subject_chat")
+}
+
+model SubjectChatMessage {
+  id            Int         @id @default(autoincrement())
+  subjectChatId Int         @map("subject_chat_id")
+  subjectChat   SubjectChat @relation(fields: [subjectChatId], references: [id], onDelete: Cascade)
+  senderId      Int         @map("sender_id")
+  sender        User        @relation("SubjectChatMessage_senderId", fields: [senderId], references: [id])
+  content       String
+  isFromAI      Boolean     @default(false) @map("is_from_ai")
+  isRead        Boolean     @default(false) @map("is_read")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  editedAt      DateTime?   @map("edited_at")
+  isDeleted     Boolean     @default(false) @map("is_deleted")
+
+  @@index([subjectChatId, createdAt])
+  @@index([senderId])
+  @@map("dodave_subject_chat_message")
 }
 
 model Subject {

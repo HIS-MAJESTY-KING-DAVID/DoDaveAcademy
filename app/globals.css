@@ -168,3 +168,31 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         display: none;
     }
 }
+
+.subject-chat-window {
+  overflow: hidden;
+}
+
+.subject-chat-sidebar,
+.subject-chat-content {
+  min-height: 680px;
+}
+
+@media (max-width: 767.98px) {
+  .subject-chat-window .subject-chat-content {
+    display: none !important;
+  }
+
+  .subject-chat-window.subject-chat-mobile-active .subject-chat-sidebar {
+    display: none !important;
+  }
+
+  .subject-chat-window.subject-chat-mobile-active .subject-chat-content {
+    display: flex !important;
+  }
+
+  .subject-chat-sidebar,
+  .subject-chat-content {
+    min-height: 620px;
+  }
+}
