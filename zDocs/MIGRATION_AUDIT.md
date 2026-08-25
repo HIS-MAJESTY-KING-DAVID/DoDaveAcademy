@@ -851,3 +851,16 @@ Home → /exams → /exams/[reference] → /api/exams/file/[filename]
 - All course player features (lesson, quiz, forum, review) are completed
 - All exam features (listing, detail, secure PDF file serve, premium guard) are completed
 - Full navigation is implemented with per-route loading/error patterns where critical
+
+
+## 2026-08-25 behavioral-parity release update
+
+The authoritative behavioral score is now **60%** across 21 capability groups, calculated as 8 full groups plus 9 partial groups at one-half point each: 12.5/21 = 59.5%, rounded to 60%. This supersedes the historical implementation-counting snapshot above; the dated 68% figure is retained only for historical context.
+
+**Block A — Admin recursive learning management — accepted and shipped.** The active DoDave learner quiz contract stores answer options on `Quiz.proposition1..4` and `correctPropositions`, so the release implements that contract rather than introducing a second unused relation-driven editor. Admins can create, update, reorder, preview, and delete chapters and lessons; create, update, and delete quiz questions/options; and save or delete course media references. Every nested mutation validates the course/chapter parent and admin role. Delete controls require explicit browser confirmation, and oversized or incomplete text/options are rejected. Binary upload remains outside this block pending a dedicated storage and file-security review.
+
+**Block B — Admin evaluations — in progress.** The release adds admin evaluation question list/create/update/delete routes and UI with the legacy passed-evaluation lock rule, validated two-to-four proposition payloads, parent scoping, and negative tests. Evaluation metadata editing, class/student assignment mutation, correction/scoring configuration, and full role-acceptance evidence remain on the authoritative roadmap.
+
+Release validation passed with **123 tests across 20 files**, TypeScript, production build, locale JSON parsing, `git diff --check`, and the static audit (`73` page routes, `0` unresolved internal links, `0` missing EN keys, `0` missing FR keys). Lint passed with `0` errors and `34` existing warnings. Prisma schema validation passed with a local non-secret placeholder URL; no database migration was applied because controlled database credentials were not present in the shell.
+
+The payment-provider replacement remains explicitly deferred until the project owner supplies the provider contract. The subject-chat migration still requires controlled staging/database rollout before production use.

@@ -432,19 +432,47 @@ Active page routes: 73
 - `app/admin/evaluations/page.tsx:11`: Draft
 - `app/admin/evaluations/page.tsx:11`: Manage
 - `app/admin/evaluations/page.tsx:12`: No evaluations found.
-- `app/admin/courses/[id]/content/page.tsx:43`: Lesson title
-- `app/admin/courses/[id]/content/page.tsx:44`: Lesson content
-- `app/admin/courses/[id]/content/page.tsx:45`: Optional video URL
-- `app/admin/courses/[id]/content/page.tsx:55`: Chapter title
-- `app/admin/courses/[id]/content/page.tsx:56`: Chapter description
-- `app/admin/courses/[id]/content/page.tsx:30`: View learner course
-- `app/admin/courses/[id]/content/page.tsx:32`: Content created successfully.
-- `app/admin/courses/[id]/content/page.tsx:35`: Chapters and lessons
-- `app/admin/courses/[id]/content/page.tsx:36`: No chapters yet.
-- `app/admin/courses/[id]/content/page.tsx:41`: video
-- `app/admin/courses/[id]/content/page.tsx:46`: Add lesson
-- `app/admin/courses/[id]/content/page.tsx:53`: Add chapter
-- `app/admin/courses/[id]/content/page.tsx:57`: Create chapter
+- `app/admin/courses/[id]/content/page.tsx:72`: Chapter title
+- `app/admin/courses/[id]/content/page.tsx:73`: Chapter description
+- `app/admin/courses/[id]/content/page.tsx:85`: Lesson title
+- `app/admin/courses/[id]/content/page.tsx:86`: Lesson content
+- `app/admin/courses/[id]/content/page.tsx:87`: Optional video URL
+- `app/admin/courses/[id]/content/page.tsx:87`: Lesson video URL
+- `app/admin/courses/[id]/content/page.tsx:98`: Lesson title
+- `app/admin/courses/[id]/content/page.tsx:99`: Lesson content
+- `app/admin/courses/[id]/content/page.tsx:100`: Optional video URL
+- `app/admin/courses/[id]/content/page.tsx:110`: Quiz question
+- `app/admin/courses/[id]/content/page.tsx:112`: Correct options, e.g. 1 or 1,3
+- `app/admin/courses/[id]/content/page.tsx:120`: Question
+- `app/admin/courses/[id]/content/page.tsx:122`: Correct options, e.g. 1 or 1,3
+- `app/admin/courses/[id]/content/page.tsx:123`: Optional reference
+- `app/admin/courses/[id]/content/page.tsx:136`: Chapter title
+- `app/admin/courses/[id]/content/page.tsx:137`: Chapter description
+- `app/admin/courses/[id]/content/page.tsx:146`: Image path or URL
+- `app/admin/courses/[id]/content/page.tsx:147`: Video URL
+- `app/admin/courses/[id]/content/page.tsx:148`: MP4 storage path
+- `app/admin/courses/[id]/content/page.tsx:149`: WebM storage path
+- `app/admin/courses/[id]/content/page.tsx:150`: Ogg storage path
+- `app/admin/courses/[id]/content/page.tsx:49`: View learner course
+- `app/admin/courses/[id]/content/page.tsx:52`: Content changes saved successfully.
+- `app/admin/courses/[id]/content/page.tsx:56`: Chapters, lessons, and quizzes
+- `app/admin/courses/[id]/content/page.tsx:57`: No chapters yet.
+- `app/admin/courses/[id]/content/page.tsx:75`: Update chapter
+- `app/admin/courses/[id]/content/page.tsx:77`: Move up
+- `app/admin/courses/[id]/content/page.tsx:77`: Move down
+- `app/admin/courses/[id]/content/page.tsx:88`: Update lesson
+- `app/admin/courses/[id]/content/page.tsx:90`: Move up
+- `app/admin/courses/[id]/content/page.tsx:90`: Move down
+- `app/admin/courses/[id]/content/page.tsx:97`: Add lesson
+- `app/admin/courses/[id]/content/page.tsx:101`: Add lesson
+- `app/admin/courses/[id]/content/page.tsx:105`: Quiz questions
+- `app/admin/courses/[id]/content/page.tsx:113`: Update quiz
+- `app/admin/courses/[id]/content/page.tsx:119`: Add quiz question
+- `app/admin/courses/[id]/content/page.tsx:124`: Add quiz question
+- `app/admin/courses/[id]/content/page.tsx:134`: Add chapter
+- `app/admin/courses/[id]/content/page.tsx:138`: Create chapter
+- `app/admin/courses/[id]/content/page.tsx:143`: Course media
+- `app/admin/courses/[id]/content/page.tsx:151`: Save media
 - `app/admin/users/[id]/page.tsx:47`: Account Info
 - `app/admin/users/[id]/page.tsx:49`: Email
 - `app/admin/users/[id]/page.tsx:50`: Roles
@@ -479,9 +507,15 @@ Active page routes: 73
 - `app/admin/users/[id]/page.tsx:122`: Not an instructor.
 - `app/admin/users/[id]/page.tsx:128`: None.
 - `app/admin/evaluations/[id]/AdminEvaluationActions.tsx:29`: Delete
-- `app/admin/evaluations/[id]/page.tsx:14`: No questions configured.
-- `app/admin/evaluations/[id]/page.tsx:14`: Assignments
-- `app/admin/evaluations/[id]/page.tsx:14`: No submissions yet.
+- `app/admin/evaluations/[id]/page.tsx:15`: Assignments
+- `app/admin/evaluations/[id]/page.tsx:15`: No submissions yet.
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:74`: Question
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:70`: This evaluation is passed and locked against structural changes.
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:73`: edit(question)}>Edit
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:73`: removeQuestion(question.id)}>Delete
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:73`: No questions configured.
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:74`: Correct propositions
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:74`: Cancel
 - `app/api/contact/route.ts:47`: Name:
 - `app/api/contact/route.ts:47`: Email:
 - `app/api/contact/route.ts:47`: Message:
@@ -1037,11 +1071,25 @@ Missing French keys: none
 - `app/admin/settings/page.tsx:116`: `placeholder`
 - `app/admin/settings/page.tsx:121`: `placeholder`
 - `app/admin/settings/page.tsx:126`: `placeholder`
-- `app/admin/courses/[id]/content/page.tsx:43`: `placeholder`
-- `app/admin/courses/[id]/content/page.tsx:44`: `placeholder`
-- `app/admin/courses/[id]/content/page.tsx:45`: `placeholder`
-- `app/admin/courses/[id]/content/page.tsx:55`: `placeholder`
-- `app/admin/courses/[id]/content/page.tsx:56`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:87`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:98`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:99`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:100`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:111`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:112`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:120`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:121`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:122`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:123`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:136`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:137`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:146`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:147`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:148`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:149`: `placeholder`
+- `app/admin/courses/[id]/content/page.tsx:150`: `placeholder`
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:74`: `placeholder`
+- `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:74`: `placeholder`
 - `app/dashboard/instructor/exams/ExamEditor.tsx:62`: `placeholder`
 - `app/dashboard/instructor/courses/new/page.tsx:70`: `placeholder`
 - `app/dashboard/instructor/courses/new/page.tsx:82`: `placeholder`

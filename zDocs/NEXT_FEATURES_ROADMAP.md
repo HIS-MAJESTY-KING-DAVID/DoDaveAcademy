@@ -3,10 +3,10 @@
 **Date:** May 10, 2026
 **Based on:** Migration Audit (`MIGRATION_AUDIT.md`)
 **Historical implementation progress:** 54% *(May 10, 2026 snapshot)*
-**Current behavioral parity reference:** 57% — see `FEATURE_PARITY_PRODUCTION_READINESS.md`
+**Current behavioral parity reference:** 60% — see `FEATURE_PARITY_PRODUCTION_READINESS.md`
 **Estimated Remaining:** ~650 hours
 
-> The 54% figure uses the roadmap’s older task-counting denominator. The current 57% score is the conservative PHP behavioral-parity score across 21 capability groups after partial subject-chat and admin recursive-content implementation.
+> The 54% and 57% figures use older task-counting or pre-Block-A snapshots. The current 60% score is the conservative PHP behavioral-parity score across 21 capability groups after accepted admin recursive-content parity and partial subject-chat implementation.
 
 ---
 
@@ -152,16 +152,17 @@
 
 ### 9. Evaluation System
 
-**Why:** Core LMS feature. Students need to take official evaluations. The Prisma schema exists but no APIs or UI.
+**Why:** Core LMS feature. Students need to take official evaluations. Student and instructor evaluation routes, submission/results flows, and instructor question management are now present; the admin detail surface and lock-aware question CRUD were added in the 2026-08-25 parity release. Remaining work is admin metadata/assignment/correction/timing parity and real-account acceptance.
 
 | Task | Hours | Files |
 |---|---|---|
-| Evaluation listing API + page | 8h | `app/api/evaluations/route.ts`, evaluation pages |
-| Evaluation taking (questionnaire flow) | 12h | `app/api/evaluations/[id]/submit/route.ts`, take page |
-| Evaluation results display | 8h | results page with scores |
-| Auto-correction engine | 8h | `lib/services/evaluation-grading.ts` |
-| Instructor evaluation management | 8h | update instructor evaluation dashboard page |
-| **Total** | **44h** | |
+| Evaluation listing API + page | Complete/current | `app/api/student/evaluations/route.ts`, evaluation pages |
+| Evaluation taking (questionnaire flow) | Complete/current | `/evaluation/[slug]/begin`, `/api/evaluation/submit` |
+| Evaluation results display | Complete/current | `/evaluation/[slug]/result`, student evaluation dashboard |
+| Auto-correction and retry semantics | Verify/extend | `lib/services/evaluation-grading.ts`, submission route |
+| Instructor evaluation management | Complete/current | instructor evaluation editor and question CRUD APIs |
+| Admin evaluation metadata, assignments, correction/results | Next block | `app/admin/evaluations`, admin evaluation APIs |
+| **Remaining focus** | **Block B** | Complete admin role/assignment/timing/scoring acceptance |
 
 ---
 
@@ -197,7 +198,7 @@
 
 ### 12. Admin Dashboard (Phased)
 
-**Why:** 34 admin controllers with 0 React pages. Largest gap. Phase by operational need.
+**Why:** The legacy project has many admin controllers; the active Next.js dashboard now covers broad catalog/settings workflows, and the 2026-08-25 release completed Block A recursive course-content management for the active learner contract. Continue by capability block rather than recreating unused generated scaffolds.
 
 | Phase | Module | Hours |
 |---|---|---|
@@ -209,10 +210,10 @@
 | 6 | Site settings (general, email, social, maintenance) | 8h |
 | 7 | Forum management (moderation) | 8h |
 | 8 | FAQ management | 4h |
-| 9 | Media management | 8h |
+| 9 | Media management | Current: safe course media-reference CRUD shipped; binary upload security remains | 8h |
 | 10 | Analytics dashboard | 16h |
-| 11 | Remaining CRUD pages (evaluation questions, propositions, notifications, etc.) | 80h |
-| **Total** | | **180h** |
+| 11 | Admin evaluation metadata/assignment/results and remaining CRUD | Next capability blocks | 80h |
+| **Total** | | **Re-estimated; superseded by `PARITY_ROADMAP_0_TO_100.md`** |
 
 ---
 

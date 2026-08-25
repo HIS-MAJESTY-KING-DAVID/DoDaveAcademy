@@ -10,7 +10,7 @@ This assessment compares the current Next.js repository at release commits `1c95
 
 ## Current implementation baseline
 
-The Next.js application currently exposes **73 page routes**, **82 API route handlers**, and a Prisma schema containing **76 models**. The implemented product surface includes public course discovery, course details and enrollment, learner course playback, lessons, quizzes, exams, evaluations, course forums, direct conversations, student and instructor dashboards, administration, subscriptions, payments, referrals/network withdrawals, notifications, profiles, contact, authentication, and bilingual English/French UI coverage.
+The Next.js application currently exposes **73 page routes**, **90 API route handlers**, and a Prisma schema containing **76 models**. The implemented product surface includes public course discovery, course details and enrollment, learner course playback, lessons, quizzes, exams, evaluations, course forums, direct conversations, student and instructor dashboards, administration, subscriptions, payments, referrals/network withdrawals, notifications, profiles, contact, authentication, and bilingual English/French UI coverage.
 
 The latest local release validation produced the following results:
 
@@ -19,7 +19,7 @@ The latest local release validation produced the following results:
 | Validation area | Result |
 |---|---|
 | TypeScript | Passed with `npx tsc --noEmit` |
-| Automated regression suite | 111 tests passed across 19 files after the current parity work |
+| Automated regression suite | 123 tests passed across 20 files after the current parity work |
 | Lint | 0 errors; 34 warnings remain, including existing unused-variable/image warnings and the Next middleware deprecation warning |
 | Production build | Passed |
 | Locale JSON parsing | English, French, and runtime French catalog passed parsing |
@@ -33,16 +33,16 @@ These results establish a healthy deployment baseline. They do **not**, by thems
 
 ## Measured behavioral parity score
 
-The current conservative parity score is **57%** as of 2026-08-25. This is a feature-group score, not a percentage of source files or routes. The denominator is the 21 user-visible or operational capability groups in the matrix below. A fully behaviorally migrated group receives 1 point, a partial or unverified group receives 0.5 points, and a missing or intentionally unconfirmed group receives 0 points. The current result is **7 fully migrated groups + 10 partial groups × 0.5 = 12 / 21 = 57.1%, rounded to 57%**.
+The current conservative parity score is **60%** as of 2026-08-25. This is a feature-group score, not a percentage of source files or routes. The denominator is the 21 user-visible or operational capability groups in the matrix below. A fully behaviorally migrated group receives 1 point, a partial or unverified group receives 0.5 points, and a missing or intentionally unconfirmed group receives 0 points. The current result is **8 fully migrated groups + 9 partial groups × 0.5 = 12.5 / 21 = 59.5%, rounded to 60%**.
 
 | Scoring category | Groups | Points |
 |---|---:|---:|
-| Full behavioral parity | 7 | 7.0 |
-| Partial or unverified parity | 10 | 5.0 |
+| Full behavioral parity | 8 | 8.0 |
+| Partial or unverified parity | 9 | 4.5 |
 | Missing or not confirmed | 4 | 0.0 |
-| **Total** | **21** | **12.0 / 21 = 57%** |
+| **Total** | **21** | **12.5 / 21 = 60%** |
 
-This score supersedes older historical figures such as the 68%, 72%, and 54% progress values in dated migration notes. Those figures used different denominators and implementation-counting rules and must not be presented as the current PHP behavioral-parity score. The score increased from 52% to 57% because the current release adds a partial PHP-equivalent subject-chat workflow and a partial admin recursive course-content workflow, including per-learner rooms, premium gating, unread counts, Supabase realtime with polling fallback, mobile switching, and message edit/delete. Full parity remains incomplete because exact teacher-persona assignment, legacy WebSocket event compatibility, profile-setup exceptions, and the AI response pipeline are not yet migrated. The future payment-provider integration is intentionally deferred and is not included in this release.
+This score supersedes older historical figures such as the 68%, 72%, and 54% progress values in dated migration notes. Those figures used different denominators and implementation-counting rules and must not be presented as the current PHP behavioral-parity score. The score increased from 57% to 60% because Block A admin recursive learning management passed its acceptance gate for the active scalar quiz-option/media-reference contract: nested chapter/lesson/quiz create-edit-delete, ordering, preview, safe media-reference lifecycle, parent validation, explicit delete confirmation, and regression tests are shipped. The legacy standalone `Proposition` scaffold is documented as a separate admin-surface gap because the active learner route consumes `Quiz.proposition1..4`; no duplicate unused data path was introduced. Block B has begun with lock-aware admin evaluation question CRUD, but evaluation metadata, assignment, correction, timing, and role acceptance remain incomplete. Subject-chat gaps remain as previously documented, and the future payment-provider integration is intentionally deferred.
 
 ## Subject chat: exact parity finding
 
@@ -100,7 +100,7 @@ The PHP source contains more than the LMS core. Some legacy controllers are clea
 | Student profile and instructor profile | Present | Needs full update, avatar, email, and role-boundary testing |
 | Referral/network points and withdrawals | Present | Requires financial-control review, idempotency, and manual approval acceptance tests |
 | Subscription plans and premium status | Present | Subscription entitlement must be reconciled with legacy chat and course-access rules |
-| Admin users, instructors, categories, classes, levels, courses, exams, FAQs, settings | Present in broad form | Need a role matrix and destructive-action tests; recursive course chapter/lesson creation is now available, while edit/delete and quiz/proposition/media management remain |
+| Admin users, instructors, categories, classes, levels, courses, exams, FAQs, settings | Present in broad form | Need a role matrix and destructive-action tests; Block A now ships recursive chapter/lesson/quiz create-edit-delete, ordering, preview, explicit delete confirmation, and safe media references. Admin evaluation question CRUD has also started; metadata/assignment/correction gaps remain |
 | Blog | No corresponding active Next.js route found | Missing or intentionally deferred; confirm product requirement |
 | Project/investor/team/testimony areas | No corresponding active Next.js route found | Missing or intentionally deferred; confirm product requirement |
 | Firebase/social/Google integrations | Not confirmed as equivalent | Legacy infrastructure exists; current Next.js parity and credentials need explicit decision |

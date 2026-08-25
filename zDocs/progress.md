@@ -38,5 +38,14 @@
 - **71 pages, 0 errors** (was 68)
 - **27 new files** created
 - Historical implementation progress at this snapshot: **68% → ~72%**
-- Current behavioral parity reference: **57%** across 21 PHP capability groups after partial subject-chat and admin recursive-content implementation; see `FEATURE_PARITY_PRODUCTION_READINESS.md`.
+- Current behavioral parity reference: **60%** across 21 PHP capability groups after accepted Block A admin recursive-content parity and partial subject-chat implementation; see `FEATURE_PARITY_PRODUCTION_READINESS.md`.
 - Pushed to `origin/main` (2 commits)
+
+
+## August 25, 2026 — Parity roadmap Block A accepted; Block B started
+
+The authoritative parity roadmap is now the single execution plan in `zDocs/PARITY_ROADMAP_0_TO_100.md`. Block A passed for the active DoDave data contract and shipped to `main`: recursive admin chapter/lesson create-edit-delete, chapter/lesson reorder, learner-preview link, quiz question/option create-edit-delete using `Quiz.proposition1..4` plus `correctPropositions`, safe course media-reference save/delete, nested parent authorization, bounded payload validation, and explicit delete confirmation UI. The legacy standalone `Proposition` scaffold was not duplicated because the active learner quiz route does not consume that relation; it remains a separately documented admin-surface gap.
+
+Block B is in progress. Admin evaluation question list/create/update/delete routes and a lock-aware UI are now present, with parent scoping, option validation, passed-evaluation protection, and regression tests. Evaluation metadata, assignment mutation, correction/scoring configuration, timing parity, and full role acceptance remain next.
+
+The measured score moved from **57% to 60%**: 8 full groups + 9 partial groups × 0.5 = 12.5/21 = 59.5%, rounded to 60%. Release validation passed with **123 tests across 20 files**, TypeScript, Prisma schema validation using a local non-secret placeholder URL, production build, locale parsing, `git diff --check`, and static audit (`73` active page routes, `0` unresolved internal links, `0` missing EN keys, `0` missing FR keys). Lint has `0` errors and `34` existing warnings. No database migration was applied without controlled credentials. Payment-provider replacement remains deferred pending the new provider contract.
