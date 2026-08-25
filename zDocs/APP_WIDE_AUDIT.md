@@ -1,6 +1,6 @@
 # Application-wide audit
 
-Active page routes: 73
+Active page routes: 74
 
 ## Active routes
 
@@ -13,6 +13,7 @@ Active page routes: 73
 - `/admin/courses/[id]/content`
 - `/admin/evaluations`
 - `/admin/evaluations/[id]`
+- `/admin/evaluations/new`
 - `/admin/exams`
 - `/admin/faq`
 - `/admin/instructors`
@@ -421,6 +422,7 @@ Active page routes: 73
 - `app/admin/users/page.tsx:67`: Yes
 - `app/admin/evaluations/page.tsx:10`: Evaluations
 - `app/admin/evaluations/page.tsx:10`: Review assessments, assignments, questions, and results.
+- `app/admin/evaluations/page.tsx:10`: Create evaluation
 - `app/admin/evaluations/page.tsx:10`: Back to admin
 - `app/admin/evaluations/page.tsx:11`: Title
 - `app/admin/evaluations/page.tsx:11`: Instructor
@@ -507,8 +509,8 @@ Active page routes: 73
 - `app/admin/users/[id]/page.tsx:122`: Not an instructor.
 - `app/admin/users/[id]/page.tsx:128`: None.
 - `app/admin/evaluations/[id]/AdminEvaluationActions.tsx:29`: Delete
-- `app/admin/evaluations/[id]/page.tsx:15`: Assignments
-- `app/admin/evaluations/[id]/page.tsx:15`: No submissions yet.
+- `app/admin/evaluations/[id]/page.tsx:17`: Assignments
+- `app/admin/evaluations/[id]/page.tsx:17`: No submissions yet.
 - `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:74`: Question
 - `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:70`: This evaluation is passed and locked against structural changes.
 - `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:73`: edit(question)}>Edit
@@ -516,6 +518,31 @@ Active page routes: 73
 - `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:73`: No questions configured.
 - `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:74`: Correct propositions
 - `app/admin/evaluations/[id]/AdminEvaluationQuestionManager.tsx:74`: Cancel
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Evaluation settings
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Title
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Category ID
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Description
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Duration (minutes)
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Starts
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Ends
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Instructor ID (optional)
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Class IDs (comma-separated)
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Student IDs (comma-separated)
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Published
+- `app/admin/evaluations/[id]/AdminEvaluationSettings.tsx:46`: Generate random questions
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Title
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Category
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Description
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Duration (minutes)
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Starts
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Ends
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Instructor ID (optional)
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Class IDs (comma-separated)
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Student IDs (comma-separated)
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Published
+- `app/admin/evaluations/new/AdminEvaluationCreateForm.tsx:26`: Generate random questions
+- `app/admin/evaluations/new/page.tsx:13`: Create evaluation
+- `app/admin/evaluations/new/page.tsx:13`: Create a category before adding an evaluation.
 - `app/api/contact/route.ts:47`: Name:
 - `app/api/contact/route.ts:47`: Email:
 - `app/api/contact/route.ts:47`: Message:

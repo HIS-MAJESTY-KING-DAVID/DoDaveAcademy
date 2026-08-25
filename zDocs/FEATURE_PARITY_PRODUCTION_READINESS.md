@@ -10,7 +10,7 @@ This assessment compares the current Next.js repository at release commits `1c95
 
 ## Current implementation baseline
 
-The Next.js application currently exposes **73 page routes**, **90 API route handlers**, and a Prisma schema containing **76 models**. The implemented product surface includes public course discovery, course details and enrollment, learner course playback, lessons, quizzes, exams, evaluations, course forums, direct conversations, student and instructor dashboards, administration, subscriptions, payments, referrals/network withdrawals, notifications, profiles, contact, authentication, and bilingual English/French UI coverage.
+The Next.js application currently exposes **74 page routes**, **90 API route handlers**, and a Prisma schema containing **76 models**. The implemented product surface includes public course discovery, course details and enrollment, learner course playback, lessons, quizzes, exams, evaluations, course forums, direct conversations, student and instructor dashboards, administration, subscriptions, payments, referrals/network withdrawals, notifications, profiles, contact, authentication, and bilingual English/French UI coverage.
 
 The latest local release validation produced the following results:
 
@@ -19,11 +19,11 @@ The latest local release validation produced the following results:
 | Validation area | Result |
 |---|---|
 | TypeScript | Passed with `npx tsc --noEmit` |
-| Automated regression suite | 123 tests passed across 20 files after the current parity work |
+| Automated regression suite | 126 tests passed across 20 files after the current parity work |
 | Lint | 0 errors; 34 warnings remain, including existing unused-variable/image warnings and the Next middleware deprecation warning |
 | Production build | Passed |
 | Locale JSON parsing | English, French, and runtime French catalog passed parsing |
-| Static link audit | 73 active page routes; 0 unresolved internal links |
+| Static link audit | 74 active page routes; 0 unresolved internal links |
 | Locale-key parity | 0 missing English keys; 0 missing French keys |
 | Production smoke | HTTP 200 for public pages and tested course/category/exam APIs |
 
@@ -42,7 +42,7 @@ The current conservative parity score is **60%** as of 2026-08-25. This is a fea
 | Missing or not confirmed | 4 | 0.0 |
 | **Total** | **21** | **12.5 / 21 = 60%** |
 
-This score supersedes older historical figures such as the 68%, 72%, and 54% progress values in dated migration notes. Those figures used different denominators and implementation-counting rules and must not be presented as the current PHP behavioral-parity score. The score increased from 57% to 60% because Block A admin recursive learning management passed its acceptance gate for the active scalar quiz-option/media-reference contract: nested chapter/lesson/quiz create-edit-delete, ordering, preview, safe media-reference lifecycle, parent validation, explicit delete confirmation, and regression tests are shipped. The legacy standalone `Proposition` scaffold is documented as a separate admin-surface gap because the active learner route consumes `Quiz.proposition1..4`; no duplicate unused data path was introduced. Block B has begun with lock-aware admin evaluation question CRUD, but evaluation metadata, assignment, correction, timing, and role acceptance remain incomplete. Subject-chat gaps remain as previously documented, and the future payment-provider integration is intentionally deferred.
+This score supersedes older historical figures such as the 68%, 72%, and 54% progress values in dated migration notes. Those figures used different denominators and implementation-counting rules and must not be presented as the current PHP behavioral-parity score. The score increased from 57% to 60% because Block A admin recursive learning management passed its acceptance gate for the active scalar quiz-option/media-reference contract: nested chapter/lesson/quiz create-edit-delete, ordering, preview, safe media-reference lifecycle, parent validation, explicit delete confirmation, and regression tests are shipped. The legacy standalone `Proposition` scaffold is documented as a separate admin-surface gap because the active learner route consumes `Quiz.proposition1..4`; no duplicate unused data path was introduced. Block B has now added admin evaluation creation, metadata/settings editing, scheduling validation, instructor/class/student assignment, publication/random-question controls, and lock-aware question CRUD with 126 regression tests, but correction/result actions, full timing/scoring parity, and role acceptance remain incomplete. Subject-chat gaps remain as previously documented, and the future payment-provider integration is intentionally deferred.
 
 ## Subject chat: exact parity finding
 
@@ -100,7 +100,7 @@ The PHP source contains more than the LMS core. Some legacy controllers are clea
 | Student profile and instructor profile | Present | Needs full update, avatar, email, and role-boundary testing |
 | Referral/network points and withdrawals | Present | Requires financial-control review, idempotency, and manual approval acceptance tests |
 | Subscription plans and premium status | Present | Subscription entitlement must be reconciled with legacy chat and course-access rules |
-| Admin users, instructors, categories, classes, levels, courses, exams, FAQs, settings | Present in broad form | Need a role matrix and destructive-action tests; Block A now ships recursive chapter/lesson/quiz create-edit-delete, ordering, preview, explicit delete confirmation, and safe media references. Admin evaluation question CRUD has also started; metadata/assignment/correction gaps remain |
+| Admin users, instructors, categories, classes, levels, courses, exams, FAQs, settings | Present in broad form | Need a role matrix and destructive-action tests; Block A now ships recursive chapter/lesson/quiz create-edit-delete, ordering, preview, explicit delete confirmation, and safe media references. Block B now includes admin evaluation create/settings/assignment/question slices; correction/timing/role acceptance remain |
 | Blog | No corresponding active Next.js route found | Missing or intentionally deferred; confirm product requirement |
 | Project/investor/team/testimony areas | No corresponding active Next.js route found | Missing or intentionally deferred; confirm product requirement |
 | Firebase/social/Google integrations | Not confirmed as equivalent | Legacy infrastructure exists; current Next.js parity and credentials need explicit decision |

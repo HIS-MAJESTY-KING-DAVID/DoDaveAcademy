@@ -131,7 +131,7 @@ The migration reaches **100% behavioral parity** when every in-scope capability 
 | Block | Status | Evidence required before closure |
 |---|---|---|
 | A — Admin recursive learning management | **Complete for active scalar quiz/media contract** | Chapter/lesson/quiz create-edit-delete, reorder, preview, media reference save/delete, nested authorization, confirmation UI, and regression tests shipped in the 2026-08-25 release. Standalone legacy `Proposition` CRUD remains tracked separately because it is not consumed by the active learner quiz route. |
-| B — Admin evaluation management | **In progress; question CRUD slice shipped** | Complete metadata create/edit, class/student assignment, result/correction workflow, timing/scoring parity, and role acceptance |
+| B — Admin evaluation management | **In progress; create/settings/assignment/question slices shipped** | Complete correction/result controls, timing/scoring parity, instructor/student relationship acceptance, and full role acceptance |
 | C — Exact subject chat | Partial implementation shipped | Profile/specialty rules, teacher persona, AI decision, realtime/RLS staging acceptance |
 | D — Direct messaging/notifications | Partial | Notification event wiring, unread/device lifecycle, role acceptance |
 | E — Profiles/reviews/network/subscriptions | Partial | Ownership, idempotency, expiry, moderation, acceptance |

@@ -864,3 +864,10 @@ The authoritative behavioral score is now **60%** across 21 capability groups, c
 Release validation passed with **123 tests across 20 files**, TypeScript, production build, locale JSON parsing, `git diff --check`, and the static audit (`73` page routes, `0` unresolved internal links, `0` missing EN keys, `0` missing FR keys). Lint passed with `0` errors and `34` existing warnings. Prisma schema validation passed with a local non-secret placeholder URL; no database migration was applied because controlled database credentials were not present in the shell.
 
 The payment-provider replacement remains explicitly deferred until the project owner supplies the provider contract. The subject-chat migration still requires controlled staging/database rollout before production use.
+
+
+### Block B continuation — admin evaluation workflow
+
+The 2026-08-25 working release extends the admin evaluation surface with a creation page/API, validated title/description/category/duration fields, schedule bounds, publication and random-question state, optional instructor assignment, class assignment expanded to class students, direct student assignment, and a detail settings editor. The existing result list remains visible, while recursive question create/update/delete now uses parent checks and the passed-evaluation lock rule. This is **partial Block B parity**, not closure: correction detail/actions, exact legacy timing/scoring behavior, and student/instructor/admin role acceptance are still required.
+
+The post-change validation evidence is **126 tests across 20 files**, `0` TypeScript errors, `0` lint errors with `34` existing warnings, successful production build, `74` active page routes with `0` unresolved internal links, and complete EN/FR locale-key coverage. No controlled database migration was run in this shell.

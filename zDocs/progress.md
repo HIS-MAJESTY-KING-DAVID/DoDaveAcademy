@@ -49,3 +49,12 @@ The authoritative parity roadmap is now the single execution plan in `zDocs/PARI
 Block B is in progress. Admin evaluation question list/create/update/delete routes and a lock-aware UI are now present, with parent scoping, option validation, passed-evaluation protection, and regression tests. Evaluation metadata, assignment mutation, correction/scoring configuration, timing parity, and full role acceptance remain next.
 
 The measured score moved from **57% to 60%**: 8 full groups + 9 partial groups × 0.5 = 12.5/21 = 59.5%, rounded to 60%. Release validation passed with **123 tests across 20 files**, TypeScript, Prisma schema validation using a local non-secret placeholder URL, production build, locale parsing, `git diff --check`, and static audit (`73` active page routes, `0` unresolved internal links, `0` missing EN keys, `0` missing FR keys). Lint has `0` errors and `34` existing warnings. No database migration was applied without controlled credentials. Payment-provider replacement remains deferred pending the new provider contract.
+
+
+## August 25, 2026 — Block B evaluation administration expanded
+
+Block B remains in progress but now includes an admin evaluation creation page and API, metadata/settings editing, schedule validation, publication and random-question controls, instructor assignment, class/student assignment with class-derived students, lock-aware deletion, and recursive evaluation question create/update/delete management. The admin detail page now exposes settings, questions, assignments, and result summaries.
+
+The measured score remains **60%** because the roadmap only promotes a capability group after its full acceptance gate. Remaining Block B work is correction/result actions, timing and scoring parity against the legacy behavior, and real-account role acceptance. Payment-provider replacement remains deferred.
+
+The release validation passed with **126 tests across 20 files**, TypeScript, Prisma schema validation with a local non-secret placeholder URL, production build, locale parsing, `git diff --check`, and static audit (`74` active page routes, `0` unresolved internal links, `0` missing EN keys, `0` missing FR keys). Lint has `0` errors and `34` existing warnings. No database migration was applied without controlled credentials.
