@@ -1,0 +1,341 @@
+=== subject/chat files ===
+public/assets/js/chat/ui.js
+public/build/scss/_direct-chat.scss
+public/css/subject_chat.css
+public/css/subject_chat_dark.css
+public/docs/chat_api_requirements.md
+public/js/backupchat.js
+public/js/chat.js
+public/js/subject_chat.js
+public/newPublicImported/build/js/DirectChat.js
+public/newPublicImported/build/scss/_direct-chat.scss
+src/Controller/ChatController.php
+src/Entity/ChatMessage.php
+src/Entity/MessageChat.php
+src/Entity/SubjectChat.php
+src/Repository/ChatMessageRepository.php
+src/Repository/MessageChatRepository.php
+src/Repository/SubjectChatRepository.php
+src/Service/SubjectChatGenerator.php
+src/Service/SubjectChatService.php
+src/WebSocket/ChatServer.php
+templates/chat/index.html.twig
+templates/front/chat/non_student_index.html.twig
+templates/front/course_forum/_messages.html.twig
+templates/front/course_forum/_subjects.html.twig
+templates/front/course_forum/index.html.twig
+templates/front/course_forum/subject_message.html.twig
+templates/group_chat/index.html.twig
+templates/instructor/course_forum/index.html.twig
+templates/instructor/course_forum/subject_message.html.twig
+templates/student/chat/_setup_modal.html.twig
+templates/student/chat/base_chat.html.twig
+templates/student/chat/chat.html.twig
+templates/student/chat/index.html.twig
+templates/student/chat/subject_chat.html.twig
+=== subject_chat entities/controllers/routes ===
+src/Command/CreateTestMessagesForAnalyticsCommand.php:53:            $subjectChatIds = $this->connection->executeQuery("SELECT id FROM subject_chat LIMIT 100")->fetchFirstColumn();
+src/Command/CreateTestMessagesForAnalyticsCommand.php:55:            if (empty($subjectChatIds)) {
+src/Command/CreateTestMessagesForAnalyticsCommand.php:113:                $subjectChatId = $subjectChatIds[array_rand($subjectChatIds)];
+src/Command/CreateTestMessagesForAnalyticsCommand.php:133:                        'INSERT INTO message_chat (subject_chat_id, sender_id, content, is_from_ai, is_read, create_at, expires_at, is_moderated) 
+src/Command/CreateTestMessagesForAnalyticsCommand.php:136:                            $subjectChatId, 
+src/Controller/Admin/MessageAnalyticsController.php:43:        $totalMessages = $connection->fetchOne("SELECT COUNT(*) FROM message_chat WHERE is_from_ai = 0");
+src/Controller/Admin/MessageAnalyticsController.php:46:        $totalStudentsWithMessages = $connection->fetchOne("SELECT COUNT(DISTINCT sender_id) FROM message_chat WHERE is_from_ai = 0");
+src/Controller/Api/Controller/Course/Forum/CourseForum.php:8:class CourseForum extends AbstractController
+src/Controller/ChatController.php:5:use App\Entity\MessageChat;
+src/Controller/ChatController.php:7:use App\Entity\SubjectChat;
+src/Controller/ChatController.php:12:use App\Repository\SubjectChatRepository;
+src/Controller/ChatController.php:15:use App\Repository\MessageChatRepository;
+src/Controller/ChatController.php:18:use App\Service\SubjectChatService;
+src/Controller/ChatController.php:41:    private $subjectChatService;
+src/Controller/ChatController.php:45:    private SubjectChatRepository $subjectChatRepository,
+src/Controller/ChatController.php:47:    private MessageChatRepository $messageChatRepository,   
+src/Controller/ChatController.php:51:    SubjectChatService $subjectChatService,
+src/Controller/ChatController.php:56:        $this->subjectChatRepository = $subjectChatRepository;
+src/Controller/ChatController.php:62:        $this->subjectChatService = $subjectChatService;
+src/Controller/ChatController.php:117:      $this->subjectChatService->manageSubjectChats($student);
+src/Controller/ChatController.php:123:    #[Route('/websocket/token/{subjectChatId}', name: 'api_websocket_token', methods: ['GET'])]
+src/Controller/ChatController.php:125:    public function generateWebSocketToken(int $subjectChatId): JsonResponse
+src/Controller/ChatController.php:148:        $subjectChat = $this->entityManager->getRepository(SubjectChat::class)->find($subjectChatId);
+src/Controller/ChatController.php:149:        if (!$subjectChat) {
+src/Controller/ChatController.php:154:       /* if ($subjectChat->getCycle()->getId() !== $student->getClasse()->getSkillLevel()->getId()) {
+src/Controller/ChatController.php:161:            'discussion_id' => $subjectChat->getId(),
+src/Controller/ChatController.php:172:     public function createSubjectChats(): JsonResponse
+src/Controller/ChatController.php:182:            $subjectChat = new SubjectChat();
+src/Controller/ChatController.php:185:            $subjectChat->setMatiere($matiereCycle->getMatiere());
+src/Controller/ChatController.php:186:            $subjectChat->setCycle($matiereCycle->getCycle());
+src/Controller/ChatController.php:189:            $subjectChat->setName($matiereCycle->getMatiere()->getName());
+src/Controller/ChatController.php:192:            //$subjectChat->setType('teacher'); // Change en 'ai' si nécessaire
+src/Controller/ChatController.php:194:            $this->entityManager->persist($subjectChat);
+src/Controller/ChatController.php:199:        return $this->json(['message' => '15 SubjectChats créés avec succès !']);
+src/Controller/ChatController.php:224:    #[Route('/api/chat/subjectChats', name: 'api_chat_subjectChats', methods: ['GET'])]
+src/Controller/ChatController.php:255:        $subjectChats = $this->subjectChatRepository->findByEleve($eleve->getId());
+src/Controller/ChatController.php:258:        $data = array_map(function ($subjectChat) use ($user) {
+src/Controller/ChatController.php:260:                'id' => $subjectChat->getId(),
+src/Controller/ChatController.php:261:                'name' => $subjectChat->getName(),
+src/Controller/ChatController.php:262:                'eleve' => $subjectChat->getEleve(),
+src/Controller/ChatController.php:263:                'cycle' => $subjectChat->getCycle(),
+src/Controller/ChatController.php:264:                'unreadCount' => $this->getUnreadCount($subjectChat)
+src/Controller/ChatController.php:266:        }, $subjectChats);
+src/Controller/ChatController.php:283:            'subjectChat' => $subjectId,
+src/Controller/ChatController.php:286:        $messages = $this->entityManager->getRepository(MessageChat::class)
+src/Controller/ChatController.php:289:        $lastMessage = $this->entityManager->getRepository(MessageChat::class)
+src/Controller/ChatController.php:290:            ->findOneBy(['subjectChat' => $subjectId], ['createAt' => 'DESC']);    
+src/Controller/ChatController.php:313:    public function editMessage(Request $request, MessageChat $message, EntityManagerInterface $em, WebSocketPusher $pusher): JsonResponse
+src/Controller/ChatController.php:326:        $pusher->pushToSubject($message->getSubjectChat(), [
+src/Controller/ChatController.php:367:        $chat = $this->subjectChatRepository->find($data['chat_id']);
+src/Controller/ChatController.php:373:        $message = new MessageChat();
+src/Controller/ChatController.php:376:        $message->setSubjectChat($chat);
+src/Controller/ChatController.php:421:  /*  private function processAIResponse(SubjectChat $chat, string $userMessage, $user): ?MessageChat
+src/Controller/ChatController.php:426:                ['subjectChat' => $chat],
+src/Controller/ChatController.php:450:            $message = new MessageChat();
+src/Controller/ChatController.php:453:            $message->setSubjectChat($chat);
+src/Controller/ChatController.php:471:     * This is a placeholder implementation - you might want to add a field to the SubjectChat entity
+src/Controller/ChatController.php:473:    private function isAIEnabledChat(SubjectChat $chat): bool
+src/Controller/ChatController.php:476:        // In the future, you might want to check a field on the SubjectChat entity
+src/Controller/ChatController.php:505:        $chat = $this->subjectChatRepository->find($chatId);
+src/Controller/ChatController.php:511:        $messages = $this->messageChatRepository->findBy(['subjectChat' => $chat], ['createdAt' => 'ASC']);
+src/Controller/ChatController.php:543:            ->where('m.subjectChat = :chat')
+src/Controller/Front/CourseForumController.php:18:class CourseForumController extends AbstractController
+src/Controller/Front/CourseForumController.php:20:    #[Route('/{slug}', name: 'app_front_course_forum_index')]
+src/Controller/Front/CourseForumController.php:54:        return $this->render('front/course_forum/index.html.twig', [
+src/Controller/Front/CourseForumController.php:55:            'controller_name' => 'CourseForumController',
+src/Controller/Front/CourseForumController.php:64:    #[Route('/{slug}/{reference}', name: 'app_front_course_forum_subject_message')]
+src/Controller/Front/CourseForumController.php:74:        return $this->render('front/course_forum/subject_message.html.twig', [
+src/Controller/Front/CourseForumController.php:75:            'controller_name' => 'CourseForumController',
+src/Controller/Front/CoursesController.php:214:        return $this->redirectToRoute('app_front_course_forum_index', ['slug' => $cours->getSlug()]);
+src/Controller/Front/CoursesController.php:270:        return $this->redirectToRoute('app_front_course_forum_subject_message', ['slug' => $sujet->getForum()->getCours()->getSlug(), 'reference' => $sujet->getReference()]);
+src/Controller/Front/CoursesController.php:325:        return $this->redirectToRoute('app_front_course_forum_subject_message', ['slug' => $sujet->getForum()->getCours()->getSlug(), 'reference' => $sujet->getReference()]);
+src/Controller/Front/CoursesController.php:350:            return $this->redirectToRoute('app_front_course_forum_subject_message', ['slug' => $forumMessage->getSujet()->getForum()->getCours()->getSlug(), 'reference' => $forumMessage->getSujet()->getReference()]);
+src/Controller/Front/CoursesController.php:379:            return $this->redirectToRoute('app_front_course_forum_subject_message', ['slug' => $replyForumMessage->getSujet()->getForum()->getCours()->getSlug(), 'reference' => $replyForumMessage->getSujet()->getReference()]);
+src/Controller/Front/CoursesController.php:411:        return $this->redirectToRoute('app_front_course_forum_index', ['slug' => $forumMessage->getSujet()->getForum()->getCours()->getSlug()]);
+src/Controller/Instructor/CourseForumController.php:22:class CourseForumController extends AbstractController
+src/Controller/Instructor/CourseForumController.php:24:    #[Route('/{slug}', name: 'app_instructor_course_forum_index')]
+src/Controller/Instructor/CourseForumController.php:57:        return $this->render('instructor/course_forum/index.html.twig', [
+src/Controller/Instructor/CourseForumController.php:58:            'controller_name' => 'CourseForumController',
+src/Controller/Instructor/CourseForumController.php:68:    #[Route('/{slug}/{reference}/subject-messages', name: 'app_instructor_course_forum_subject_message')]
+src/Controller/Instructor/CourseForumController.php:77:        return $this->render('instructor/course_forum/subject_message.html.twig', [
+src/Controller/Instructor/CourseForumController.php:78:            'controller_name' => 'CourseForumController',
+src/Controller/Instructor/CourseForumController.php:87:    #[Route('/{id}/delete', name: 'app_instructor_course_forum_subject_delete', methods: ['POST'])]
+src/Controller/Instructor/CourseForumController.php:94:        return $this->redirectToRoute('app_instructor_course_forum_index', ['slug' => $sujet->getForum()->getCours()->getSlug()]);
+src/Controller/Instructor/CourseForumController.php:97:    #[Route('/{id}/delete-message', name: 'app_instructor_course_forum_subject_delete_message', methods: ['GET'])]
+src/Controller/Instructor/CourseForumController.php:108:        return $this->redirectToRoute('app_instructor_course_forum_subject_message', ['slug' => $forumMessage->getSujet()->getForum()->getCours()->getSlug(), 'reference' => $forumMessage->getSujet()->getReference()]);
+src/Controller/PaymentControllers.php:7:use App\Entity\SubjectChat;
+src/Controller/PaymentControllers.php:17:use App\Service\SubjectChatService;
+src/Controller/PaymentControllers.php:38:    private $subjectChatService;
+src/Controller/PaymentControllers.php:41:    public function __construct(Keys $apiKeys,SendAllUsersEmailService $sendAllUsersEmailService, SubjectChatService $subjectChatService)
+src/Controller/PaymentControllers.php:46:        $this->subjectChatService = $subjectChatService;
+src/Controller/PaymentControllers.php:89:                $this->subjectChatService->manageSubjectChats($eleve);
+src/Entity/Categorie.php:88:    #[ORM\OneToMany(mappedBy: 'matiere', targetEntity: SubjectChat::class, orphanRemoval: true)]
+src/Entity/Categorie.php:89:    private Collection $subjectChats;
+src/Entity/Categorie.php:100:        $this->subjectChats = new ArrayCollection();
+src/Entity/Categorie.php:349:     * @return Collection<int, SubjectChat>
+src/Entity/Categorie.php:351:    public function getSubjectChats(): Collection
+src/Entity/Categorie.php:353:        return $this->subjectChats;
+src/Entity/Categorie.php:356:    public function addSubjectChat(SubjectChat $chat): static
+src/Entity/Categorie.php:358:        if (!$this->subjectChats->contains($chat)) {
+src/Entity/Categorie.php:359:            $this->subjectChats->add($chat);
+src/Entity/Categorie.php:365:    public function removeSubjectChat(SubjectChat $chat): static
+src/Entity/Categorie.php:367:        if ($this->subjectChats->removeElement($chat)) {
+src/Entity/Eleve.php:78:    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: SubjectChat::class, orphanRemoval: true)]
+src/Entity/Eleve.php:79:    private Collection $subjectChats;
+src/Entity/Eleve.php:95:        $this->subjectChats = new ArrayCollection();
+src/Entity/Eleve.php:479:     * @return Collection<int, SubjectChat>
+src/Entity/Eleve.php:481:    public function getSubjectChats(): Collection
+src/Entity/Eleve.php:483:        return $this->subjectChats;
+src/Entity/Eleve.php:486:    public function addSubjectChat(SubjectChat $subjectChat): static
+src/Entity/Eleve.php:488:        if (!$this->subjectChats->contains($subjectChat)) {
+src/Entity/Eleve.php:489:            $this->subjectChats->add($subjectChat);
+src/Entity/Eleve.php:490:            $subjectChat->setEleve($this);
+src/Entity/Eleve.php:496:    public function removeSubjectChat(SubjectChat $subjectChat): static
+src/Entity/Eleve.php:498:        if ($this->subjectChats->removeElement($subjectChat)) {
+src/Entity/Eleve.php:500:            if ($subjectChat->getEleve() === $this) {
+src/Entity/Eleve.php:501:                $subjectChat->setEleve(null);
+src/Entity/Enseignant.php:105:    #[ORM\OneToMany(mappedBy: 'teacherPersona', targetEntity: SubjectChat::class, orphanRemoval: true)]
+src/Entity/Enseignant.php:106:    private Collection $subjectChats;
+src/Entity/Enseignant.php:108:    #[ORM\OneToMany(mappedBy: 'teacherPersona', targetEntity: MessageChat::class, orphanRemoval: true)]
+src/Entity/Enseignant.php:117:        $this->subjectChats = new ArrayCollection();
+src/Entity/Enseignant.php:385:     * @return Collection<int, SubjectChat>
+src/Entity/Enseignant.php:387:    public function getSubjectChats(): Collection
+src/Entity/Enseignant.php:389:        return $this->subjectChats;
+src/Entity/Enseignant.php:392:    public function addSubjectChat(SubjectChat $subjectChat): static
+src/Entity/Enseignant.php:394:        if (!$this->subjectChats->contains($subjectChat)) {
+src/Entity/Enseignant.php:395:            $this->subjectChats->add($subjectChat);
+src/Entity/Enseignant.php:396:            $subjectChat->setTeacherPersona($this);
+src/Entity/Enseignant.php:402:    public function removeSubjectChat(SubjectChat $subjectChat): static
+src/Entity/Enseignant.php:404:        if ($this->subjectChats->removeElement($subjectChat)) {
+src/Entity/Enseignant.php:406:            if ($subjectChat->getTeacherPersona() === $this) {
+src/Entity/Enseignant.php:407:                $subjectChat->setTeacherPersona(null);
+src/Entity/Enseignant.php:415:     * @return Collection<int, MessageChat>
+src/Entity/Enseignant.php:417:    public function getMessageChats(): Collection
+src/Entity/Enseignant.php:422:    public function addMessageChat(MessageChat $messageChat): static
+src/Entity/Enseignant.php:432:    public function removeMessageChat(MessageChat $messageChat): static
+src/Entity/Forum.php:7:use App\Controller\Api\Controller\Course\Forum\CourseForum;
+src/Entity/Forum.php:21:            controller: CourseForum::class,
+src/Entity/MessageChat.php:5:use App\Repository\MessageChatRepository;
+src/Entity/MessageChat.php:8:#[ORM\Entity(repositoryClass: MessageChatRepository::class)]
+src/Entity/MessageChat.php:9:class MessageChat
+src/Entity/MessageChat.php:17:    #[ORM\JoinColumn(name: 'subject_chat_id', nullable: false)]
+src/Entity/MessageChat.php:18:    private ?SubjectChat $subjectChat = null;
+src/Entity/MessageChat.php:59:    public function getSubjectChat(): ?SubjectChat
+src/Entity/MessageChat.php:61:        return $this->subjectChat;
+src/Entity/MessageChat.php:64:    public function setSubjectChat(?SubjectChat $subjectChat): static
+src/Entity/MessageChat.php:66:        $this->subjectChat = $subjectChat;
+src/Entity/SubjectChat.php:5:use App\Repository\SubjectChatRepository;
+src/Entity/SubjectChat.php:10:#[ORM\Entity(repositoryClass: SubjectChatRepository::class)]
+src/Entity/SubjectChat.php:11:#[ORM\Table(name: 'subject_chat')] // Keep the table name for DB compatibility
+src/Entity/SubjectChat.php:12:class SubjectChat
+src/Entity/SubjectChat.php:19:    #[ORM\ManyToOne(inversedBy: 'subjectChats')]
+src/Entity/SubjectChat.php:29:    #[ORM\OneToMany(mappedBy: 'subjectChat', targetEntity: MessageChat::class, orphanRemoval: true)]
+src/Entity/SubjectChat.php:35:    #[ORM\OneToMany(mappedBy: 'subjectChat', targetEntity: WebSocketConnection::class, orphanRemoval: true)]
+src/Entity/SubjectChat.php:38:    #[ORM\ManyToOne(inversedBy: 'subjectChats')]
+src/Entity/SubjectChat.php:42:    #[ORM\ManyToOne(inversedBy: 'subjectChats')]
+src/Entity/SubjectChat.php:93:     * @return Collection<int, MessageChat>
+src/Entity/SubjectChat.php:95:    public function getMessageChats(): Collection
+src/Entity/SubjectChat.php:100:    public function addMessageChat(MessageChat $messageChat): static
+src/Entity/SubjectChat.php:104:            $messageChat->setSubjectChat($this);
+src/Entity/SubjectChat.php:109:    public function removeMessageChat(MessageChat $messageChat): static
+src/Entity/SubjectChat.php:112:            if ($messageChat->getSubjectChat() === $this) {
+src/Entity/SubjectChat.php:113:                $messageChat->setSubjectChat(null);
+src/Entity/SubjectChat.php:142:            $webSocketConnection->setSubjectChat($this);
+src/Entity/SubjectChat.php:150:            if ($webSocketConnection->getSubjectChat() === $this) {
+src/Entity/SubjectChat.php:151:                $webSocketConnection->setSubjectChat(null);
+src/Entity/User.php:156:    #[ORM\OneToMany(mappedBy: 'sender', targetEntity: MessageChat::class, orphanRemoval: true)]
+src/Entity/User.php:643:     * @return Collection<int, MessageChat>
+src/Entity/User.php:645:    public function getMessageChats(): Collection
+src/Entity/User.php:650:    public function addMessageChat(MessageChat $messageChat): static
+src/Entity/User.php:660:    public function removeMessageChat(MessageChat $messageChat): static
+src/Entity/WebSocketConnection.php:22:    #[ORM\JoinColumn(name: 'subject_chat_id', nullable: true)]
+src/Entity/WebSocketConnection.php:23:    private ?SubjectChat $subjectChat = null;
+src/Entity/WebSocketConnection.php:54:    public function getSubjectChat(): ?SubjectChat
+src/Entity/WebSocketConnection.php:56:        return $this->subjectChat;
+src/Entity/WebSocketConnection.php:59:    public function setSubjectChat(?SubjectChat $subjectChat): static
+src/Entity/WebSocketConnection.php:61:        $this->subjectChat = $subjectChat;
+src/Repository/MessageChatRepository.php:5:use App\Entity\MessageChat;
+src/Repository/MessageChatRepository.php:6:use App\Entity\SubjectChat;
+src/Repository/MessageChatRepository.php:12: * @extends ServiceEntityRepository<MessageChat>
+src/Repository/MessageChatRepository.php:14: * @method MessageChat|null find($id, $lockMode = null, $lockVersion = null)
+src/Repository/MessageChatRepository.php:15: * @method MessageChat|null findOneBy(array $criteria, array $orderBy = null)
+src/Repository/MessageChatRepository.php:16: * @method MessageChat[]    findAll()
+src/Repository/MessageChatRepository.php:17: * @method MessageChat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+src/Repository/MessageChatRepository.php:19:class MessageChatRepository extends ServiceEntityRepository
+src/Repository/MessageChatRepository.php:23:        parent::__construct($registry, MessageChat::class);
+src/Repository/MessageChatRepository.php:29:    public function findByChat(SubjectChat $chat, int $limit = 50): array
+src/Repository/MessageChatRepository.php:32:            ->where('m.subjectChat = :chat')
+src/Repository/MessageChatRepository.php:43:    public function findLastMessageByChat(SubjectChat $chat): ?MessageChat
+src/Repository/MessageChatRepository.php:46:            ->where('m.subjectChat = :chat')
+src/Repository/MessageChatRepository.php:57:    public function countUnreadByChat(SubjectChat $chat): int
+src/Repository/MessageChatRepository.php:61:            ->where('m.subjectChat = :chat')
+src/Repository/MessageChatRepository.php:72:    public function findMessagesAfter(SubjectChat $chat, int $lastMessageId): array
+src/Repository/MessageChatRepository.php:75:            ->where('m.subjectChat = :chat')
+src/Repository/MessageChatRepository.php:87:    public function markAllAsRead(SubjectChat $chat, User $user): void
+src/Repository/MessageChatRepository.php:92:            ->where('m.subjectChat = :chat')
+src/Repository/MessageChatRepository.php:104:    public function findSubjectChatMessages(SubjectChat $chat, int $limit = 50): array
+src/Repository/MessageChatRepository.php:107:            ->where('m.subjectChat = :chat')
+src/Repository/MessageChatRepository.php:118:    public function deletesoft(SubjectChat $chat, User $user, int $messageId): void
+src/Repository/MessageChatRepository.php:124:            ->where('m.subjectChat = :chat')
+src/Repository/SubjectChatRepository.php:5:use App\Entity\SubjectChat;
+src/Repository/SubjectChatRepository.php:13: * @extends ServiceEntityRepository<SubjectChat>
+src/Repository/SubjectChatRepository.php:15: * @method SubjectChat|null find($id, $lockMode = null, $lockVersion = null)
+src/Repository/SubjectChatRepository.php:16: * @method SubjectChat|null findOneBy(array $criteria, array $orderBy = null)
+src/Repository/SubjectChatRepository.php:17: * @method SubjectChat[]    findAll()
+src/Repository/SubjectChatRepository.php:18: * @method SubjectChat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+src/Repository/SubjectChatRepository.php:20:class SubjectChatRepository extends ServiceEntityRepository
+src/Repository/SubjectChatRepository.php:24:        parent::__construct($registry, SubjectChat::class);
+src/Repository/SubjectChatRepository.php:30:    public function findOneByStudentAndSubject(Eleve $student, MatiereCycle $subject): ?SubjectChat
+src/Repository/SubjectChatRepository.php:46:    private function createSubjectChat(Eleve $student, MatiereCycle $subject): SubjectChat
+src/Repository/SubjectChatRepository.php:48:        $chat = new SubjectChat();
+src/Repository/SubjectChatRepository.php:62:    public function findOrCreateByStudentAndSubject(Eleve $student, MatiereCycle $subject): SubjectChat
+src/Repository/SubjectChatRepository.php:67:            $chat = $this->createSubjectChat($student, $subject);
+src/Service/MessageAnalyticsService.php:37:        // Query directly from the message_chat table
+src/Service/MessageAnalyticsService.php:43:                FROM message_chat
+src/Service/MessageAnalyticsService.php:88:                FROM message_chat m
+src/Service/MessageAnalyticsService.php:89:                JOIN subject_chat sc ON m.subject_chat_id = sc.id
+src/Service/MessageAnalyticsService.php:120:                FROM message_chat m
+src/Service/MessageAnalyticsService.php:152:        // Query messages directly from the message_chat table
+src/Service/MessageAnalyticsService.php:154:        $sql = "SELECT content FROM message_chat WHERE is_from_ai = 0 AND content IS NOT NULL AND LENGTH(content) > 0";
+src/Service/MessageAnalyticsService.php:215:        $sql = "SELECT content FROM message_chat WHERE is_from_ai = 0 AND content IS NOT NULL AND LENGTH(content) > 0";
+src/Service/MessageAnalyticsService.php:231:                FROM message_chat m
+src/Service/MessageAnalyticsService.php:232:                JOIN subject_chat sc ON m.subject_chat_id = sc.id
+src/Service/MessageAnalyticsService.php:321:                FROM message_chat m
+src/Service/MessageAnalyticsService.php:322:                JOIN subject_chat sc ON m.subject_chat_id = sc.id
+src/Service/MessageAnalyticsService.php:332:                FROM message_chat m
+src/Service/MessageAnalyticsService.php:333:                JOIN subject_chat sc ON m.subject_chat_id = sc.id
+src/Service/MessageAnalyticsService.php:343:                FROM message_chat m
+src/Service/MessageAnalyticsService.php:344:                JOIN subject_chat sc ON m.subject_chat_id = sc.id
+src/Service/MessageAnalyticsService.php:373:                FROM message_chat m
+src/Service/MessageAnalyticsService.php:374:                JOIN subject_chat sc ON m.subject_chat_id = sc.id
+src/Service/SubjectChatGenerator.php:6:use App\Entity\SubjectChat;
+src/Service/SubjectChatGenerator.php:8:class SubjectChatGenerator
+src/Service/SubjectChatGenerator.php:20:    public function generateSubjectChats(): void
+src/Service/SubjectChatGenerator.php:29:            $existingChat = $this->entityManager->getRepository(SubjectChat::class)
+src/Service/SubjectChatGenerator.php:33:                $chat = new SubjectChat();
+src/Service/SubjectChatService.php:6:use App\Entity\SubjectChat;
+src/Service/SubjectChatService.php:11:class SubjectChatService
+src/Service/SubjectChatService.php:27:    public function manageSubjectChats(Eleve $eleve): void
+src/Service/SubjectChatService.php:117:            $existingSubjectChat = $this->entityManager->getRepository(SubjectChat::class)
+src/Service/SubjectChatService.php:120:            if ($existingSubjectChat) {
+src/Service/SubjectChatService.php:121:                $existingSubjectChat->setCreatedAt(new \DateTimeImmutable());
+src/Service/SubjectChatService.php:122:                $this->entityManager->persist($existingSubjectChat);
+src/Service/SubjectChatService.php:124:                $subjectChat = new SubjectChat();
+src/Service/SubjectChatService.php:125:                $subjectChat->setEleve($eleve);
+src/Service/SubjectChatService.php:126:                $subjectChat->setMatiere($matiere->getMatiere());
+src/Service/SubjectChatService.php:127:                $subjectChat->setCycle($matiere->getCycle());
+src/Service/SubjectChatService.php:128:                $subjectChat->setName($matiere->getMatiere()->getName());
+src/Service/SubjectChatService.php:129:                $subjectChat->setCreatedAt(new \DateTimeImmutable());
+src/Service/SubjectChatService.php:131:                $this->entityManager->persist($subjectChat);
+src/Service/WebSocketPusher.php:5:use App\Entity\SubjectChat;
+src/Service/WebSocketPusher.php:20:    public function pushToSubject(SubjectChat $subjectChat, array $payload): void
+src/Service/WebSocketPusher.php:28:                'subject_id' => $subjectChat->getId(),
+src/WebSocket/AIMessageHandler.php:5:use App\Entity\SubjectChat;
+src/WebSocket/AIMessageHandler.php:6:use App\Entity\MessageChat;
+src/WebSocket/AIMessageHandler.php:8:use App\Repository\SubjectChatRepository;
+src/WebSocket/AIMessageHandler.php:10:use App\Repository\MessageChatRepository;
+src/WebSocket/AIMessageHandler.php:18:    private $subjectChatRepository;
+src/WebSocket/AIMessageHandler.php:26:        SubjectChatRepository $subjectChatRepository,
+src/WebSocket/AIMessageHandler.php:27:        MessageChatRepository $messageChatRepository,
+src/WebSocket/AIMessageHandler.php:33:        $this->subjectChatRepository = $subjectChatRepository;
+src/WebSocket/AIMessageHandler.php:46:        $subjectChat = $this->subjectChatRepository->find($data['subject_id']);
+src/WebSocket/AIMessageHandler.php:47:        if (!$subjectChat) {
+src/WebSocket/AIMessageHandler.php:52:        // We'll use a simple check for now - in the future, you might want to add a field to the SubjectChat entity
+src/WebSocket/AIMessageHandler.php:53:        if (!$this->isAIEnabledChat($subjectChat)) {
+src/WebSocket/AIMessageHandler.php:59:            ['subjectChat' => $subjectChat],
+src/WebSocket/AIMessageHandler.php:73:        $subjectName = $subjectChat->getName();
+src/WebSocket/AIMessageHandler.php:92:            $message = new MessageChat();
+src/WebSocket/AIMessageHandler.php:95:            $message->setSubjectChat($subjectChat);
+src/WebSocket/AIMessageHandler.php:118:     * This is a placeholder implementation - you might want to add a field to the SubjectChat entity
+src/WebSocket/AIMessageHandler.php:120:    private function isAIEnabledChat(SubjectChat $chat): bool
+src/WebSocket/ChatServer.php:10:use App\Entity\MessageChat;
+src/WebSocket/ChatServer.php:13:use App\Entity\SubjectChat;
+src/WebSocket/ChatServer.php:39:        if (!isset($queryParams['token']) || !isset($queryParams['subjectChat_id'])) {
+src/WebSocket/ChatServer.php:46:        $subjectChatId = $queryParams['subjectChat_id'];
+src/WebSocket/ChatServer.php:59:            $subjectChat = $this->entityManager->getRepository(SubjectChat::class)->find($subjectChatId);
+src/WebSocket/ChatServer.php:60:            if (!$subjectChat) {
+src/WebSocket/ChatServer.php:69:            $this->clients->attach($conn, ['user' => $user, 'subjectChat' => $subjectChat]);
+src/WebSocket/ChatServer.php:70:            echo "Nouvelle connexion : Utilisateur #{$userId} dans la discussion #{$subjectChatId}.\n";
+src/WebSocket/ChatServer.php:76:                ->findOneBy(['user' => $user, 'subjectChat' => $subjectChat]);
+src/WebSocket/ChatServer.php:81:                $webSocketConnection->setSubjectChat($subjectChat);
+src/WebSocket/ChatServer.php:110:            $subjectChat = $this->clients[$from]['subjectChat'];
+src/WebSocket/ChatServer.php:111:            //echo "subject ID : " .$subjectChat->getId(); die();
+src/WebSocket/ChatServer.php:115:            $message = new MessageChat();
+src/WebSocket/ChatServer.php:117:            $message->setSubjectChat($subjectChat);
+src/WebSocket/ChatServer.php:140:                if ($client !== $from && $this->clients[$client]['subjectChat'] === $subjectChat) {
+src/WebSocket/ChatServer.php:167:                    echo "DEBUG: Vérification client WebSocket - Utilisateur #" . $this->clients[$client]['user']->getId() . " - Discussion #" . $this->clients[$client]['subjectChat']->getId() . "\n";
+src/WebSocket/ChatServer.php:169:                    if ($this->clients[$client]['subjectChat']->getId() === $subjectChat->getId()) {
+src/WebSocket/ChatServer.php:195:        $subjectChat = $this->clients[$from]['subjectChat'];
+src/WebSocket/ChatServer.php:206:            $message = new MessageChat();
+src/WebSocket/ChatServer.php:208:            $message->setSubjectChat($subjectChat);
+src/WebSocket/ChatServer.php:230:                if ($this->clients[$client]['subjectChat'] === $subjectChat) {
+src/WebSocket/ChatServer.php:256:                    echo "DEBUG: Vérification client WebSocket - Utilisateur #" . $this->clients[$client]['user']->getId() . " - Discussion #" . $this->clients[$client]['subjectChat']->getId() . "\n";
+src/WebSocket/ChatServer.php:258:                    if ($this->clients[$client]['subjectChat']->getId() === $subjectChat->getId()) {
+src/WebSocket/ChatServer.php:270:            $message = $this->entityManager->getRepository(MessageChat::class)->find($data['message_id']);
+src/WebSocket/ChatServer.php:280:            $this->entityManager->getRepository(MessageChat::class)->deletesoft($subjectChat, $user, $message->getId());
+src/WebSocket/ChatServer.php:295:              //  if ($this->clients[$client]['subjectChat'] === $subjectChat) {
+src/WebSocket/ChatServer.php:301:                if ($this->clients[$client]['subjectChat'] === $subjectChat) {
+src/WebSocket/ChatServer.php:333:                    if ($this->clients[$client]['subjectChat']->getId() === $subjectChat->getId()) {
+src/WebSocket/ChatServer.php:365:            $subjectChat = $this->clients[$conn]['subjectChat'];
+src/WebSocket/ChatServer.php:370:            $dbConnection = $repo->findOneBy(['user' => $user, 'subjectChat' => $subjectChat]);
+config/routes.yaml:16:app_subject_chat:
+config/routes.yaml:18:    controller: App\Controller\ChatController::subjectChat
+config/services.yaml:77:            $subjectChatRepository: '@App\Repository\SubjectChatRepository'
+config/services.yaml:78:            $messageChatRepository: '@App\Repository\MessageChatRepository'

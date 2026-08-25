@@ -1,0 +1,55 @@
+=== PHP CONTROLLERS ===
+src/Controller/Instructor/ExamController.php
+=== PHP ENTITIES ===
+=== TEMPLATE AREAS ===
+=== ROUTE/FEATURE TOKENS ===
+src/Controller/Instructor/ExamController.php:17:#[Route('/instructor/exam')]
+src/Controller/Instructor/ExamController.php:20:    #[Route('/', name: 'app_instructor_exam_index', methods: ['GET'])]
+src/Controller/Instructor/ExamController.php:21:    public function index(Request $request, ExamRepository $examRepository, PaginatorInterface $paginatorInterface): Response
+src/Controller/Instructor/ExamController.php:23:        $exams = $examRepository->findBy(['user' => $this->getUser()], ['publishedAt' => 'DESC']);
+src/Controller/Instructor/ExamController.php:25:        return $this->render('instructor/exam/index.html.twig', [
+src/Controller/Instructor/ExamController.php:27:            'exams' => $paginatorInterface->paginate($exams, $request->query->getInt('page', 1), 5),
+src/Controller/Instructor/ExamController.php:31:    #[Route('/new', name: 'app_instructor_exam_new', methods: ['POST', 'GET'])]
+src/Controller/Instructor/ExamController.php:32:    #[Route('{reference}/edit', name: 'app_instructor_exam_edit', methods: ['POST', 'GET'])]
+src/Controller/Instructor/ExamController.php:33:    public function edit(Exam $exam=null, Request $request, EnseignantRepository $enseignantRepository, ExamRepository $examRepository, FileUploader $fileUploader): Response
+src/Controller/Instructor/ExamController.php:36:        if ($enseignant === null || !$enseignant->isIsCertified() || ($exam !== null && $enseignant->getUtilisateur()->getId() !== $exam->getUser()->getId())) {
+src/Controller/Instructor/ExamController.php:40:        if ($exam === null) {
+src/Controller/Instructor/ExamController.php:41:            $exam = new Exam();
+src/Controller/Instructor/ExamController.php:44:        $examForm = $this->createForm(ExamFormType::class, $exam);
+src/Controller/Instructor/ExamController.php:45:        $examForm->handleRequest($request);
+src/Controller/Instructor/ExamController.php:47:        if ($examForm->isSubmitted() && $examForm->isValid()) {
+src/Controller/Instructor/ExamController.php:49:            if ($exam->getReference() === null) {
+src/Controller/Instructor/ExamController.php:50:                $exam->setReference(time() + $exam->getId());
+src/Controller/Instructor/ExamController.php:52:            $exam->setUser($this->getUser());
+src/Controller/Instructor/ExamController.php:53:            $this->uploadImagesFiles($exam, $fileUploader);
+src/Controller/Instructor/ExamController.php:54:            $examRepository->save($exam, true);
+src/Controller/Instructor/ExamController.php:56:            return $this->redirectToRoute('app_instructor_exam_index');
+src/Controller/Instructor/ExamController.php:59:        return $this->render('instructor/exam/edit.html.twig', [
+src/Controller/Instructor/ExamController.php:61:            'examForm' => $examForm->createView(),
+src/Controller/Instructor/ExamController.php:62:            'exams' => $examRepository->findBy(['user' => $this->getUser()], ['publishedAt' => 'DESC'], 5),
+src/Controller/Instructor/ExamController.php:63:            'exam' => $exam,
+src/Controller/Instructor/ExamController.php:68:    #[Route('/{reference}/published', name: 'app_instructor_exam_published')]
+src/Controller/Instructor/ExamController.php:69:    #[ParamConverter('exam', options: ['mapping' => ['reference' => 'reference']])]
+src/Controller/Instructor/ExamController.php:70:    public function published(Exam $exam, ExamRepository $examRepository, Request $request): Response
+src/Controller/Instructor/ExamController.php:72:        if (!$this->isCsrfTokenValid('published' . $exam->getId(), $request->query->get('_token'))) {
+src/Controller/Instructor/ExamController.php:78:        if ($this->getUser() !== $exam->getUser()) {
+src/Controller/Instructor/ExamController.php:83:            $exam->setIsPublished(true);
+src/Controller/Instructor/ExamController.php:84:            $examRepository->save($exam, true);
+src/Controller/Instructor/ExamController.php:87:        return $this->redirectToRoute('app_instructor_exam_index');
+src/Controller/Instructor/ExamController.php:90:    #[Route('/{reference}/remove', name: 'app_instructor_exam_delete')]
+src/Controller/Instructor/ExamController.php:91:    #[ParamConverter('exam', options: ['mapping' => ['reference' => 'reference']])]
+src/Controller/Instructor/ExamController.php:92:    public function delete(Exam $exam, ExamRepository $examRepository, Request $request): Response
+src/Controller/Instructor/ExamController.php:94:        if (!$this->isCsrfTokenValid('remove' . $exam->getId(), $request->query->get('_token'))) {
+src/Controller/Instructor/ExamController.php:100:        if ($this->getUser() !== $exam->getUser()) {
+src/Controller/Instructor/ExamController.php:106:            $examRepository->remove($exam, true);
+src/Controller/Instructor/ExamController.php:109:        return $this->redirectToRoute('app_instructor_exam_index');
+src/Controller/Instructor/ExamController.php:112:    private function uploadImagesFiles(Exam $exam, FileUploader $fileUploader, $path = 'media/exams/files')
+src/Controller/Instructor/ExamController.php:114:        if ($exam->getSujetFile() != null) {
+src/Controller/Instructor/ExamController.php:116:            $fileName = $fileUploader->upload($exam->getSujetFile(), $path);
+src/Controller/Instructor/ExamController.php:117:            $exam->setSujet($fileName);
+src/Controller/Instructor/ExamController.php:120:        if ($exam->getCorrectionFile() != null) {
+src/Controller/Instructor/ExamController.php:122:            $fileName = $fileUploader->upload($exam->getCorrectionFile(), $path);
+src/Controller/Instructor/ExamController.php:123:            $exam->setCorrection($fileName);
+src/Controller/Instructor/ExamController.php:126:        if ($exam->image != null) {
+src/Controller/Instructor/ExamController.php:128:            $fileName = $fileUploader->upload($exam->image, $path);
+src/Controller/Instructor/ExamController.php:129:            $exam->setImageFile($fileName);

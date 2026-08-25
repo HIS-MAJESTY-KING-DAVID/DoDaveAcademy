@@ -1,0 +1,10 @@
+=== matching filenames ===
+=== matching source references ===
+src/Utils/ManageNetwork.php:23:                'message' => "Impossible d'effectuer cette opération car votre compte n'est pas activé.",
+src/Utils/ManageNetwork.php:33:                'message' => "Vous n'êtes ni élève ni enseignant.",
+src/Utils/ManageNetwork.php:40:        //         'message' => "Vous n'êtes devez d'abord souscrire à un abonnement."
+src/Utils/ManageNetwork.php:77:            'message' => "Les points ont été distribués sans problèmes à tout le réseau",
+src/Utils/ManageNetwork.php:92:                'message' => "Action impossible. Vous n'avez pas le minimum retirable.",
+src/Utils/ManageNetwork.php:99:                'message' => "Vous ne pouvez pas retirer ce montant.",
+src/Utils/ManageNetwork.php:130:                'message' => "Une erreur est survenue. Impossible de poursuivre l'opération. Reessayz plus tard SVP !",
+src/Utils/ManageNetwork.php:138:            'message' => "Votre retrait a été approuvé et confirmé.",

@@ -1,0 +1,469 @@
+=== PAGE ROUTES ===
+app/about/page.tsx
+app/admin/categories/page.tsx
+app/admin/classes/page.tsx
+app/admin/courses/page.tsx
+app/admin/evaluations/[id]/page.tsx
+app/admin/evaluations/page.tsx
+app/admin/exams/page.tsx
+app/admin/faq/page.tsx
+app/admin/instructors/page.tsx
+app/admin/levels/page.tsx
+app/admin/page.tsx
+app/admin/settings/page.tsx
+app/admin/subscription-plans/page.tsx
+app/admin/users/[id]/page.tsx
+app/admin/users/page.tsx
+app/api/admin/categories/[id]/delete/route.ts
+app/api/admin/categories/route.ts
+app/api/admin/classes/[id]/delete/route.ts
+app/api/admin/classes/route.ts
+app/api/admin/courses/[id]/validate/route.ts
+app/api/admin/evaluations/[id]/route.ts
+app/api/admin/evaluations/route.ts
+app/api/admin/exams/[id]/validate/route.ts
+app/api/admin/faq/[id]/delete/route.ts
+app/api/admin/faq/route.ts
+app/api/admin/instructors/[id]/reject/route.ts
+app/api/admin/instructors/[id]/validate/route.ts
+app/api/admin/levels/[id]/delete/route.ts
+app/api/admin/levels/route.ts
+app/api/admin/settings/network/route.ts
+app/api/admin/settings/site/route.ts
+app/api/admin/settings/social/[id]/delete/route.ts
+app/api/admin/settings/social/route.ts
+app/api/admin/subscription-plans/[id]/delete/route.ts
+app/api/admin/subscription-plans/route.ts
+app/api/auth/become-teacher/route.ts
+app/api/auth/forgot-password/route.ts
+app/api/auth/login/route.ts
+app/api/auth/logout/route.ts
+app/api/auth/refresh/route.ts
+app/api/auth/register/route.ts
+app/api/auth/reset-password/route.ts
+app/api/categories/route.ts
+app/api/chat/conversations/[id]/messages/route.ts
+app/api/chat/conversations/route.ts
+app/api/contact/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/messages/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/solve/route.ts
+app/api/courses/[slug]/forum/subjects/route.ts
+app/api/courses/[slug]/review/route.ts
+app/api/courses/[slug]/route.ts
+app/api/courses/[slug]/start/route.ts
+app/api/courses/route.ts
+app/api/enroll/route.ts
+app/api/evaluation/submit/route.ts
+app/api/exams/[reference]/route.ts
+app/api/exams/file/[filename]/route.ts
+app/api/exams/route.ts
+app/api/instructor/chapters/[id]/route.ts
+app/api/instructor/chapters/route.ts
+app/api/instructor/courses/[id]/publish/route.ts
+app/api/instructor/courses/[id]/route.ts
+app/api/instructor/courses/route.ts
+app/api/instructor/evaluations/[id]/questions/[questionId]/route.ts
+app/api/instructor/evaluations/[id]/questions/route.ts
+app/api/instructor/evaluations/[id]/route.ts
+app/api/instructor/evaluations/route.ts
+app/api/instructor/exams/[reference]/route.ts
+app/api/instructor/exams/route.ts
+app/api/instructor/lessons/[id]/route.ts
+app/api/instructor/lessons/route.ts
+app/api/instructor/quizzes/[id]/route.ts
+app/api/instructor/quizzes/route.ts
+app/api/notifications/[id]/route.ts
+app/api/notifications/device/route.ts
+app/api/notifications/read-all/route.ts
+app/api/notifications/route.ts
+app/api/payment-methods/route.ts
+app/api/payment/init/route.ts
+app/api/payment/webhook/route.ts
+app/api/profile/avatar/route.ts
+app/api/profile/email/route.ts
+app/api/profile/route.ts
+app/api/student/enrollments/route.ts
+app/api/student/evaluations/route.ts
+app/api/student/progress/route.ts
+app/api/student/quiz-attempt/route.ts
+app/api/student/withdraw/route.ts
+app/api/upload/route.ts
+app/become-teacher/page.tsx
+app/contact/page.tsx
+app/courses/[slug]/enroll/page.tsx
+app/courses/[slug]/page.tsx
+app/courses/page.tsx
+app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx
+app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx
+app/dashboard/instructor/courses/[id]/chapters/page.tsx
+app/dashboard/instructor/courses/[id]/edit/page.tsx
+app/dashboard/instructor/courses/new/page.tsx
+app/dashboard/instructor/courses/page.tsx
+app/dashboard/instructor/evaluations/[id]/page.tsx
+app/dashboard/instructor/evaluations/new/page.tsx
+app/dashboard/instructor/evaluations/page.tsx
+app/dashboard/instructor/exams/[reference]/edit/page.tsx
+app/dashboard/instructor/exams/new/page.tsx
+app/dashboard/instructor/exams/page.tsx
+app/dashboard/instructor/network/page.tsx
+app/dashboard/instructor/orders/page.tsx
+app/dashboard/instructor/page.tsx
+app/dashboard/instructor/profile/edit/page.tsx
+app/dashboard/instructor/profile/page.tsx
+app/dashboard/instructor/reviews/page.tsx
+app/dashboard/notifications/page.tsx
+app/dashboard/student/courses/page.tsx
+app/dashboard/student/evaluations/page.tsx
+app/dashboard/student/messages/page.tsx
+app/dashboard/student/network/page.tsx
+app/dashboard/student/network/retrait/page.tsx
+app/dashboard/student/network/retraits/page.tsx
+app/dashboard/student/page.tsx
+app/dashboard/student/payments/page.tsx
+app/dashboard/student/profile/edit/page.tsx
+app/dashboard/student/profile/page.tsx
+app/dashboard/student/subscriptions/page.tsx
+app/evaluation/[slug]/begin/page.tsx
+app/evaluation/[slug]/result/page.tsx
+app/exams/[reference]/page.tsx
+app/exams/page.tsx
+app/faq/page.tsx
+app/forgot-password/page.tsx
+app/forum/page.tsx
+app/learn/[courseSlug]/[lessonSlug]/page.tsx
+app/learn/[courseSlug]/forum/[subjectId]/page.tsx
+app/learn/[courseSlug]/forum/page.tsx
+app/learn/[courseSlug]/page.tsx
+app/learn/[courseSlug]/quiz/[chapterId]/page.tsx
+app/login/page.tsx
+app/logout/page.tsx
+app/page.tsx
+app/plan/page.tsx
+app/privacy/page.tsx
+app/programs/page.tsx
+app/register/page.tsx
+app/reset-password/page.tsx
+app/terms/page.tsx
+=== CHAT/SUBJECT FILES ===
+app/admin/evaluations/[id]/AdminEvaluationActions.tsx
+app/api/admin/courses/[id]/validate/route.ts
+app/api/admin/evaluations/[id]/route.ts
+app/api/admin/evaluations/route.ts
+app/api/auth/become-teacher/route.ts
+app/api/auth/forgot-password/route.ts
+app/api/auth/login/route.ts
+app/api/auth/logout/route.ts
+app/api/auth/refresh/route.ts
+app/api/auth/register/route.ts
+app/api/auth/reset-password/route.ts
+app/api/chat/conversations/[id]/messages/route.ts
+app/api/chat/conversations/route.ts
+app/api/contact/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/messages/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/solve/route.ts
+app/api/courses/[slug]/forum/subjects/route.ts
+app/api/courses/[slug]/review/route.ts
+app/api/courses/[slug]/route.ts
+app/api/courses/[slug]/start/route.ts
+app/api/enroll/route.ts
+app/api/evaluation/submit/route.ts
+app/api/exams/[reference]/route.ts
+app/api/exams/file/[filename]/route.ts
+app/api/exams/route.ts
+app/api/instructor/chapters/[id]/route.ts
+app/api/instructor/chapters/route.ts
+app/api/instructor/courses/[id]/publish/route.ts
+app/api/instructor/courses/[id]/route.ts
+app/api/instructor/courses/route.ts
+app/api/instructor/evaluations/[id]/questions/[questionId]/route.ts
+app/api/instructor/evaluations/[id]/questions/route.ts
+app/api/instructor/evaluations/[id]/route.ts
+app/api/instructor/evaluations/route.ts
+app/api/instructor/exams/[reference]/route.ts
+app/api/instructor/exams/route.ts
+app/api/instructor/lessons/[id]/route.ts
+app/api/instructor/lessons/route.ts
+app/api/instructor/quizzes/[id]/route.ts
+app/api/instructor/quizzes/route.ts
+app/api/notifications/[id]/route.ts
+app/api/notifications/device/route.ts
+app/api/notifications/read-all/route.ts
+app/api/notifications/route.ts
+app/api/payment/init/route.ts
+app/api/payment/webhook/route.ts
+app/api/profile/avatar/route.ts
+app/api/profile/email/route.ts
+app/api/profile/route.ts
+app/api/student/enrollments/route.ts
+app/api/student/evaluations/route.ts
+app/api/student/progress/route.ts
+app/api/student/quiz-attempt/route.ts
+app/api/student/withdraw/route.ts
+app/api/upload/route.ts
+app/contact/ContactClient.tsx
+app/courses/[slug]/enroll/CourseEnrollmentClient.tsx
+app/courses/[slug]/page.tsx
+app/dashboard/instructor/courses/[id]/chapters/[chapterId]/lessons/page.tsx
+app/dashboard/instructor/courses/[id]/chapters/[chapterId]/quizzes/page.tsx
+app/dashboard/instructor/courses/[id]/chapters/page.tsx
+app/dashboard/instructor/courses/[id]/edit/page.tsx
+app/dashboard/instructor/courses/new/page.tsx
+app/dashboard/instructor/evaluations/[id]/EvaluationEditor.tsx
+app/dashboard/instructor/evaluations/new/NewEvaluationForm.tsx
+app/dashboard/instructor/exams/ExamEditor.tsx
+app/dashboard/instructor/exams/page.tsx
+app/dashboard/instructor/profile/edit/page.tsx
+app/dashboard/instructor/reviews/page.tsx
+app/dashboard/layout.tsx
+app/dashboard/notifications/page.tsx
+app/dashboard/student/messages/page.tsx
+app/dashboard/student/network/retrait/page.tsx
+app/dashboard/student/profile/edit/page.tsx
+app/error.tsx
+app/evaluation/[slug]/begin/EvaluationForm.tsx
+app/exams/[reference]/page.tsx
+app/forgot-password/page.tsx
+app/forum/page.tsx
+app/learn/[courseSlug]/forum/[subjectId]/page.tsx
+app/learn/[courseSlug]/forum/page.tsx
+app/learn/[courseSlug]/layout.tsx
+app/page.tsx
+app/privacy/page.tsx
+app/reset-password/page.tsx
+components/auth/BecomeTeacherForm.tsx
+components/auth/LoginForm.tsx
+components/auth/RegisterForm.tsx
+components/chat/ChatWindow.tsx
+components/forum/CreateSubjectModal.tsx
+components/forum/ReplyForm.tsx
+components/generated/admin/SideBar.tsx
+components/generated/admin/analytics/Index.tsx
+components/generated/admin/analytics/Subject.tsx
+components/generated/admin/cours/Index.tsx
+components/generated/admin/dashboard/Index.tsx
+components/generated/admin/enseignant/Show.tsx
+components/generated/admin/forum/DeleteForm.tsx
+components/generated/admin/forum/Edit.tsx
+components/generated/admin/forum/Index.tsx
+components/generated/admin/forum/New.tsx
+components/generated/admin/forum/Show.tsx
+components/generated/admin/forum_message/DeleteForm.tsx
+components/generated/admin/forum_message/Edit.tsx
+components/generated/admin/forum_message/Index.tsx
+components/generated/admin/forum_message/New.tsx
+components/generated/admin/forum_message/Show.tsx
+components/generated/admin/i_instructor/orders/Index.tsx
+components/generated/admin/setting/NotificationSetting.tsx
+components/generated/chat/Index.tsx
+components/generated/contact_message/DeleteForm.tsx
+components/generated/contact_message/Edit.tsx
+components/generated/contact_message/Index.tsx
+components/generated/contact_message/New.tsx
+components/generated/contact_message/Show.tsx
+components/generated/error/PaymentError.tsx
+components/generated/error/PaymentSuccess.tsx
+components/generated/firebase/Index.tsx
+components/generated/front/chat/NonStudentIndex.tsx
+components/generated/front/contact/Email.tsx
+components/generated/front/contact/Index.tsx
+components/generated/front/course_forum/Index.tsx
+components/generated/front/course_forum/Messages.tsx
+components/generated/front/course_forum/SubjectMessage.tsx
+components/generated/front/course_forum/Subjects.tsx
+components/generated/front/courses/CourseDetails.tsx
+components/generated/front/evaluation/Index.tsx
+components/generated/front/exam/Show.html1.twig.tsx
+components/generated/front/exam/Show.tsx
+components/generated/front/forum/Index.tsx
+components/generated/front/home/Index.tsx
+components/generated/front/home/MainBarnner.tsx
+components/generated/front/includes/courses/Forum.tsx
+components/generated/front/payment/Index.tsx
+components/generated/google/Index.tsx
+components/generated/group_chat/Index.tsx
+components/generated/i_instructor/orders/Index.tsx
+components/generated/includes/CourseDetails.tsx
+components/generated/instructor/course_forum/Index.tsx
+components/generated/instructor/course_forum/SubjectMessage.tsx
+components/generated/instructor/reviews/Index.tsx
+components/generated/investisseur/Form.tsx
+components/generated/mail/ContactNotification.tsx
+components/generated/payment/Index.tsx
+components/generated/registration/ConfirmationEmail.tsx
+components/generated/student/chat/BaseChat.tsx
+components/generated/student/chat/Chat.tsx
+components/generated/student/chat/Index.tsx
+components/generated/student/chat/SetupModal.tsx
+components/generated/student/chat/SubjectChat.tsx
+components/home/HomeClient.tsx
+components/layout/Footer.tsx
+components/layout/Header.tsx
+components/layout/NotificationDropdown.tsx
+components/payment/PaymentCheckout.tsx
+components/player/LessonPlayer.tsx
+components/public/home/HeroSection.tsx
+components/quiz/QuizRunner.tsx
+components/runtimeTranslations.ts
+lib/deepseek.ts
+lib/email.ts
+lib/exceptions.ts
+lib/notifications.ts
+lib/rate-limit.ts
+lib/rls_manifest.ts
+lib/services/network.ts
+lib/services/payment.ts
+lib/validations/student.ts
+prisma/schema.prisma
+=== API ROUTES ===
+app/api/admin/categories/[id]/delete/route.ts
+app/api/admin/categories/route.ts
+app/api/admin/classes/[id]/delete/route.ts
+app/api/admin/classes/route.ts
+app/api/admin/courses/[id]/validate/route.ts
+app/api/admin/evaluations/[id]/route.ts
+app/api/admin/evaluations/route.ts
+app/api/admin/exams/[id]/validate/route.ts
+app/api/admin/faq/[id]/delete/route.ts
+app/api/admin/faq/route.ts
+app/api/admin/instructors/[id]/reject/route.ts
+app/api/admin/instructors/[id]/validate/route.ts
+app/api/admin/levels/[id]/delete/route.ts
+app/api/admin/levels/route.ts
+app/api/admin/settings/network/route.ts
+app/api/admin/settings/site/route.ts
+app/api/admin/settings/social/[id]/delete/route.ts
+app/api/admin/settings/social/route.ts
+app/api/admin/subscription-plans/[id]/delete/route.ts
+app/api/admin/subscription-plans/route.ts
+app/api/auth/become-teacher/route.ts
+app/api/auth/forgot-password/route.ts
+app/api/auth/login/route.ts
+app/api/auth/logout/route.ts
+app/api/auth/refresh/route.ts
+app/api/auth/register/route.ts
+app/api/auth/reset-password/route.ts
+app/api/categories/route.ts
+app/api/chat/conversations/[id]/messages/route.ts
+app/api/chat/conversations/route.ts
+app/api/contact/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/messages/route.ts
+app/api/courses/[slug]/forum/subjects/[subjectId]/solve/route.ts
+app/api/courses/[slug]/forum/subjects/route.ts
+app/api/courses/[slug]/review/route.ts
+app/api/courses/[slug]/route.ts
+app/api/courses/[slug]/start/route.ts
+app/api/courses/route.ts
+app/api/enroll/route.ts
+app/api/evaluation/submit/route.ts
+app/api/exams/[reference]/route.ts
+app/api/exams/file/[filename]/route.ts
+app/api/exams/route.ts
+app/api/instructor/chapters/[id]/route.ts
+app/api/instructor/chapters/route.ts
+app/api/instructor/courses/[id]/publish/route.ts
+app/api/instructor/courses/[id]/route.ts
+app/api/instructor/courses/route.ts
+app/api/instructor/evaluations/[id]/questions/[questionId]/route.ts
+app/api/instructor/evaluations/[id]/questions/route.ts
+app/api/instructor/evaluations/[id]/route.ts
+app/api/instructor/evaluations/route.ts
+app/api/instructor/exams/[reference]/route.ts
+app/api/instructor/exams/route.ts
+app/api/instructor/lessons/[id]/route.ts
+app/api/instructor/lessons/route.ts
+app/api/instructor/quizzes/[id]/route.ts
+app/api/instructor/quizzes/route.ts
+app/api/notifications/[id]/route.ts
+app/api/notifications/device/route.ts
+app/api/notifications/read-all/route.ts
+app/api/notifications/route.ts
+app/api/payment-methods/route.ts
+app/api/payment/init/route.ts
+app/api/payment/webhook/route.ts
+app/api/profile/avatar/route.ts
+app/api/profile/email/route.ts
+app/api/profile/route.ts
+app/api/student/enrollments/route.ts
+app/api/student/evaluations/route.ts
+app/api/student/progress/route.ts
+app/api/student/quiz-attempt/route.ts
+app/api/student/withdraw/route.ts
+app/api/upload/route.ts
+=== PRISMA MODELS ===
+10:model Subscription {
+25:model SubscriptionSubscriptionItem {
+37:model SubscriptionItem {
+45:model SubscriptionPaymentMethod {
+57:model Category {
+75:model Chapter {
+92:model Class {
+113:model Contact {
+125:model Course {
+173:model CourseClass {
+185:model CoursePaymentMethod {
+197:model CourseTag {
+203:model Device {
+215:model DoctrineMigrationVersions {
+223:model Student {
+250:model StudentCourse {
+262:model EmailSetting {
+270:model Instructor {
+304:model Institution {
+317:model Evaluation {
+342:model EvaluationClass {
+354:model EvaluationStudent {
+366:model EvaluationQuestion {
+381:model EvaluationResult {
+396:model Exam {
+422:model Faq {
+433:model Major {
+447:model MajorSubSystem {
+459:model Training {
+476:model TrainingCourse {
+488:model TrainingStudent {
+500:model Forum {
+510:model ForumMessage {
+532:model CourseLike {
+547:model User {
+576:model Lecture {
+599:model Lesson {
+616:model LikeMessageForum {
+628:model Media {
+641:model Member {
+653:model MemberForum {
+665:model MessengerMessages {
+680:model NetworkConfig {
+691:model Notification {
+705:model NotificationSetting {
+717:model NotificationTemplate {
+726:model NotificationType {
+736:model Payment {
+761:model PaymentMethod {
+774:model Country {
+785:model Person {
+818:model Proposition {
+830:model PushNotification {
+839:model Quiz {
+860:model QuizLost {
+879:model QuizResult {
+896:model QuizzesType {
+902:model RefreshToken {
+911:model Answer {
+924:model ResetPasswordRequest {
+937:model Withdrawal {
+955:model Review {
+970:model SiteSetting {
+986:model SkillLevel {
+996:model SocialSetting {
+1005:model SubSystem {
+1015:model Specialty {
+1027:model Subject {
+1044:model Term {
+1053:model TeachingType {
+1062:model UserMajor {
+1074:model Conversation {
+1084:model Participant {
+1097:model ChatMessage {
