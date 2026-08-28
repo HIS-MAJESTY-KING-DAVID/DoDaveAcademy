@@ -6,7 +6,11 @@
 
 **The deployment is operationally healthy but should be described as conditionally production-ready, not feature-complete production parity.** The public site builds and serves real database-backed content, the main public routes and APIs returned HTTP 200 in the latest smoke check, and the recent migration fixes passed the local release gates. However, several authenticated workflows still need security hardening and end-to-end acceptance testing before the application can be considered fully production-ready for all learner, instructor, administrator, payment, and chat use cases.
 
-This assessment compares the current Next.js repository at release commits `1c95cd3` and `ab12a7c` with the complete GitHub checkout of Lionelle’s `adjimi-lionelle/staging-kulmapeck` repository at the inspected `main` revision `82fc346d` (`update chat function`). Evidence is also recorded in `NEXTJS_FEATURE_INVENTORY.txt`, `FEATURE_SURFACE_COMPARISON.txt`, `PHP_CHAT_AUTHORITATIVE.txt`, and `PHP_SUBJECT_CHAT_COMPONENTS.txt`.
+This assessment compares the current Next.js repository at release commits `1c95cd3` and `ab12a7c` with the complete GitHub checkout of Lionelle’s `adjimi-lionelle/staging-kulmapeck` repository at the inspected `main` revision `82fc346d` (`update chat function`). Evidence is also recorded in the [legacy](./legacy/) subfolder:
+- [NEXTJS_FEATURE_INVENTORY.txt](./legacy/NEXTJS_FEATURE_INVENTORY.txt)
+- [FEATURE_SURFACE_COMPARISON.txt](./legacy/FEATURE_SURFACE_COMPARISON.txt)
+- [PHP_CHAT_AUTHORITATIVE.txt](./legacy/PHP_CHAT_AUTHORITATIVE.txt)
+- [PHP_SUBJECT_CHAT_COMPONENTS.txt](./legacy/PHP_SUBJECT_CHAT_COMPONENTS.txt)
 
 ## Current implementation baseline
 

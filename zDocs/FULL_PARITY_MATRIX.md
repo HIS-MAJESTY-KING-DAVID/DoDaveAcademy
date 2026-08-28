@@ -39,4 +39,8 @@ The next implementation order is intentionally workflow-first. First, recursive 
 
 ## Evidence files
 
-The raw inventories used to create this matrix are stored in `FULL_MIGRATION_INVENTORY.txt`, `SOURCE_SURFACES.txt`, `TARGET_SURFACES_AND_GAPS.txt`, and `ACTIVE_ROUTE_TRACE.txt` in this directory.
+The raw inventories used to create this matrix are stored in the [legacy](./legacy/) subfolder:
+- [FULL_MIGRATION_INVENTORY.txt](./legacy/FULL_MIGRATION_INVENTORY.txt)
+- [SOURCE_SURFACES.txt](./legacy/SOURCE_SURFACES.txt)
+- [TARGET_SURFACES_AND_GAPS.txt](./legacy/TARGET_SURFACES_AND_GAPS.txt)
+- [ACTIVE_ROUTE_TRACE.txt](./legacy/ACTIVE_ROUTE_TRACE.txt)

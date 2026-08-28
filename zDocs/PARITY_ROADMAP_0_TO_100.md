@@ -143,8 +143,46 @@ The migration reaches **100% behavioral parity** when every in-scope capability 
 
 All new mutations must validate the authenticated principal before reading or writing protected records. Nested IDs must be checked against their requested parent, and server-side values must not be trusted from the browser when a database value exists. Destructive actions must be explicit, bounded, and covered by negative tests. Realtime features must have a bounded fallback path and visible failure state. Database changes must be additive or accompanied by a reviewed migration and must never be applied directly to production without staging verification.
 
-Every feature block must update the following artifacts in the same release: `FEATURE_PARITY_PRODUCTION_READINESS.md`, `FULL_PARITY_MATRIX.md`, `DoDave Academy Full Migration Parity Matrix.md`, `MIGRATION_AUDIT.md`, `NEXT_FEATURES_ROADMAP.md`, `progress.md`, tests, and the app-wide audit output. The parity percentage must be recalculated from the matrix rather than manually guessed.
+Every feature block must update the following artifacts in the same release: `FEATURE_PARITY_PRODUCTION_READINESS.md`, `FULL_PARITY_MATRIX.md`, `MIGRATION_AUDIT.md`, `progress.md`, tests, and the app-wide audit output. The parity percentage must be recalculated from the matrix rather than manually guessed.
 
 ## 7. Immediate next action
 
 Block A passed its acceptance gate in the 2026-08-25 release. The active quiz contract is the scalar `Quiz.proposition1..4` representation consumed by the learner route; the legacy standalone `Proposition` CRUD scaffold is explicitly not copied into a second, unused data path. The next execution target is Block B: complete admin evaluation metadata, assignment, result/correction, timing, and role-boundary parity around the newly shipped question CRUD slice.
+
+## 8. Appendix: Priority Tasks, Estimates, and Historical Roadmap Context
+
+This appendix incorporates the detailed priority tasks and hourly estimates ported from the legacy `NEXT_FEATURES_ROADMAP.md` to ensure they are preserved for execution reference.
+
+### 8.1 Critical Remaining Business Logic & Feature Tasks
+
+| Priority | Task Description | Hours | Target Files / Component |
+|---|---|---|---|
+| 🟡 **P1** | MLM Network commission distribution logic (`ManageNetwork` -> `lib/services/network.ts`) | 16h | `lib/services/network.ts` |
+| 🟡 **P1** | Invitation code parent assignment logic port | 4h | `app/api/auth/register/route.ts` |
+| 🟡 **P1** | orange vs MTN operator phone utility check | 2h | `lib/utils/phone.ts` |
+| 🟡 **P1** | Subject chat service logic port (`SubjectChatService` -> `lib/services/chat-subjects.ts`) | 16h | `lib/services/chat-subjects.ts` |
+| 🟡 **P1** | In-app notification triggers on key events | 8h | Integration in existing API routes |
+| 🟡 **P1** | Push Notification Firebase service worker & device registration API | 8h | `public/firebase-messaging-sw.js`, `app/api/notifications/device/route.ts` |
+| 🟢 **P2** | AI chat room UI + DeepSeek proxy API proxy | 16h | `components/chat/AiChatRoom.tsx`, `app/api/chat/ai/route.ts` |
+| 🟢 **P2** | Google OAuth Login integration (NextAuth/custom) | 16h | Auth configuration & UI button |
+| 🟢 **P2** | Email Verification flow (sending links + verify API) | 12h | `lib/email.ts`, `app/api/auth/verify/route.ts` |
+| 🔵 **P3** | Admin Dashboard Phase: User list management (block, promote) | 16h | `app/admin/users/page.tsx` |
+| 🔵 **P3** | Admin Dashboard Phase: Course validation (approve/reject courses) | 12h | `app/admin/courses/page.tsx` |
+| 🔵 **P3** | Admin Dashboard Phase: Category/class/level CRUD pages | 24h | `/admin/categories`, `/admin/classes`, `/admin/levels` |
+| 🔵 **P3** | Admin Dashboard Phase: Subscription plan & FAQ admin managers | 12h | `/admin/subscription-plans`, `/admin/faq` |
+| 🔵 **P3** | Admin Dashboard Phase: Instructor validation (approve/reject) | 8h | `/admin/instructors` |
+| 🔵 **P3** | Admin Dashboard Phase: Site settings (general, network config, social CRUD) | 16h | `/admin/settings` |
+
+### 8.2 Security, Hardening & Migration Reference (Phases 7 & 8)
+
+*   **RLS Audit**: Review all Supabase tables for direct data leakage (e.g. chats, evaluations, progress).
+*   **Rate Limiting**: Implement rate-limiting middleware for auth endpoints (`/login`, `/register`) and payment endpoints.
+*   **Media Security**: Bounded upload restrictions, binary validation, and folder security in Supabase Storage.
+*   **Critical Dependencies to Port**:
+    1. `MobileApiService.php` (payment API integrations)
+    2. `PaymentUtil.php` (payment flows coordination)
+    3. `Keys.php` (file-based key handlers)
+*   **Rollback Procedures**:
+    *   *During Development*: Stop Next.js server, return to PHP staging folder. No data destruction.
+    *   *Post-Cutover*: Revert DNS to original PHP server IP. Ensure backward compatibility of schema changes (run separate databases if required).
+
