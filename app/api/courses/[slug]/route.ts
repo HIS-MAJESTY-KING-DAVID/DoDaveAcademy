@@ -3,24 +3,22 @@ import { prisma } from '@/lib/prisma';
 import { handleApiError } from '@/lib/exceptions';
 
 export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  _request: Request,
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
 
   try {
     const course = await prisma.course.findFirst({
       where: {
-        slug: slug,
+        slug,
         isPublished: true,
       },
       include: {
         instructor: {
           include: {
             user: {
-              include: {
-                person: true,
-              },
+              include: { person: true },
             },
           },
         },
@@ -28,28 +26,18 @@ export async function GET(
         skillLevel: true,
         media: true,
         chapters: {
-          include: {
-            lessons: true,
-          },
-          orderBy: {
-            number: 'asc',
-          },
+          include: { lessons: true },
+          orderBy: { number: 'asc' },
         },
         reviews: {
           include: {
             student: {
               include: {
-                user: {
-                  include: {
-                    person: true,
-                  },
-                },
+                user: { include: { person: true } },
               },
             },
           },
-          orderBy: {
-            createdAt: 'desc',
-          },
+          orderBy: { createdAt: 'desc' },
           take: 5,
         },
         faqs: true,
@@ -57,13 +45,15 @@ export async function GET(
     });
 
     if (!course) {
-      return NextResponse.json(
-        { message: 'Course not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: 'Course not found' }, { status: 404 });
     }
 
-    return NextResponse.json(course);
+    const updatedCourse = await prisma.course.update({
+      where: { id: course.id },
+      data: { views: { increment: 1 } },
+    });
+
+    return NextResponse.json({ ...course, views: updatedCourse.views });
   } catch (error) {
     return handleApiError(error);
   }

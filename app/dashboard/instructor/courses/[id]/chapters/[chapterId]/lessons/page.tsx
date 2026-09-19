@@ -157,7 +157,7 @@ export default function LessonsPage() {
       )}
 
       {lessons.length === 0 ? (
-        <div className="alert alert-info">No lessons yet. Click "Add Lesson" to get started.</div>
+        <div className="alert alert-info">No lessons yet. Click &quot;Add Lesson&quot; to get started.</div>
       ) : (
         <div className="list-group">
           {lessons.map((lesson, i) => (

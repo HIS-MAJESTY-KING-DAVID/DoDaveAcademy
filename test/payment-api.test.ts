@@ -1,11 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 const mockPrisma = {
-  student: { findUnique: vi.fn() },
+  $transaction: vi.fn(),
+  student: { findUnique: vi.fn(), update: vi.fn() },
   payment: { create: vi.fn(), findFirst: vi.fn(), update: vi.fn(), updateMany: vi.fn() },
   paymentMethod: { findFirst: vi.fn() },
   studentCourse: { upsert: vi.fn() },
   subscription: { findUnique: vi.fn() },
+  networkConfig: { findFirst: vi.fn() },
 };
 
 vi.mock('@/lib/prisma', () => ({ prisma: mockPrisma }));
@@ -24,6 +26,7 @@ const { getSession } = await import('@/lib/auth');
 
 beforeEach(() => {
   vi.clearAllMocks();
+  mockPrisma.$transaction.mockImplementation(async (callback: (tx: typeof mockPrisma) => unknown) => callback(mockPrisma));
 });
 
 describe('POST /api/payment/init', () => {

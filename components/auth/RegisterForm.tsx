@@ -2,16 +2,18 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function RegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
+    referralCode: searchParams.get('ref')?.toUpperCase() || '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -41,6 +43,7 @@ export default function RegisterForm() {
           name: `${formData.firstName} ${formData.lastName}`.trim(),
           email: formData.email,
           password: formData.password,
+          referralCode: formData.referralCode,
         }),
       });
 
@@ -144,6 +147,23 @@ export default function RegisterForm() {
               value={formData.confirmPassword}
               onChange={handleChange}
             />
+          </div>
+
+          {/* Referral code */}
+          <div className="col-12 mb-3">
+            <label className="form-label" htmlFor="referralCode">Referral Code <span className="text-muted">(optional)</span></label>
+            <input
+              type="text"
+              className="form-control text-uppercase"
+              id="referralCode"
+              name="referralCode"
+              maxLength={6}
+              pattern="[A-Za-z0-9]{6}"
+              value={formData.referralCode}
+              onChange={handleChange}
+              placeholder="Enter your inviter's code"
+            />
+            <small className="text-muted">Use the code shared by the person who invited you to DoDave Academy.</small>
           </div>
 
           {/* Terms */}

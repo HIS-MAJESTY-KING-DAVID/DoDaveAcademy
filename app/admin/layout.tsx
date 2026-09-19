@@ -46,6 +46,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <Link href="/admin/exams" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
             <i className="bi bi-pencil-square"></i> Exams
           </Link>
+          <Link href="/admin/evaluations" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
+            <i className="bi bi-clipboard-check"></i> Evaluations
+          </Link>
           <Link href="/admin/faq" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
             <i className="bi bi-question-circle"></i> FAQ
           </Link>
