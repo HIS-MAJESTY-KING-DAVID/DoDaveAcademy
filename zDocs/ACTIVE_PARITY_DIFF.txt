@@ -1,0 +1,80 @@
+===== ACTIVE TARGET GAP MARKERS =====
+/home/ubuntu/projects/DoDaveAcademy/app/api/exams/file/[filename]/route.ts:34:  return null;
+/home/ubuntu/projects/DoDaveAcademy/app/contact/ContactClient.tsx:53:                    <a href="#" className="text-white"><i className="fas fa-fw fa-map-marker-alt me-2 mt-1"></i>{contacts.address}</a>
+/home/ubuntu/projects/DoDaveAcademy/app/contact/ContactClient.tsx:56:                    <a href="#" className="text-white"><i className="fas fa-fw fa-phone-alt me-2"></i>{contacts.phone}</a>
+/home/ubuntu/projects/DoDaveAcademy/app/contact/ContactClient.tsx:59:                    <a href="#" className="text-white"><i className="far fa-fw fa-envelope me-2"></i>{contacts.email}</a>
+/home/ubuntu/projects/DoDaveAcademy/app/contact/ContactClient.tsx:70:                    <a href="#"><i className="fas fa-fw fa-phone-alt me-2"></i>{contacts.phoneMtn}</a>
+/home/ubuntu/projects/DoDaveAcademy/app/contact/ContactClient.tsx:81:                    <a href="#"><i className="fas fa-fw fa-phone-alt me-2"></i>{contacts.phoneOrange}</a>
+/home/ubuntu/projects/DoDaveAcademy/app/courses/[slug]/page.tsx:362:                      <Link href="#" className="btn btn-outline-primary mb-2">
+/home/ubuntu/projects/DoDaveAcademy/components/LanguageSwitcher.tsx:22:    return null; // or a placeholder
+/home/ubuntu/projects/DoDaveAcademy/components/LanguageSwitcher.tsx:30:        <a className="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+/home/ubuntu/projects/DoDaveAcademy/components/auth/LoginForm.tsx:115:            <a href="#" className="btn btn-outline-light mb-0">
+/home/ubuntu/projects/DoDaveAcademy/components/auth/LoginForm.tsx:121:            <a href="#" className="btn btn-outline-light mb-0">
+/home/ubuntu/projects/DoDaveAcademy/components/auth/RegisterForm.tsx:198:          <a href="#" className="btn btn-outline-light mb-0 bg-white">
+/home/ubuntu/projects/DoDaveAcademy/components/auth/RegisterForm.tsx:203:          <a href="#" className="btn btn-outline-light mb-0 bg-white">
+/home/ubuntu/projects/DoDaveAcademy/components/layout/Footer.tsx:27:                    <a className="inline-flex items-center justify-center w-8 h-8 bg-white rounded shadow-sm text-whatsapp hover:opacity-90" href="#"><i className="fab fa-fw fa-whatsapp"></i></a>
+/home/ubuntu/projects/DoDaveAcademy/components/layout/Footer.tsx:30:                    <a className="inline-flex items-center justify-center w-8 h-8 bg-white rounded shadow-sm text-facebook hover:opacity-90" href="#"><i className="fab fa-fw fa-facebook-f"></i></a>
+/home/ubuntu/projects/DoDaveAcademy/components/layout/Footer.tsx:33:                    <a className="inline-flex items-center justify-center w-8 h-8 bg-white rounded shadow-sm text-instagram hover:opacity-90" href="#"><i className="fab fa-fw fa-instagram"></i></a>
+/home/ubuntu/projects/DoDaveAcademy/components/layout/Footer.tsx:36:                    <a className="inline-flex items-center justify-center w-8 h-8 bg-white rounded shadow-sm text-twitter hover:opacity-90" href="#"><i className="fab fa-fw fa-twitter"></i></a>
+/home/ubuntu/projects/DoDaveAcademy/components/layout/Footer.tsx:84:                <Link href="#"> <img src="/assets/images/client/google-play.svg" alt="" /> </Link>
+/home/ubuntu/projects/DoDaveAcademy/components/layout/Footer.tsx:87:                <Link href="#"> <img src="/assets/images/client/app-store.svg" alt="app-store" /> </Link>
+/home/ubuntu/projects/DoDaveAcademy/lib/auth.ts:18:    return null;
+/home/ubuntu/projects/DoDaveAcademy/lib/auth.ts:25:    return null;
+/home/ubuntu/projects/DoDaveAcademy/lib/auth.ts:31:  if (!session) return null;
+/home/ubuntu/projects/DoDaveAcademy/lib/auth.ts:43:    return null;
+
+===== SOURCE ROUTE ANNOTATIONS =====
+
+===== SOURCE DOMAIN CONTROLLERS =====
+      1 AboutController.php
+     34 Admin
+     37 Api
+      1 BlogController.php
+      1 ChatController.php
+      1 ContactController.php
+      1 E404Controller.php
+      1 FirebaseController.php
+      8 Front
+      1 FrontController.php
+      1 GoogleController.php
+      1 HomeController.php
+      1 IInstructor
+     10 Instructor
+      1 InvestisseurController.php
+      1 MaintenanceController.php
+      1 PartActionController.php
+      1 PaymentControllers.php
+      1 ProfileController.php
+      1 ProjectController.php
+      1 PushNotificationController.php
+      1 RegistrationController.php
+      1 ResetPasswordController.php
+      1 SecurityController.php
+      1 ServiceController.php
+      6 Student
+      1 TeamController.php
+      1 TermsController.php
+      1 TestimonyController.php
+      1 UserController.php
+
+===== ACTIVE TARGET DOMAIN PAGES =====
+      1 about
+     12 admin
+      1 become-teacher
+      1 contact
+      2 courses
+     25 dashboard
+      2 evaluation
+      2 exams
+      1 faq
+      1 forgot-password
+      1 forum
+      5 learn
+      1 login
+      1 logout
+      1 page.tsx
+      1 plan
+      1 programs
+      1 register
+      1 reset-password
+      1 terms

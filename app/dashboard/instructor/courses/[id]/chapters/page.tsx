@@ -149,7 +149,7 @@ export default function ChaptersPage() {
       )}
 
       {chapters.length === 0 ? (
-        <div className="alert alert-info">No chapters yet. Click "Add Chapter" to get started.</div>
+        <div className="alert alert-info">No chapters yet. Click &quot;Add Chapter&quot; to get started.</div>
       ) : (
         <div className="accordion" id="chaptersAccordion">
           {chapters.map((chapter, i) => (

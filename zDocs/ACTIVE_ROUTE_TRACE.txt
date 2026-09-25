@@ -1,0 +1,320 @@
+===== ACTIVE IMPORTS OF GENERATED COMPONENTS =====
+
+===== ACTIVE SERVER PRISMA QUERIES =====
+/home/ubuntu/projects/DoDaveAcademy/app/admin/categories/page.tsx:11:  const categories = await prisma.category.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/classes/page.tsx:11:  const classes = await prisma.class.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/courses/page.tsx:12:  const courses = await prisma.course.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/exams/page.tsx:11:  const exams = await prisma.exam.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/faq/page.tsx:12:    prisma.faq.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/faq/page.tsx:16:    prisma.course.findMany({ orderBy: { title: 'asc' }, select: { id: true, title: true } }),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/instructors/page.tsx:12:  const instructors = await prisma.instructor.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/levels/page.tsx:11:  const levels = await prisma.skillLevel.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/page.tsx:13:    prisma.user.count(),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/page.tsx:14:    prisma.course.count(),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/page.tsx:15:    prisma.instructor.count(),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/page.tsx:16:    prisma.student.count(),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/page.tsx:17:    prisma.course.count({ where: { isValidated: false } }),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/page.tsx:18:    prisma.user.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/settings/page.tsx:12:    prisma.siteSetting.findFirst(),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/settings/page.tsx:13:    prisma.socialSetting.findMany({ orderBy: { id: 'asc' } }),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/settings/page.tsx:14:    prisma.networkConfig.findFirst(),
+/home/ubuntu/projects/DoDaveAcademy/app/admin/subscription-plans/page.tsx:11:  const plans = await prisma.subscription.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/users/[id]/page.tsx:17:    prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/users/[id]/page.tsx:27:    prisma.payment.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/admin/users/page.tsx:12:  const users = await prisma.user.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/categories/[id]/delete/route.ts:19:  await prisma.category.delete({ where: { id: categoryId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/categories/route.ts:16:  const categories = await prisma.category.findMany({ orderBy: { id: 'asc' } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/categories/route.ts:34:  await prisma.category.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/classes/[id]/delete/route.ts:17:  await prisma.class.delete({ where: { id: parseInt(id, 10) } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/classes/route.ts:20:  await prisma.class.create({ data: { name, slug: slugify(name) } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/courses/[id]/validate/route.ts:17:    await prisma.course.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/exams/[id]/validate/route.ts:17:  await prisma.exam.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/faq/[id]/delete/route.ts:17:  await prisma.faq.delete({ where: { id: parseInt(id, 10) } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/faq/route.ts:18:  await prisma.faq.create({ data: { courseId, question, answer } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/instructors/[id]/reject/route.ts:19:  await prisma.instructor.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/instructors/[id]/validate/route.ts:19:  await prisma.instructor.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/levels/[id]/delete/route.ts:17:  await prisma.skillLevel.delete({ where: { id: parseInt(id, 10) } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/levels/route.ts:20:  await prisma.skillLevel.create({ data: { name, slug: slugify(name) } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/settings/network/route.ts:15:  const existing = await prisma.networkConfig.findFirst();
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/settings/network/route.ts:26:    await prisma.networkConfig.update({ where: { id: existing.id }, data });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/settings/network/route.ts:28:    await prisma.networkConfig.create({ data });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/settings/site/route.ts:15:  const existing = await prisma.siteSetting.findFirst();
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/settings/site/route.ts:31:    await prisma.siteSetting.update({ where: { id: existing.id }, data });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/settings/site/route.ts:33:    await prisma.siteSetting.create({ data });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/settings/social/[id]/delete/route.ts:19:  await prisma.socialSetting.delete({ where: { id: socialId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/settings/social/route.ts:18:  await prisma.socialSetting.create({ data: { name, link, icon } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/subscription-plans/[id]/delete/route.ts:17:  await prisma.subscription.delete({ where: { id: parseInt(id, 10) } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/admin/subscription-plans/route.ts:25:  await prisma.subscription.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/become-teacher/route.ts:14:    const user = email ? await prisma.user.findUnique({ where: { email } }) : null;
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/become-teacher/route.ts:19:    await prisma.contact.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/forgot-password/route.ts:18:    const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/forgot-password/route.ts:36:    await prisma.resetPasswordRequest.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/login/route.ts:29:    const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/login/route.ts:63:    await prisma.refreshToken.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/refresh/route.ts:34:    const stored = await prisma.refreshToken.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/refresh/route.ts:46:      await prisma.refreshToken.delete({ where: { id: stored.id } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/refresh/route.ts:53:    const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/refresh/route.ts:70:    await prisma.refreshToken.delete({ where: { id: stored.id } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/refresh/route.ts:76:    await prisma.refreshToken.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/register/route.ts:16:    const existing = await prisma.person.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/register/route.ts:36:    const existingUser = await prisma.user.findUnique({ where: { email } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/register/route.ts:43:      const parent = await prisma.person.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/register/route.ts:60:    const user = await prisma.user.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/reset-password/route.ts:21:    const request = await prisma.resetPasswordRequest.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/reset-password/route.ts:44:    await prisma.user.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/auth/reset-password/route.ts:50:    await prisma.resetPasswordRequest.deleteMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/categories/route.ts:7:    const categories = await prisma.category.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/chat/conversations/[id]/messages/route.ts:25:    const participant = await prisma.participant.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/chat/conversations/[id]/messages/route.ts:38:    const messages = await prisma.chatMessage.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/chat/conversations/[id]/messages/route.ts:75:    const participant = await prisma.participant.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/chat/conversations/[id]/messages/route.ts:89:    const message = await prisma.chatMessage.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/chat/conversations/[id]/messages/route.ts:105:    await prisma.conversation.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/chat/conversations/route.ts:14:    const conversations = await prisma.conversation.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/chat/conversations/route.ts:69:    const existingConversation = await prisma.conversation.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/chat/conversations/route.ts:86:    const conversation = await prisma.conversation.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/contact/route.ts:15:    const user = await prisma.user.findUnique({ where: { email }, select: { id: true } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/contact/route.ts:17:    await prisma.contact.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:23:    let member = await prisma.member.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:28:      member = await prisma.member.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:39:        const existing = await prisma.likeMessageForum.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:47:          await prisma.likeMessageForum.delete({ where: { id: existing.id } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:48:          await prisma.forumMessage.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:54:          await prisma.likeMessageForum.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:60:          await prisma.forumMessage.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:71:    const firstMessage = await prisma.forumMessage.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:80:    const existing = await prisma.likeMessageForum.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:88:      await prisma.likeMessageForum.delete({ where: { id: existing.id } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:89:      await prisma.forumMessage.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:96:    await prisma.likeMessageForum.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/like/route.ts:102:    await prisma.forumMessage.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/messages/route.ts:25:    const subject = await prisma.subject.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/messages/route.ts:89:    let member = await prisma.member.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/messages/route.ts:94:        member = await prisma.member.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/messages/route.ts:99:    const message = await prisma.forumMessage.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/solve/route.ts:23:    const subject = await prisma.subject.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/solve/route.ts:37:    const member = await prisma.member.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/solve/route.ts:48:      ? (await prisma.instructor.findUnique({ where: { id: course.instructorId } }))?.userId === session.userId
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/[subjectId]/solve/route.ts:55:    const updated = await prisma.subject.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:19:    const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:57:    const isInstructor = course.instructorId && (await prisma.instructor.findUnique({ where: { id: course.instructorId }, select: { userId: true } }))?.userId === userId;
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:60:        const student = await prisma.student.findUnique({ where: { userId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:63:        const enrollment = await prisma.studentCourse.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:105:    const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:115:    let member = await prisma.member.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:120:        member = await prisma.member.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:128:        forum = await prisma.forum.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/forum/subjects/route.ts:134:    const subject = await prisma.subject.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/review/route.ts:21:    const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/review/route.ts:29:    const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/review/route.ts:38:    const enrollment = await prisma.studentCourse.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/review/route.ts:52:    const existingReview = await prisma.review.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/review/route.ts:61:        await prisma.review.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/review/route.ts:72:    await prisma.review.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/route.ts:12:    const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/route.ts:51:    const updatedCourse = await prisma.course.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/start/route.ts:19:    const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/start/route.ts:40:    const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/start/route.ts:50:    const enrollment = await prisma.studentCourse.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/[slug]/start/route.ts:67:    const lastLecture = await prisma.lecture.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/route.ts:45:      prisma.course.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/courses/route.ts:71:      prisma.course.count({ where }),
+/home/ubuntu/projects/DoDaveAcademy/app/api/enroll/route.ts:18:    const course = await prisma.course.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/enroll/route.ts:26:    let student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/enroll/route.ts:32:      student = await prisma.student.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/enroll/route.ts:41:    const existingEnrollment = await prisma.studentCourse.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/enroll/route.ts:55:      await prisma.studentCourse.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/evaluation/submit/route.ts:19:    const student = await prisma.student.findUnique({ where: { userId: session.userId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/evaluation/submit/route.ts:24:    const existing = await prisma.evaluationResult.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/evaluation/submit/route.ts:31:    const questions = await prisma.evaluationQuestion.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/evaluation/submit/route.ts:45:    const result = await prisma.evaluationResult.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/exams/[reference]/route.ts:12:    const exam = await prisma.exam.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/exams/file/[filename]/route.ts:54:  const exam = await prisma.exam.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/exams/file/[filename]/route.ts:77:    const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/exams/route.ts:38:      prisma.exam.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/exams/route.ts:59:      prisma.exam.count({ where }),
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/chapters/[id]/route.ts:16:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/chapters/[id]/route.ts:29:    const chapter = await prisma.chapter.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/chapters/[id]/route.ts:38:    await prisma.chapter.delete({ where: { id: chapterId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/chapters/route.ts:13:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/chapters/route.ts:22:    const course = await prisma.course.findUnique({ where: { id: courseId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/chapters/route.ts:32:    const chapter = await prisma.chapter.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/[id]/publish/route.ts:23:    const course = await prisma.course.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/[id]/publish/route.ts:39:      const chapterCount = await prisma.chapter.count({ where: { courseId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/[id]/publish/route.ts:47:      const updated = await prisma.course.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/[id]/publish/route.ts:61:      const updated = await prisma.course.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/[id]/route.ts:21:  const course = await prisma.course.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/[id]/route.ts:49:    const full = await prisma.course.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/[id]/route.ts:113:    const updated = await prisma.course.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/[id]/route.ts:143:    await prisma.course.delete({ where: { id: courseId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/route.ts:27:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/route.ts:59:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/courses/route.ts:75:    const course = await prisma.course.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/[id]/route.ts:16:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/[id]/route.ts:29:    const lesson = await prisma.lesson.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/[id]/route.ts:40:    const updated = await prisma.lesson.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/[id]/route.ts:67:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/[id]/route.ts:80:    const lesson = await prisma.lesson.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/[id]/route.ts:89:    await prisma.lesson.delete({ where: { id: lessonId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/[id]/route.ts:91:    await prisma.course.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/route.ts:13:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/route.ts:22:    const course = await prisma.course.findUnique({ where: { id: courseId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/route.ts:32:    const lesson = await prisma.lesson.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/lessons/route.ts:44:    await prisma.course.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/[id]/route.ts:16:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/[id]/route.ts:29:    const quiz = await prisma.quiz.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/[id]/route.ts:41:    await prisma.proposition.deleteMany({ where: { quizId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/[id]/route.ts:48:    const updated = await prisma.quiz.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/[id]/route.ts:83:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/[id]/route.ts:96:    const quiz = await prisma.quiz.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/[id]/route.ts:105:    await prisma.quiz.delete({ where: { id: quizId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/route.ts:13:    const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/route.ts:22:    const course = await prisma.course.findUnique({ where: { id: courseId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/instructor/quizzes/route.ts:35:    const quiz = await prisma.quiz.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/[id]/route.ts:24:    const notification = await prisma.notification.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/[id]/route.ts:32:    const updated = await prisma.notification.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/[id]/route.ts:59:    const notification = await prisma.notification.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/[id]/route.ts:67:    await prisma.notification.delete({ where: { id: notifId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/device/route.ts:19:    const existing = await prisma.device.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/device/route.ts:24:      ? await prisma.device.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/device/route.ts:28:      : await prisma.device.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/read-all/route.ts:13:    await prisma.notification.updateMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/route.ts:14:    const notifications = await prisma.notification.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/route.ts:20:    const unreadCount = await prisma.notification.count({
+/home/ubuntu/projects/DoDaveAcademy/app/api/notifications/route.ts:47:    const notification = await prisma.notification.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment-methods/route.ts:7:  const methods = await prisma.paymentMethod.findMany({ orderBy: { id: 'asc' } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment/init/route.ts:23:    const student = await prisma.student.findUnique({ where: { userId: session.userId } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment/init/route.ts:28:    const paymentMethod = await prisma.paymentMethod.findFirst();
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment/init/route.ts:35:    await prisma.payment.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment/init/route.ts:59:      await prisma.payment.updateMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment/webhook/route.ts:18:    const payment = await prisma.payment.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment/webhook/route.ts:32:      await prisma.payment.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment/webhook/route.ts:78:        payment.subscription?.pointsCount || (await prisma.networkConfig.findFirst({ orderBy: { id: 'asc' } }))?.pointsPerInvitation || 0,
+/home/ubuntu/projects/DoDaveAcademy/app/api/payment/webhook/route.ts:94:  const payment = await prisma.payment.findFirst({ where: { reference } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/avatar/route.ts:36:    const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/avatar/route.ts:42:      await prisma.person.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/email/route.ts:20:    const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/email/route.ts:35:    const existing = await prisma.user.findUnique({ where: { email } });
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/email/route.ts:40:    await prisma.user.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/route.ts:13:    const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/route.ts:42:    const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/route.ts:52:      await prisma.person.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/profile/route.ts:67:      await prisma.instructor.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/enrollments/route.ts:13:    const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/enrollments/route.ts:21:    const enrollments = await prisma.studentCourse.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/progress/route.ts:17:    const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/progress/route.ts:26:    const existingLecture = await prisma.lecture.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/progress/route.ts:43:        await prisma.lecture.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/progress/route.ts:48:        await prisma.lecture.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:17:    const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:25:    const chapter = await prisma.chapter.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:41:    const existingAttemptCheck = await prisma.quizLost.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:86:        results.map(result => prisma.quizResult.create({ data: result }))
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:93:    const existingAttempt = await prisma.quizLost.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:116:        await prisma.quizLost.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:131:        await prisma.quizLost.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:146:        const existingLecture = await prisma.lecture.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:155:            await prisma.lecture.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/quiz-attempt/route.ts:164:            await prisma.lecture.create({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/withdraw/route.ts:31:      prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/withdraw/route.ts:35:      prisma.networkConfig.findFirst({ orderBy: { id: 'asc' } }),
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/withdraw/route.ts:36:      prisma.paymentMethod.findUnique({ where: { id: paymentMethodId } }),
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/withdraw/route.ts:99:        prisma.withdrawal.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/withdraw/route.ts:103:        prisma.user.update({
+/home/ubuntu/projects/DoDaveAcademy/app/api/student/withdraw/route.ts:112:    await prisma.withdrawal.update({
+/home/ubuntu/projects/DoDaveAcademy/app/courses/[slug]/page.tsx:8:  const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/courses/[slug]/page.tsx:44:  const courseRecord = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/courses/[slug]/page.tsx:95:  const course = await prisma.course.update({
+/home/ubuntu/projects/DoDaveAcademy/app/courses/[slug]/page.tsx:131:  const enrolledCount = await prisma.studentCourse.count({ where: { courseId: course.id } });
+/home/ubuntu/projects/DoDaveAcademy/app/courses/page.tsx:80:    prisma.course.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/courses/page.tsx:90:    prisma.course.count({ where }),
+/home/ubuntu/projects/DoDaveAcademy/app/courses/page.tsx:91:    prisma.category.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/courses/page.tsx:96:    prisma.skillLevel.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/courses/page.tsx:10:  const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/evaluations/page.tsx:9:  const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/exams/page.tsx:10:  const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/network/page.tsx:10:  const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/network/page.tsx:18:  const networkConfig = await prisma.networkConfig.findFirst();
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/orders/page.tsx:9:  const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/page.tsx:10:  const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/profile/page.tsx:9:  const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/reviews/page.tsx:9:  const instructor = await prisma.instructor.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/courses/page.tsx:10:  const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/network/page.tsx:10:  const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/network/page.tsx:17:  const networkConfig = await prisma.networkConfig.findFirst();
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/network/retraits/page.tsx:12:  const withdrawals = await prisma.withdrawal.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/page.tsx:28:  const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/page.tsx:43:  const enrollments = await prisma.studentCourse.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/payments/page.tsx:9:  const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/profile/page.tsx:9:  const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/subscriptions/page.tsx:10:  const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/evaluation/[slug]/begin/page.tsx:18:  const student = await prisma.student.findUnique({ where: { userId: session.userId } });
+/home/ubuntu/projects/DoDaveAcademy/app/evaluation/[slug]/begin/page.tsx:21:  const evaluation = await prisma.evaluation.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/evaluation/[slug]/begin/page.tsx:35:  const existingResult = await prisma.evaluationResult.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/evaluation/[slug]/result/page.tsx:17:  const student = await prisma.student.findUnique({ where: { userId: session.userId } });
+/home/ubuntu/projects/DoDaveAcademy/app/evaluation/[slug]/result/page.tsx:20:  const evaluation = await prisma.evaluation.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/evaluation/[slug]/result/page.tsx:27:  const result = await prisma.evaluationResult.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/evaluation/[slug]/result/page.tsx:36:  const questionCount = await prisma.evaluationQuestion.count({
+/home/ubuntu/projects/DoDaveAcademy/app/exams/[reference]/page.tsx:9:  const exam = await prisma.exam.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/exams/[reference]/page.tsx:44:  const exam = await prisma.exam.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/exams/[reference]/page.tsx:73:    const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/exams/page.tsx:88:    prisma.exam.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/exams/page.tsx:109:    prisma.exam.count({ where }),
+/home/ubuntu/projects/DoDaveAcademy/app/exams/page.tsx:110:    prisma.category.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/exams/page.tsx:114:    prisma.class.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/exams/page.tsx:118:    prisma.skillLevel.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/faq/page.tsx:13:  const faqs = await prisma.faq.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/forum/page.tsx:13:  const recentSubjects = await prisma.subject.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/learn/[courseSlug]/[lessonSlug]/page.tsx:12:  const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/learn/[courseSlug]/forum/[subjectId]/page.tsx:21:  const subject = await prisma.subject.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/learn/[courseSlug]/forum/page.tsx:18:  const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/learn/[courseSlug]/layout.tsx:18:  const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/learn/[courseSlug]/layout.tsx:34:  const student = await prisma.student.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/learn/[courseSlug]/layout.tsx:40:  const enrollment = await prisma.studentCourse.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/learn/[courseSlug]/page.tsx:16:  const course = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/learn/[courseSlug]/quiz/[chapterId]/page.tsx:12:  const chapter = await prisma.chapter.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/app/page.tsx:9:  const totalCourses = await prisma.course.count({ where: { isPublished: true, isValidated: true, isRejected: false } });
+/home/ubuntu/projects/DoDaveAcademy/app/page.tsx:10:  const totalStudents = await prisma.student.count();
+/home/ubuntu/projects/DoDaveAcademy/app/page.tsx:11:  const totalInstructors = await prisma.instructor.count();
+/home/ubuntu/projects/DoDaveAcademy/app/page.tsx:12:  const totalExams = await prisma.exam.count({ where: { isPublished: true } });
+/home/ubuntu/projects/DoDaveAcademy/app/page.tsx:13:  const courses = await prisma.course.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/page.tsx:19:  const categories = await prisma.category.findMany({ where: { categoryId: null }, include: { categories: true }, orderBy: { name: 'asc' } });
+/home/ubuntu/projects/DoDaveAcademy/app/page.tsx:20:  const featuredCourse = await prisma.course.findFirst({
+/home/ubuntu/projects/DoDaveAcademy/app/page.tsx:25:  const testimonials = await prisma.review.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/plan/page.tsx:8:  const subscriptions = await prisma.subscription.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/programs/page.tsx:13:  const programs = await prisma.training.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/sitemap.ts:30:    courses = await prisma.course.findMany({
+/home/ubuntu/projects/DoDaveAcademy/app/sitemap.ts:39:    exams = await prisma.exam.findMany({
+/home/ubuntu/projects/DoDaveAcademy/lib/auth.ts:34:    const user = await prisma.user.findUnique({
+/home/ubuntu/projects/DoDaveAcademy/lib/notifications.ts:16:  return prisma.notification.create({
+/home/ubuntu/projects/DoDaveAcademy/lib/services/network.ts:112:  return prisma.networkConfig.findFirst({ orderBy: { id: 'asc' } });
+
+===== POSSIBLE CLIENT/SERVER MISMATCHES =====
+/home/ubuntu/projects/DoDaveAcademy/app/contact/ContactClient.tsx:17:      const res = await fetch('/api/contact', {
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/courses/[id]/chapters/page.tsx:61:      const chapterRes = await fetch('/api/instructor/chapters', {
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/courses/new/page.tsx:29:      const res = await fetch('/api/instructor/courses', {
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/profile/edit/page.tsx:24:    fetch('/api/profile')
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/instructor/profile/edit/page.tsx:51:      const res = await fetch('/api/profile', {
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/notifications/page.tsx:22:      const res = await fetch('/api/notifications');
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/notifications/page.tsx:61:    await fetch('/api/notifications/read-all', { method: 'POST' });
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/network/retrait/page.tsx:17:    fetch('/api/payment-methods')
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/network/retrait/page.tsx:30:      const res = await fetch('/api/student/withdraw', {
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/profile/edit/page.tsx:24:    fetch('/api/profile')
+/home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/profile/edit/page.tsx:51:      const res = await fetch('/api/profile', {
+/home/ubuntu/projects/DoDaveAcademy/app/evaluation/[slug]/begin/EvaluationForm.tsx:61:      const res = await fetch('/api/evaluation/submit', {
+/home/ubuntu/projects/DoDaveAcademy/app/forgot-password/page.tsx:18:      const res = await fetch('/api/auth/forgot-password', {
+/home/ubuntu/projects/DoDaveAcademy/app/logout/page.tsx:10:    fetch('/api/auth/logout', { method: 'POST' }).finally(() => {
+/home/ubuntu/projects/DoDaveAcademy/app/reset-password/page.tsx:35:      const res = await fetch('/api/auth/reset-password', {
+/home/ubuntu/projects/DoDaveAcademy/components/auth/BecomeTeacherForm.tsx:28:      const res = await fetch('/api/auth/become-teacher', {
+/home/ubuntu/projects/DoDaveAcademy/components/auth/LoginForm.tsx:20:      const res = await fetch('/api/auth/login', {
+/home/ubuntu/projects/DoDaveAcademy/components/auth/RegisterForm.tsx:37:      const res = await fetch('/api/auth/register', {
+/home/ubuntu/projects/DoDaveAcademy/components/chat/ChatWindow.tsx:53:            const res = await fetch('/api/chat/conversations');
+/home/ubuntu/projects/DoDaveAcademy/components/layout/NotificationDropdown.tsx:26:    fetch('/api/notifications')
+/home/ubuntu/projects/DoDaveAcademy/components/payment/PaymentCheckout.tsx:38:      const res = await fetch('/api/payment/init', {
+/home/ubuntu/projects/DoDaveAcademy/components/player/LessonPlayer.tsx:18:            await fetch('/api/student/progress', {
+/home/ubuntu/projects/DoDaveAcademy/components/quiz/QuizRunner.tsx:43:            const res = await fetch('/api/student/quiz-attempt', {
+
+===== EMPTY/STATIC ACTIVE PAGES =====
+15 /home/ubuntu/projects/DoDaveAcademy/app/contact/page.tsx
+22 /home/ubuntu/projects/DoDaveAcademy/app/register/page.tsx
+24 /home/ubuntu/projects/DoDaveAcademy/app/logout/page.tsx
+30 /home/ubuntu/projects/DoDaveAcademy/app/dashboard/student/messages/page.tsx

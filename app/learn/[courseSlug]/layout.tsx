@@ -46,17 +46,8 @@ export default async function LearnLayout({
     }
   });
 
-  // Free trial check: 2-day trial from student joinAt
   if (!enrollment) {
-    const joinAt = student.joinAt;
-    const now = new Date();
-    const diffMs = now.getTime() - joinAt.getTime();
-    const diffDays = diffMs / (1000 * 60 * 60 * 24);
-    const freeTrialActive = diffDays <= 2;
-
-    if (!freeTrialActive && !student.isPremium) {
-      redirect(`/courses/${courseSlug}`);
-    }
+    redirect(`/courses/${courseSlug}/enroll`);
   }
 
   return (
