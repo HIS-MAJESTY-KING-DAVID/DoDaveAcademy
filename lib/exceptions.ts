@@ -29,8 +29,10 @@ export function handleApiError(error: unknown) {
   }
 
   if (error instanceof Error) {
+    console.error('[api-error]', error);
+    const isProduction = process.env.NODE_ENV === 'production';
     return NextResponse.json(
-      { message: error.message },
+      { message: isProduction ? 'The service is temporarily unavailable. Please try again shortly.' : error.message },
       { status: 500 }
     );
   }

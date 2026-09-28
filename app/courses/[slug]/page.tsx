@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CourseDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const course = await prisma.course.findFirst({
+  const courseRecord = await prisma.course.findFirst({
     where: {
       slug: slug,
       isPublished: true,
@@ -88,9 +88,36 @@ export default async function CourseDetailsPage({ params }: { params: Promise<{ 
     },
   });
 
-  if (!course) {
+  if (!courseRecord) {
     notFound();
   }
+
+  const course = await prisma.course.update({
+    where: { id: courseRecord.id },
+    data: { views: { increment: 1 } },
+    include: {
+      instructor: {
+        include: {
+          user: { include: { person: true } },
+        },
+      },
+      category: true,
+      skillLevel: true,
+      media: true,
+      chapters: {
+        include: { lessons: true },
+        orderBy: { number: 'asc' },
+      },
+      reviews: {
+        include: {
+          student: { include: { user: { include: { person: true } } } },
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 5,
+      },
+      faqs: true,
+    },
+  });
 
   const instructorName = course.instructor?.user?.person?.firstName 
     ? `${course.instructor.user.person.firstName} ${course.instructor.user.person.lastName || ''}`

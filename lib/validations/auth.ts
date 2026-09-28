@@ -10,6 +10,13 @@ export const userAuthSchema = z.object({
 
 export const userRegisterSchema = userAuthSchema.extend({
   name: z.string().min(2, 'Name must be at least 2 characters'),
+  referralCode: z
+    .string()
+    .trim()
+    .toUpperCase()
+    .regex(/^[A-Z0-9]{6}$/, 'Referral code must be 6 letters or numbers')
+    .optional()
+    .or(z.literal('')),
 });
 
 export const forgotPasswordSchema = z.object({

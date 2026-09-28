@@ -241,7 +241,7 @@ export default function QuizzesPage() {
       )}
 
       {quizzes.length === 0 ? (
-        <div className="alert alert-info">No quiz questions yet. Click "Add Question" to get started.</div>
+        <div className="alert alert-info">No quiz questions yet. Click &quot;Add Question&quot; to get started.</div>
       ) : (
         <div className="list-group">
           {quizzes.map((quiz, i) => (

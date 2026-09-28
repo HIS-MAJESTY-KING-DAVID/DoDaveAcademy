@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import QuizRunner from '@/components/quiz/QuizRunner';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
+import { getSession } from '@/lib/auth';
 
 export default async function QuizPage({
   params
@@ -8,6 +9,8 @@ export default async function QuizPage({
   params: Promise<{ courseSlug: string; chapterId: string }>;
 }) {
   const { courseSlug, chapterId } = await params;
+  const session = await getSession();
+  if (!session) redirect('/login');
 
   const chapter = await prisma.chapter.findUnique({
     where: { id: Number(chapterId) },
@@ -22,15 +25,19 @@ export default async function QuizPage({
   if (!chapter || chapter.course?.slug !== courseSlug) notFound();
 
   // Map quizzes to client format
+  const student = await prisma.student.findUnique({ where: { userId: session.userId }, select: { id: true } });
+  if (!student || !chapter.courseId) redirect('/dashboard/student');
+  const enrollment = await prisma.studentCourse.findUnique({ where: { studentId_courseId: { studentId: student.id, courseId: chapter.courseId } } });
+  if (!enrollment) redirect(`/courses/${courseSlug}/enroll`);
+
+  const attempt = await prisma.quizLost.findFirst({ where: { studentId: student.id, chapterId: chapter.id } });
   const questions = chapter.quizzes.map(q => ({
     id: q.id,
     question: q.question,
-    propositions: [
-        q.proposition1,
-        q.proposition2,
-        q.proposition3,
-        q.proposition4
-    ].filter(Boolean) as string[],
+    multi: q.correctPropositions.split(',').filter(Boolean).length > 1,
+    propositions: [q.proposition1, q.proposition2, q.proposition3, q.proposition4]
+      .map((content, index) => content ? { index: String(index + 1), content } : null)
+      .filter((value): value is { index: string; content: string } => Boolean(value)),
   }));
 
   if (questions.length === 0) {
@@ -43,6 +50,7 @@ export default async function QuizPage({
         <QuizRunner 
             questions={questions}
             chapterId={chapter.id}
+            initialCooldownUntil={attempt && !attempt.isOk ? attempt.nextAt.toISOString() : null}
         />
     </div>
   );

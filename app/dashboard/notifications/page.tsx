@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type Notification = {
   id: number;
@@ -13,6 +14,7 @@ type Notification = {
 };
 
 export default function NotificationsPage() {
+  const router = useRouter();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -95,9 +97,9 @@ export default function NotificationsPage() {
               <i className="bi bi-check-all me-1"></i>Mark all as read
             </button>
           )}
-          <Link href="/dashboard" className="btn btn-outline-secondary btn-sm">
-            Back to Dashboard
-          </Link>
+          <button type="button" onClick={() => router.back()} className="btn btn-outline-secondary btn-sm">
+            Back
+          </button>
         </div>
       </div>
 
